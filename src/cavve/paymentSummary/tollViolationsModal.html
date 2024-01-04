@@ -1,0 +1,53 @@
+<main>
+    <div fxLayout="column">
+
+        <aside fxFlex="none" fxLayoutGap="8px">
+            {{recordsFound}} Record{{recordsFound > 1 ? 's' : ''}} found
+        </aside>
+
+        <fx-row [isLabel]="true"
+                               [backgroundColorClass]="'transparent-background'"  style="padding-top:8px;">
+            <section col-start
+                     class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                <mat-label class="fx-flex-auto-shrink-more limited-flex">INVOICE/TRANSACTION ID</mat-label>
+                <mat-label class="fx-flex-auto-shrink-more limited-flex"
+                           [ngClass.lt-md]="{'hidden': true}">INVOICE DATE</mat-label>
+                <mat-label class="fx-flex-auto-grow-more unlimited-flex"
+                           [ngClass.lt-md]="{'hidden': true}">AGENCY</mat-label>
+            </section>
+            <section col-end
+                     class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                <mat-label class="fx-flex-auto limited-flex-end">AMOUNT</mat-label>
+            </section>
+        </fx-row>
+
+        <div *ngFor="let invoiced of invoices; first as isFirst">
+            <div 
+                 [ngClass.lt-md]="{'lt-md': true}" style="padding-top:8px;">
+                <cavve-violations-invoiced [invoiced]="invoiced"
+                                           [plate]="{ state: plate.licenseState, number: plate.licensePlate }">
+                </cavve-violations-invoiced>
+            </div>
+        </div>
+        <div *ngFor="let violation of unInvoiced; first as isFirst">
+            <div 
+                 [ngClass.lt-md]="{'lt-md': true}" style="padding-top:8px;">
+                <cavve-violations-uninvoiced [unInvoiced]="violation"
+                                           [plate]="{ state: plate.licenseState, number: plate.licensePlate }">
+                </cavve-violations-uninvoiced>
+            </div>
+        </div>
+
+        <row-container [rowType]="'bodyInvert'" style="padding-top:8px;">
+            <section col-start
+                     fxFlex="grow">
+                <h3>Total Toll Transactions</h3>
+            </section>
+            <section col-end
+                     fxFlex="none">
+                <h3><currency [value]="totalAmount"></currency></h3>
+            </section>
+        </row-container>
+    </div>
+
+</main>

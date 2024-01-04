@@ -1,0 +1,58 @@
+<main class="display">
+    <section>
+        <h3 class="u-spacing__sectionToSection" style="margin-bottom:16px">Invoice Details</h3>
+        <div class="table-padding">
+            <row-container [rowType]="'transparent'" [isLabel]="true">
+                <section fxHide fxShow.lt-md col-start
+                         class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                    <mat-label fxFlex="fx-flex-auto-shrink-more limited-flex">PLATE/TAG ID</mat-label>
+                </section>
+                <section fxHide fxShow.lt-md col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                    <mat-label fxFlex="1 1 auto" fxShow.lt-md>AMOUNT</mat-label>
+                </section>
+
+                <section fxShow fxHide.lt-md col-start
+                         class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                    <mat-label fxFlex="67" fxShow.lt-md>PLATE/TAG ID</mat-label>
+                </section>
+                <section fxShow fxHide.lt-md col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                    <mat-label class="fx-flex-auto limited-flex-end" fxShow.lt-md>AMOUNT</mat-label>
+                </section>
+            </row-container>
+
+            <div fxLayout="column" fxLayoutGap="2px">
+                <div class="u-spacing--widthFill" *ngFor="let detail of plateTagIdAndAmount; first as isFirst; last as isLast;">
+
+                    <fx-row [isTop]="details.length > 1 && isFirst"
+                            [isBottom]="details.length > 1 && isLast"
+                            [isInner]="!isFirst && !isLast">
+
+                        <section col-start
+                                 class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center show-mobile force">
+                            <a (click)="getInvoiceDetails(detail)" class="download-link">
+                                <div>
+                                    {{detail.plateTagId}}
+                                    <div class="glyphicon glyphicon-chevron-right"></div>
+                                </div>
+                            </a>
+                        </section>
+                        <section col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center show-mobile force">
+                            {{detail.amount | currency}}
+                        </section>
+
+                        <section col-start
+                                 class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center show-desktop force">
+                            <a (click)="getInvoiceDetails(detail)" class="download-link">
+                                {{detail.plateTagId}}
+                                <div class="glyphicon glyphicon-chevron-right"></div>
+                            </a>
+                        </section>
+                        <section col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center show-desktop force">
+                            <div class="fx-flex-auto limited-flex-end">{{detail.amount | currency}}</div>
+                        </section>
+                    </fx-row>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

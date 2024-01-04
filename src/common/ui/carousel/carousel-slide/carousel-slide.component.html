@@ -1,0 +1,48 @@
+<ng-template>
+    <ng-template #defaultTemplate let-cmsData let-image="image">
+        <div class="carousel-slide">
+            <ng-container *ngIf="useLink">
+                <ng-container *ngIf="image.isVideo">
+                    <iframe id="video-frame" frameborder="0" [src]="videoURL"></iframe>
+                </ng-container>
+                <ng-container *ngIf="!image.isVideo">
+                    <a *ngIf="image.slideURL" src="image.slideURL">
+                        <img enhanced
+                             [style.height]="parentHeight"
+                             [src]="image.url" />
+                    </a>
+                    <ng-container *ngIf="!image.slideURL">
+                        <img enhanced
+                             [style.height]="parentHeight"
+                             [src]="image.url" />
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!useLink">
+                <img enhanced
+                     [style.height]="parentHeight"
+                     [src]="image" />
+            </ng-container>
+            <div *ngIf="!disableContent" class="carousel-slide-content">
+                <div class="carousel-slide-sliderContent">
+                    <div *ngIf="showDivider">
+                        <mat-divider></mat-divider>
+                    </div>
+                    <div class="carousel-slide-sliderTitle"
+                         [innerHTML]="cmsData.Title | safeHtml"></div>
+                    <div>
+                        <button type="submit" (click)="goToPage()">
+                            {{cmsData.ButtonText}}
+                        </button>
+                    </div>
+                </div>
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </ng-template>
+    <ng-container [ngTemplateOutlet]="overrideTemplateRef || defaultTemplate"
+                  [ngTemplateOutletContext]="{ $implicit: context || cmsData, image: image }">
+    </ng-container>
+</ng-template>
+
+

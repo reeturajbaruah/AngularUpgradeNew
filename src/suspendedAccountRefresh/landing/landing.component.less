@@ -1,0 +1,28 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/custom/spacing/sections.less';
+@import (reference) '../../styles/custom/spacing/utility.less';
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/custom/spacing/dividers.less';
+
+:host {
+
+    card-container {
+        .refresh-2020.u-spacing--widthFill();
+    }
+
+    h2 {
+        color: @torch-red;
+    }
+
+    h2 + section {
+        .refresh-2020.u-spacing__headerToSection--marginTop();
+    }
+
+    section {
+        .refresh-2020.u-spacing__sectionToSection--marginBottom();
+    }
+
+    wizard-ui {
+        margin-top: 10px;
+    }
+}

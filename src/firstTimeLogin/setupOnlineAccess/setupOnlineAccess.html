@@ -1,0 +1,274 @@
+<page-centered-container class="refresh-2020">
+
+    <form validation-focus novalidate #Form="ngForm">
+        <card-container>
+            <h2>{{cmsData?.Title}}</h2>
+            <mat-divider></mat-divider>
+            <article role="contentinfo">
+                {{cmsData?.Purpose}}
+            </article>
+                        
+            <section [error-check]="UserName">
+               
+                <mat-label>
+                    <span>USERNAME</span>
+                    <tool-tip [useOverlay]="true">
+                        <mat-icon tool-tip-anchor svgIcon="information"></mat-icon>                                
+                        <div tool-tip-content class="userNameInfo" [innerHtml]="cmsData?.ShortDescription">                            
+                        </div>
+                    </tool-tip>
+                </mat-label>
+
+                <input #UserName="ngModel"
+                    placeholder="Username"
+                    type="text"
+                    id="UserName"
+                    name="userName"                        
+                    [(ngModel)]="username"
+                    required
+                    pattern="^[a-zA-Z0-9-_@.]{6,80}$"
+                    minlength="6"
+                    maxlength="80"/>
+
+                <aside role="note">Must be at least 6 alpha-numeric characters</aside>
+
+                <error-messages [errors]="UserName.errors">
+                    <error-message rule="required">Please enter a valid user name</error-message>                        
+                    <error-message rule="pattern">Please enter a valid user name</error-message>                        
+                    <error-message rule="maxlength">Max. 80 alpha num character, @-_.</error-message>
+                    <error-message rule="minlength">Min. 6 alpha num character, @-_.</error-message>
+                </error-messages>
+
+            </section>
+
+            <section [error-check]="Password">
+
+                <mat-label>PASSWORD</mat-label>
+
+                <input #Password="ngModel"
+                       [type]="showNewPassword ? 'text' : 'password'"
+                       placeholder="Password"
+                       id="Password"
+                       name="password"
+                       [(ngModel)]="password"
+                       required
+                       pattern="[A-Za-z0-9._!@#$^*&();?{}`~<>,+-]+$"
+                       minlength="12"
+                       maxlength="50"
+                       [ngClass]="showNewPassword ? 'pwd-hide' : 'pwd-show'"
+                       (ngModelChange)="validateMatchingPassword(Form)" />
+
+                <show-hide-input-button [(showField)]="showNewPassword"></show-hide-input-button>
+
+                <aside role="note">{{pwCmsData.PasswordDesc}}</aside>
+
+                <error-messages [errors]="Password.errors" [activeBeforeSubmit]="Password.touched">
+                    <error-message rule="required">Please enter a valid password</error-message>
+                    <error-message rule="maxlength">{{pwCmsData.MaxPassword}}</error-message>
+                    <error-message rule="minlength">{{pwCmsData.MinPassword}}</error-message>
+                    <error-message rule="pattern">{{pwCmsData.InvalidCharacter}}</error-message>
+                </error-messages>
+
+
+            </section>
+
+            <section [error-check]="[ConfirmPassword, PasswordMatcher]">
+
+                <mat-label>CONFIRM PASSWORD</mat-label>
+
+                <input #ConfirmPassword="ngModel"
+                       [type]="showConfirmPassword ? 'text' : 'password'"
+                       placeholder="Password"
+                       [(ngModel)]="confirmPassword"
+                       id="ConfirmPassword"
+                       name="confirmPassword"
+                       required
+                       pattern="[A-Za-z0-9._!@#$^*&();?{}`~<>,+-]+$"
+                       minlength="12"
+                       maxlength="50"
+                       [ngClass]="showConfirmPassword ? 'pwd-hide' : 'pwd-show'"
+                       (ngModelChange)="validateMatchingPassword(Form)" />
+
+                <show-hide-input-button [(showField)]="showConfirmPassword"></show-hide-input-button>
+                <aside role="note">{{pwCmsData.PasswordDesc}}</aside>
+                <error-messages [errors]="ConfirmPassword.errors">
+                    <error-message rule="required">Please enter a valid password</error-message>
+                    <error-message rule="maxlength">{{pwCmsData.MaxPassword}}</error-message>
+                    <error-message rule="minlength">{{pwCmsData.MinPassword}}</error-message>
+                    <error-message rule="pattern">{{pwCmsData.InvalidCharacter}}</error-message>
+                </error-messages>
+
+                <matches #PasswordMatcher
+                         [hidden]="ConfirmPassword.pristine"
+                         [value$]="Password.valueChanges"
+                         [compareTo$]="ConfirmPassword.valueChanges">
+                    <span itMatches>Passwords match</span>
+                    <span notAMatch>Passwords do not match</span>
+                </matches>
+
+            </section>
+
+            <h3>Email Address</h3>
+
+            <section>
+                <email-address 
+                    #EmailAddress
+                    name="primaryEmail" 
+                    [(emailAddress)]="emailAddress" 
+                    [header]="'EMAIL ADDRESS'"
+                    (emailAddressChange)="validateMatchingEmail(Form)" ></email-address>
+            </section>
+
+            <section>
+                <email-address 
+                    #ConfirmEmailAddress
+                    name="confirmPrimaryEmail" 
+                    [header]="'CONFIRM EMAIL ADDRESS'"        
+                    [(emailAddress)]="confirmEmailAddress" 
+                    (emailAddressChange)="validateMatchingEmail(Form)"></email-address>
+
+                <matches
+                    [hidden]="!ConfirmEmailAddress.emailAddress" 
+                    [value$]="EmailAddress.emailAddressChange"
+                    [compareTo$]="ConfirmEmailAddress.emailAddressChange">
+                        <span itMatches>Email addresses match</span>
+                        <span notAMatch>Email addresses do not match</span>
+                </matches>
+            </section>
+
+            <section>
+                <email-address 
+                    #AltEmailAddress
+                    name="altEmail"
+                    [required]="false" 
+                    [(emailAddress)]="altEmailAddress"                     
+                    [header]="'ALTERNATE EMAIL ADDRESS (OPTIONAL)'"
+                    (emailAddressChange)="validateMatchingAltEmail(Form)"></email-address>
+            </section>
+
+            <section [error-check]="AltEmailMatcher">
+                <email-address 
+                    #ConfirmAltEmailAddress
+                    name="confirmAltEmail"
+                    [required]="!!altEmailAddress"
+                    [(emailAddress)]="confirmAltEmailAddress"
+                    [header]="'CONFIRM ALTERNATE EMAIL ADDRESS'"
+                    (emailAddressChange)="validateMatchingAltEmail(Form)"></email-address>
+
+                <matches #AltEmailMatcher
+                    [hidden]="!ConfirmAltEmailAddress.emailAddress" 
+                    [value$]="AltEmailAddress.emailAddressChange" 
+                    [compareTo$]="ConfirmAltEmailAddress.emailAddressChange">
+                        <span itMatches>Email addresses match</span>
+                        <span notAMatch>Email addresses do not match</span>
+                </matches>
+
+            </section>
+
+            <h3>Security Questions</h3>
+
+            <section [error-check]="SecurityQuestion">
+
+                <mat-label>SELECT SECURITY QUESTION</mat-label>
+               
+                <mat-select #SecurityQuestion="ngModel"
+                            name="securityQuestions"
+                            id="securityQuestions"
+                            [(ngModel)]='securityQuestionID'                            
+                            placeholder="Please select security question"
+                            required>
+
+                    <mat-option 
+                        *ngFor="let question of securityQuestions" 
+                        [(value)]="question.securityQuestionID">
+                            {{question.securityQuestion}}
+                    </mat-option>
+
+                </mat-select>
+
+                <error-messages [errors]="SecurityQuestion.errors">                    
+                    <error-message rule="required">Please select a new security question</error-message>                    
+                </error-messages>                
+               
+            </section>
+
+            <section 
+                [error-check]="[SecurityAnswer, AnswerMatcher]"
+                fxLayout="row"
+                fxLayout.lt-md="column"
+                fxLayoutAlign="space-between start"
+                fxLayoutAlign.lt-md="start stretch"
+                fxLayoutGap="20px"
+                fxLayoutGap.lt-md="0px">
+             
+                <div fxFlex="50" fxFlex.lt-md="none">
+                    <mat-label>YOUR ANSWER</mat-label>
+                  
+                    <input #SecurityAnswer="ngModel"
+                        [type]="showNewSecurityAnswer ? 'text' : 'password'"
+                        id="Answer"
+                        name="answer"
+                        [(ngModel)]="securityAnswer"
+                        pattern="^[a-zA-Z0-9]{1,20}$"
+                        required
+                        minlength="1"
+                        maxlength="20"
+                        (ngModelChange)="validateMatchingSQ(Form)"/>
+
+                    <show-hide-input-button [(showField)]="showNewSecurityAnswer"></show-hide-input-button>
+
+                    <error-messages [errors]="SecurityAnswer.errors">
+                        <error-message rule="pattern">Please enter a valid answer</error-message>
+                        <error-message rule="required">Please enter a valid answer</error-message>
+                        <error-message rule="maxlength">Max. 20 alpha num character</error-message>
+                        <error-message rule="minlength">Min. 1 alpha num character</error-message>
+                    </error-messages>
+                </div>
+                
+                <div fxFlex="50" fxFlex.lt-md="none">
+                    <mat-label>CONFIRM YOUR ANSWER</mat-label>
+                  
+                    <input #ConfirmSecurityAnswer="ngModel"
+                        [(ngModel)]="confirmSecurityAnswer"
+                        pattern="^[a-zA-Z0-9]{1,20}$"
+                        required
+                        minlength="1"
+                        maxlength="20"
+                        [type]="showConfirmSecurityAnswer ? 'text' : 'password'"
+                        id="confirmAnswer"
+                        name="confirmAnswer"
+                        (ngModelChange)="validateMatchingSQ(Form)"/>
+
+                    <show-hide-input-button [(showField)]="showConfirmSecurityAnswer"></show-hide-input-button>
+
+                    <error-messages [errors]="ConfirmSecurityAnswer.errors">                    
+                        <error-message rule="pattern">Please enter a valid answer</error-message>
+                        <error-message rule="required">Please enter a valid answer</error-message>
+                        <error-message rule="maxlength">Max. 20 alpha num character</error-message>
+                        <error-message rule="minlength">Min. 1 alpha num character</error-message>                    
+                    </error-messages>  
+
+                    <matches #AnswerMatcher
+                        [hidden]="ConfirmSecurityAnswer.pristine" 
+                        [value$]="SecurityAnswer.valueChanges" 
+                        [compareTo$]="ConfirmSecurityAnswer.valueChanges">
+                            <span itMatches>Answers match</span>
+                            <span notAMatch>Answers do not match</span>
+                    </matches>
+
+                </div>  
+
+            </section>
+           
+        </card-container>
+
+        <wizard-ui (next)="submit(Form.valid, $event)"
+                   (cancel)="cancel($event)">
+            <span wizard-next>continue</span>
+            <span wizard-cancel>cancel</span>
+        </wizard-ui>
+
+    </form>
+</page-centered-container>
+
+

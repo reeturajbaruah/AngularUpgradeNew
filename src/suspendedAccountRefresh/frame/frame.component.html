@@ -1,0 +1,27 @@
+<main class="refresh-2020 u-spacing--widthFill">
+   
+    <header 
+    *ngIf="showTitleBanner"
+    fxLayout="row"
+    fxLayout.lt-md="column-reverse"
+    fxLayoutAlign="space-between start">
+
+        <div>
+            <h1>{{title}}</h1>     
+            <p *ngIf="bannerContent" [innerHtml]="bannerContent | safeHtml"></p>
+        </div>
+
+        <account-balance-header></account-balance-header>
+        
+    </header>
+
+    <stepper *ngIf="showStepper" [steps]="steps"
+            [stepMap]="stepMap"></stepper>
+
+    <page-filled-container [@hide]="isHidden" [hasGutter]="true" >
+        
+        <ui-view></ui-view>
+
+    </page-filled-container>
+    
+</main>

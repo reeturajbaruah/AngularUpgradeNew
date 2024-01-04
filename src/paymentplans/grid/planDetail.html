@@ -1,0 +1,60 @@
+<section *ngFor="let plan of plate.paymentPlans"
+         (click)="viewDetails(plan, 'lt-md')"
+         [ngClass]="{'selectedPlan': currentSelectedPlan === plan}"
+         ngClass.lt-md="lt-md"
+         class="refresh-2020"
+         fxLayout="row"
+         fxLayoutAlign="start center"
+         fxLayoutAlign.lt-md="space-between center"
+         id="plan{{plan.paymentPlanId}}">
+
+    <div fxLayout="column">
+        <div>
+
+            <strong>Payment Plan Number: <span translation-skip>{{plan.paymentPlanId}}</span></strong>
+
+            <a [ngClass]="{'passedDue': isPassedDue(plan), 'defaulted': plan.status === 'Defaulted' }" (click)="$event.stopPropagation();updateToggleFlag();">
+
+                <mat-icon *ngIf="(plan.status === 'Open' && isPassedDue(plan)) || plan.status === 'Defaulted'"
+                          svgIcon="alert"></mat-icon>
+
+                <mat-icon *ngIf="plan.status === 'Closed'"
+                          svgIcon="checkmark"
+                          class="center-align"></mat-icon>
+
+            </a>
+            <div>
+                <aside>
+                    <cms-content *ngIf="plan.status !== 'Defaulted' && infoIconText(plan)" [template]="infoIconText(plan)"
+                                 [data]="{'nextInstallmentAmount': plan.nextInstallmentAmount, 'formatedPassedDue': getCorrectTimeZoneTime(plan.nextInstallmentDate)}">
+                    </cms-content>
+                    <div class="default-plan-tooltip" *ngIf="plan.status === 'Defaulted'" [innerHtml]="setdeafultTooltip() | safeHtml"></div>
+                </aside>
+            </div>
+        </div>
+
+        <div *ngIf="isActive"
+             fxLayout="row wrap">
+            <div fxFlex.lt-md="grow">
+                <strong><currency [value]="plan.nextInstallmentAmount"></currency></strong>
+                <span>&nbsp;due&nbsp;{{getCorrectTimeZoneTime(plan.nextInstallmentDate)}}</span>
+                <span fxHide.lt-md>&nbsp;|&nbsp;</span>
+            </div>
+            <div fxFlex="nogrow">
+                <span>Bal:&nbsp;</span><strong><currency [value]="plan.balanceAmount"></currency> </strong>
+            </div>
+        </div>
+
+        <div *ngIf="plan.status === 'Closed'">
+            <span>Closed: {{getCorrectTimeZoneTime(plan.nextInstallmentDate)}}</span>
+        </div>
+
+        <div *ngIf="plan.status === 'Defaulted'">
+            <span>Defaulted</span>
+        </div>
+    </div>
+
+    <i fxHide fxShow.lt-md class="selectArrow"></i>
+
+</section>
+

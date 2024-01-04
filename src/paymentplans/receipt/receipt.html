@@ -1,0 +1,100 @@
+<page-centered-container>
+    <div fxLayout="column">
+
+        <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+            <section fxLayout="column">
+                <header>
+                    <div fxLayout="row"
+                         fxLayoutAlign="start center"
+                         fxLayout.lt-md="column"
+                         fxLayoutAlign.lt-md="start start">
+                        <h2 fxFlex="grow"
+                            fxFlexOrder="1"
+                            fxFlexOrder.lt-md="2">
+                            {{cmsContent.Title}}
+                        </h2>
+                        <div fxFlex="none"
+                             fxFlexOrder="2"
+                             fxFlexOrder.lt-md="1"
+                             ngClass.lt-md="printContainer-extra-bottom-space">
+                            <print-link id="printButton"></print-link>
+                        </div>
+
+                    </div>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <row-container [rowType]="'emphasis'">
+                    <article col-start
+                             id="totalPaymentLabel"
+                             fxFlex="grow">
+                        {{cmsContent.paymentAmount}}
+                    </article>
+
+                    <article col-end
+                             id="totalPaymentValue"
+                             fxFlex="none">
+                        <currency [value]="paymentAmount"></currency>
+                    </article>
+                </row-container>
+            </section>
+
+            <section class="u-spacing__sectionToRow--marginTop">
+                <article>{{cmsContent.paymentDate}} {{paymentDate}}</article>
+            </section>
+
+            <section *ngIf="leftoverAmount === 0"
+                     class="noteBoxLayout u-spacing__sectionToSection--marginTop">
+                <article>
+                    <cms-content [template]="cmsContent.Children[0].ShortDescription" [data]="{paymentPlanNumber : paymentPlanNumber}"></cms-content>
+                </article>
+            </section>
+
+            <section [ngClass]="{ 'u-spacing__sectionToSection--marginTop': leftoverAmount !== 0, 'u-spacing__sectionToRow--marginTop': leftoverAmount === 0}">
+                <article>
+                    <cms-content [template]="cmsContent.ShortDescription" [data]="{leftoverAmount : leftoverAmount}"></cms-content>
+                </article>
+            </section>
+
+
+            <section fxLayout="column"
+                     class="u-spacing__headerToSection--marginTop">
+                <header>
+                    <h2>{{cmsContent.billingInfoHeader}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <payment-display *ngIf="planData.billingMethod && planData.billingMethod.billingType"
+                                 [billingType]="planData.billingMethod.billingType"
+                                 [bankDetails]="planData.billingMethod.eftPaymentMethod"
+                                 [creditCard]="planData.billingMethod.creditCardPaymentMethod"
+                                 [showAccountNumber]="true">
+                </payment-display>
+
+                <address-display *ngIf="planData.billingMethod && planData.billingMethod.billingType"
+                                 class="u-spacing__addressToPaymentDisplay--marginTop"
+                                 [address]="planData.billingMethod.billingType === BillingType.Credit ? planData.billingMethod.creditCardPaymentMethod : planData.billingMethod.eftPaymentMethod"
+                                 [international]="planData.billingMethod.billingType === BillingType.Credit ? planData.billingMethod.creditCardPaymentMethod.international : planData.billingMethod.eftPaymentMethod.international"
+                                 [showLabels]="false"
+                                 [showEdit]="false">
+                </address-display>
+            </section>
+
+            <section *ngIf="hasOverage && !isMaxPayment"
+                     class="noteBoxLayout u-spacing__sectionToSection--marginTop">
+                <article>
+                    <cms-content [template]="cmsContent.LongDescription" [data]="{paymentAmount : paymentAmount , nextUpcomingInstallmentDateFormatted: nextUpcomingInstallmentDateFormatted}"></cms-content>
+                </article>
+            </section>
+
+            <section class="u-spacing__buttonToField--marginTop">
+                <wizard-ui #Wizard
+                           [reverseOrder]="true"
+                           (next)="backToPaymentPlans($event)">
+                    <span wizard-next>BACK TO PAYMENT PLANS</span>
+                </wizard-ui>
+            </section>
+        </card-container>
+
+    </div>
+</page-centered-container>

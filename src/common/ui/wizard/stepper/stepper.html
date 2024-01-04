@@ -1,0 +1,24 @@
+<section id="wizard-stepper-desktop" fxShow fxHide.lt-md
+         *ngIf="currentStepNum > 0 && currentStepNum < steps.length + 1"
+         [ngClass]="steps[currentStepNum - 1].background">
+     <figure *ngFor="let step of steps | slice:0:steps.length; index as i"
+             [ngClass]="stepClass(i + 1)">
+         <div [ngClass]="{greyed: step.isGreyed}">{{i + 1}}</div>
+         <figcaption [ngClass]="{greyed: step.isGreyed}">{{step.name}}</figcaption>
+     </figure>
+</section>
+
+<section id="wizard-stepper-mobile" fxHide fxShow.lt-md
+         fxLayout="row"
+         fxLayoutAlign="start center"
+         fxLayoutGap="15px"
+         *ngIf="currentStepNum > 0 && currentStepNum < steps.length + 1">
+    <section id="step-counter">{{currentStepNum}} of {{steps.length}}</section>
+    <mat-divider [vertical]="true"></mat-divider>
+    <section fxLayout="column"
+             fxLayoutAlign="start start">
+        <div id="step-current">{{currentStepName}}</div>
+        <div id="step-next"
+             *ngIf="currentStepNum > 0 && currentStepNum < steps.length">Next: {{nextStepName}}</div>
+    </section>
+</section>

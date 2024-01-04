@@ -1,0 +1,38 @@
+<card-container>
+    <ng-container *ngIf="cmsContent">
+        <header>
+            <h2 mat-dialog-title>{{cmsContent.Title}}</h2>
+            <mat-divider></mat-divider>
+        </header>
+
+        <section  class="sectionMargin">
+            <label [ngClass]="{ 'selected':  autoReplenishmentRadio === PaymentRadioStatus.Yes}"
+                   fxLayout="row"
+                   fxLayoutAlign="start center">
+                <input type="radio"
+                       name="autoReplenishmentRadio"
+                       [(ngModel)]="autoReplenishmentRadio"
+                       [value]="PaymentRadioStatus.Yes"
+                       [required]="required"
+                       (change)="onAutoReplenishmentChange()"/>
+                <span fxLayout="row"
+                      class="context">{{cmsContent.Yes}}
+                </span>
+            </label>
+
+            <label [ngClass]="{ 'selected':  autoReplenishmentRadio === PaymentRadioStatus.No}"
+                   fxLayout="row"
+                   fxLayoutAlign="start center">
+                <input type="radio"
+                       name="autoReplenishmentRadio"
+                       [(ngModel)]="autoReplenishmentRadio"
+                       [value]="PaymentRadioStatus.No"
+                       [required]="required"
+                       (change)="onAutoReplenishmentChange()"/>
+                <span fxLayout="row"
+                      class="context">{{cmsContent.No}}
+                </span>
+            </label>
+        </section>
+    </ng-container>
+</card-container>

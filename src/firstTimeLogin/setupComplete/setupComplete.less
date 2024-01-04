@@ -1,0 +1,50 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/custom/spacing/sections.less';
+
+mat-divider {
+    width: @width-divider;
+    display: block;
+    margin-top: 16px;
+}
+
+wizard-ui {
+    .refresh-2020.u-spacing__sectionToSection--marginTop();
+    display: block;
+
+    [wizard-next],
+    [wizard-cancel] {
+        text-transform: uppercase;
+    }
+}
+
+page-centered-container {
+    display: block;
+    margin-top: 19px;
+}
+
+mat-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    vertical-align: text-bottom;
+}
+
+section {
+    .refresh-2020.u-spacing__fieldToSection--marginTop();
+    display: block;
+}
+
+.setupComplete {
+    .t-body--fontFamily();
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.info {
+    .t-body--fontFamily();
+    font-size: 14px;
+    line-height: 22px;
+}
+

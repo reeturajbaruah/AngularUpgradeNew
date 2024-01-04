@@ -1,0 +1,106 @@
+﻿<div>
+    <div class="form-group top-buffer-sm-half" ng-class="validation.getErrorStatusClass(addSuffix('cardName'))">
+        <label for="cardName{{nameSuffix}}">Name on Credit Card</label>
+        <input type="text" id="cardName{{nameSuffix}}" ng-disabled="creditCardNameDisabled" class="form-control form-entry-width" ng-model="creditCard.nameOnCard" name="cardName{{nameSuffix}}" ng-required="!disableValidation" ng-maxlength="80" credit-card-name-validator credit-card-name-num-validator="{{creditCard.cardNbr}}" />
+        <div ng-messages="validation.getErrorList(addSuffix('cardName'))" ng-if="validation.hasSubmitted()" role="alert">
+            <p ng-message="required" class="help-block">Please enter the name on the card</p>
+            <p ng-message="maxlength" class="help-block">Please enter a valid name</p>
+            <p ng-message="creditCardNameValidator" class="help-block">Please enter a valid name</p>
+            <p ng-message="creditCardNameNumValidator" class="help-block">Please enter a valid name</p>
+        </div>
+    </div>
+   
+    <div ng-switch="strategies[strategyUsed]">
+        <div ng-switch-when="Iframe" class="form-group top-buffer-sm-half">
+            <label for="cardNumber{{nameSuffix}}">Credit Card Number</label>
+            <!-- TODO: Once Android also supports pulling up the numeric keypad for type="text" pattern="[0-9]*", then we can replace the abomination currently uncommented -->
+            <!--<input type="text" pattern="[0-9]*" id="cardNumber" name="cardNumber" class="form-control" ng-model="creditCard.cardNbr" ng-minlength="13" ng-maxlength="19" luhn ng-required="!disableValidation"/>-->
+            <div class="vantivIframeWrapper">
+                <div ng-attr-id="{{'payframe' + nameSuffix}}"></div>
+                <div class="hideVantivError" ng-if="useExistingCard"></div>
+            </div>
+        </div>
+
+        <div ng-switch-when="Tripos">
+            <div class="form-group top-buffer-sm-half" ng-class="validation.getErrorStatusClass(addSuffix('cardNumber'))">
+                <label for="cardNumber{{nameSuffix}}">Credit Card Number</label>
+
+                <div>
+                    <input type="tel"
+                           id="cardNumber{{nameSuffix}}"
+                           name="cardNumber{{nameSuffix}}"
+                           class="form-control form-entry-width"
+                           ng-model="creditCard.cardNbr"
+                           ng-disabled="creditCardNumberDisabled"
+                           ng-required="!disableValidation"
+                           style="float: left;"/>
+                    <div class="creditCardEditTrigger" ng-click="update()">
+                        <img cms-image-id="{{editPencilId}}"/> <span cms-text-id="{{editPencilId}}" cms-text-field="Message"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div ng-switch-when="Litel">
+            <div class="form-group top-buffer-sm-half" ng-class="validation.getErrorStatusClass(addSuffix('cardNumber'))">
+                <label for="cardNumber{{nameSuffix}}">Credit Card Number</label>
+                <!-- TODO: Once Android also supports pulling up the numeric keypad for type="text" pattern="[0-9]*", then we can replace the abomination currently uncommented -->
+                <!--<input type="text" pattern="[0-9]*" id="cardNumber" name="cardNumber" class="form-control" ng-model="creditCard.cardNbr" ng-minlength="13" ng-maxlength="19" luhn ng-required="validate"/>-->
+                <input type="tel" id="cardNumber{{nameSuffix}}" name="cardNumber{{nameSuffix}}" class="form-control form-entry-width" ng-model="creditCard.cardNbr" ng-minlength="13" ng-maxlength="19" luhn credit-card-type-validator ng-required="!disableValidation" ng-disabled="creditCardNumberDisabled"/>
+                <div ng-messages="validation.getErrorList(addSuffix('cardNumber'))" ng-if="validation.hasSubmitted()" role="alert">
+                    <p ng-message="required" class="help-block">Please enter a valid credit card number</p>
+                    <p ng-message="minlength" class="help-block">Please enter a valid credit card number</p>
+                    <p ng-message="maxlength" class="help-block">Please enter a valid credit card number</p>
+                    <p ng-message="luhn" class="help-block">Please enter a valid credit card number</p>
+                    <p ng-message="creditCardTypeValidator" class="help-block">Please enter a valid credit card number</p>
+                </div>
+            </div>
+            <div class="form-group top-buffer-sm-half">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding-left no-padding-right" id="creditCardType{{nameSuffix}}" ng-model="creditCard.cardCode" name="creditCardType{{nameSuffix}}">
+                    <span><img ng-class="{'card-icon-selected': (isVisa)}" class="card-icon" src={{visaImage}}></span>
+                    <span><img ng-class="{'card-icon-selected': (isMastercard)}" class="card-icon" src={{mastercardImage}}></span>
+                    <span><img ng-class="{'card-icon-selected': (isAmex)}" class="card-icon" src={{amexImage}}></span>
+                    <span><img ng-class="{'card-icon-selected': (isDiscover)}" class="card-icon" src={{discoverImage}}></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <div class="row form-group top-buffer-sm">
+        <div class="desktop-exp-width">
+            <label for="expMonth{{nameSuffix}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Credit Card Expiration Date</label>
+            <div class="col-xs-7 no-padding-right" ng-class="validation.getErrorStatusClass(addSuffix('expMonth'))">
+                <label for="expMonth{{nameSuffix}}" class="sr-only">Please enter credit card expiration month</label>
+                
+
+                <select name="expMonth{{nameSuffix}}" class="form-control zip-entry-width" 
+                        ng-disabled="creditCardExpYearDisabled" 
+                        ng-model="creditCard.expMonth" id="expMonth{{nameSuffix}}" 
+                        ng-options="month.value as month.label for month in months" 
+                        ng-required="!disableValidation">
+                    <option value="" disabled selected>Month</option>
+                </select>
+                
+                <div ng-messages="validation.getErrorList(addSuffix('expMonth'))" ng-if="validation.hasSubmitted()" role="alert">
+                    <p ng-message="required" class="help-block">Please enter a valid expiration month</p>
+                </div>
+            </div>
+            <div class="col-xs-5" ng-class="validation.getErrorStatusClass(addSuffix('expYear'))">
+                <label for="expYear{{nameSuffix}}" class="sr-only">Please enter the expiration year on your credit card.</label>
+                <select translation-skip name="expYear{{nameSuffix}}" id="expYear{{nameSuffix}}" class="form-control plus-four-width"
+                        ng-disabled="creditCardExpMothDisabled" 
+                        ng-options="year for year in yearList track by year"
+                        ng-model="creditCard.selectedYear" ng-required="!disableValidation">
+                    <option value="" disabled selected>Year</option>
+                </select>
+                
+                <div ng-messages="validation.getErrorList(addSuffix('expYear'))" ng-if="validation.hasSubmitted()" role="alert">
+                    <p ng-message="required" class="help-block">Please enter a valid expiration year</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<ng-container *ngIf="isCompactView">
+    <div translation-skip style="text-transform: capitalize" *ngIf="vehicleInfo.nickname && !excludeProp.has('nickname')">
+        <span>{{vehicleInfo.nickname}}</span>
+    </div>
+    <div *ngIf="!excludeProp.has('licState') || !excludeProp.has('licPlate')">
+        <span>License Plate: </span><span translation-skip style="text-transform: uppercase">{{vehicleInfo.licState}}-{{vehicleInfo.licPlate}}</span>
+    </div>
+    <div translation-skip style="text-transform: capitalize">
+        <span *ngIf="!excludeProp.has('vehicleYear')">{{vehicleInfo.vehicleYear}}&nbsp;</span><span *ngIf="!excludeProp.has('vehicleMake')">{{vehicleInfo.vehicleMake}}&nbsp;</span><span *ngIf="!excludeProp.has('vehicleModel')">{{vehicleInfo.vehicleModel}}</span>
+        <ng-container *ngIf="vehicleInfo.vehicleColor && !excludeProp.has('vehicleColor')">
+            - <span>{{vehicleInfo.vehicleColor}}</span>
+        </ng-container>
+        <ng-container *ngIf="vehicleInfo.vehicleClassDesc && !excludeProp.has('vehicleClassDesc')">
+            - <span>{{vehicleInfo.vehicleClassDesc}}</span>
+        </ng-container>
+    </div>
+    <div *ngIf="vehicleInfo.tagInfo">
+        <span>{{vehicleInfo.tagInfo.desc}}</span>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!isCompactView">
+
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="!excludeProp.has('licState') || !excludeProp.has('licPlate')">
+        <span>License Plate:</span>
+        <div translation-skip>
+            <span>{{vehicleInfo.licState}}</span>-<span>{{vehicleInfo.licPlate}}</span>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="!excludeProp.has('vehicleYear')">
+        <span>Year:</span>
+        <span translation-skip>{{vehicleInfo.vehicleYear}}</span>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="!excludeProp.has('vehicleMake')">
+        <span>Make:</span>
+        <span translation-skip>{{vehicleInfo.vehicleMake}}</span>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="!excludeProp.has('vehicleModel')">
+        <span>Model:</span>
+        <span translation-skip>{{vehicleInfo.vehicleModel}}</span>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="!excludeProp.has('vehicleColor')">
+        <span>Color:</span>
+        <span translation-skip>{{vehicleInfo.vehicleColor}}</span>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="!excludeProp.has('vehicleClassDesc')">
+        <span>Axles:</span>
+        <span translation-skip>{{vehicleInfo.vehicleClassDesc}}</span>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between"
+         *ngIf="!excludeProp.has('nickname') && vehicleInfo.nickname">
+        <span>Nickname:</span>
+        <span translation-skip>{{vehicleInfo.nickname}}</span>
+    </div>
+
+</ng-container>
+

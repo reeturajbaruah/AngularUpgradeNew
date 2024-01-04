@@ -1,0 +1,31 @@
+<card-dash-container *ngIf="pagingState" fxFlex="auto" [hasMargin]="false" class="u-spacing__cardToCard--marginTop pagination-card">
+    
+    <section fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+
+        <span>{{recordsRange}} </span>
+
+        <button mat-icon-button [disabled]="disableLeftBtn" class="icon-button" [ngClass]="{'disable-icon' : disableLeftBtn}">
+            <mat-icon class="endArrowDimension" (click)="goToFirstPage()" svgIcon="mat-first-page"></mat-icon>
+        </button>
+
+        <button mat-icon-button [disabled]="disableLeftBtn" class="icon-button" [ngClass]="{'disable-icon' : disableLeftBtn}">
+            <mat-icon class="arrowDimension" (click)="handlePrevPagingEvent()" svgIcon="mat-imageSliderArrow"></mat-icon>
+        </button>
+
+        <span>{{pageRange}}</span> 
+
+        <button mat-icon-button [disabled]="disableRightBtn" class="icon-button" [ngClass]="{'disable-icon' : disableRightBtn}">
+            <mat-icon class="rightArrowRotate arrowDimension" (click)="handleNextPagingEvent()"
+                svgIcon="mat-imageSliderArrow"></mat-icon>
+        </button>
+
+        <button mat-icon-button [disabled]="disableRightBtn" class="icon-button" [ngClass]="{'disable-icon' : disableRightBtn}">
+            <mat-icon class="endArrowDimension" (click)="goToLastPage()" svgIcon="mat-last-page"></mat-icon>
+        </button>
+
+        <dropdown *ngIf="itemsPerPageList.length>0" [list]="list" 
+            (onChange)="handleItemsPerPageEvent($event)"></dropdown>
+
+    </section>
+
+</card-dash-container>

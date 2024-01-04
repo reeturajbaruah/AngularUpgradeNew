@@ -1,0 +1,163 @@
+<main class="refresh-2020">
+    <title-banner>
+        {{cmsContent.Title}}
+    </title-banner>
+
+    <page-centered-container>
+        <form #MissingInformationForm="ngForm" validation-focus name="MissingInformationForm"
+              fxLayout="column"
+              class="u-spacing--widthFill">
+            <card-container fxFlexOffset="20px" fxLayout="column">
+                <!--DETAILS PARAGRAPH SECTION-->
+                <article [innerHtml]="cmsContent.ShortDescription"></article>
+
+                <!--RESET PASSWORD SECTION-->
+                <section *ngIf="missingInformationFlags.passwordNeedsReset"
+                         class="u-spacing__sectionToSection--marginTop">
+                    <section>
+                        <h2>{{cmsContent.ResetPasswordSectionHeader}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </section>
+
+                    <!-- CURRENT PASSWORD INPUT BOX -->
+                    <div fxLayout="column"
+                         [error-check]="currentPasswordInput">
+                        <mat-label for="currentPassword">CURRENT PASSWORD</mat-label>
+                        <input type="text"
+                               id="currentPasswordTxtBox"
+                               [(ngModel)]="addMissingInformation.currentPassword"
+                               #currentPasswordInput="ngModel"
+                               name="currentPassword"
+                               tabindex="2"
+                               [type]="isShowCurrentPassword ? 'text' : 'password'"
+                               required />
+
+                        <show-hide-input-button [(showField)]="isShowCurrentPassword"></show-hide-input-button>
+
+                        <error-messages [errors]="currentPasswordInput.errors" [activeBeforeSubmit]="currentPasswordInput.touched">
+                            <error-message rule="notEqualTo">New password must be different from current password.</error-message>
+                            <error-message rule="required">Please enter your password</error-message>
+                        </error-messages>
+                    </div>
+
+                    <!-- NEW PASSWORD INPUT BOX -->
+                    <div fxLayout="column"
+                         class="u-spacing__fieldToField--marginTop"
+                         [error-check]="newPasswordInput">
+                        <mat-label for="newPassword">NEW PASSWORD</mat-label>
+                        <input type="text"
+                               id="newPasswordTxtBox"
+                               [(ngModel)]="addMissingInformation.newPassword"
+                               #newPasswordInput="ngModel"
+                               name="newPassword"
+                               tabindex="2"
+                               [type]="isShowNewPassword ? 'text' : 'password'"
+                               [notEqualTo]="addMissingInformation.currentPassword"
+                               pattern="[A-Za-z0-9._!@#$^*&();?{}`~<>,+-]+$"
+                               minlength="12"
+                               maxlength="50"
+                               required />
+
+                        <show-hide-input-button [(showField)]="isShowNewPassword"></show-hide-input-button>
+                        <span class="password-rules">{{pwCmsData.PasswordDesc}}</span>
+
+                        <error-messages [errors]="newPasswordInput.errors" [activeBeforeSubmit]="newPasswordInput.touched">
+                            <error-message rule="required">Please enter a password-</error-message>
+                            <error-message rule="minlength">{{pwCmsData.MinPassword}}</error-message>
+                            <error-message rule="maxlength">{{pwCmsData.MaxPassword}}</error-message>
+                            <error-message rule="pattern">{{pwCmsData.InvalidCharacter}}</error-message>
+                            <error-message rule="notEqualTo">New password must be different from current password.</error-message>
+                        </error-messages>
+                    </div>
+
+                </section>
+
+                <!--UPDATE SECURITY QUESTION SECTION-->
+                <section *ngIf="missingInformationFlags.securityQuestionIsMissing"
+                         class="u-spacing__headerToSection--marginTop">
+                    <section>
+                        <h2>{{cmsContent.UpdateSecurityQuestionSectionHeader}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </section>
+
+                    <!--SECURITY QUESTION SELECT DROPDOWN-->
+                    <section fxLayout="column" ngClass="labelMarginInternal">
+                        <div>
+                            <mat-label fxLayout="row"
+                                       ngClass="labelMargin">SELECT SECURITY QUESTION</mat-label>
+                            <div>
+                                <mat-select #SecurityQuestion="ngModel"
+                                            name="securityQuestions"
+                                            [(ngModel)]='addMissingInformation.securityQuestionID'
+                                            id="securityQuestions"
+                                            placeholder="Please select security question"
+                                            required>
+                                    <mat-option *ngFor="let question of securityQuestions" [(value)]="question.securityQuestionID">{{question.securityQuestion}}</mat-option>
+                                </mat-select>
+                                <error-messages [errors]="SecurityQuestion.errors" [activeBeforeSubmit]="SecurityQuestion.touched">
+                                    <error-message rule="required">Please select a new security question</error-message>
+                                </error-messages>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--SECURITY QUESTION - (USER'S ANSWER) INPUT BOX  -->
+                    <section fxLayout="column" ngClass="labelMarginInternal">
+                        <div class="u-spacing__fieldToField--marginTop">
+                            <mat-label for="Answer"
+                                       fxLayout="row"
+                                       ngClass="labelMargin">YOUR ANSWER</mat-label>
+                            <div>
+                                <input #Answer="ngModel"
+                                       [type]="isShowSecurityAnswer ? 'text' : 'password'"
+                                       fxLayout="row"
+                                       id="Answer"
+                                       name="answer"
+                                       [(value)]="addMissingInformation.securityAnswer"
+                                       [(ngModel)]="addMissingInformation.securityAnswer"
+                                       pattern="^[0-9a-zA-Z?\.,\'\u0022\s]{1,20}$"
+                                       required
+                                       minlength="1"
+                                       maxlength="20" />
+                                <show-hide-input-button [(showField)]="isShowSecurityAnswer"></show-hide-input-button>
+                                <error-messages [errors]="Answer.errors" [activeBeforeSubmit]="Answer.touched">
+                                    <error-message rule="pattern">Please enter a valid answer</error-message>
+                                    <error-message rule="required">Please enter a valid answer</error-message>
+                                    <error-message rule="maxlength">Max. 20 alpha num character</error-message>
+                                    <error-message rule="minlength">Min. 1 alpha num character</error-message>
+                                </error-messages>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+
+                <!--UPDATE EMAIL SECTION-->
+                <section *ngIf="missingInformationFlags.emailIsMissing"
+                         class="u-spacing__headerToSection--marginTop">
+                    <section>
+                        <h2>{{cmsContent.UpdateYourEmailSectionHeader}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </section>
+                    <section fxLayout="column"
+                             class="u-spacing__fieldToField--marginTop">
+                        <email-address [(emailAddress)]="addMissingInformation.email"></email-address>
+                    </section>
+                </section>
+
+            </card-container>
+
+            <!--FORM BUTTONS-->
+            <section class="u-spacing__buttonToField--marginTop">
+                <action-buttons (main)="saveInformation(wizardUi)">
+                    <span action-main>CONTINUE</span>
+                </action-buttons>
+
+                <!--This is only used to handle the states while in KIOSK. It is passed into getLogin() for LOGIN button-->
+                <wizard-ui #wizardUi></wizard-ui>
+
+            </section>
+
+        </form>
+    </page-centered-container>
+</main>

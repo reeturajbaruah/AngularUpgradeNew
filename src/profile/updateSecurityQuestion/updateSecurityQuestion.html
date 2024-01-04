@@ -1,0 +1,147 @@
+<page-centered-container hasAlternateBackgroundColor="true">
+    <div fxLayout="column">
+        <div fxFlexOffset="21px">
+
+            <form #ChangeSecurityQuestionForm="ngForm"
+                  validation-focus novalidate
+                  fxLayout="column start"
+                  method="post">
+
+                <!-- This is double wrapped in 2 divs to apply the fxFlexOffset to replicate "padding-top: 21px" -->
+                <card-container>
+
+                    <!--Title-->
+                    <header>
+                        <h2>{{cmsContent.Title}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </header>
+
+                    <!--Description/Subtitle-->
+                    <section *ngIf="cmsContent.ShortDescription">
+                        <article [innerHtml]="cmsContent.ShortDescription"></article>
+                    </section>
+
+                    <section>
+                        <!--CURRENT PASSWORD INPUT BOX-->
+                        <div fxLayout="column"
+                             [error-check]="currentPasswordInput">
+                            <mat-label for="currentPassword">CURRENT PASSWORD (REQUIRED)</mat-label>
+                            <input type="text"
+                                   id="currentPasswordTxtBox"
+                                   [(ngModel)]="addMissingInformation.currentPassword"
+                                   #currentPasswordInput="ngModel"
+                                   name="currentPassword"
+                                   tabindex="1"
+                                   [type]="isShowPassword ? 'text' : 'password'"
+                                   required  />
+
+                            <show-hide-input-button [(showField)]="isShowPassword"></show-hide-input-button>
+
+                            <error-messages [errors]="currentPasswordInput.errors" [activeBeforeSubmit]="currentPasswordInput.touched">
+                                <error-message rule="required">Please enter your password</error-message>
+                            </error-messages>
+                        </div>
+
+                        <!--UPDATE SECURITY QUESTION SECTION-->
+                        <section class="u-spacing__fieldToField--marginTop">
+
+                            <!--SECURITY QUESTION SELECT DROPDOWN-->
+                            <section fxLayout="column">
+                                <div>
+                                    <mat-label fxLayout="row"
+                                               ngClass="labelMargin">SELECT SECURITY QUESTION</mat-label>
+                                    <div>
+                                        <mat-select #SecurityQuestion="ngModel"
+                                                    name="securityQuestions"
+                                                    [(ngModel)]='addMissingInformation.securityQuestionID'
+                                                    id="securityQuestions"
+                                                    placeholder="Please select security question"
+                                                    required
+                                                    tabindex="2">
+                                            <mat-option *ngFor="let question of securityQuestions" [(value)]="question.securityQuestionID">{{question.securityQuestion}}</mat-option>
+                                        </mat-select>
+                                        <error-messages [errors]="SecurityQuestion.errors" [activeBeforeSubmit]="SecurityQuestion.touched">
+                                            <error-message rule="required">Please select a new security question.</error-message>
+                                        </error-messages>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!--SECURITY QUESTION - (USER'S ANSWER) INPUT BOX  -->
+                            <section fxLayout="column" class="u-spacing__fieldToField--marginTop">
+                                <div>
+                                    <mat-label for="Answer"
+                                               fxLayout="row"
+                                               ngClass="labelMargin">YOUR ANSWER</mat-label>
+                                    <div>
+                                        <input #Answer="ngModel"
+                                               [type]="isShowSecurityAnswer ? 'text' : 'password'"
+                                               fxLayout="row"
+                                               id="Answer"
+                                               name="answer"
+                                               [(value)]="addMissingInformation.securityAnswer"
+                                               [(ngModel)]="addMissingInformation.securityAnswer"
+                                               pattern="^[a-zA-Z0-9]{1,20}$"
+                                               required
+                                               tabindex="3"
+                                               minlength="1"
+                                               maxlength="20" />
+                                        <show-hide-input-button [(showField)]="isShowSecurityAnswer"></show-hide-input-button>
+                                        <error-messages [errors]="Answer.errors" [activeBeforeSubmit]="Answer.touched">
+                                            <error-message rule="required">Please enter a answer.</error-message>
+                                            <error-message rule="pattern">Please enter a valid answer.</error-message>
+                                            <error-message rule="maxlength">Max. 20 alpha num character.</error-message>
+                                            <error-message rule="minlength">Min. 1 alpha num character.</error-message>
+                                        </error-messages>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!--SECURITY QUESTION - (CONFIRM USER'S ANSWER) INPUT BOX  -->
+                            <section fxLayout="column" class="u-spacing__fieldToField--marginTop">
+                                <div>
+                                    <mat-label for="ConfirmAnswer"
+                                               fxLayout="row"
+                                               ngClass="labelMargin">CONFIRM YOUR ANSWER</mat-label>
+                                    <div>
+                                        <input #ConfirmAnswer="ngModel"
+                                               [type]="isShowSecurityAnswerConfirm ? 'text' : 'password'"
+                                               fxLayout="row"
+                                               id="ConfirmAnswer"
+                                               name="confirmAnswer"
+                                               [(value)]="addMissingInformation.confirmSecurityAnswer"
+                                               [(ngModel)]="addMissingInformation.confirmSecurityAnswer"
+                                               pattern="^{{addMissingInformation.securityAnswer}}$"
+                                               required
+                                               tabindex="4"
+                                               minlength="1"
+                                               maxlength="20" />
+                                        <show-hide-input-button [(showField)]="isShowSecurityAnswerConfirm"></show-hide-input-button>
+                                       
+                                        <error-messages [errors]="ConfirmAnswer.errors" [activeBeforeSubmit]="ConfirmAnswer.touched">
+                                            <error-message rule="required">Please enter a answer.</error-message>
+                                            <error-message rule="pattern">Please make sure your security answers match.</error-message>
+                                        </error-messages>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </section>
+                    </section>
+                </card-container>
+
+                <!--Submit Button-->
+                <div class="u-spacing__buttonToField--marginTop">
+                    <action-buttons (main)="saveInformation(ChangeSecurityQuestionForm)"
+                                    (alt)="cancel()">
+                        <span action-main
+                              tabindex="5">SAVE</span>
+                        <span action-alt
+                              tabindex="6">Cancel</span>
+                    </action-buttons>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</page-centered-container>

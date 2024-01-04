@@ -1,0 +1,34 @@
+<page-centered-container>
+
+    <card-container>
+    <receipt *ngIf="data" [data]="data"></receipt>
+
+    <section *ngIf="isKiosk; else nonkiosk">
+        <action-buttons (main)="proceed(wizardUi)">
+            <span action-main>PROCEED</span>
+        </action-buttons>
+        <wizard-ui #wizardUi></wizard-ui>
+    </section>
+
+    <ng-template #nonkiosk>
+
+        <section fxLayout="row" fxLayout.lt-md="column">
+
+            <wizard-ui [reverseOrder]="true" (next)="nextStep($event)">
+                <span wizard-next>
+                    <!-- {{cmsContent.accountDashboard}} -->
+                    ACCOUNT DASHBOARD
+                </span>
+            </wizard-ui>
+
+            <a (click)="viewVehiclesClick()">
+                <!-- {{cmsContent.manageMyVehicles}} -->
+                Manage My Vehicles
+            </a>
+
+        </section>
+
+    </ng-template>
+</card-container>
+
+</page-centered-container>

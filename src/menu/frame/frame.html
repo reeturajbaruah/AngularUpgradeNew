@@ -1,0 +1,32 @@
+<ng-container *ngIf="{ active: activeBreakPoints$ | async } as breakPoints">
+    <ng-container *ngIf="{
+                  info: dashBarInfo$ | async,
+                  smallDevice: breakPoints.active['lt-md'],
+                  largeDevice: breakPoints.active['gt-sm']
+                  } as dashBar">
+
+        <main fxLayout="column"
+              fxLayoutAlign="space-evenly stretch">
+            <app-toaster-container class="refresh-2020"></app-toaster-container>
+
+            <menu-header-component></menu-header-component>
+            <sections fxFlex="noshrink"
+                      fxLayout="row"
+                      fxLayoutAlign="space-evenly stretch">
+                <section [@sideBarTrigger]="dashBar.info.show && dashBar.largeDevice"  *ngIf="isAuthenticated && !isPendingFunds">
+                    <menu-charms-component *ngIf="dashBar.info.show && dashBar.largeDevice" [side]="true" [charms]="dashBar.info.charms"></menu-charms-component>
+                </section>
+                <section fxFlex class="page-content" [ngClass]="{'not-authenticated' : !isAuthenticated}" [class.narrow-content]="dashBar.info.show && dashBar.largeDevice">
+                    <ng-content></ng-content>
+                </section>
+            </sections>
+            <menu-footer-component></menu-footer-component>
+            <section [@bottomBarTrigger]="dashBar.info.show" *ngIf="dashBar.smallDevice">
+                <!-- Space for bottom bar -->
+            </section>
+        </main>
+        <section [@bottomBarTrigger]="dashBar.info.show && dashBar.smallDevice" class="bottom-bar"  *ngIf="isAuthenticated">
+            <menu-charms-component *ngIf="dashBar.info.show && dashBar.smallDevice" [side]="false" [charms]="dashBar.info.charms" (exists)="smallDeviceCharmsAppeared($event)"></menu-charms-component>
+        </section>
+    </ng-container>
+</ng-container>

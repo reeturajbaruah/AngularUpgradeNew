@@ -1,0 +1,30 @@
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+    .extended {
+        margin-left: -70px;
+        margin-right: -70px;
+        padding-left: 70px;
+        padding-right: 70px;
+        padding-top: 44px;
+        padding-bottom: 50px;
+
+        &.lt-md {
+            margin-left: 0px;
+            margin-right: 0px;
+            padding: 0px;
+        }
+    }
+
+    .card {
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 10px 10px;
+        .t-body__borders--borderColor(@theme-light);
+        .t-body--backgroundColor(@theme-light);
+
+        &.lt-md {
+            border: 0px;
+        }
+    }
+}

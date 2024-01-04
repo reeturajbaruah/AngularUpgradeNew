@@ -1,0 +1,28 @@
+<card-dash-container>
+    <div class="top-row-heights">
+
+        <div fxLayout="row"
+         fxLayoutAlign="space-between start"
+         class="u-spacing--widthFill">
+            <header fxLayout="column">
+                <h3 fxLayout="row"
+                    fxLayoutAlign="space-between start">
+                    {{contactInfoTitle}}
+                </h3>
+            </header>
+            <a [fxHide]="isAccountClosed" (click)="updateContactInfo()">Update</a>
+        </div>
+
+        <div class="context" *ngIf="contactInfo.contactInfo.phoneNumber">{{cmsContent.PhoneNumber}} <span>{{contactInfo.contactInfo.phoneNumber | phoneNumber}}</span>
+            <span class="context" *ngIf="contactInfo.contactInfo.phoneExt">&nbsp;&nbsp;&nbsp;{{cmsContent.PhoneExt}} </span><span>{{contactInfo.contactInfo.phoneExt}}</span>
+        </div>
+        <div class="context" *ngIf="contactInfo.contactInfo.workPhoNbr">{{cmsContent.AltPhoneNumber1}} <span>{{contactInfo.contactInfo.workPhoNbr}}</span>
+            <span class="context" *ngIf="contactInfo.contactInfo.workPhoExt">&nbsp;&nbsp;&nbsp;{{cmsContent.AltPhoneExt1}} </span><span>{{contactInfo.contactInfo.workPhoExt}}</span>
+        </div>
+        <div class="context" *ngIf="contactInfo.contactInfo.mobilePhoNbr">{{cmsContent.AltPhoneNumber2}} <span>{{contactInfo.contactInfo.mobilePhoNbr}}</span>
+            <span class="context" *ngIf="contactInfo.contactInfo.mobilePhoExt">&nbsp;&nbsp;&nbsp;{{cmsContent.AltPhoneExt2}} </span><span>{{contactInfo.contactInfo.mobilePhoExt}}</span>
+        </div>
+        <div class="context" *ngIf="contactInfo.contactInfo.emailAddress">{{cmsContent.Email}} <span>{{trimEmail(contactInfo.contactInfo.emailAddress)}}</span></div>
+        <div class="context" *ngIf="contactInfo.contactInfo.altEmailAddress">{{cmsContent.AltEmail}} <span>{{trimEmail(contactInfo.contactInfo.altEmailAddress)}}</span></div>
+    </div>
+</card-dash-container>

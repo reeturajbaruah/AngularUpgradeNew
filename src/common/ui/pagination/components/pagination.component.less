@@ -1,0 +1,68 @@
+@import (reference) '../../../../styles/variables.less';
+:host {
+    .pagination-card {
+        margin: 0px;
+
+        section {
+            gap: 5px;
+        }
+
+        @media @breakpoint-gt-xs {
+            border: 1px solid @silver-gray;
+            border-radius: 10px;
+
+            section {
+                gap: 0px;
+            }
+        }
+    }
+
+    .rightArrowRotate {
+        transform: rotate(180deg);
+    }
+
+    .arrowDimension {
+        width: 18px;
+        height: 18px;
+    }
+
+    .disable-icon {
+        pointer-events: none;
+        border: 1px solid #c4c4c4 !important;
+        border-radius: 20px 20px;
+    }
+
+    ::ng-deep dropdown .criteria-shape {
+        padding: 0px 22px;
+    }
+
+    ::ng-deep .arrowDimension svg polygon {
+        fill: @boulder-gray !important;
+    }
+
+    ::ng-deep .disable-icon svg polygon {
+        fill: @silver-gray !important;
+    }
+
+    ::ng-deep .icon-button {
+        display: flex;
+        align-items: center;
+        background-color: unset !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .endArrowDimension {
+        height: 35px;
+        width: 35px;
+    }
+
+    ::ng-deep .endArrowDimension svg path {
+        fill: @boulder-gray;
+        opacity: 0.5;
+    }
+
+    ::ng-deep .disable-icon svg path {
+        fill: @silver-gray;
+    }
+}

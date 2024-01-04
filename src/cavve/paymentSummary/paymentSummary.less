@@ -1,0 +1,104 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+    .rows {
+        height: 50px;
+        width: 469px;
+    }
+
+    .rowsConfirm {
+        height: 50px;
+        width: 566px;
+    }
+
+    .topRow {
+        height: 50px;
+        width: 469px;
+        border-top: 2px solid rgb(209, 209, 213);
+        border-bottom: 2px solid rgb(209, 209, 213);
+    }
+
+    .topRowConfirm {
+        height: 48px;
+        width: 566px;
+        border-top: 0px;
+        border-bottom: 1px solid @snuff-gray;
+    }
+
+    .bottomRow {
+        height: 50px;
+        width: 469px;
+        border-top: 2px solid rgb(209, 209, 213);
+    }
+
+    .bottomRowConfirm {
+        height: 49px;
+        width: 566px;
+        border-top: 0px;
+        .t-table__emphasis--backgroundColor(@theme-light);
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .fields {
+        padding-left: 14px;
+    }
+
+    .greenFields {
+        .t-body__positiveFeedback--color(@theme-light);
+        padding-left: 14px;
+        font-weight: bold;
+    }
+
+    .values {
+        padding-right: 14px;
+    }
+
+    .greenValues {
+        .t-body__positiveFeedback--color(@theme-light);
+        padding-right: 14px;
+        font-weight: bold;
+    }
+
+    .rowSelected {
+        .t-body--backgroundColor2(@theme-light);
+        border-top: 2px solid white;
+        border-bottom: 2px solid white;
+    }
+
+    .totalRowSelected {
+        border-top: 2px solid white;
+    }
+
+    .confirmBorder {
+        border-width: 1px;
+        border-style: solid;
+        border-color: @snuff-gray;
+        border-radius: 10px;
+        height: 248px;
+        width: 566px;
+    }
+
+    #tollViolationsLabel {
+        .t-link--color(@theme-light);
+        padding-left: 14px;
+    }
+
+    .glyphicon {
+        &.glyphicon-chevron-right {
+            font-size: 11px;
+            font-weight: 100;
+            top: -2px;
+            .t-link--color(@theme-light);
+        }
+    }
+
+    .border-height {
+        height: 248px;
+    }
+
+    .border-height-nondiscount {
+        height: 198px;
+    }
+}

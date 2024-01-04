@@ -1,0 +1,78 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/variables.less';
+@import (reference) '../../../../styles/custom/spacing/sections.less';
+@import (reference) '../../../../styles/custom/spacing/dividers.less';
+
+:host {
+    a {
+        display: block;
+    }
+
+    action-buttons {
+        .refresh-2020.u-spacing__buttonToField--marginTop();
+        padding-bottom: 20px;
+        display: block;
+    }
+
+    section {
+        padding-top: 20px;
+    }
+
+    .bold {
+        font-weight: 800;
+    }
+
+    span {
+        display: block;
+        font-weight: 450;
+        font-size: 15px;
+    }
+
+    textarea {
+        min-height: 200px;
+        width: 100%;
+        resize: none;
+        padding: 14px 14px;
+        font-weight: 500;
+        border: 1px solid #c4c4c4;
+        border-radius: 10px;
+        outline: none;
+    }
+
+    mat-label {
+        text-transform: uppercase;
+    }
+
+    select {
+        display: block !important;
+        font-size: 16px;
+        width: 100%;
+        outline: none;
+        height: 48px;
+        vertical-align: middle;
+        border: 1px solid #c4c4c4;
+        border-radius: 10px;
+        text-align: left;
+        font: normal normal medium 16px/19px Montserrat;
+        letter-spacing: 0px;
+        color: #34353a;
+        opacity: 1;
+        background: #ffffff 0% 0% no-repeat padding-box;
+    }
+
+    .howCanWeHelpTitle {
+        top: 312px;
+        left: 370px;
+        height: 35px;
+        text-align: left;
+        font: normal normal 600 24px/30px Jost;
+        letter-spacing: 0px;
+        color: #34353a;
+        opacity: 1;
+        margin-bottom: 16px;
+    }
+
+    .has-error {
+        .t-error--borderColor(@theme-light);
+    }
+}

@@ -1,0 +1,127 @@
+<page-filled-container>
+    <section fxLayout="column"
+             class="u-spacing__firstHeaderToTitle--marginTop u-spacing--widthFill">
+        <header fxLayout="column">
+            <h2>{{cmsSectionSearchForTollViolationInvoices.Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <div fxLayout="row"
+             fxLayoutAlign="start start"
+             fxLayoutGap="80px"
+             class="u-spacing--widthFill">
+
+            <div fxLayout="column">
+                <article [innerHTML]="cmsSectionSearchForTollViolationInvoices.ShortDescription"></article>
+
+                <form #LandingForm="ngForm" validation-focus novalidate
+                      fxLayout="column start"
+                      class="u-spacing__fieldToSection--marginTop">
+
+                    <!-- State and License Plate Number-->
+                    <div fxLayout="row"
+                         fxLayoutAlign="start start"
+                         fxLayoutGap="30px">
+                        <!-- State drop down-->
+                        <div fxFlex="none">
+                            <mat-label>STATE</mat-label>
+                            <mat-select translation-skip [(value)]="violations.selectedState"
+                                        [disableOptionCentering]="true">
+                                <mat-option *ngFor="let state of stateList" [value]="state">{{state.stateCode}}</mat-option>
+                            </mat-select>
+                        </div>
+
+                        <!-- License Plate input box-->
+                        <div fxFlex="auto"
+                             fxFlex.lt-md="calc(100% - 587px)"
+                             [error-check]="licensePlateInput">
+                            <mat-label>LICENSE PLATE NUMBER</mat-label>
+                            <input type="text"
+                                   name="licensePlate"
+                                   [(ngModel)]="violations.licensePlateNumber" #licensePlateInput="ngModel"
+                                   required
+                                   id="licensePlate"
+                                   tabindex="2"
+                                   pattern="^[a-zA-Z0-9]{1,10}$"
+                                   maxlength="10" />
+                            <aside *ngFor="let error of licensePlateInput.errors | keyvalue">
+                                <ng-container *ngIf="LandingForm.submitted" [ngSwitch]="error.key">
+                                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid license plate number</p>
+                                    <p *ngSwitchCase="'required'" class="help-block">Please enter a valid license plate number</p>
+                                    <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid license plate number</p>
+                                </ng-container>
+                            </aside>
+                        </div>
+                    </div>
+
+                    <!-- Invoice number input box -->
+                    <div fxLayout="column"
+                         class="u-spacing__fieldToField--marginTop"
+                         [error-check]="invoiceNumberInput">
+                        <mat-label for="invoice">INVOICE NUMBER</mat-label>
+                        <input type="text"
+                               id="invoice"
+                               [(ngModel)]="violations.invoiceNumber" #invoiceNumberInput="ngModel"
+                               pattern="^[0-9]+$"
+                               name="invoice"
+                               tabindex="3"
+                               required />
+
+                        <aside *ngFor="let error of invoiceNumberInput.errors | keyvalue">
+                            <ng-container *ngIf="LandingForm.submitted" [ngSwitch]="error.key">
+                                <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid invoice number</p>
+                                <p *ngSwitchCase="'required'" class="help-block">Please enter a valid invoice number</p>
+                            </ng-container>
+                        </aside>
+
+                        <div>
+                            <a id="findInvoiceLnk" (click)="openInvoiceExample()">Need help finding the information on your invoice?</a>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="u-spacing__buttonToField--marginTop">
+                        <wizard-ui (next)="findViolations()"
+                                   [reverseOrder]="true">
+                            <span wizard-next>SUBMIT</span>
+                        </wizard-ui>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Image: Example of a toll violation Invoice -->
+            <div fxLayout="column"
+                 fxHide.lt-md>
+                <figure *ngIf="cmsImage.image"
+                        id="violations-landing-image">
+                    <img [src]="cmsImage.image"
+                         [attr.alt]="cmsImage.alt"
+                         [attr.height]="cmsImage.height"
+                         [attr.width]="cmsImage.width" />
+                </figure>
+                <h3>{{cmsSectionInvoiceImage.ImageCaption}}</h3>
+            </div>
+        </div>
+    </section>
+
+    <section fxLayout="column"
+             class="u-spacing__headerToSection--marginTop">
+        <header fxLayout="column">
+            <h2>{{cmsSectionDoYouHaveAnEZTagAccount.Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <article [innerHTML]="cmsSectionDoYouHaveAnEZTagAccount.LongDescription"></article>
+    </section>
+
+    <section fxLayout="column"
+             class="u-spacing__headerToSection--marginTop">
+        <header fxLayout="column">
+            <h2>{{cmsSectionImportantReminders.Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <article [innerHTML]="cmsSectionImportantReminders.LongDescription | safeHtml"></article>
+    </section>
+
+</page-filled-container>

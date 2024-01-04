@@ -1,0 +1,21 @@
+<main fxLayout="column" *ngIf="inititalizeComplete">
+    <card-dash-container fxFlex="auto" [hasMargin]="false">
+
+        <section fxLayout="column" fxLayoutGap="20px">
+
+            <tansactions-filters-list *ngIf="filterCategories"
+            [filterCategories]="filterCategories">
+
+            </tansactions-filters-list>
+
+            <section>
+                <div>Showing results for: "{{result}}"</div>
+            </section>
+        </section>
+
+    </card-dash-container>
+
+    <transactions-records [cmsContent]="cmsContent"></transactions-records>
+
+
+</main>

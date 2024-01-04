@@ -1,0 +1,28 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/variables.less';
+@import (reference) '../../../../../../Content/css/site-variables.less';
+
+[device-type] {
+    :host {
+        width: 100%;
+
+        main {
+            background-color: @athens-gray;
+            max-width: 100vw;
+            padding-top: 0px;
+            padding-bottom: 60px;
+
+            &.lt-md {
+                background-color: @athens-gray;
+                padding-left: 0px;
+                padding-right: 0px;
+
+                &.has-gutter {
+                    padding-left: @page-bar-margin-static-lt-md;
+                    padding-right: @page-bar-margin-static-lt-md;
+                }
+            }
+
+        }
+    }
+}

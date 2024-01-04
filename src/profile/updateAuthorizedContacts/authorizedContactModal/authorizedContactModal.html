@@ -1,0 +1,88 @@
+<page-centered-container>
+    <form #AuthContactForm="ngForm" validation-focus
+          fxLayout="column"
+          class="u-spacing--widthFill">
+
+        <card-container>
+            <h2>{{data.cmsContent.header}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <section fxLayout="row"
+                     fxLayout.lt-md="row wrap"
+                     fxLayoutAlign="space-between start">
+                <section [error-check]="FirstNameInput"
+                         fxFlex="37"
+                         fxFlex.lt-md="grow">
+                    <mat-label>FIRST NAME</mat-label>
+                    <input [(ngModel)]="data.contactInfo.firstName"
+                           name="firstName"
+                           #FirstNameInput="ngModel"
+                           type="text"
+                           maxlength="30"
+                           pattern="^[a-zA-Z\-\'\.,\s]*$"
+                           required />
+                    <error-messages [errors]="FirstNameInput.errors">
+                        <error-message rule="required">Please enter a valid name</error-message>
+                        <error-message rule="maxlength">Please enter a valid name</error-message>
+                        <error-message rule="pattern">Please enter a valid name</error-message>
+                    </error-messages>
+                    <span id="duplicate-error-message" *ngIf="duplicate">This contact already exists</span>
+                </section>
+
+                <section [error-check]="LastNameInput"
+                         fxFlex="37"
+                         fxFlex.lt-md="grow">
+                    <mat-label>LAST NAME</mat-label>
+                    <input [(ngModel)]="data.contactInfo.lastName"
+                           name="lastName"
+                           #LastNameInput="ngModel"
+                           type="text"
+                           maxlength="30"
+                           pattern="^[a-zA-Z\-\'\.,\s]*$"
+                           required />
+                    <error-messages [errors]="LastNameInput.errors">
+                        <error-message rule="required">Please enter a valid name</error-message>
+                        <error-message rule="maxlength">Please enter a valid name</error-message>
+                        <error-message rule="pattern">Please enter a valid name</error-message>
+                    </error-messages>
+                </section>
+
+                <section [error-check]="AccessCodeInput"
+                         fxFlex="22"
+                         fxFlex.lt-md="grow">
+
+                    <mat-label class="accesCode">ACCESS CODE</mat-label>
+                    <tool-tip>
+                        <span tool-tip-hover>
+                            <mat-icon svgIcon="information"></mat-icon>
+                        </span>
+                        <span tool-tip-message class="hover-box-adjustment">
+                            {{data.cmsContent.TOOL_TIP_INFO}}
+                        </span>
+                    </tool-tip>
+                    <input [(ngModel)]="data.contactInfo.accessCode"
+                           name="accessCode"
+                           #AccessCodeInput="ngModel"
+                           type="text"
+                           maxlength="12"
+                           minlength="6"
+                           pattern="^[a-zA-Z0-9]+$"
+                           required />
+                    <error-messages [errors]="AccessCodeInput.errors">
+                        <error-message rule="required">Please enter a value</error-message>
+                        <error-message rule="maxlength">Must be no more than 12 characters</error-message>
+                        <error-message rule="minlength">Must be at least 6 characters</error-message>
+                        <error-message rule="pattern">Characters must be alphanumeric</error-message>
+                    </error-messages>
+                </section>
+
+            </section>
+        </card-container>
+        <section class="u-spacing__buttonToField--marginTop">
+            <action-buttons (main)="submit(AuthContactForm)"
+                            (alt)="close()">
+                <span action-main>SAVE</span>
+                <span action-alt>Cancel</span>
+            </action-buttons>
+        </section>
+    </form>
+</page-centered-container>

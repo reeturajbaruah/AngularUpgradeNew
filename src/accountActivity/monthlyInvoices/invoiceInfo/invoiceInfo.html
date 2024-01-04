@@ -1,0 +1,20 @@
+<section fxLayout="row" fxLayout.lt-md="column">
+    <section fxFlex="40" fxLayout="column">
+        <div *ngIf="companyName && companyName.trim() !== ''" class="text-bold">{{companyName | titlecase}}</div>
+        <div>Account Number: <span class="text-bold">{{acctId}}</span></div>
+        <div *ngIf="showAddress">{{address.address1 | titlecase}}</div>
+        <div *ngIf="showAddress2">{{address.address2 | titlecase}}</div>
+        <div *ngIf="showAddress3">{{address.address3 | titlecase}}</div>
+        <div *ngIf="showAddress4">{{address.address4 | titlecase}}</div>
+        <div *ngIf="showAddress">
+            {{address.city | titlecase}}, {{address.state}} &nbsp; {{address.zip}}
+            <div *ngIf="address.plus4 && address.plus4.trim() !== ''"> - {{address.plus4}}</div>
+        </div>
+        <div *ngIf="phoneNumber && phoneNumber.trim() !== ''">{{phoneNumber}}</div>
+    </section>
+    <section *ngIf="invoiceNumber && invoiceNumber.trim() !== ''">
+        <div class="text-bold">Monthly EZ TAG Invoice</div>
+        <div>Invoice #{{invoiceNumber}}</div>
+        <div>Invoice Period - {{currentMonth}}</div>
+    </section>
+</section>

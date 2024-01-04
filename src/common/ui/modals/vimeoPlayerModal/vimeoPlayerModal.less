@@ -1,0 +1,56 @@
+:host {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+
+    > div {
+        height: 100%;
+
+        iframe {
+            width: 80vw;
+            height: 80vh;
+        }
+
+        iframe.lt-md {
+            width: 100vw;
+        }
+
+
+        iframe + div {
+            height: 80vh;
+
+            i {
+                margin: 5px;
+                color: white;
+                width: 20px;
+            }
+        }
+
+        iframe.lt-md + div {
+            width: 100vw;
+            height: unset;
+        }
+
+        @media(hover: hover) {
+
+            iframe + div i {
+                opacity: 0.0;
+                transition-property: opacity;
+            }
+
+            iframe:hover + div i,
+            iframe + div:hover i {
+                opacity: 1.0;
+                transition-duration: 0.25s;
+            }
+
+        }
+
+        @media(hover: none) {
+
+            iframe + div i {
+                opacity: 1.0;
+            }
+        }
+    }
+}

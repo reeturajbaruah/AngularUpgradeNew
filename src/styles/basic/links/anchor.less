@@ -1,0 +1,28 @@
+@import (reference) '../../themes.less';
+
+.refresh-2020 {
+    a {
+        .t-link--color(@theme-light);
+        .t-body--fontFamily();
+        font-weight: 600;
+        font-size: 16px;
+
+        &.u--noUnderline {
+            text-decoration: none;
+        }
+    }
+
+    a:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    [from-cms] a {
+        font-size: inherit;
+    }
+}
+
+a {
+    .t-link--color(@theme-light);
+    text-decoration: none;
+}

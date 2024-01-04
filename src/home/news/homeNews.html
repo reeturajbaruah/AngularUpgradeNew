@@ -1,0 +1,43 @@
+<div class="homeNewsLayout">
+    <div class="homeNewsHeaderSpace" [style.height]="cmsData.homeNewsHeaderSpaceHeight">
+        <h1>{{cmsData.Title}}</h1>
+        <article [innerHTML]="cmsData.ShortDescription | safeHtml"></article>
+    </div>
+
+    <div class="homeNewsSectionSpace">
+        <ul class="newList"
+            [style.--item-index]="currentIndexFocus"
+            [style.--item-count]="imageList.length">            
+            <li class="newsItem"
+                [style.--news-image-desktop-height]="cmsData.newsImageHeight"
+                *ngFor="let slide of imageList">
+                <a class="newsLink" href="{{slide.URL}}">                  
+                    <picture-container image-collapse>
+                        <picture>
+                            <img enhanced [src]="slide.image" />
+                        </picture>
+                        <div content-container>
+                            <section>
+                                <p>{{slide.categories}}</p>
+                                <h3>{{slide.title}}</h3>
+                                <mat-divider></mat-divider>
+                            </section>
+                        </div>
+                    </picture-container>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="arrowSection">
+        <mat-icon [class.hideArrow]="!isBackActive"
+                  svgIcon="back-arrow"
+                  (click)="goBack()"></mat-icon>
+        <mat-icon class="desktopArrow" [class.hideArrow]="!isNextActive"
+                  svgIcon="back-arrow"
+                  (click)="goNext()"></mat-icon>
+        <mat-icon class="mobileArrow" [class.hideArrow]="!isNextActiveMobile"
+                  svgIcon="back-arrow"
+                  (click)="goNextMobile()"></mat-icon>
+    </div>
+</div>

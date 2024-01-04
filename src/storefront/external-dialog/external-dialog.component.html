@@ -1,0 +1,14 @@
+<div *ngIf="show" @modalSlideDown>
+    <div class="modal-container">
+        <div *ngIf="closeIcon" class="close-icon" (click)="close()">
+            <img src={{closeIcon.ItemMedialUrl}} alt={{closeIcon.Alt}} />
+        </div>
+
+        <div class="content-container" [class.pdf]="pdf">
+            <iframe *ngIf="!pdf" [src]="url" #iframe [ngStyle]="{'height' : frameHeight}"></iframe>
+            <iframe *ngIf="pdf" [src]="url" #iframe class="pdf-view"></iframe>
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,12 @@
+
+<card-dash-container [hasMargin]="false" class="u-spacing__firstHeaderToTitle--marginTop">
+    <top-faq-results *ngIf="topSearchResults" [topSearchResults]="topSearchResults"  
+                             [cmsContent]="cmsContent">
+    </top-faq-results>
+</card-dash-container>
+<hr />
+<card-dash-container [hasMargin]="false" class="u-spacing__firstHeaderToTitle--marginTop">
+    <search-faq-results *ngIf="searchResults" [searchResults]="searchResults"  
+                             [cmsContent]="cmsContent">
+    </search-faq-results>
+</card-dash-container>

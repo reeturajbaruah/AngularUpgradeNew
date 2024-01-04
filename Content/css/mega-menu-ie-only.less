@@ -1,0 +1,92 @@
+﻿@import '../bootstrap/variables';
+@import 'site-variables';
+
+@mega-menu-screen-lg: @screen-lg;
+@mega-menu-screen-sm: @screen-sm;
+@mega-minimum-desktop-width: @minimum-desktop-width;
+@mega-screen-md-max: @screen-md-max;
+
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+    @media (max-width: (@mega-menu-screen-lg - 1px)) {
+        .navbar {
+            li.dropdown.open div.underline::after {
+                border-bottom: 4px solid @white-base;
+                bottom: -15px;
+                content: '';
+                left: -14.8px;
+                position: absolute;
+                width: 131%;
+                z-index: @mega-menu-z-index;
+            }
+        }
+
+        .yammR {
+			#menu-title3 {
+				position: relative;
+			}
+            #menu3.dropdown-menu11 {
+                left: -1px;
+            }
+
+            .menu-column {
+                width: 500px;
+            }
+
+            .column {
+                width: 750px;
+            }
+
+            .yammR-content3,
+            .yammR-content2 {
+                padding-right: 360px;
+            }
+        }
+    }
+
+    @media (min-width: @mega-menu-screen-lg) {
+        .navbar {
+            li.dropdown.open div.underline::after {
+                border-bottom: 4px solid @white-base;
+                bottom: -42px;
+                content: '';
+                left: 0px;
+                position: absolute;
+                width: 99.8%;
+                z-index: 1000;
+            }
+        }
+
+        .list-unstyled,
+        .list-unstyled ul {
+            min-width: 250px;
+        }
+
+        .yammR {
+			#menu-title3 {
+				position: relative;
+			}
+            #menu3.dropdown-menu11 {
+                left: -1px;
+            }
+
+            .menu-column {
+                width: 500px;
+            }
+
+            .column {
+                width: 820px;
+            }
+
+            .yammR-content1 {
+                padding: 25px 230px 70px 14px;
+            }
+
+            .yammR-content3,
+            .yammR-content2 {
+                padding-right: 360px;
+            }
+        }
+    }
+}

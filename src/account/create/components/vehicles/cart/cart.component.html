@@ -1,0 +1,19 @@
+
+<div >
+
+    <cart-list (vehicleEvent$)="listenToVehiclesOperations($event)" 
+        *ngIf="cartListData" [data]="cartListData" [tagOrderDesc]="cms">
+    </cart-list>
+
+</div>
+
+
+<section class="u-spacing__buttonToField--marginTop">
+    <action-buttons
+     (main)="next($event)"
+    (alt)="cancel($event,wizardUi)">
+        <span action-main>{{submitBtnText}}</span>
+        <span action-alt>Cancel</span>
+    </action-buttons>
+    <wizard-ui #wizardUi></wizard-ui>
+</section>

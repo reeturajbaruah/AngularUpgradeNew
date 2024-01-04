@@ -1,0 +1,49 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/custom/spacing/sections.less';
+@import (reference) '../../styles/custom/spacing/dividers.less';
+@import (reference) '../../styles/variables.less';
+
+:host {
+    mat-divider {
+        width: @width-divider;
+    }
+
+    .contact {
+        margin-bottom: 16px;
+    }
+
+    .add-text {
+        color: @azure-radiance-blue;
+    }
+
+    .hover-box-adjustment {
+        padding: 15px;
+        font-size: 12px;
+        line-height: 1.5;
+        bottom: 2em;
+        left: -18em;
+        width: 270px;
+    }
+
+    .alert-icon {
+        color: @pizazz-gold;
+    }
+
+    action-buttons {
+        display: block;
+        .refresh-2020.u-spacing__fieldToField--marginTop();
+
+        [action-main] {
+            text-transform: uppercase;
+        }
+
+        [action-alt] {
+            text-transform: capitalize;
+        }
+    }
+
+    .disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+}

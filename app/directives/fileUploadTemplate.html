@@ -1,0 +1,19 @@
+﻿<div ng-class="validation.getErrorStatusClassFastWithNullCheck(id)">
+    <div class="col-md-12 input-group">
+        <span class="input-group-btn">
+            <button class="btn upload-dir-add-button" ngf-select="submitFile($file)" ngf-accept="validations.FileExtensions">
+                Browse&hellip;
+            </button>
+        </span>
+        <input type="text" name="{{id}}" id="{{id}}" class="form-control upload-dir-input" readonly ng-model="fileName"/>
+        <span class="input-group-btn">
+            <button title="Remove Entry" class="close upload-dir-remove-button" type="button" ng-show="showDeleteButton" ng-click="onDelete()" aria-label="Remove Entry" aria-hidden="true">
+                &times;
+            </button>
+        </span>
+    </div>
+    <div class="col-xs-12">
+        <div class="red top-buffer-xs help-block" ng-show="showTypeValidationMessage">{{validations.FieldValidationMessage}}</div>
+        <div class="red top-buffer-xs help-block" ng-show="showSizeValidationMessage">{{validations.FieldRequiredValidationMessage}}</div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+@import (reference) '../../styles/custom/storefront.less';
+
+:host {
+    width: @storefront-width;
+    height: @storefront-height;
+    display: block;
+    user-select: none;
+
+    ::ng-deep {
+
+        .kioskView {
+            .container-position {
+                left: 460px !important;
+            }
+        }
+
+        .desktopView {
+            .container-position {
+                left: 0px !important;
+                width: 100% !important;
+            }
+        }
+    }
+
+    ui-view {
+        display: block;
+    }
+
+    .full-height {
+        height: 100%;
+    }
+
+    .fragment-view {
+        width: @storefront-external-dialog-inner-width;
+    }
+
+    .curtain {
+        background-color: white;
+        display: block;
+        float: left;
+        clear: right;
+        padding-left: 40px;
+        padding-right: 40px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        min-height: @storefront-curtain-height;
+        width: @storefront-curtain-width;
+        height: @storefront-curtain-height !important;
+    }
+
+    .desktopView {
+        height: 100%;
+        padding-bottom: 0px;
+        background-color: white;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-top: 0px;
+        display: block;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .background {
+        top: 0px;
+        left: 0px;
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        z-index: -1;
+        background-color: @storefront-purple;
+    }
+
+    .translate-icon-container {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+    }
+}

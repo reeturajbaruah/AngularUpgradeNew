@@ -1,0 +1,17 @@
+<page-centered-container class="refresh-2020">
+
+    <form #Form="ngForm" name="searchAccountForm" validation-focus novalidate >
+        
+        <account-search-component
+            [cmsData]="cmsData"
+            [data]="data"
+            [forceRequireMoreInfo]="forceRequireMoreInfo">
+        </account-search-component>
+
+        <wizard-ui [input]="data.loginResetOption" (next)="submit($event)">
+            <span wizard-next>continue</span>
+            <span wizard-cancel>cancel</span>
+        </wizard-ui>
+
+    </form>
+</page-centered-container>

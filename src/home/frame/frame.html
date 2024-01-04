@@ -1,0 +1,49 @@
+<main class="refresh-2020" *ngIf="section">
+    <call-to-action-mobile-component [style.order]="-1"
+                                     [cmsData]="section[sectionChoices.CallToAction]"
+                                     *ngIf="section[sectionChoices.CallToAction] && showDynamicDisplay && (isMobile$ | async)">
+    </call-to-action-mobile-component>
+
+    <carousel-component-desktop *ngIf="section[sectionChoices.CarouselDesktop] && (isMobile$ | async) === false"
+                                [style.order]="section[sectionChoices.CarouselDesktop].order"
+                                [sliderImages]="section[sectionChoices.CarouselDesktop]"
+                                [imageSliderArrow]="imageSliderArrow"></carousel-component-desktop>
+
+    <carousel-component-mobile *ngIf="section[sectionChoices.CarouselMobile] && (isMobile$ | async)"
+                               [style.order]="section[sectionChoices.CarouselMobile].order"
+                               [sliderImages]="section[sectionChoices.CarouselMobile]"
+                               [imageSliderArrow]="imageSliderArrow"></carousel-component-mobile>
+
+    <home-news-component *ngIf="section[sectionChoices.HomeNews]"
+                         [style.order]="section[sectionChoices.HomeNews].order"
+                         [cmsData]="section[sectionChoices.HomeNews]"></home-news-component>
+
+    <call-to-action-desktop-component [style.order]="section[sectionChoices.CallToAction].order"
+                                      *ngIf="section[sectionChoices.CallToAction] && showDynamicDisplay && (isMobile$ | async) === false"
+                                      [cmsData]="section[sectionChoices.CallToAction]"
+                                      [violationLoginModal]="violationLoginModal"
+                                      [paymentPlansModal]="paymentPlansModal"
+                                      [cmsInvoiceExample]="cmsInvoiceExample"></call-to-action-desktop-component>
+
+    <home-help-and-support-component *ngIf="section[sectionChoices.HelpAndSupport]"
+                                     [style.order]="section[sectionChoices.HelpAndSupport].order"
+                                     [cmsData]="section[sectionChoices.HelpAndSupport]"></home-help-and-support-component>
+
+    <dynamic-display-component *ngIf="section[sectionChoices.DynamicSquare]"
+                               [style.order]="section[sectionChoices.DynamicSquare].order"
+                               [cmsData]="section[sectionChoices.DynamicSquare]"></dynamic-display-component>
+
+    <social-media-component *ngIf="!environmentConfig.socialMediaAlt && imageSliderArrow && section[sectionChoices.SocialMedia]" [style.order]="section[sectionChoices.SocialMedia].order"
+                            [cmsData]="section[sectionChoices.SocialMedia]"
+                            [imageSliderArrow]="imageSliderArrow"></social-media-component>
+
+    <social-media-alt-component *ngIf="environmentConfig.socialMediaAlt && imageSliderArrow && section[sectionChoices.SocialMedia]" [style.order]="section[sectionChoices.SocialMedia].order"
+                                [cmsData]="section[sectionChoices.SocialMedia]"
+                                [imageSliderArrow]="imageSliderArrow"></social-media-alt-component>
+
+    <ads-component *ngIf="section[sectionChoices.Ads]"
+                   [style.order]="section[sectionChoices.Ads].order"
+                   [cmsData]="section[sectionChoices.Ads]"
+                   [imageSliderArrow]="imageSliderArrow"></ads-component>
+
+</main>

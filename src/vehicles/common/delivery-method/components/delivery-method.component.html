@@ -1,0 +1,28 @@
+<card-container>
+    <h2>{{data.header}}</h2>
+    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+    <article *ngIf="data.context" class="deliveryMethodDesc"
+     id="deliveryMethodDesc" [innerHtml]="data.context | safeHtml"></article>
+
+    <fx-row style="padding-top:4px; padding-bottom:4px;">
+        <section col-start fxFlex="grow"
+                 style="padding: 16px 0px;">
+
+            <p class="itemFont">Delivery Method: {{type}}</p>
+            <p *ngIf="isByMail" class="itemFont">Ship EZ TAG(s) to:</p>
+            <address-display *ngIf="isByMail"
+                             [address]="mailingInfo"
+                             [international]="mailingInfo.international"
+                             [showLabels]="false"
+                             [showEdit]="false">
+            </address-display>
+        </section>
+
+        <section *ngFor="let operation of operations" col-end fxFlex="none"
+         style="margin-top: auto; padding-bottom: 16px;">
+            <a *ngIf="operation.display" (click)="onClickOperation(operation)">
+                {{operation.label}}</a>
+        </section>
+
+    </fx-row>
+</card-container>

@@ -1,0 +1,218 @@
+#washburn-tunnel {
+    label {
+        font-size: 16pt;
+        font-family: 'Avenir LT Std 45 Book Regular', Arial;
+        margin: 0px 0px 5px;
+    }
+
+    .header-spacing {
+        margin-left: -15px;
+    }
+
+    .row.box_layout {
+        margin-right: 15px;
+    }
+
+    .desktop-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    [type='radio']:not(:checked) + div {
+        display: none;
+    }
+
+    .tunnel-Header {
+        font-family: 'Avenir LT Std 85 Heavy Regular', Arial;
+        color: #381462;
+    }
+
+    .padding-layout {
+        padding: 20px;
+    }
+
+    .max-scale-element {
+        @media screen and (min-width: 2px) {
+            width: 1010px;
+            height: 565px;
+        }
+
+        @media screen and (max-width: 767px) {
+            width: 351px;
+            height: 239px;
+        }
+    }
+
+    .tunnel-alignment {
+        text-align: left;
+        padding-left: 15px;
+        width: 55.57%;
+    }
+
+    .box_layout {
+        float: right;
+        width: 330px;
+        text-align: left;
+
+        @media screen and (min-width: 2px) {
+            margin: 0px;
+            border: 2px solid lightgray;
+            padding: 15px 15px 0px 15px;
+        }
+
+        @media screen and (max-width: 767px) {
+            padding: 0px;
+        }
+    }
+
+    .box_inline_margin {
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+
+    hr.line_design {
+        border: 1px solid lightgray;
+        margin: 10px 0px 10px 0px;
+    }
+
+    .border-without-footer {
+        border: 1px solid;
+        border-color: #cdcccb;
+        border-radius: 5px;
+        margin: 5px 0px 40px;
+        padding: 40px;
+    }
+
+    padding: 1px 44px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 1px;
+    width: 100%;
+    max-width: 1200px;
+
+    .mobileOnly {
+        display: none;
+    }
+
+    .h1-mo {
+        font-size: 24px;
+        margin: 15px 0px 10px;
+    }
+
+    .row {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media screen and (max-width: 951px) {
+        .tunnel-alignment {
+            width: 50% !important;
+        }
+    }
+
+    @media screen and (max-width: 830px) {
+        .tunnel-alignment {
+            width: 45% !important;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        padding: 1px 5px !important;
+
+        .border-without-footer {
+            border: 0px !important;
+            padding: 1px 22px 6px !important;
+        }
+
+        .header-spacing {
+            padding: 0px 0px 0px 22px;
+        }
+
+        .desktopOnly {
+            display: none;
+        }
+
+        .mobileOnly {
+            display: block !important;
+        }
+    }
+
+    ::ng-deep {
+        .carousel {
+            height: 565px !important;
+
+            @media screen and (max-width: 767px) {
+                height: 239px !important;
+            }
+
+            img,
+            iframe {
+                height: 565px !important;
+
+                @media screen and (max-width: 767px) {
+                    height: 239px !important;
+                }
+            }
+
+            iframe {
+                width: 100%;
+            }
+        }
+
+        .carousel-slide {
+            img[enhanced] {
+                filter: none;
+            }
+
+            @media screen and (min-width: 1015px) {
+                img[enhanced] {
+                    width: inherit;
+                }
+            }
+        }
+
+        color: #333000;
+
+        .info_section_layout {
+            margin-top: 15px;
+        }
+
+        .info_section_title {
+            font-size: 16pt;
+            line-height: 30px;
+        }
+
+        li {
+            font-family: 'Avenir LT Std 45 Book Regular', Arial;
+        }
+
+        .info_section_description {
+            font-size: 10.5pt;
+            line-height: 30px;
+            font-family: 'Avenir LT Std 45 Book Regular', Arial;
+        }
+
+        .box_object_title {
+            font-size: 14pt;
+            font-family: 'Avenir LT Std 45 Book Regular', Arial;
+            font-weight: bold;
+        }
+
+        .box_object_description {
+            margin-top: 10px;
+            font-size: 10.5pt;
+            font-family: 'Avenir LT Std 45 Book Regular', Arial;
+        }
+
+        .time {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .fb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+}

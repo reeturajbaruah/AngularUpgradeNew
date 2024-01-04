@@ -1,0 +1,98 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/mixins.less';
+@import './details.less';
+
+:host {
+    div {
+        min-height: 50px;
+        .t-body--color(@theme-light);
+        .t-body--fontFamily();
+        font-size: 16px;
+        font-weight: 600;
+        .t-table__body--backgroundColor(@theme-light);
+        border-radius: 10px;
+
+        @media @breakpoint-lt-md {
+            border-radius: 0px;
+        }
+
+        &.extended-row {
+            .extended-row-mixin();
+
+            @media @breakpoint-lt-md {
+                .extended-row-lt-md-mixin();
+            }
+        }
+
+        &.gray-purple-background {
+            background-color: @snuff-gray;
+        }
+
+        &.gray-background {
+            .t-table__header--backgroundColor(@theme-light);
+        }
+
+        &.white-background {
+            background-color: white;
+        }
+
+        &.transparent-background {
+            background-color: transparent;
+        }
+
+
+        &.is-value {
+            min-height: 50px;
+
+            @media @breakpoint-lt-md {
+                min-height: 26px;
+            }
+        }
+
+        &.is-label {
+            min-height: 26px;
+        }
+
+        &.is-subtitle {
+            min-height: 60px;
+
+            @media @breakpoint-lt-md {
+                min-height: 46px;
+            }
+        }
+
+        &.is-selected-top {
+            border-style: solid;
+            border-bottom-style: none;
+            border-width: 1px;
+            border-color: @azure-radiance-blue;
+        }
+
+        &.is-selected-bottom {
+            border-style: solid;
+            border-top-style: none;
+            border-width: 1px;
+            border-color: @azure-radiance-blue;
+        }
+
+        &.top {
+            border-radius: 10px 10px 0px 0px;
+
+            @media @breakpoint-lt-md {
+                border-radius: 0px;
+            }
+        }
+
+        &.inner {
+            border-radius: 0px;
+        }
+
+        &.bottom {
+            border-radius: 0px 0px 10px 10px;
+
+            @media @breakpoint-lt-md {
+                border-radius: 0px;
+            }
+        }
+    }
+}

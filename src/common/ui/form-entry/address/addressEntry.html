@@ -1,0 +1,436 @@
+<main id="address-entry-template" [ngModelGroup]="name || 'address'">
+
+    <div *ngIf="!legacy"
+         fxLayout="column"
+         class="refresh-2020">
+         
+        <ng-container *ngIf="showSameAddress">
+            <same-as-mailing-address [checkStatus]="checkStatus" (statusChange)="checkSameAddress($event)">
+            </same-as-mailing-address>
+        </ng-container>
+
+        <section [error-check]="CountrySelect">
+
+            <mat-label>LOCATION</mat-label>
+
+            <mat-select translation-skip id="country"
+                        #CountrySelect="ngModel"
+                        [(ngModel)]="address.country"
+                        name="country"
+                        required
+                        (selectionChange)="countryChanged()"
+                        [disabled]="checkStatus" >
+
+                <mat-option *ngFor="let c of countryList"
+                            [value]="c.countryCode">
+                    {{c.countryName}}
+                </mat-option>
+
+            </mat-select>
+
+            <div *ngFor="let error of CountrySelect.errors | keyvalue">
+
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'required'" class="help-block">Please a valid international address</p>
+                </ng-container>
+            </div>
+        </section>
+
+        <section class="u-spacing__fieldToField--marginTop"
+                 [error-check]="AddressLine1Input">
+
+            <mat-label>ADDRESS LINE 1</mat-label>
+            <input id="addressLine1"
+                   name="addressLine1"
+                   [(ngModel)]="address.address1"
+                   #AddressLine1Input="ngModel"
+                   type="text"
+                   maxLength="100"
+                   pattern="^[0-9a-zA-Z\#\.\:\'\-\,\s]*$"
+                   required
+                   [disabled]="checkStatus" />
+
+            <div *ngFor="let error of AddressLine1Input.errors | keyvalue">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid address</p>
+                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid address</p>
+                    <p *ngSwitchCase="'required'" class="help-block">Please enter a valid address</p>
+                </ng-container>
+            </div>
+        </section>
+
+        <section class="u-spacing__fieldToField--marginTop"
+                 [error-check]="AddressLine2">
+
+            <mat-label>ADDRESS LINE 2</mat-label>
+            <input id="addressLine2"
+                   name="addressLine2"
+                   #AddressLine2="ngModel"
+                   [(ngModel)]="address.address2"
+                   type="text"
+                   maxLength="100"
+                   pattern="^[0-9a-zA-Z\#\.\:\'\-\,\s]*$"
+                   [disabled]="checkStatus" />
+
+            <div *ngFor="let error of AddressLine2.errors | keyvalue" role="alert">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid address</p>
+                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid address</p>
+                </ng-container>
+            </div>
+        </section>
+
+        <section class="u-spacing__fieldToField--marginTop"
+                 [error-check]="CityInput">
+
+            <mat-label>CITY</mat-label>
+            <input id="city"
+                   name="city"
+                   #CityInput="ngModel"
+                   [(ngModel)]="address.city"
+                   type="text"
+                   required
+                   maxLength="20"
+                   pattern="^[0-9a-zA-Z\.\s]*$"
+                   [disabled]="checkStatus" />
+
+            <div *ngFor="let error of CityInput.errors | keyvalue" role="alert">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'required'" class="help-block">Please enter a valid city</p>
+                    <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid city</p>
+                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid city</p>
+                </ng-container>
+            </div>
+            <p class="tip-font" style="margin-bottom: 0px; padding-top: 6px">For military address, please enter 'APO' or 'FFO'</p>
+        </section>
+
+        <section fxLayout="row wrap"
+                 fxLayoutAlign="space-between start"
+                 class="u-spacing__fieldToField--marginTop">
+
+            <div [fxFlex]="international ? '' : 33"
+                 fxFlex.lt-md="grow"
+                 [ngStyle]="international &&  {'padding-right': '30px'}">
+
+                <div>
+                    <mat-label>{{international ? 'PROVINCE/TERRITORY' : 'STATE'}}</mat-label>
+                </div>
+                <mat-select translation-skip *ngIf="!this.international"
+                            id="state"
+                            name="state"
+                            [(ngModel)]='address.state'
+                            [required]="validate"
+                            style="width: 160px"
+                            [ngStyle.lt-md]="{'width': '223px'}"
+                            [disabled]="checkStatus" >
+                    <mat-option *ngFor="let state of stateList" [value]="state.stateCode">{{state.stateCode}}</mat-option>
+                </mat-select>
+                <div *ngIf="this.international"
+                     [error-check]="StateInput"
+                     [ngStyle]="international ? {'width': '100%'} : {'width' : '160px'}"
+                     [ngStyle.lt-md]="{'width': '223px'}">
+                    <input id="state"
+                           name="state"
+                           #StateInput="ngModel"
+                           [(ngModel)]="address.state"
+                           type="text"
+                           required
+                           maxLength="3"
+                           pattern="^[0-9a-zA-Z\\\/\.\s]{2,3}$" />
+                    <div *ngFor="let error of StateInput.errors | keyvalue" role="alert">
+                        <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                            <p *ngSwitchCase="'required'" class="help-block">Please enter a valid province/territory</p>
+                            <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid province/territory</p>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between start"
+                 [fxFlex]="international ? 33 : 66"
+                 fxFlex.lt-md="grow"
+                 ngClass.lt-md="u-spacing__fieldToField--marginTop">
+
+                <div [error-check]="ZipInput"
+                     style="width: 160px"
+                     [ngStyle.lt-md]="{'width': '223px'}">
+                    <div>
+                        <mat-label>{{international ? 'POSTAL' : 'ZIP'}} CODE</mat-label>
+                    </div>
+                    <input type="text"
+                           id="zipCode"
+                           name="zipCode"
+                           #ZipInput="ngModel"
+                           [(ngModel)]="address.zip"
+                           [pattern]="this.international ? '^[a-zA-Z0-9]{5,8}$' : '^[0-9]{5}$'"
+                           required
+                           [ngStyle.lt-md]="{'width': '223px'}"
+                           [disabled]="checkStatus" />
+
+                    <div *ngFor="let error of ZipInput.errors | keyvalue" role="alert">
+                        <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                            <p *ngSwitchCase="'required'" class="help-block">Please enter a valid {{international ? 'postal' : 'zip'}} code</p>
+                            <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid {{international ? 'postal' : 'zip'}} code</p>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div style="padding-top: 48px"
+                     [ngStyle.lt-md]="{'margin': '0 9px'}"
+                     *ngIf="!international">
+
+                    <mat-divider style="width: 14px" class="zip-dash"></mat-divider>
+                </div>
+                <div [error-check]="Plus4Input"
+                     [ngStyle.gt-sm]="{'width': '160px'}"
+                     fxFlex.lt-md="fill"
+                     *ngIf="!international">
+
+                    <div>
+                        <mat-label class="sr-only">Zip Code Plus Four Extension</mat-label><mat-label aria-hidden="true">&nbsp;</mat-label>
+                    </div>
+
+                    <input type="text"
+                           id="plus4"
+                           name="plus4"
+                           #Plus4Input="ngModel"
+                           [(ngModel)]="address.plus4"
+                           pattern="^\d{4}$"
+                           [error-check]="Plus4Input"
+                           maxLength="4"
+                           [disabled]="checkStatus" />
+
+                    <div *ngFor="let error of Plus4Input.errors | keyvalue" role="alert">
+                        <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                            <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid zip extension</p>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div *ngIf="legacy" class="bottom-buffer-sm">
+
+        <div #header>
+            <ng-content select="[override-header]"></ng-content>
+            <ng-container *ngIf="headerOverride">
+                <h2 class="h1-mo" *ngIf="billingType === null">Billing Address</h2>
+                <h2 class="h1-mo" *ngIf="billingType === BillingType.Credit">Credit Card Billing Address</h2>
+                <h2 class="h1-mo" *ngIf="billingType === BillingType.Eft">Bank Account Billing Address</h2>
+                <hr class="desktopOnly hr-base" />
+            </ng-container>
+        </div>
+
+        <span class="checkbox h5">
+            <label for="international" class="sr-only">My {{addressType || 'billing'}} address is outside the U.S.</label>
+            <input id="international" type="checkbox" name="accept"
+                   [ngModel]="international" (ngModelChange)="checkInternationalBox($event)"
+                   style="margin-top: 2px;" />My {{addressType || 'billing'}} address is outside the U.S.
+        </span>
+
+        <ng-container *ngIf="showSameAddress">
+            <same-as-mailing-address [checkStatus]="checkStatus" (inputChange)="checkSameAddress($event)">
+            </same-as-mailing-address>
+        </ng-container>
+    </div>
+
+    <div *ngIf="!international && legacy">
+        <ng-container *ngIf="showSameAddress">
+            <same-as-mailing-address [checkStatus]="checkStatus" (inputChange)="checkSameAddress($event)">
+            </same-as-mailing-address>
+        </ng-container>
+        
+        <div class="form-group top-buffer-sm-half" [error-check]="AddressLine1Input">
+            <label for="addressLine1">Address Line 1</label>
+            <input id="addressLine1"
+                   name="addressLine1"
+                   [(ngModel)]="address.address1"
+                   #AddressLine1Input="ngModel"
+                   class="form-control form-entry-width"
+                   type="text"
+                   maxLength="100"
+                   pattern="^[0-9a-zA-Z\#\.\:\'\/\-\,\s\\]*$"
+                   required />
+
+            <div *ngFor="let error of AddressLine1Input.errors | keyvalue">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid address</p>
+                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid address</p>
+                    <p *ngSwitchCase="'required'" class="help-block">Please enter a valid address</p>
+                </ng-container>
+            </div>
+
+        </div>
+
+        <div class="form-group top-buffer-sm-half" [error-check]="AddressLine2">
+            <label for="addressLine2">Address Line 2</label>
+            <input id="addressLine2"
+                   name="addressLine2"
+                   #AddressLine2="ngModel"
+                   [(ngModel)]="address.address2"
+                   class="form-control form-entry-width"
+                   type="text"
+                   maxLength="100"
+                   pattern="^[0-9a-zA-Z\#\.\:\'\/\-\,\s\\]*$" />
+
+            <div *ngFor="let error of AddressLine2.errors | keyvalue" role="alert">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid address</p>
+                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid address</p>
+                </ng-container>
+            </div>
+
+        </div>
+
+        <div class="form-group top-buffer-sm-half" [error-check]="CityInput">
+            <label for="city">City</label>
+            <input id="city"
+                   name="city"
+                   #CityInput="ngModel"
+                   [(ngModel)]="address.city"
+                   class="form-control form-entry-width"
+                   type="text"
+                   required
+                   maxLength="20"
+                   pattern="^[0-9a-zA-Z\\\/\.\s]*$" />
+
+            <div *ngFor="let error of CityInput.errors | keyvalue" role="alert">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'required'" class="help-block">Please enter a valid city</p>
+                    <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid city</p>
+                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid city</p>
+                </ng-container>
+            </div>
+
+            <p class="h5 top-buffer-xs">For military address, please enter 'APO' or 'FFO'</p>
+        </div>
+
+        <div class="form-group row no-margin top-buffer-sm-half">
+            <label for="state">State</label>
+            <div id="addressState">
+                <div class="col-xs-4 no-padding-left">
+                    <select translation-skip id="state"
+                            name="state"
+                            [(ngModel)]='address.state'
+                            class="form-control state-entry-width"
+                            [required]="validate">
+                        <option *ngFor="let state of stateList" [value]="state.stateCode">{{state.stateCode}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row no-margin top-buffer-sm-half">
+            <label for="zipCode">Zip Code</label>
+            <div class="zip-fields-width">
+                <div class="col-xs-7 no-padding-left pull-left" [error-check]="ZipInput">
+                    <input type="text"
+                           id="zipCode"
+                           name="zipCode"
+                           #ZipInput="ngModel"
+                           [(ngModel)]="address.zip"
+                           class="form-control zip-entry-width"
+                           pattern="^\d{5}$"
+                           required />
+
+                    <div *ngFor="let error of ZipInput.errors | keyvalue" role="alert">
+                        <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                            <p *ngSwitchCase="'required'" class="help-block">Please enter a valid zip code</p>
+                            <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid zip code</p>
+                        </ng-container>
+                    </div>
+
+                </div>
+
+                <div id="zip-four-ext" class="col-xs-5 no-padding pull-right" [error-check]="Plus4Input">
+                    <label for="plus4" class="sr-only">Zip Code Plus Four Extension</label>
+                    <input type="text"
+                           id="plus4"
+                           name="plus4"
+                           #Plus4Input="ngModel"
+                           [(ngModel)]="address.plus4"
+                           class="form-control plus-four-width"
+                           pattern="^\d{4}$"
+                           [error-check]="Plus4Input"
+                           maxLength="4" />
+
+                    <div *ngFor="let error of Plus4Input.errors | keyvalue" role="alert">
+                        <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                            <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid zip extension</p>
+                        </ng-container>
+                    </div>
+
+                </div>
+
+                <div id="zip-dash-container">
+                    <span id="zip-dash" class="icon-bar"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="international && legacy">
+        <div class="form-group" [error-check]="CountrySelect">
+            <label for="country">Location</label>
+            <select translation-skip id="country" #CountrySelect="ngModel"
+                    [(ngModel)]="address.country"
+                    class="form-control form-entry-width"
+                    name="country"
+                    required
+                    (change)="countryChanged()">
+                <option *ngIf="address.country===''" value="">Select Location</option>
+                <option *ngFor="let c of countryList" [value]="c.countryCode">{{c.countryName}}</option>
+            </select>
+
+            <div *ngFor="let error of CountrySelect.errors | keyvalue">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'required'" class="help-block">Please a valid international address</p>
+                </ng-container>
+            </div>
+
+        </div>
+
+        <div class="form-group" [error-check]="IntAddressLine1Input">
+            <label for="intaddressLine1">Address Line 1</label>
+            <input id="intaddressLine1"
+                   name="intaddressLine1"
+                   #IntAddressLine1Input="ngModel"
+                   [(ngModel)]="address.address1"
+                   class="form-control form-entry-width"
+                   type="text"
+                   maxLength="100"
+                   pattern="^[0-9a-zA-Z\#\.\:\'\/\-\,\s\\]*$"
+                   required />
+
+            <div *ngFor="let error of IntAddressLine1Input.errors | keyvalue">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'required'" class="help-block">Please a valid international address</p>
+                    <p *ngSwitchCase="'maxlength'" class="help-block">Please a valid international address</p>
+                    <p *ngSwitchCase="'pattern'" class="help-block">Please a valid international address</p>
+                </ng-container>
+            </div>
+
+        </div>
+
+        <div class="form-group" [error-check]="IntAddressLine2Input">
+            <label for="intaddressLine2">Address Line 2</label>
+            <input id="intaddressLine2"
+                   name="intaddressLine2"
+                   #IntAddressLine2Input="ngModel"
+                   [(ngModel)]="address.address2"
+                   class="form-control form-entry-width"
+                   type="text"
+                   maxLength="100"
+                   pattern="^[0-9a-zA-Z\#\.\:\'\/\-\,\s\\]*$" />
+
+            <div *ngFor="let error of IntAddressLine2Input.errors | keyvalue">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid international address</p>
+                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid international address</p>
+                </ng-container>
+            </div>
+
+        </div>
+    </div>
+</main>

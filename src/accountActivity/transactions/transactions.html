@@ -1,0 +1,127 @@
+<main fxLayout="column">
+    <card-dash-container fxFlex="auto"
+                         [hasMargin]="false">
+        <h2>Account Transactions</h2>
+
+        <section fxLayout="row wrap"
+                 fxLayoutAlign="start center">
+
+            <div fxFlex="none"
+                 ngClass.lt-md="u-spacing--widthFill clear-filter-alignment">
+                <a class="u--noUnderline display-block label-offset font-link"
+                   (click)="clearFilterClicked()">Clear Filter</a>
+            </div>
+        </section>
+
+        <section fxLayout="row wrap"
+                 fxLayoutAlign="start center"
+                 class="filter-offset filter-criteria-gap u-spacing--widthFill">
+
+            <mat-label class="filter-label-offset">FILTERED BY:</mat-label>
+            <account-activity-filter-criteria fxFlex="none" *ngFor="let tag of searchCriteriaTags">
+                {{tag}}
+            </account-activity-filter-criteria>
+        </section>
+
+        <show-results [transactionType]="searchCriteriaTags[2]"
+                      [vehicle]="searchCriteriaTags[1]"
+                      [dateRange]="searchCriteriaTags[0]"
+                      [filterType]="searchCriteriaTags[3]"
+                      [title]="cmsContent.SHOW_RESULTS_TITLE"
+                      [context]="cmsContent.SHOW_RESULTS_CONTEXT"
+                      ></show-results>
+    </card-dash-container>
+
+
+    <card-dash-container fxFlex="auto"
+                         [hasMargin]="false"
+                         class="u-spacing__cardToCard--marginTop">
+        <section class="table-padding">
+
+            <section fxLayout="row wrap"
+                     fxLayoutAlign="space-between"
+                     class="transactions-found-display">
+
+                <section fxFlex="none"
+                         fxFlex.lt-md="grow"
+                         fxLayout="row"
+                         fxLayoutAlign="space-between">
+                    <div fxFlex="none">{{totalRecordsCount}} Record{{totalRecordsCount > 1 ? 's' : ''}} found</div>
+
+                    <div fxFlex="none"
+                         fxFlexOffset="32px"
+                         fxFlexOffset.lt-md="0px"
+                         fxLayout="row"
+                         fxLayoutGap="16px">
+                        <a translation-skip
+                           *ngIf="!environmentConfig.hideMediaActionButtons.TransactionTabPdf && !environmentConfig.hidePdfAccountActivity"
+                           fxFlex="none"
+                           (click)="getTransactionsPdf()"
+                           class="download-link"
+                           [ngClass]="{'disabled': reportDownloading}">
+                            <img src="/Content/icons/pdf.gif" class="download-icon" />PDF
+                        </a>
+                        <a translation-skip
+                           *ngIf="!environmentConfig.hideMediaActionButtons.TransactionTabExcel && !environmentConfig.hideExcelAccountActivity"
+                           fxFlex="none"
+                           (click)="getTransactionsExcel()"
+                           class="download-link"
+                           [ngClass]="{'disabled': reportDownloading}">
+                            <img src="/Content/icons/excel.gif" class="download-icon" />Excel
+                        </a>
+                    </div>
+                </section>
+
+                <section fxFlex="1 1 300px"
+                         fxFlex.lt-md="grow"
+                         class="transactions-total-display">
+                    <span>Filtered Total: </span><span translation-skip>{{filteredTotal | currency:'USD'}}</span>
+                </section>
+            </section>
+
+            <section *ngIf="totalRecordsCount >= paginationLimit"
+                     fxLayout="row"
+                     fxLayoutAlign="start center"
+                     class="u-spacing--widthFill"
+                     style="margin-top:10px">
+                <div fxShow
+                     fxHide.lt-md
+                     fxFlex="auto"
+                     fxLayout="row"
+                     fxLayoutAlign="end center">
+                    <mat-paginator-goto [length]="totalRecordsCount"
+                                        [pageIndex]="0"
+                                        [pageSize]="defaultPageSize"
+                                        [hidePageSize]="true"
+                                        (page)="updateTransactionsTable($event)">
+                    </mat-paginator-goto>
+                </div>
+            </section>
+
+            <section class="u-spacing--widthFill u-spacing__gridToRecords--marginTop">
+                <section *ngIf="totalRecordsCount > 0; else noData">
+                    <account-activity-transactions-table *ngIf="totalRecordsCount < paginationLimit" [transactionRecords]="listOfAllRecords" [showLocationLink]="showLocationLink"></account-activity-transactions-table>
+                    <account-activity-transactions-table *ngIf="totalRecordsCount >= paginationLimit" fxShow fxHide.lt-md [transactionRecords]="paginatedRecords" [showLocationLink]="showLocationLink"></account-activity-transactions-table>
+                    <account-activity-transactions-table *ngIf="totalRecordsCount >= paginationLimit" fxHide fxShow.lt-md [transactionRecords]="mobileLoadedRecords" [showLocationLink]="showLocationLink"></account-activity-transactions-table>
+                </section>
+                 <ng-template #noData>
+                    <section fxLayout="column" fxLayoutAlign="center center">
+                        <mat-icon class="noData" svgIcon="bar-chart-icon"></mat-icon>
+                        <span class="rowItem">{{cmsContent.EMPTY_WARNING}}</span>
+                    </section>
+                 </ng-template>
+            </section>
+
+            <section *ngIf="totalRecordsCount >= paginationLimit && mobileLoadedRecords.length < totalRecordsCount"
+                     fxLayout="row"
+                     fxLayoutAlign="center"
+                     fxHide
+                     fxShow.lt-md
+                     class="u-spacing--widthFill u-spacing__loadMore--margin">
+                <a class="u--noUnderline"
+                   (click)="mobileLoadMore()">Load more</a>
+            </section>
+
+        </section>
+    </card-dash-container>
+</main>

@@ -1,0 +1,134 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/mixins.less';
+@import '../../common/ui/containers/fxRow/details.less';
+
+:host {
+
+    .date-label {
+        margin-left: 10px;
+    }
+
+    @media screen and (max-width: 379px) {
+        .date-label::after {
+            content: ' /';
+        }
+    }
+
+    .display {
+        display: block;
+    }
+
+    .from-calendar-position {
+        @media @breakpoint-gt-sm {
+            margin-bottom: -23px;
+        }
+    }
+
+    .calendar-width {
+        max-width: 240px;
+
+        @media @breakpoint-lt-md {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .subtext-position {
+        margin-top: 8px;
+    }
+
+    .gridish {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .gridish > * {
+        flex: 1 1 10em;
+    }
+
+    .gridish-title {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .gridish-title > * {
+        flex: 1 1 12em;
+    }
+
+    .gridish-title-small {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .gridish-title-small > * {
+        flex: 1 1 24em;
+    }
+
+    .table-padding {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        @media @breakpoint-lt-md {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
+
+    .mobileDatePicker {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .glyphicon {
+        &.glyphicon-chevron-right {
+            font-size: 11px;
+            font-weight: 100;
+            top: -2px;
+        }
+    }
+
+    .whiteSpace {
+        width: 10px;
+    }
+
+    .standardStateDropdown {
+        width: 322px;
+    }
+
+    .buttonStyle {
+        margin-top: 20px;
+    }
+    //these must be at the end due to cascading rules
+    //causing conflicts with display: flex
+    @media @breakpoint-lt-md {
+        .large-view {
+            display: none;
+        }
+    }
+
+    @media not @breakpoint-lt-md {
+        .small-view {
+            display: none;
+        }
+    }
+
+    @media not @breakpoint-lt-md {
+        .extended-row {
+            .extended-row-mixin();
+        }
+    }
+
+    @media @breakpoint-lt-md {
+        .extended-row {
+            .extended-row-lt-md-mixin();
+        }
+    }
+
+    .noData {
+        width: 40px;
+        height: 40px;
+        vertical-align: text-top;
+        margin-right: 8.75px;
+        color: @boulder-gray;
+    }
+}

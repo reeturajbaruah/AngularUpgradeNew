@@ -1,0 +1,44 @@
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/custom/spacing/dividers.less';
+
+:host {
+    mat-divider {
+        &.mat-divider.mat-divider-vertical {
+            border-color: @purple-heart-purple;
+            height: 20px;
+            border-width: 2px;
+            margin: 0px 10px;
+        }
+    }
+
+    section {
+        margin-left: 20px;
+        padding-top: 15px;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @media @breakpoint-lt-md {
+            padding-top: 10px;
+        }
+    }
+
+    div {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    a {
+        .t-header--fontFamily();
+        color: @purple-heart-purple !important;
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+
+        &.selected {
+            border-bottom: 2px solid @purple-heart-purple;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+<div fxLayout="row"
+     fxLayoutAlign="start center"
+     class="card extended"
+     [ngClass.lt-md]="{'lt-md': true}">
+
+    <div fxLayout="column"
+         class="u-spacing--widthFill"
+         [fxLayoutAlign]="alignment || ''">
+        <ng-content></ng-content>
+    </div>
+
+</div>

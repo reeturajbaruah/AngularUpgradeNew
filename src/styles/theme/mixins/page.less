@@ -1,0 +1,75 @@
+@import (reference) '../../variables.less';
+
+
+@body--backgroundColor-light: @white;
+@body--backgroundColor2-light: @athens-gray;
+@body--backgroundColor3-light: @athens-gray;
+@body--color-light: @tuna-gray;
+@body__positiveFeedback--color-light: @tropical-rain-forest-green;
+@body__borders--borderColor-light: @silver-gray;
+@header--color-light: @tuna-gray;
+@label--color-light: @boulder-gray;
+@select__arrow--color-light: @scorpion-gray;
+@link--color-light: @azure-radiance-blue;
+@divider--borderColor-light: @school-bus-yellow;
+
+
+.t-body--backgroundColor(@theme) {
+    @color: 'body--backgroundColor-@{theme}';
+    background-color: @@color;
+}
+
+.t-body--backgroundColor2(@theme) {
+    @color: 'body--backgroundColor2-@{theme}';
+    background-color: @@color;
+}
+
+.t-body--backgroundColor3(@theme) {
+    @color: 'body--backgroundColor3-@{theme}';
+    background-color: @@color;
+}
+
+.t-body--color(@theme) {
+    @color: 'body--color-@{theme}';
+    color: @@color;
+}
+
+.t-body__positiveFeedback--color(@theme) {
+    @color: 'body__positiveFeedback--color-@{theme}';
+    color: @@color;
+}
+
+.t-body__borders--borderColor(@theme) {
+    @color: 'body__borders--borderColor-@{theme}';
+    border-color: @@color;
+}
+
+.t-header--color(@theme) {
+    @color: 'header--color-@{theme}';
+    color: @@color;
+}
+
+.t-label--color(@theme) {
+    @color: 'label--color-@{theme}';
+    color: @@color;
+}
+
+.t-select__arrow--color(@theme) {
+    @color: 'select__arrow--color-@{theme}';
+    color: @@color;
+}
+
+.t-link--color(@theme) {
+    @color: 'link--color-@{theme}';
+    color: @@color !important; // marked as !important to override bootstrap
+}
+
+.t-divider--borderColor(@theme) {
+    @color: 'divider--borderColor-@{theme}';
+    border-color: @@color;
+}
+
+.t-divider__dash--borderColor(@theme) {
+    @color: 'body__borders--borderColor-@{theme}';
+    border-color: @@color;
+}

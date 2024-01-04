@@ -1,0 +1,18 @@
+@import (reference) '../../styles/themes.less';
+
+// lesshint-disable-next-line emptyRule
+:host {
+
+    main {
+        .t-body--backgroundColor2(@theme-light);
+    }
+
+    stepper {
+        display: block;
+        min-height: 32px;
+
+        @media @breakpoint-lt-md {
+            min-height: unset;
+        }
+    }
+}

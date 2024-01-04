@@ -1,0 +1,40 @@
+@import (reference) '../../variables.less';
+
+
+@stepper__selected--color-light: @purple-heart-purple;
+@stepper__selected--backgroundColor-light: @purple-heart-purple;
+@stepper__unselected--color-light: @boulder-gray;
+@stepper__unselected--backgroundColor-light: @boulder-gray;
+@stepper--backgroundColor-light: @alabaster-gray;
+@stepper__divider--borderColor-light: @silver-gray;
+
+
+.t-stepper__selected--color(@theme) {
+    @color: 'stepper__selected--color-@{theme}';
+    color: @@color;
+}
+
+.t-stepper__selected--backgroundColor(@theme) {
+    @color: 'stepper__selected--backgroundColor-@{theme}';
+    background-color: @@color;
+}
+
+.t-stepper__unselected--color(@theme) {
+    @color: 'stepper__unselected--color-@{theme}';
+    color: @@color;
+}
+
+.t-stepper__unselected--backgroundColor(@theme) {
+    @color: 'stepper__unselected--backgroundColor-@{theme}';
+    background-color: @@color;
+}
+
+.t-stepper--backgroundColor(@theme) {
+    @color: 'stepper--backgroundColor-@{theme}';
+    background-color: @@color;
+}
+
+.t-stepper__divider--borderColor(@theme) {
+    @color: 'stepper__divider--borderColor-@{theme}';
+    border-color: @@color;
+}

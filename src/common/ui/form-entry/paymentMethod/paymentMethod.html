@@ -1,0 +1,58 @@
+<main>
+    <div fxLayout="column">
+        <!-- TODO: Change how this is structured once Wave 1 cleanup starts -->
+        <div class="bottom-buffer-sm" *ngIf="lockType">
+            <p class="h4">
+                Payment Method:
+                <span class="font-avenir-medium" *ngIf="billingType === BillingType.Credit">Credit Card</span>
+                <span class="font-avenir-medium" *ngIf="billingType === BillingType.Eft">Bank Account</span>
+            </p>
+        </div>
+
+        <!--Nathaniel Phamiel put this here and believes this will be deleted very qucikly once Wave 1 Refresh starts-->
+        <div *ngIf="legacy">
+            <div class="form-group" [error-check]="PaymentMethodSelect" *ngIf="!lockType" ngModelGroup="paymentMethod">
+                <label for="paymentmethod">Select Payment Method</label>
+                <select class="form-control payment-method-select setItalic"
+                        [ngClass]="{ 'setItalic' : !billingType }"
+                        id="paymentmethod"
+                        name="paymentmethod"
+                        #PaymentMethodSelect="ngModel"
+                        [(ngModel)]="billingType"
+                        (change)="updateValue()"
+                        required>
+                    <option *ngIf="billingType === null" [value]="null" disabled selected>Select Payment Method</option>
+                    <option [value]="BillingType.Credit">Credit Card</option>
+                    <option [value]="BillingType.Eft">Bank Account</option>
+                </select>
+                <div *ngFor="let error of PaymentMethodSelect.errors | keyvalue" role="alert">
+                    <ng-container *ngIf="form.submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'required'" class="help-block">Please select a payment type</p>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!legacy" class="refresh-2020 u-spacing--widthFill">
+            <div [error-check]="PaymentMethodSelect" *ngIf="!lockType" ngModelGroup="paymentMethod">
+                <mat-label for="paymentmethod">SELECT PAYMENT METHOD</mat-label>
+                <mat-select [ngClass]="{ 'setItalic' : !billingType }"
+                            id="paymentmethod"
+                            name="paymentmethod"
+                            #PaymentMethodSelect="ngModel"
+                            [(ngModel)]="billingType"
+                            (selectionChange)="updateValue()"
+                            placeholder="Select Payment Method"
+                            required>
+                    <mat-option [value]="BillingType.Credit">Credit Card</mat-option>
+                    <mat-option [value]="BillingType.Eft">Bank Account</mat-option>
+                    <mat-option *ngIf="paymentMethodDetails?.showCashOption"  [disabled]="!paymentMethodDetails?.enableCashOption" [value]="BillingType.Cash">Cash</mat-option>
+                </mat-select>
+                <div *ngFor="let error of PaymentMethodSelect.errors | keyvalue" role="alert">
+                    <ng-container *ngIf="form.submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'required'" class="help-block">Please select a payment type</p>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

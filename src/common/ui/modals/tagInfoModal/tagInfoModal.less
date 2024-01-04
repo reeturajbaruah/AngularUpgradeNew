@@ -1,0 +1,38 @@
+@import (reference) '../../../../styles/variables.less';
+
+:host {
+    .table-row,
+    .table-header {
+        mat-label,
+        span {
+            &:nth-child(1) {
+                width: 100%;
+                align-content: center;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: row;
+                box-sizing: border-box;
+                display: flex;
+            }
+
+            &:nth-child(2) {
+                text-align: right;
+                margin-left: auto;
+                min-width: 105px;
+            }
+        }
+    }
+
+    .table-header {
+        text-transform: uppercase;
+        padding: 6px 0px;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    h2 {
+        max-height: 70px;
+    }
+}

@@ -1,0 +1,33 @@
+<ng-container *ngIf="{ links: links$ | async} as dropdown">
+
+    <div ngClass.lt-md="compact-menu"
+         [@showTrigger]="!!dropdown.links"
+         [class.show-box-shadow]="!!dropdown.links"
+         [ngStyle]="{top: (74-scrollY) + 'px', right: right + 'px' }"
+         [ngStyle.lt-md]="{top: (60-scrollY) + 'px', right: '0px'}">
+        <div class="content" fxLayout="column" [ngStyle]="{ opacity: dropdown.links ? 1 : 0 }">
+            <ng-container *ngIf="{ allow: allowNavigation$ | async} as navigation">
+                <ng-container *ngFor="let link of dropdown.links">
+                    <a (click)="navigation.allow && closeMenu()"
+                       [href]=link.url
+                       [clickPreventDefault]="{ enabled: !navigation.allow }"
+                       fxLayout="row"
+                       fxLayoutAlign="start center">
+                        <span>{{link.label}}</span>
+                    </a>
+                </ng-container>
+                <a [clickPreventDefault]="{ enabled: !navigation.allow }" fxLayout="row" fxLayoutAlign="start center">
+                    <span>Username: {{currentUser?.username}}</span>
+                </a>
+            </ng-container>
+
+            <a (click)="logout()"
+               href="#logout"
+               clickPreventDefault
+               fxLayout="row"
+               fxLayoutAlign="start center">
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+</ng-container>

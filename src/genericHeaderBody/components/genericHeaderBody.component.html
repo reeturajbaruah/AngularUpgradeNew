@@ -1,0 +1,19 @@
+<div class="mobile-bottom-buffer">
+    <header id="june-redesign" class="header-spacing">
+        <h1 class="no-margin-top-do">{{title}}</h1>
+        <hr />
+    </header>
+
+    <div [innerHTML]="longDescription | safeHtml"></div>
+
+    <div *ngFor="let item of subItems">
+        <header class="header-spacing">
+            <h2>{{item.Title}}</h2>
+            <hr />
+        </header>
+
+        <div class="cms-picture-auto-scale">
+            <div [innerHTML]="item.LongDescription | safeHtml"></div>
+        </div>
+    </div>
+</div>

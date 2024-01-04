@@ -1,0 +1,88 @@
+@import (reference) '../../../../styles/variables.less';
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../../../Content/css/site-variables.less';
+
+:host {
+
+    .primaryLabel {
+        background-color: #ffdd09;
+        width: 66px;
+        height: 20px;
+        padding-left: 16px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        font-size: 10px;
+        font-family: @font-jost;
+        vertical-align: top;
+    }
+
+    .accountNumberLabel {
+        font-size: 14px;
+        font-family: @font-montserrat;
+    }
+
+    .active svg > path {
+        display: none;
+    }
+
+    .active {
+        color: @tropical-rain-forest-green;
+    }
+
+    .expiring {
+        color: @pizazz-gold;
+    }
+
+    .expiring svg > path {
+        fill: @pizazz-gold;
+    }
+
+    .expired {
+        color: @torch-red;
+    }
+
+    .expired svg > path {
+        fill: @torch-red;
+    }
+
+    .hoverBoxAdjusment {
+        padding: 15px;
+        min-width: 300px;
+        font-size: 16px;
+        line-height: 2;
+    }
+
+    .noData {
+        width: 40px;
+        height: 40px;
+        vertical-align: text-top;
+        margin-right: 8.75px;
+        color: @boulder-gray;
+    }
+
+    .cmsImage {
+
+        @media @breakpoint-xs {
+            width: 99px;
+            height: 86px;
+        }
+
+        @media @breakpoint-gt-xs {
+            width: 120px;
+            height: 100px;
+        }
+    }
+
+    .toolTip {
+        width: 12.5px;
+    }
+
+    .rowItem {
+        font-size: 14px;
+    }
+
+    a {
+        .t-header--fontFamily();
+        margin-left: auto;
+    }
+}

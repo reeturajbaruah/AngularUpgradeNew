@@ -1,0 +1,11 @@
+<div fxLayout="row"
+     fxLayoutAlign="start center"
+     class="extended"
+     [ngClass]="calculateClasses()"
+     [ngClass.lt-md]="calculateClassesLtMd()">
+
+    <ng-content select="[col-start]"></ng-content>
+
+    <ng-content select="[col-end]"></ng-content>
+
+</div>

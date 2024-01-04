@@ -1,0 +1,34 @@
+@import (reference) '../../../styles/themes.less';
+@import 'common/ui/containers/fxRow/details.less';
+
+:host {
+
+    .table-space {
+        margin-top: 8px;
+
+        &.lt-md {
+            margin-top: 2px;
+        }
+    }
+
+    .check-mark-text {
+        .t-body__positiveFeedback--color(@theme-light);
+        margin-left: 8px;
+    }
+
+    .glyphicon {
+        &.glyphicon-chevron-right {
+            font-size: 11px;
+            font-weight: 100;
+            top: -1px;
+        }
+    }
+
+    .violationId--width {
+        width: 118px;
+    }
+
+    .center-vertical {
+        vertical-align: text-bottom;
+    }
+}

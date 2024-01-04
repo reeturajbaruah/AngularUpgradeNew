@@ -1,0 +1,33 @@
+<page-centered-container class="refresh-2020">
+
+    <form #Form="ngForm" validation-focus novalidate>
+
+        <div class="u-spacing__fieldToSection--marginTop">
+
+            <card-container>
+                <header>
+                    <h2>{{cmsAddTagVehicleInfo.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <vehicle-info-form-entry [modalCms]="cmsAddTagVehicleInfo"
+                                         [vehicleInfo]="vehicleInfo"
+                                         [stateList]="statesList"
+                                         [plateIsReadOnly]="false">
+                </vehicle-info-form-entry>
+            </card-container>
+
+            <section class="u-spacing__buttonToField--marginTop">
+                <wizard-ui #Wizard
+                           (next)="nextStep($event)"
+                           [disabled]="Form.submitted && Form.invalid">
+                    <span wizard-next>Next</span>
+                    <span wizard-cancel>Cancel</span>
+                </wizard-ui>
+            </section>
+
+        </div>
+
+    </form>
+
+</page-centered-container>

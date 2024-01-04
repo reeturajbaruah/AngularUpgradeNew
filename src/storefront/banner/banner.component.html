@@ -1,0 +1,8 @@
+<div class="logo-container" *ngIf="!desktopMode && isReady">
+    <img src={{HCTRALogo.ItemMedialUrl}} alt={{HCTRALogo.Alt}} role="button" (click)="hardReset()" tabindex="0" />
+</div>
+
+<div class="storefront workflow-functions">
+    <button class="exitBtn smallBtn" [class.desktop]="desktopMode" *ngIf="showExitBtn()" (click)="exit()">Exit</button>
+    <kiosk-language-select *ngIf="!desktopMode && showLanguageSelect()"></kiosk-language-select>
+</div>

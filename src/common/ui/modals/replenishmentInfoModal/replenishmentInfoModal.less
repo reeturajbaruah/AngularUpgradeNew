@@ -1,0 +1,56 @@
+@import (reference) '../../../../styles/variables.less';
+
+:host {
+    .table-row,
+    .table-header {
+        section {
+            width: 100%;
+            align-content: center;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            box-sizing: border-box;
+            display: flex;
+            margin-right: 5px;
+
+            mat-label,
+            span {
+                &:nth-child(1) {
+                    width: calc((100% * (2 / 5)));
+                }
+
+                &:nth-child(2) {
+                    width: calc((100% * (3 / 5)));
+                    padding-left: 5px;
+                }
+            }
+
+            + mat-label,
+            + span {
+                width: 200px;
+                text-align: right;
+            }
+        }
+    }
+
+    .table-header {
+        text-transform: uppercase;
+        padding: 15px 0px;
+
+        ::ng-deep div.is-label {
+            min-height: 35px !important;
+        }
+    }
+
+    .table-row {
+        padding: 10px 0px;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    h2 {
+        max-height: 70px;
+    }
+}

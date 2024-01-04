@@ -1,0 +1,19 @@
+<main [fxLayout]="side ? 'column' : 'row'"
+      [fxLayoutGap]="side ? '44px' : '0px'"
+      [fxLayoutAlign]="side ? 'start stretch': 'space-between center'"
+      [class.bottom]="!side">
+
+    <!--(click)="checkIfmodal needs to be shown to navigate away from current state
+           uiRouterGlobal has current state
+           add configs to route.data in routing.ts or create something like wizard entry for charms
+           $event.preventDefault if modal needed"
+           menuLink-->
+    <a fxLayout="column"
+       fxLayoutAlign="space-around center"
+       *ngFor="let charm of charms"
+       [class.active]="charm.active"
+       [href]="charm.url">
+        <mat-icon [svgIcon]="charm.svgIconName"></mat-icon>
+        <span>{{side ? charm.fullLabel : charm.shortLabel}}</span>
+    </a>
+</main>

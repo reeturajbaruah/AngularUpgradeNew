@@ -1,0 +1,285 @@
+<section fxLayout="row" [ngStyle]="{'height':cmsData.mainPanelHeight}">
+    <div fxLayout="column"
+         fxLayoutAlign="start start"
+         ngClass="leftPanel">
+        <div ngClass="leftContentPadding">
+            <div *ngFor="let leftSection of displayList; let indexSection=index"
+                 [ngClass]="{'left-show' : currentSelectedIndex === indexSection,
+                             'left-hide' : currentSelectedIndex !== indexSection}">
+                <!-- SIGN UP FOR EZ TAG -->
+                <div *ngIf="leftSection.SectionConfig === callToActionConfig.SignUp
+                     && currentSelectedIndex === indexSection">
+                    <h1 ngClass="leftContentInteriorSpacing leftTile">{{leftSection.ContentTitle}}</h1>
+
+                    <article ngClass="leftContentInteriorSpacing"
+                             [innerHTML]="leftSection.Content | safeHtml"></article>
+
+                    <div fxLayout="row"
+                         fxLayoutAlign="normal center">
+                        <button id="submitBtn"
+                                type="submit"
+                                ngClass="btn"
+                                (click)="goToPage(leftSection.SectionConfig)">
+                            {{leftSection.ButtonText}}
+                        </button>
+
+                        <a href="{{leftSection.learnMoreURL}}" target="_blank">Learn more about EZ TAGs</a>
+                    </div>
+                </div>
+
+                <!--EZ TAG ACCOUNT -->
+                <div *ngIf="leftSection.SectionConfig === callToActionConfig.AccountDashboard
+                     && currentSelectedIndex === indexSection">
+                    <h1 ngClass="leftContentInteriorSpacing leftTile">{{leftSection.ContentTitle}}</h1>
+                    <article ngClass="leftContentInteriorSpacing"
+                             [innerHTML]="leftSection.Content | safeHtml"></article>
+                    <div fxLayout="row"
+                         fxLayoutAlign="normal center">
+                        <button id="submitBtn"
+                                type="submit"
+                                ngClass="btn"
+                                (click)="goToPage(leftSection.SectionConfig)">
+                            {{leftSection.ButtonText}}
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--PAY INVOICES AND MISSED TOLLS-->
+                <div *ngIf="leftSection.SectionConfig === callToActionConfig.PayTollsAndInvoices
+                     && currentSelectedIndex === indexSection">
+                    <h1 ngClass="leftContentInteriorSpacing leftTile">{{leftSection.ContentTitle}}</h1>
+                    <article [innerHTML]="leftSection.Content"></article>
+                    <form ngClass="leftContentInteriorSpacing" #InvoiceForm="ngForm" validation-focus novalidate
+                          fxLayout="column start"
+                          class="u-spacing__fieldToSection--marginTop">
+                        <!-- State and License Plate Number-->
+                        <div fxLayout="row"
+                             fxLayoutAlign="start start"
+                             fxLayoutGap="30px">
+                            <!-- State drop down-->
+                            <div fxFlex="none">
+                                <mat-label>STATE</mat-label>
+                                <mat-select ngClass="selectAdjustment"
+                                            translation-skip [(value)]="violations.selectedState"
+                                            [disableOptionCentering]="true">
+                                    <mat-option *ngFor="let state of stateList" [value]="state">{{state.stateCode}}</mat-option>
+                                </mat-select>
+                            </div>
+
+                            <!-- License Plate input box-->
+                            <div fxFlex="auto"
+                                 [error-check]="licensePlateInput">
+                                <mat-label translation-skip>LICENSE PLATE NUMBER</mat-label>
+                                <input type="text"
+                                       name="licensePlate"
+                                       [(ngModel)]="violations.licensePlateNumber" #licensePlateInput="ngModel"
+                                       required
+                                       id="licensePlate"
+                                       tabindex="2"
+                                       pattern="^[a-zA-Z0-9]{1,10}$"
+                                       maxlength="10" />
+                                <aside *ngFor="let error of licensePlateInput.errors | keyvalue">
+                                    <ng-container *ngIf="InvoiceForm.submitted" [ngSwitch]="error.key">
+                                        <p *ngSwitchCase="'pattern'" class="help-block small-block">Please enter a valid license plate number</p>
+                                        <p *ngSwitchCase="'required'" class="help-block small-block">Please enter a valid license plate number</p>
+                                        <p *ngSwitchCase="'maxlength'" class="help-block small-block">Please enter a valid license plate number</p>
+                                    </ng-container>
+                                </aside>
+                            </div>
+
+                            <!-- Invoice number input box -->
+                            <div fxFlex="auto" [error-check]="invoiceNumberInput">
+                                <mat-label for="invoice">INVOICE NUMBER</mat-label>
+                                <input type="text" id="invoice" [(ngModel)]="violations.invoiceNumber" #invoiceNumberInput="ngModel"
+                                       pattern="^[0-9]+$" name="invoice" tabindex="3" />
+
+                                <aside *ngFor="let error of invoiceNumberInput.errors | keyvalue">
+                                    <ng-container *ngIf="InvoiceForm.submitted" [ngSwitch]="error.key">
+                                        <p *ngSwitchCase="'pattern'" class="help-block small-block">Please enter a valid invoice number</p>
+                                        <p *ngSwitchCase="'required'" class="help-block small-block">Please enter a valid invoice number</p>
+                                    </ng-container>
+                                </aside>
+                            </div>
+                        </div>
+
+                        <div fxLayout="column" class="u-spacing__fieldToField--marginTop">
+                            <div>
+                                <a id="findInvoiceLnk" (click)="openInvoiceExample()">Need help finding the information on your invoice?</a>
+                            </div>
+                        </div>
+                        <div class="u-spacing__buttonToField--marginTop">
+                            <wizard-ui (next)="findViolations()"
+                                       [reverseOrder]="true">
+                                <span wizard-next>{{leftSection.ButtonText}}</span>
+                            </wizard-ui>
+                        </div>
+                    </form>
+
+
+                </div>
+
+                <!--ADD EZ TAG-->
+                <div *ngIf="leftSection.SectionConfig === callToActionConfig.ActivateEzTag
+                     && currentSelectedIndex === indexSection">
+                    <h1 ngClass="leftContentInteriorSpacing leftTile">{{leftSection.ContentTitle}}</h1>
+
+                    <article ngClass="leftContentInteriorSpacing"
+                             [innerHTML]="leftSection.Content | safeHtml"></article>
+
+                    <div fxLayout="row"
+                         fxLayoutAlign="normal center">
+                        <button id="submitBtn"
+                                type="submit"
+                                ngClass="btn"
+                                (click)="goToPage(leftSection.SectionConfig)">
+                            {{leftSection.ButtonText}}
+                        </button>
+
+                        <a href="{{leftSection.learnMoreURL}}" target="_blank">Learn more about EZ TAGs</a>
+                    </div>
+                </div>
+
+                <!--PAY INVOICES -->
+                <div *ngIf="leftSection.SectionConfig === callToActionConfig.Violations
+                     && currentSelectedIndex === indexSection">
+                    <h1 ngClass="leftContentInteriorSpacing leftTile">{{leftSection.ContentTitle}}</h1>
+                    <article [innerHTML]="leftSection.Content"></article>
+                    <form ngClass="leftContentInteriorSpacing" #InvoiceForm="ngForm" validation-focus novalidate
+                          fxLayout="column start"
+                          class="u-spacing__fieldToSection--marginTop">
+                        <!-- State and License Plate Number-->
+                        <div fxLayout="row"
+                             fxLayoutAlign="start start"
+                             fxLayoutGap="30px">
+                            <!-- State drop down-->
+                            <div fxFlex="none">
+                                <mat-label>STATE</mat-label>
+                                <mat-select ngClass="selectAdjustment"
+                                            translation-skip [(value)]="violations.selectedState"
+                                            [disableOptionCentering]="true">
+                                    <mat-option *ngFor="let state of stateList" [value]="state">{{state.stateCode}}</mat-option>
+                                </mat-select>
+                            </div>
+
+                            <!-- License Plate input box-->
+                            <div fxFlex="auto"
+                                 [error-check]="licensePlateInput">
+                                <mat-label translation-skip>LICENSE PLATE NUMBER</mat-label>
+                                <input type="text"
+                                       name="licensePlate"
+                                       [(ngModel)]="violations.licensePlateNumber" #licensePlateInput="ngModel"
+                                       required
+                                       id="licensePlate"
+                                       tabindex="2"
+                                       pattern="^[a-zA-Z0-9]{1,10}$"
+                                       maxlength="10" />
+                                <aside *ngFor="let error of licensePlateInput.errors | keyvalue">
+                                    <ng-container *ngIf="InvoiceForm.submitted" [ngSwitch]="error.key">
+                                        <p *ngSwitchCase="'pattern'" class="help-block small-block">Please enter a valid license plate number</p>
+                                        <p *ngSwitchCase="'required'" class="help-block small-block">Please enter a valid license plate number</p>
+                                        <p *ngSwitchCase="'maxlength'" class="help-block small-block">Please enter a valid license plate number</p>
+                                    </ng-container>
+                                </aside>
+                            </div>
+
+                            <!-- Invoice number input box -->
+                            <div fxFlex="auto" [error-check]="invoiceNumberInput">
+                                <mat-label for="invoice">INVOICE NUMBER</mat-label>
+                                <input type="text" id="invoice" [(ngModel)]="violations.invoiceNumber" #invoiceNumberInput="ngModel"
+                                       pattern="^[0-9]+$" name="invoice" tabindex="3" required />
+
+                                <aside *ngFor="let error of invoiceNumberInput.errors | keyvalue">
+                                    <ng-container *ngIf="InvoiceForm.submitted" [ngSwitch]="error.key">
+                                        <p *ngSwitchCase="'pattern'" class="help-block small-block">Please enter a valid invoice number</p>
+                                        <p *ngSwitchCase="'required'" class="help-block small-block">Please enter a valid invoice number</p>
+                                    </ng-container>
+                                </aside>
+                            </div>
+                        </div>
+
+                        <div fxLayout="column" class="u-spacing__fieldToField--marginTop">
+                            <div>
+                                <a id="findInvoiceLnk" (click)="openInvoiceExample()">Need help finding the information on your invoice?</a>
+                            </div>
+                        </div>
+                        <div class="u-spacing__buttonToField--marginTop">
+                            <wizard-ui (next)="findViolations()"
+                                       [reverseOrder]="true">
+                                <span wizard-next>{{leftSection.ButtonText}}</span>
+                            </wizard-ui>
+                        </div>
+                    </form>
+
+
+                </div>
+
+                <!--PAY MISSED A TOLL -->
+                <div *ngIf="leftSection.SectionConfig === callToActionConfig.MissedAToll
+                     && currentSelectedIndex === indexSection">
+                    <h1 ngClass="leftContentInteriorSpacing leftTile">{{leftSection.ContentTitle}}</h1>
+                    <article [innerHTML]="leftSection.Content"></article>
+                    <form ngClass="leftContentInteriorSpacing" #MATForm="ngForm" validation-focus novalidate
+                          fxLayout="column start"
+                          class="u-spacing__fieldToSection--marginTop">
+                        <!-- State and License Plate Number-->
+                        <div fxLayout="row"
+                             fxLayoutAlign="start start"
+                             fxLayoutGap="30px">
+                            <!-- State drop down-->
+                            <div fxFlex="none">
+                                <mat-label>STATE</mat-label>
+                                <mat-select ngClass="selectAdjustment"
+                                            translation-skip [(value)]="violations.selectedState"
+                                            [disableOptionCentering]="true">
+                                    <mat-option *ngFor="let state of stateList" [value]="state">{{state.stateCode}}</mat-option>
+                                </mat-select>
+                            </div>
+
+                            <!-- License Plate input box-->
+                            <div fxFlex="none"
+                                 [error-check]="licensePlateInput">
+                                <mat-label translation-skip>LICENSE PLATE NUMBER</mat-label>
+                                <input type="text"
+                                       name="licensePlate"
+                                       [(ngModel)]="violations.licensePlateNumber" #licensePlateInput="ngModel"
+                                       required
+                                       id="licensePlate"
+                                       tabindex="2"
+                                       pattern="^[a-zA-Z0-9]{1,10}$"
+                                       maxlength="10" />
+                                <aside *ngFor="let error of licensePlateInput.errors | keyvalue">
+                                    <ng-container *ngIf="MATForm.submitted" [ngSwitch]="error.key">
+                                        <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid license plate number</p>
+                                        <p *ngSwitchCase="'required'" class="help-block">Please enter a valid license plate number</p>
+                                        <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid license plate number</p>
+                                    </ng-container>
+                                </aside>
+                            </div>
+                        </div>
+                        <div class="u-spacing__buttonToField--marginTop">
+                            <wizard-ui (next)="findMissedAToll()"
+                                       [reverseOrder]="true">
+                                <span wizard-next>{{leftSection.ButtonText}}</span>
+                            </wizard-ui>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="column" ngClass="rightPanel">
+        <div *ngFor="let section of displayList; let indexSection=index"
+             [ngClass]="{'rightSection': true,
+                         'fade-in' : indexSection === currentSelectedIndex,
+                         'fade-out' : indexSection === previousSelectedIndex,
+                         'rightSectionSelected' : indexSection === currentSelectedIndex}"
+             (click)="updateIndex(indexSection)" [style.height.px]="cmsData.rightPanelHeight/displayList.length">
+
+            <h2 fxLayout="row" >{{section.Title}}</h2>
+            <article fxLayout="row" >{{section.TitleDescription}}</article>
+        </div>
+    </div>
+</section>

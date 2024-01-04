@@ -1,0 +1,40 @@
+<card-dash-container>
+    <div fxlayout="column" class="bottom-row-heights">
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+            <header fxLayout="column">
+                <h3 fxLayout="row"
+                    fxLayoutAlign="space-between start">
+                    {{rebillAmtTitle}}
+                </h3>
+            </header>
+            <a [fxHide]="isAccountClosed || isAccountInvoiced" (click)="goToUpdateRebillAmt()" style="margin-left:auto;">Update</a>
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             class="u-spacing--widthFill">
+            <div fxlayout="column">
+                <div fxlayout="row" fxLayoutAlign="space-between start"
+                     class="context" style="padding-bottom: 20px;">{{rebillAmtContext}}</div>
+                <div fxLayout="row" fxLayoutAlign="start start"
+                     class="context">
+                    <div fxFlex>
+                        Current replenishment amount: <currency [value]="rebillAmt"></currency>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             class="u-spacing__fieldToField--marginTopHalf">
+            <auto-replenishment-indicator [cmsData]="autoReplenishIndicatorCms" callingComponent="rebillAmtCard"  class="u-spacing--widthFill cardwidth"></auto-replenishment-indicator>
+        </div>
+
+    </div>
+
+
+</card-dash-container>

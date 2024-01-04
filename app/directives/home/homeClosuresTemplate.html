@@ -1,0 +1,21 @@
+﻿<header>
+    <rss ng-if="$ctrl.showRSSClosure" on-rss-click="$ctrl.goToRssFeedClosures()" class="rssClosuresIconHomePage pull-right"></rss>
+    <h1 class="title-color">{{$ctrl.closureTitle}}</h1>
+</header>
+
+<div ng-repeat="closure in $ctrl.shownClosures" class="closure-container">
+    <a ng-if="closure.Title === 'Transtar Map'" ng-href="{{closure.MapURL}}" target="_blank">
+        <span class="bold">{{closure.Title}}</span>
+        <span ng-if="closure.Subtitle">{{closure.Subtitle}}</span>
+        <span ng-if="closure.ShortDescription" ng-bind-html="closure.ShortDescription"></span>
+    </a>
+    <a ng-if="closure.Title !== 'Transtar Map'" ng-click="$ctrl.goToClosureArticle(closure.ItemID)" class="closure-font-size">
+        <span class="bold">{{closure.Title}}</span>
+        <span>{{closure.displayDate}}</span>
+        <img ng-if="closure.ImageSrc" ng-src="{{closure.ImageSrc}}" alt="{{closure.ImageAltText}}" />
+    </a>
+</div>
+ 
+<div id="closuresMarketingImages" ng-repeat="marketingImage in $ctrl.shownMarketingImages" class="closure-container">
+    <img ng-src="{{marketingImage.Image}}" ng-click="$ctrl.goToUrl(marketingImage.ImageURL)" alt="{{marketingImage.ImageAltText}}" class="clickable" />
+</div>

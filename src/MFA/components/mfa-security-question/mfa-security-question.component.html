@@ -1,0 +1,63 @@
+<main class="refresh-2020">
+    <storefront-utility #storefront></storefront-utility>
+    <!--Large Page/Flow title-->
+    <title-banner>
+        {{cmsData.Title}}
+    </title-banner>
+    <page-centered-container>
+        <form #SecurityAnswerForm="ngForm" validation-focus novalidate method="post">
+            <div fxLayout="column">
+                <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+                    <section fxLayout="column">
+                        <header>
+                            <h2>
+                                {{cmsData.Multi_Factor_Authentication_Title_Text}}
+                            </h2>
+                            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                        </header>
+                        <section>
+                            <div class="u-spacing__divider--marginTopBottom question-title">
+                                <article [innerHtml]="cmsData.ShortDescription | safeHtml"></article>
+                            </div>
+                            <section *ngIf="securityQuestion" class="question-section">
+                                <div class="u-spacing__divider--marginTopBottom">
+                                    {{securityQuestion}}
+                                </div>
+                                <section>
+                                    <div fxLayout="column" [error-check]="answerInput"
+                                        class="u-spacing__fieldToField--marginTop" ngClass="spanPosition">
+                                        <mat-label for="answer">{{cmsData.Input_Lable_Text}}</mat-label>
+                                        <input type="text"
+                                            id="answerTxtBox"
+                                            [(ngModel)]="answer"
+                                            name="answer"
+                                            tabindex="1"
+                                            [type]="isShowPassword ? 'text' : 'password'"
+                                            [ngClass]="isShowPassword ? 'pwd-hide' : 'pwd-show'"
+                                            #answerInput="ngModel"
+                                            pattern="^[a-zA-Z0-9]{1,20}$"
+                                            required />
+
+                                        <show-hide-input-button [(showField)]="isShowPassword"></show-hide-input-button>
+                                        <error-messages [errors]="answerInput.errors">
+                                            <error-message rule="pattern">{{cmsData.Input_Pattern_Msg}}</error-message>
+                                            <error-message rule="required">{{cmsData.Input_Required_Msg}}</error-message>
+                                        </error-messages>
+                                    </div>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </card-container>
+            </div>
+            <!--Submit Button-->
+            <div class="u-spacing__buttonToField--marginTop">
+                <action-buttons (main)="verify()" (alt)="cancel()">
+                    <span action-alt>Cancel</span>
+                    <span action-main>{{cmsData.Btn_Text}}</span>
+                </action-buttons>
+                <wizard-ui #wizardUi></wizard-ui>
+            </div>
+        </form>
+    </page-centered-container>
+</main>

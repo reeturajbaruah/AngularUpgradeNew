@@ -1,0 +1,196 @@
+<div class="bottom-buffer-lg">
+    <section fxLayout="column">
+        <div>
+            <mat-label fxLayout="row"
+                       ngClass="labelMargin">USERNAME</mat-label>
+            <div *ngIf="!hasInitialLoginInfo" [error-check]="UserName">
+                <input #UserName="ngModel"
+                       placeholder="Username"
+                       fxLayout="row"
+                       type="text"
+                       id="UserName"
+                       name="userName"
+                       [(value)]="accLoginInfo.username"
+                       [(ngModel)]="accLoginInfo.username"
+                       pattern="^[a-zA-Z0-9-_@.]{6,80}$"
+                       required
+                       minlength="6"
+                       maxlength="80" />
+
+                <error-messages [errors]="UserName.errors"  [activeBeforeSubmit]="UserName.touched">
+                    <error-message rule="pattern">Please enter a valid user name</error-message>
+                    <error-message rule="required">Please enter a valid user name</error-message>
+                    <error-message rule="maxlength">Max. 80 alpha num character, @-_.</error-message>
+                    <error-message rule="minlength">Min. 6 alpha num character, @-_.</error-message>
+                </error-messages>
+
+            </div>
+
+            <span translation-skip *ngIf="hasInitialLoginInfo">{{accLoginInfo.username}}</span>
+        </div>
+    </section>
+
+    <section fxLayout="column" ngClass="labelMarginInternal">
+        <div ngClass="spanPosition">
+            <mat-label for="Password"
+                       fxLayout="row"
+                       ngClass="labelMargin">PASSWORD</mat-label>
+            <div *ngIf="!hasInitialLoginInfo" [error-check]="Password">
+                <input #Password="ngModel"
+                       [type]="isShowPassword ? 'text' : 'password'"
+                       placeholder="Password"
+                       id="Password"
+                       name="password"
+                       [(value)]="sercurityInfo.password"
+                       [(ngModel)]="sercurityInfo.password"
+                       pattern="[A-Za-z0-9._!@#$^*&();?{}`~<>,+-]+$"
+                       minlength="12"
+                       maxlength="50"
+                       required />
+                <show-hide-input-button [(showField)]="isShowPassword"></show-hide-input-button>
+                
+                <aside role="note">{{passwordValidationCMS.PasswordDesc}}</aside>
+
+                <error-messages [errors]="Password.errors" [activeBeforeSubmit]="Password.touched">
+                    <error-message rule="required">Please enter a password</error-message>
+                    <ng-container *ngIf="submitted">
+                        <error-message rule="maxlength">{{passwordValidationCMS.MaxPassword}}</error-message>
+                        <error-message rule="minlength">{{passwordValidationCMS.MinPassword}}</error-message>
+                    </ng-container>
+                    <error-message rule="pattern">{{passwordValidationCMS.InvalidCharacter}}</error-message>
+                </error-messages>
+
+            </div>
+            <span *ngIf="hasInitialLoginInfo">********</span>
+        </div>
+    </section>
+
+    <section fxLayout="column" ngClass="labelMarginInternal" *ngIf="isShowEmail">
+        <email-address [(emailAddress)]="accLoginInfo.emailAddress"></email-address>
+    </section>
+
+    <section fxLayout="column" ngClass="labelMarginInternal">
+        <div>
+            <mat-label fxLayout="row"
+                       ngClass="labelMargin">SELECT SECURITY QUESTION</mat-label>
+            <div *ngIf="!hasInitialLoginInfo" [error-check]="SecurityQuestion">
+                <mat-select #SecurityQuestion="ngModel"
+                            name="securityQuestions"
+                            [(ngModel)]='accLoginInfo.securityQuestionID'
+                            id="securityQuestions"
+                            placeholder="Please select security question"
+                            required>
+                    <mat-option *ngFor="let question of securityQuestions" [(value)]="question.securityQuestionID">{{question.securityQuestion}}</mat-option>
+                </mat-select>
+                <error-messages [errors]="SecurityQuestion.errors" [activeBeforeSubmit]="SecurityQuestion.touched">                    
+                    <error-message rule="required">Please select a new security question</error-message>                    
+                </error-messages>                
+            </div>
+            <span translation-skip *ngIf="hasInitialLoginInfo">{{staticQuestion}}</span>
+        </div>
+    </section>
+
+    <section fxLayout="column" ngClass="labelMarginInternal">
+        <div ngClass="spanPosition">
+            <mat-label for="Answer"
+                       fxLayout="row"
+                       ngClass="labelMargin">YOUR ANSWER</mat-label>
+            <div *ngIf="!hasInitialLoginInfo" [error-check]="Answer">
+                <input #Answer="ngModel"
+                       [type]="isShowSecurityAnswer ? 'text' : 'password'"
+                       fxLayout="row"
+                       id="Answer"
+                       name="answer"
+                       [(value)]="sercurityInfo.securityAnswer"
+                       [(ngModel)]="sercurityInfo.securityAnswer"
+                       pattern="^[a-zA-Z0-9]{1,20}$"
+                       required
+                       minlength="1"
+                       maxlength="20" />
+                <show-hide-input-button [(showField)]="isShowSecurityAnswer"></show-hide-input-button>
+
+                <error-messages [errors]="Answer.errors" [activeBeforeSubmit]="Answer.touched">
+                    <error-message rule="pattern">Please enter a valid answer</error-message>
+                    <error-message rule="required">Please enter a valid answer</error-message>
+                    <error-message rule="maxlength">Max. 20 alpha num character</error-message>
+                    <error-message rule="minlength">Min. 1 alpha num character</error-message>
+                </error-messages>
+            </div>
+            <span *ngIf="hasInitialLoginInfo">********</span>
+        </div>
+
+    </section>
+
+    <section fxLayout="column" ngClass="labelMarginInternal" *ngIf="isShowPrimaryPhone">
+        <shared-phone-number
+            [showPhoneNumberExt]="syncRiteToggles.SyncRitePhoneExt"
+            [(phoneNumber)]="accLoginInfo.phoneNum"
+            [(phoneNumberExt)]="accLoginInfo.phoneExt"
+            >
+        </shared-phone-number>
+    </section>
+
+    <section fxLayout="column" ngClass="labelMarginInternal" *ngIf="isShowPrimaryPhone">
+        <shared-checkbox
+            *ngIf="syncRiteToggles.SyncRitePhoneOptIn"
+            [(checkbox)]="accLoginInfo.smsAlertsOptIn"
+            [desc]="phoneALertsOptInCMS"
+            >
+        </shared-checkbox>
+    </section>
+
+    <section ngClass="labelMarginInternal" *ngIf="!environmentConfig.removeDL" id="dl-info">
+        <div fxLayout="row wrap"
+             fxLayoutAlign="start start">
+            <div [error-check]="State"
+                 fxFlex="nogrow"
+                 ngClass="stateLayoutAdjusment">
+                <mat-label ngClass="labelMargin">STATE</mat-label>
+                <mat-select translation-skip #State="ngModel"
+                            name="states"
+                            [(ngModel)]="accLoginInfo.driverLicenseState"
+                            id="states"
+                            required>
+                    <mat-option *ngFor="let state of statesList" [(value)]="state.stateCode">{{state.stateCode}}</mat-option>
+                </mat-select>
+                <error-messages [errors]="State.errors" [activeBeforeSubmit]="State.touched">
+                    <error-message rule="required">Please select a state</error-message>
+                </error-messages>                
+            </div>
+
+            <div [error-check]="DriverLicense"
+                 [ngStyle.lt-md]="{'width': 'calc(60% - 60px)'}">
+                <mat-label ngClass="labelMargin">DRIVERS LICENSE NUMBER</mat-label>
+
+                <input type="hidden"
+                       #DlPlusStateValidationInput="ngModel"
+                       [ngModel]="accLoginInfo.driverLicenseState + '-' + accLoginInfo.driverLicenseNumber"
+                       pattern="^(TX-[0-4][0-9]{7})|((?!TX)[a-zA-Z]{2}-[a-zA-Z0-9]{1,25})$"
+                       name="dlPlusStateValidationCheck" />
+
+                <input #DriverLicense="ngModel"
+                       fxLayout="row"
+                       type="text"
+                       id="DriverLicense"
+                       name="DriverLicense"
+                       [(value)]="accLoginInfo.driverLicenseNumber"
+                       [(ngModel)]="accLoginInfo.driverLicenseNumber"
+                       required
+                       minlength="1"
+                       maxlength="25" />
+                
+                <error-messages [errors]="[DriverLicense.errors, DlPlusStateValidationInput.errors]" [activeBeforeSubmit]="DriverLicense.touched">
+                    <error-message rule="pattern">Please enter a valid driver's license number</error-message>
+                    <error-message rule="required">Please enter a valid driver's license number</error-message>
+                    <error-message rule="maxlength">Please enter a valid driver's license number</error-message>
+                    <error-message rule="minlength">Please enter a valid driver's license number</error-message>
+                </error-messages>
+            </div>
+
+        </div>
+
+
+    </section>
+
+</div>
+

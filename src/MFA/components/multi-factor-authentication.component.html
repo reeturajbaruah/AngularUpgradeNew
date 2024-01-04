@@ -1,0 +1,94 @@
+<main class="refresh-2020">
+    <storefront-utility #storefront></storefront-utility>
+
+    <!--Large Page/Flow title-->
+    <title-banner>
+        {{mfaPageContent.Title}}
+    </title-banner>
+
+    <page-centered-container>
+        <div fxLayout="column">
+            <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+                <section fxLayout="column">
+                    <header>
+                        <h2>{{mfaPageContent.Multi_Factor_Authentication_Title_Text}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </header>
+                    <section>
+                        <div class="u-spacing__divider--marginTopBottom"
+                            [innerHTML]="mfaPageContent.LongDescription | safeHtml">
+                        </div>
+                        <div class="u-spacing__divider--marginTopBottom">
+                            {{mfaPageContent.Receive_Verification_Text}}
+                        </div>
+                        <section class="contact-section u-spacing__divider--marginTopBottom">
+                            <label fxLayout="row" [ngClass]="{ 'selected':  selectedClass === 'text'}" for="text"
+                                class="border first">
+                                <input type="radio" id="text" [ngModel]="selectedClass"
+                                    (ngModelChange)="selectionChange('text')" value="text" name="contactSelection"
+                                    checked />
+                                <span fxLayout="column">
+                                    <span class="subTitleClass">{{mfaPageContent.Text_Me_Text}}</span>
+                                    <span class="subTitleClass">{{mfaPageContent.Text_Me_Desc_Text}}</span>
+                                </span>
+                            </label>
+                            <label fxLayout="row" [ngClass]="{ 'selected':  selectedClass === 'call'}" for="call"
+                                class="border last">
+                                <input type="radio" id="call" [ngModel]="selectedClass"
+                                    (ngModelChange)="selectionChange('call')" value="call" name="contactSelection"
+                                    checked />
+                                <span class="subTitleClass">{{mfaPageContent.Automated_Call_Text}}</span>
+                            </label>
+                        </section>
+                        <section class="contact-section u-spacing__divider--marginTopBottom">
+                            <label fxLayout="row" [ngClass]="{ 'selected':  selectedClass === 'email'}" for="email"
+                                class="border radius">
+
+                                <input type="radio" id="email" [ngModel]="selectedClass"
+                                    (ngModelChange)="selectionChange('email')" value="email" name="emailSelection"
+                                    checked />
+                                <span class="subTitleClass">{{mfaPageContent.Email_Me_Text}}</span>
+                            </label>
+                        </section>
+                        <div class="u-spacing__divider--marginTopBottom">
+                            {{(selectedClass === 'email') ? mfaPageContent.Email_Address_Receive_Code :
+                            mfaPageContent.Phone_Number_Rceive_Code}}
+                        </div>
+                        <div *ngIf="selectedItems.length>0" class="u-spacing__divider--marginTopBottom">
+                            <section class="contact-section"
+                            *ngFor="let selectedItem of selectedItems; let first = first; let last = last; let i = index">
+                                    <label fxLayout="row" for="{{i}}" class="border"
+                                        [ngClass]="{'last': last, 'first': first, 'radius': selectedItems.length === 1, 'selected': selectedInfo === i}">
+                                        <input type="radio" [id]="i" [ngModel]="selectedInfo"
+                                        (ngModelChange)="receiveCodeChange(selectedItem)"
+                                            [value]="i" [name]="selectedItem.lable" checked />
+                                        <span class="subTitleClass ">{{selectedItem.maskedInfo}}</span>
+                                    </label>
+                            </section>
+                        </div>
+                        <div *ngIf="selectedItems.length === 0">
+                            <span class="help-block u-spacing__divider--marginTopBottom">{{noDataMsg}}</span>
+                        </div>
+                        <a (click)="tryAnotherVerification()">
+                            {{mfaPageContent.Try_Another_Verification_Option}}
+                        </a>
+                    </section>
+                </section>
+            </card-container>
+             
+        </div>
+        <!--Submit Button-->
+        <div class="u-spacing__buttonToField--marginTop" *ngIf="selectedItems.length>0">
+            <action-buttons (main)="verify()"
+                            (alt)="cancel()">
+                <span action-alt>Cancel</span>
+                <span action-main >Verify</span>
+                
+            </action-buttons>
+
+            <wizard-ui #wizardUi></wizard-ui>
+
+
+        </div>
+    </page-centered-container>
+</main>

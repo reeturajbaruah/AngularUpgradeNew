@@ -1,0 +1,43 @@
+﻿<div class="row">
+    <div class="col-sm-8 col-lg-7">
+         <div class="form-group" ng-class="validations.getErrorStatusClassFastWithNullCheck('currentVisiblePageNumber')">
+             <table align="right">
+                 <tr>
+                     <td><div ng-if="data.numberOfPages > 0" class="viol-button-border viol-page-button" ng-click="firstPage()"><div class="viol-full-back-button"></div></div></td>
+                     <td><a href="{{navigationUrls.previousPage}}" class="paging-control-tag"><div ng-if="data.numberOfPages > 0" class="viol-button-border viol-page-button" ><div class="viol-back-button"></div></div></a></td>
+                     <td ng-if="data.numberOfPages > 0" class="viol-page-control-box">
+                         <div>
+                             page
+                             <input type="number" id="currentVisiblePageNumber" name="currentVisiblePageNumber" aria-label="Current Page Number" required
+                                    class="form-control viol-current-page-box" ng-change="manualPageUpdate()" ng-model-options="{ debounce: 1000 }"
+                                    ng-model="userInputData.visiblePageNumber" ng-disabled="data.numberOfPages === 1" ng-pattern="/^([0-9]+)$/" min="1" max="{{data.numberOfPages}}" />
+                             of {{data.numberOfPages}}
+                         </div>
+                     </td>
+                     <td><a href="{{navigationUrls.nextPage}}" class="paging-control-tag"><div ng-if="data.numberOfPages > 0" class="viol-button-border viol-page-button" ><div class="viol-forward-button"></div></div></a></td>
+                     <td><div ng-if="data.numberOfPages > 0" class="viol-button-border viol-page-button" ng-click="lastPage()"><div class="viol-full-forward-button"></div></div></td>
+                 </tr>
+                 <tr>
+                     <th colspan="5">
+                         <div class="paging-error-message-alignment" ng-messages="validations.getErrorListWithNullCheck('currentVisiblePageNumber')" role="alert">
+                             <p ng-message="required" class="help-block">Please enter a valid page number</p>
+                             <p ng-message="number" class="help-block">Please enter a valid page number</p>
+                             <p ng-message="pattern" class="help-block">Please enter a valid page number</p>
+                             <p ng-message="min" class="help-block">Please enter a valid page number</p>
+                             <p ng-message="max" class="help-block">Page number must be less than {{data.numberOfPages+1}}</p>
+                         </div>
+                     </th>
+                 </tr>
+             </table>
+         </div>
+    </div>
+    <div class="col-sm-offset-1 col-md-offset-1 col-lg-offset-3 col-sm-3 col-md-3 col-lg-2">
+        <select id="pagingControlPageSize" aria-label="Items per Page" name="pagingControlPageSize" class="form-control paging-control-dropdown" ng-model="data.pageSize" ng-change="adjustPageSize()" convert-to-number>
+            <option value=""  class="invisible">Items per page</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+        </select>
+    </div>
+</div>

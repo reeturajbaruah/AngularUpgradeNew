@@ -1,0 +1,47 @@
+<div class="survey-container" *ngIf="show" @simpleFadeAnimation>
+    <ng-container *ngIf="!submitted">
+        <div class="row">
+            <h1 class="col-md-12">{{cmsContent.Title}}</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6 survey-option-container">
+                <label *ngFor="let option of options" class="survey-option">
+                    <input type="radio" name="rating" (change)="selectedValue = option.value" />
+                    <img *ngIf="option.value !== selectedValue" src={{option.unselectedIcon.image}} alt={{option.unselectedIcon.alt}} />
+                    <img *ngIf="option.value === selectedValue" src={{option.selectedIcon.image}} alt={{option.selectedIcon.alt}} />
+                    <span class="icon-text" [ngClass]="option.color">{{option.text}}</span>
+                </label>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <textarea class="col-md-8" (input)="onValueChange($event)" [placeholder]="cmsContent.defaultCommentText" [maxLength]="maxCharacters"></textarea>
+        </div>
+        <div>
+            <p class="col-md-8">{{maxCharacters - comments.length}} characters remaining</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <button class="col-md-12 skip-button" (click)="proceed(wizardUi)">Skip</button>
+                <wizard-ui #wizardUi></wizard-ui>
+            </div>
+            <div class="col-md-4">
+                <button class="col-md-12 submit-button" [class.active]="selectedValue !== undefined" [disabled]="selectedValue === undefined" (click)="submit()">Submit</button>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="submitted">
+        <div class="submitted">
+            <div class="row">
+                <h1 class="col-md-12">Thank you for submitting a survey.</h1>
+            </div>
+            <div>
+                <button class="largeBtn" (click)="proceed(wizardUi)">
+                    <span>Exit</span>
+                </button>
+                <wizard-ui #wizardUi></wizard-ui>
+            </div>
+        </div>
+    </ng-container>
+</div>

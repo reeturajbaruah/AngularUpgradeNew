@@ -1,0 +1,124 @@
+<page-filled-container>
+
+    <section class="u-spacing--widthFill">
+        <header>
+            <h2>
+                <cms-content [template]="cmsSection1.Title" [data]="{licenseState: licenseState, licensePlate: licensePlate}"></cms-content>
+            </h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <article>
+            <cms-content [template]="cmsSection1.ShortDescription" [data]="{serviceFee: serviceFee}"></cms-content>
+        </article>
+    </section>
+
+    <section fxLayout="column"
+             fxLayoutAlign="start center"
+             class="u-spacing--widthFill u-spacing__sectionToSection--marginTop">
+        <section fxLayout="row"
+                 fxLayoutAlign="start center"
+                 class="u-spacing--widthFill">
+            <aside fxFlex="none">
+                {{totalRecordsFound}} Record{{totalRecordsFound > 1 ? 's' : ''}} found
+            </aside>
+            <div *ngIf="totalRecordsFound >= paginationLimit"
+                 fxShow
+                 fxHide.lt-md
+                 fxFlex="auto"
+                 fxLayout="row"
+                 fxLayoutAlign="end center">
+                <mat-paginator-goto [length]="totalRecordsFound"
+                                    [pageIndex]="0"
+                                    [pageSize]="defaultPageSize"
+                                    [hidePageSize]="true"
+                                    (page)="updateViolationsDetailsTable($event)">
+                </mat-paginator-goto>
+            </div>
+        </section>
+
+        <section class="u-spacing--widthFill u-spacing__gridToRecords--marginTop">
+            <missed-a-toll-violations-details *ngIf="totalRecordsFound < paginationLimit" [uninvoices]="listOfAllViolations"></missed-a-toll-violations-details>
+            <missed-a-toll-violations-details *ngIf="totalRecordsFound >= paginationLimit" fxShow fxHide.lt-md [uninvoices]="paginatedViolations"></missed-a-toll-violations-details>
+            <missed-a-toll-violations-details *ngIf="totalRecordsFound >= paginationLimit" fxHide fxShow.lt-md [uninvoices]="mobileLoadedViolations"></missed-a-toll-violations-details>
+        </section>
+
+        <section *ngIf="totalRecordsFound >= paginationLimit && mobileLoadedViolations.length < totalRecordsFound"
+                 fxLayout="row"
+                 fxLayoutAlign="center"
+                 fxHide
+                 fxShow.lt-md
+                 class="u-spacing--widthFill u-spacing__loadMore--margin">
+            <a class="u--noUnderline"
+               (click)="mobileLoadMore()">Load more</a>
+        </section>
+
+        <section class="u-spacing--widthFill u-spacing__rowToRow--marginTop">
+            <row-container [rowType]="'emphasis'">
+                <section col-start
+                         fxFlex="grow"
+                         class="totalAmountLabel">
+                    Total Amount:
+                </section>
+                <section col-end
+                         fxFlex="none"
+                         class="totalAmountValue">
+                    <currency [value]="totalViolationAmount"></currency>
+                </section>
+            </row-container>
+        </section>
+    </section>
+
+    <section class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+        <header>
+            <h2>{{cmsSection2.Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <row-container [isTop]="true">
+            <section col-start
+                     fxFlex="grow">
+                Total Amount:
+            </section>
+            <section col-end
+                     fxFlex="none">
+                <currency [value]="totalViolationAmount"></currency>
+            </section>
+        </row-container>
+        <row-container [isInner]="true">
+            <section col-start
+                     fxFlex="grow">
+                Administrative Fee:
+            </section>
+            <section col-end
+                     fxFlex="none">
+                <currency [value]="serviceFee"></currency>
+            </section>
+        </row-container>
+        <row-container [isBottom]="true"
+                       [rowType]="'emphasis'">
+            <section col-start
+                     fxFlex="grow"
+                     class="totalAmountLabel">
+                Total Payment Amount:
+            </section>
+            <section col-end
+                     fxFlex="none"
+                     class="totalAmountValue">
+                <currency [value]="totalAmount"></currency>
+            </section>
+        </row-container>
+    </section>
+
+    <section class="u-spacing--widthFill u-spacing__buttonToField--marginTop">
+        <wizard-ui (next)="onContinue($event)">
+            <span wizard-next>CONTINUE</span>
+            <span wizard-previous
+                  fxLayout="row"
+                  fxLayoutAlign="start center">
+                <mat-icon svgIcon="previous-arrow"></mat-icon>
+                Previous
+            </span>
+        </wizard-ui>
+    </section>
+</page-filled-container>

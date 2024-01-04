@@ -1,0 +1,146 @@
+<card-container class="u-spacing--widthFill">
+
+    <h2>{{cmsContent.Title}}</h2>
+    <mat-divider></mat-divider>
+
+    <section>
+        <article [innerHtml]="cmsContent.ShortDescription | safeHtml"></article>
+    </section>
+    
+    <section>
+        <h3>Violations Summary by License Plate</h3>
+
+        <div *ngFor="let plateData of plates; index as i">
+            
+            <violations-plate-row 
+                [hideHeader]="i > 0"
+                [plate]="plateData.plate" 
+                [showCollapseUi]="true" 
+                [(isCollapsed)]="plateData.collapsed"
+                [hidePmntPlan]="true"></violations-plate-row>
+
+            <div [@collapse]="plateData.collapsed">
+
+                <violations-details-rows 
+                    [plate]="plateData.plate" 
+                    [paginatedPlate]="plateData.plate"
+                    [hideFooter]="true"
+                    [isSuspendedAccount]="true"
+                    [caoToolTipCms]="cmsContent.CAO_TOOL_TIP">
+                </violations-details-rows>
+
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <ul class="summary">
+            <li class="total">
+                <span>{{cmsContent.ViolationsDueAmount}}</span>
+                <span><currency [value]="summary && summary.violationsAmountDueBeforeDiscounts"></currency></span>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+
+        <h2>{{cmsContent.PaymentSummary}}</h2>
+        <mat-divider></mat-divider>
+
+        <div 
+            fxLayout="row" 
+            fxLayout.lt-sm="column"
+            fxLayoutGap="50px"
+            fxFill>
+
+            <article
+                    fxFlex="50"        
+                    fxFlex.lt-sm
+                    [innerHtml]="cmsContent.LongDescription | safeHtml">
+            </article>
+
+            <div         
+                fxFlex="50"
+                fxFlex.lt-sm>
+
+                <ul class="summary" *ngIf="summary">
+                    <li class="emphasis">
+                        <span>{{cmsContent.ViolationsDueAmount}}</span>
+                        <span><currency [value]="summary.violationsAmountDueBeforeDiscounts"></currency></span>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="discount">{{cmsContent.TollViolationsFeeReduction}}</span>
+                            <tool-tip [stayOpenOnHover]="true">
+                                <mat-icon tool-tip-hover svgIcon="information"></mat-icon>                                
+                                <div tool-tip-message>
+                                    <strong>{{cmsContent.TollViolationsFeeReduction}}</strong>
+                                    <hr />
+                                    
+                                    <div *ngFor="let discount of discounts | keyvalue" class="tool-tip-row">
+                                        <span 
+                                            [attr.data-name]="discount.value.name" 
+                                            [attr.data-mobile-name]="discount.value.mobileName"></span>
+                                        <currency class="discount" [value]="discount.value.amount"></currency>                                        
+                                    </div>
+                                    
+                                </div>
+                            </tool-tip>
+                        </div>
+                        <span><currency class="discount" [value]="summary.totalDiscountAllPlates"></currency></span>
+                    </li>
+                </ul>
+
+                <ul class="summary" *ngIf="summary">    
+                    <li>
+                        <div>
+                            <span>{{cmsContent.OutstandingAccountBalance}}</span>
+                            <tool-tip [stayOpenOnHover]="true">
+                                <mat-icon tool-tip-hover svgIcon="information"></mat-icon>                                
+                                <div tool-tip-message>
+                                    <strong>{{cmsContent.OutstandingAccountBalance}}</strong>
+                                    <hr />
+                                    <p class="outstandingBalance" [innerHtml]="outstandingBalance | safeHtml"></p>
+                                    <div class="tool-tip-row">
+                                        <strong>
+                                            {{cmsContent.OutstandingAccountBalance}}
+                                        </strong>
+                                        <strong><currency [value]="summary.outstandingAccountBalance"></currency></strong>
+                                    </div>
+                                    
+                                </div>
+                            </tool-tip>
+                        </div>
+                        <span><currency [value]="summary.outstandingAccountBalance"></currency></span>
+                    </li>
+                    <li>
+                        <span>{{replenishmentAmtText}}</span>
+                        <span><currency [value]="summary.rebillAmount"></currency></span>
+                    </li>
+                    <li class="total">
+                        <span>{{cmsContent.TotalPaymentAmount}}</span>
+                        <span><currency [value]="summary.totalUnsuspensionPaymentAmount"></currency></span>
+                    </li>
+                </ul>
+
+                <div>
+                    <input 
+                        type="checkbox"
+                        [(ngModel)]="agreeToTerms" />
+                    <span [innerHtml]="paymentTerms | safeHtml"></span>
+                </div>
+        
+            </div>
+        </div>
+
+    </section>
+    
+
+    <wizard-ui #Wizard
+                (next)="nextStep($event)">
+        <span wizard-next>CONTINUE</span>
+    </wizard-ui>
+
+
+</card-container>

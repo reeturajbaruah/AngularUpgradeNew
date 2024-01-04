@@ -1,0 +1,279 @@
+<div *ngIf="legacy" id="billing-info-partial" class="bottom-buffer-lg">
+    <header class="header-spacing">
+        <a *ngIf="!hideEdit && edit.observers.length > 0" class="pull-right" (click)="editClicked()" aria-label="Edit Billing Info">Edit</a>
+        <ng-container *ngIf="!hideTitle">
+            <h2 class="h1-mo">{{title}}</h2>
+            <hr />
+        </ng-container>
+    </header>
+
+    <div class="bottom-buffer-sm">
+        <div class="no-margin-bottom">
+            <div class="row">
+                <div class="col-xs-6 no-padding-right billing-info-label">
+                    <p class="h4">Payment Method:</p>
+                </div>
+                <div class="col-xs-6 no-padding-left">
+                    <p class="h4 font-avenir-medium customer-account-data">
+                        <ng-container *ngIf="billingType === BillingType.Credit">
+                            Credit Card
+                        </ng-container>
+
+                        <ng-container *ngIf="billingType === BillingType.Eft">
+                            {{bankDetails.accountType | titlecase}} Bank Account
+                        </ng-container>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="billingType === BillingType.Credit">
+        <div class="group-paragraphs">
+            <p translation-skip class="h4 customer-account-data" *ngIf="showNameOnCard">{{creditCard.nameOnCard | titlecase}}</p>
+            <p translation-skip class="h4 customer-account-data">{{creditCard.cardCode | cardType | titlecase}} {{maskedCreditCardNumber}} <img *ngIf="cmsImage" [src]="cmsImage" /></p>
+            <p class="h4">Exp: <span translation-skip class="customer-account-data">{{cardExpires}}</span></p>
+        </div>
+    </div>
+
+    <div *ngIf="billingType === BillingType.Eft">
+        <div class="group-paragraphs">
+            <div class="no-margin-bottom">
+                <div class="row">
+                    <div class="col-xs-6 no-padding-right billing-info-label">
+                        <p class="h4">Routing Number:</p>
+                    </div>
+                    <div class="col-xs-6 no-padding-left">
+                        <p translation-skip class="h4 font-avenir-medium customer-account-data">{{bankDetails.routingNumber}} <img *ngIf="cmsImage" [src]="cmsImage" /></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-buffer-xs" *ngIf="showAccountNumber">
+                <div class="row">
+                    <div class="col-xs-6 no-padding-right billing-info-label">
+                        <p class="h4">Account Number:</p>
+                    </div>
+                    <div class="col-xs-6 no-padding-left">
+                        <p translation-skip class="h4 font-avenir-medium customer-account-data">{{maskedAccountNumber}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!legacy" class="refresh-2020" fxLayout="column">
+
+    <div *ngIf="showLabels">
+
+        <section *ngIf="!!name" fxLayout="column">
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between start"
+                 class="u-spacing--widthFill">
+
+                <div>
+                    <p>Name:</p>
+                </div>
+
+                <div style="text-align:right;"
+                     class="word-break-div">
+                    <p translation-skip>
+                        {{name | titlecase}}
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section fxLayout="column">
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between start"
+                 class="u-spacing--widthFill">
+
+                <div>
+                    <p>Account Type:</p>
+                </div>
+
+                <div style="text-align:right;">
+                    <p>
+                        <ng-container *ngIf="billingType === BillingType.Credit">
+                            Credit Card
+                        </ng-container>
+                        <ng-container *ngIf="billingType === BillingType.Eft">
+                            {{bankDetails.accountType | titlecase}} Bank Account
+                        </ng-container>
+                        <ng-container *ngIf="billingType === BillingType.Cash">
+                           CASH
+                        </ng-container>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section *ngIf="billingType === BillingType.Credit"
+                 fxLayout="column">
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between start"
+                 class="u-spacing--widthFill">
+
+                <div>
+                    <p>Card Number:</p>
+                </div>
+
+                <div style="text-align:right;">
+                    <p translation-skip>{{creditCard.cardCode | cardType | uppercase}} {{maskedCreditCardNumber}}</p>
+                </div>
+            </div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between start"
+                 class="u-spacing--widthFill">
+                <div>
+                    <p>Expiration Date:</p>
+                </div>
+
+                <div style="text-align:right;">
+                    <p translation-skip>{{cardExpires}}</p>
+                </div>
+            </div>
+
+            <div  *ngIf="flexPayRebillToggle" fxLayout="row"  
+                 fxLayoutAlign="space-between start"
+                 class="u-spacing--widthFill paymentmethod-status">
+                <div>
+                    <p>Payment Method Saved:</p>
+                </div>
+
+              
+            <div class="savePayment">
+                <p *ngIf="savePaymentStatus" translation-skip>Yes</p>
+                
+                <p *ngIf="!savePaymentStatus" translation-skip>No</p>
+            </div>
+            </div>
+        </section>
+
+        
+
+        <section *ngIf="billingType === BillingType.Eft" fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="space-between start" class="u-spacing--widthFill">
+                <div>
+                    <p>Routing Number:</p>
+                </div>
+        
+                <div style="text-align:right;">
+                    <p translation-skip>{{bankDetails.routingNumber}}</p>
+                </div>
+            </div>
+        
+            <div *ngIf="showAccountNumber" fxLayout="row" fxLayoutAlign="space-between start" class="u-spacing--widthFill">
+        
+                <div>
+                    <p>Account Number:</p>
+                </div>
+        
+                <div style="text-align:right;">
+                    <p translation-skip>{{maskedAccountNumber}}</p>
+                </div>
+            </div>
+        
+            <div  *ngIf="flexPayRebillToggle" fxLayout="row"  
+                 fxLayoutAlign="space-between start"
+                 class="u-spacing--widthFill paymentmethod-status">
+                <div>
+                    <p>Payment Method Saved:</p>
+                </div>
+
+                <div style="text-align:right;">
+                    <p *ngIf="savePaymentStatus" translation-skip>Yes</p>
+                
+                    <p *ngIf="!savePaymentStatus" translation-skip>No</p>
+                </div>
+             </div>
+        </section>
+    </div>
+
+    <div *ngIf="!showLabels">
+
+        <section fxLayout="column"
+                 fxLayoutAlign="start start">
+            <div fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill">
+                <article>
+                    <p>
+                        Payment Method:&nbsp;
+                        <ng-container *ngIf="billingType === BillingType.Cash">
+                            Cash
+                        </ng-container>
+                        <ng-container *ngIf="billingType === BillingType.Credit">
+                            Credit Card
+                        </ng-container>
+                        <ng-container *ngIf="billingType === BillingType.Eft">
+                            {{bankDetails.accountType | titlecase}} Bank Account
+                        </ng-container>
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section *ngIf="billingType === BillingType.Credit"
+                 fxLayout="column"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill">
+
+            <div fxLayout="row">
+                <article>
+                    <p translation-skip>{{creditCard.nameOnCard | titlecase}}</p>
+                    <p translation-skip>{{creditCard.cardCode | cardType | uppercase}} {{maskedCreditCardNumber}}</p>
+                    <p>Exp: <span translation-skip>{{cardExpires}}</span></p>
+                    <!-- Using '=== true' and '=== false' to explicitly check for boolean values and avoid truthy/falsy confusion -->
+                    <p *ngIf="savePaymentStatus === true" translation-skip>Payment Method Saved</p>
+                    <p *ngIf="savePaymentStatus === false" translation-skip>Payment Method Not Saved</p>
+                </article>
+            </div>
+        </section>
+
+        <section *ngIf="billingType === BillingType.Eft"
+                 fxLayout="column"
+                 fxLayoutAlign="start start">
+            <div fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill">
+                <article>
+                    <p translation-skip>{{(bankDetails.nameOnBankAccount || bankDetails.name) | titlecase}}</p>
+                </article>
+            </div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill">
+                <article>
+                    <p>
+                        Routing Number:&nbsp;
+                        <span translation-skip>{{bankDetails.routingNumber}}</span>
+                    </p>
+                </article>
+            </div>
+
+
+            <div *ngIf="showAccountNumber" fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill">
+                <article>
+                    <p>
+                        Account Number:&nbsp;
+                        <span translation-skip>{{maskedAccountNumber}}</span>
+                    </p>
+                </article>
+            </div>
+            <!-- Using '=== true' and '=== false' to explicitly check for boolean values and avoid truthy/falsy confusion -->
+            <p *ngIf="savePaymentStatus === true" translation-skip>Payment Method Saved</p>
+            <p *ngIf="savePaymentStatus === false" translation-skip>Payment Method Not Saved</p>
+        </section>
+
+    </div>
+
+</div>

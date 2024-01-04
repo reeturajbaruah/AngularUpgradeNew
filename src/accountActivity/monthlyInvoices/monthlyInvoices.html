@@ -1,0 +1,87 @@
+<div fxLayout="column" class="display-block">
+    <card-dash-container class="display-block" [hasMargin]="false">
+        <h2>Monthly Invoices</h2>
+
+        <section fxLayout="row wrap" fxLayoutAlign="start end" fxLayoutGap="8px">
+            <div *ngIf="showInvoiceMonths"
+                 fxFlex="none"
+                 ngClass.lt-md="u-spacing--widthFill">
+                <mat-label>SELECT INVOICE</mat-label>
+                <mat-select class="u-spacing--widthFill"
+                            translation-skip
+                            [disableOptionCentering]="true"
+                            [(value)]="selectedMonth"
+                            required>
+                    <mat-option *ngFor="let date of invoiceDates" [value]="date">
+                        {{date | date:'MMMM yyyy'}}
+                    </mat-option>
+                </mat-select>
+
+            </div>
+
+
+            <div *ngIf="showInvoiceMonths"
+                 fxFlex="none"
+                 ngClass.lt-md="u-spacing--widthFill u-spacing__buttonToField--marginTop">
+                <button (click)="getInvoices()" ngClass.lt-md="u-spacing--widthFill">
+                    SEARCH
+                </button>
+            </div>
+        </section>
+
+        <section *ngIf="!showInvoiceMonths" class="u-spacing__fieldToSection--marginTop">
+            <mat-icon class="no-statements" svgIcon="alert"></mat-icon>
+            No monthly invoices available
+        </section>
+    </card-dash-container>
+
+    <card-dash-container *ngIf="showInvoices" [hasMargin]="false">
+        <section [innerHtml]="cmsHeaderText | safeHtml"></section>
+        <section class="u-spacing__sectionToSection--marginBottom">
+            <header>
+                <h2>Monthly Invoice - {{currentMonth}}</h2>
+                <mat-divider></mat-divider>
+            </header>
+
+            <section fxLayout="row wrap" fxLayoutGap="8px">
+                <div [innerHtml]="cmsDownloadInvoiceText"></div>
+                <a *ngIf="!environmentConfig.hidePdfAccountActivity"
+                   fxFlex="none"
+                   (click)="getMonthlyInvoicePdf()"
+                   class="download-link"
+                   [ngClass]="{'disabled': reportDownloading}">
+                    <img src="/Content/icons/pdf.gif" class="download-icon" />PDF Statement
+                </a>
+                <a *ngIf="!environmentConfig.hideExcelAccountActivity"
+                   fxFlex="none"
+                   (click)="getMonthlyInvoiceExcel()"
+                   class="download-link"
+                   [ngClass]="{'disabled': reportDownloading}">
+                    <img src="/Content/icons/excel.gif" class="download-icon" />Excel Statement
+                </a>
+            </section>
+            <div class="field-margin-top">
+                <invoice-info [companyName]="invoiceResponse.companyName" [address]="invoiceResponse.address"
+                              [workPhone]="invoiceResponse.workPhoneNumber" [homePhone]="invoiceResponse.homePhoneNumber"
+                              [mobile]="invoiceResponse.mobilePhoneNumber" [currentMonth]="currentMonth"
+                              [invoiceNumber]="invoiceResponse.invoiceNumber">
+                </invoice-info>
+            </div>
+        </section>
+        <balance-summary [balanceRequirement]="invoiceResponse.balSumBalanceRequirement"
+                         [currentBalance]="invoiceResponse.balSumCurrentBalance"
+                         [replenishmentRequired]="invoiceResponse.balSumReplenishmentAmt">
+        </balance-summary>
+        <outstanding-invoices [outstanding]="invoiceResponse.totalAmtDue"
+                              [cmsText]="cmsOutstandingInvoiceText">
+        </outstanding-invoices>
+        <div *ngIf="invoiceResponse.invoiceSummary && invoiceResponse.invoiceSummary.length > 0">
+            <invoice-summary [summaries]="invoiceResponse.invoiceSummary">
+            </invoice-summary>
+        </div>
+        <div *ngIf="invoiceResponse.invoiceDetails && invoiceResponse.invoiceDetails.length > 0">
+            <invoice-details [details]="invoiceResponse.invoiceDetails">
+            </invoice-details>
+        </div>
+    </card-dash-container>
+</div>

@@ -1,0 +1,40 @@
+@import (reference) '../../../styles/themes.less';
+
+.container-position {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+}
+
+.toasterContFadeInCheck {
+    animation: toastFadeIn forwards ease 0.5s;
+}
+
+@keyframes toastFadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+.toasterContFadeOutCheck {
+    animation: toastFadeOut forwards ease 0.5s;
+}
+
+@keyframes toastFadeOut {
+    0% {
+        opacity: 1.0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.toaster-container {
+    position: fixed;
+    z-index: 1000;
+}

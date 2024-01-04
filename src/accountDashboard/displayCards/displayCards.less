@@ -1,0 +1,51 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/mixins.less';
+@import 'common/ui/containers/fxRow/details.less';
+
+:host {
+    .extended-row {
+        .extended-row-mixin();
+
+        &.lt-md {
+            .extended-row-lt-md-mixin();
+        }
+    }
+
+    .noData {
+        width: 40px;
+        height: 40px;
+        vertical-align: text-top;
+        margin-right: 8.75px;
+        color: @boulder-gray;
+    }
+
+    .hoverBoxAdjusment {
+        padding: 15px;
+        min-width: 300px;
+        font-size: 16px;
+        line-height: 2;
+    }
+
+    .rowItem {
+        font-size: 14px;
+    }
+
+    .cardWidth {
+        width: 100%;
+    }
+
+    .toolTip {
+        width: 12.5px;
+        margin-left: 5px;
+    }
+
+    .gridLabelRow {
+        height: 20px;
+    }
+
+    a {
+        .t-header--fontFamily();
+        margin-left: auto;
+    }
+}

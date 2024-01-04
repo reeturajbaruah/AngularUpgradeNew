@@ -1,0 +1,84 @@
+﻿<div id="personal-info-directive" ng-class="isAccountInformation ? '' : 'bottom-buffer-lg'">
+	<header ng-if="!isAccountInformation" class="header-spacing">
+		<a ng-if="!hideEdit" href="" class="pull-right" ng-click="onEdit()" aria-label="Edit Personal Info" aria-disabled="{{(!hideEdit)}}">Edit</a>
+        <h2 class="h1-mo" ng-class="{'no-margin-top-do': isFirstSection}"><ng-transclude></ng-transclude> Personal Information</h2>
+		<hr />
+	</header>
+
+    <div ng-if="!isAccountInformation" class="group-paragraphs">
+        <p translation-skip class="h1-half-mo h2-half-do no-margin-bottom customer-account-data" ng-show="personalInfo.companyName">{{personalInfo.companyName | capitalize}}</p>
+        <p translation-skip class="h1-half-mo h2-half-do no-margin-bottom customer-account-data">{{personalInfo.firstName + " " + personalInfo.lastName | capitalize}}</p>
+
+        <p class="h4" ng-show="personalInfo.companyTaxId">Tax ID: <span translation-skip class="customer-account-data">{{personalInfo.companyTaxId | taxId}}</span></p>
+
+        <p class="h4" ng-show="personalInfo.driverLicNbr"><span translation-skip>{{personalInfo.driverLicState}}</span> <span class="sr-only">Driver's License</span><span class="dontread">DL:</span> <span translation-skip class="customer-account-data">{{personalInfo.driverLicNbr | driversLicense}}</span></p>
+    </div>
+
+    <!--Duplicated below-->
+    <div translation-skip ng-if="!isAccountInformation" class="group-paragraphs" ng-if="!hideContactInfo">
+        <p class="h4 bottom-buffer-2 customer-account-data">{{personalInfo.homePhoNbr | telephone}}</p>
+        <p class="h4 customer-account-data" ng-if="personalInfo.workPhonePlusExt">{{personalInfo.workPhonePlusExt | telephoneWithExt}}</p>
+        <p class="h4 customer-account-data" ng-if="personalInfo.workPhoNbr && !personalInfo.workPhonePlusExt">{{personalInfo.workPhoNbr | telephone}} {{(personalInfo.workPhoExt ? " ext " + personalInfo.workPhoExt : "")}}</p>
+        <p class="h4 text-lowercase customer-account-data">{{personalInfo.emailAddress}}</p>
+        <p class="h4 text-lowercase customer-account-data">{{personalInfo.altEmailAddress}}</p>
+    </div>
+
+    <div ng-if="isAccountInformation" class="bottom-buffer-md" ng-if="!hideContactInfo">
+        <div class="row">
+            
+            <div class="h4 col-xs-6 label-format">
+                Phone:
+            </div>
+            <div translation-skip class="h4 customer-account-data col-xs-6 no-padding-left">
+                {{personalInfo.homePhoNbr | telephone}}
+            </div>
+        </div>
+        <div class="row" ng-if="personalInfo.workPhonePlusExt">
+            
+            <div class="h4 col-xs-6 label-format">
+                Alt. Phone:
+            </div>
+            <div translation-skip class="h4 customer-account-data col-xs-6 no-padding-left">
+                {{personalInfo.workPhonePlusExt | telephoneWithExt}}
+            </div>
+        </div>
+        <div class="row" ng-if="personalInfo.workPhoNbr && !personalInfo.workPhonePlusExt">
+
+            <div class="h4 col-xs-6 label-format">
+                Alt. Phone:
+            </div>
+            <div translation-skip class="h4 customer-account-data col-xs-6 no-padding-left">
+                {{personalInfo.workPhoNbr | telephone}} {{(personalInfo.workPhoExt ? " ext " + personalInfo.workPhoExt : "")}}
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="h4 col-xs-6 label-format">
+                Email:
+            </div>
+            <div translation-skip class="h4 text-lowercase customer-account-data col-xs-6 no-padding-left">
+                {{personalInfo.emailAddress}}
+            </div>
+        </div>
+        <div ng-if="personalInfo.altEmailAddress" class="row">
+
+            <div class="h4 col-xs-6 label-format">
+                Alt. Email:
+            </div>
+            <div translation-skip class="h4 text-lowercase customer-account-data col-xs-6 no-padding-left">
+                {{personalInfo.altEmailAddress}}
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-if="isAccountInformation">
+        <div class="h4 col-xs-6 label-format">
+            Address:
+        </div>
+        <div class="col-xs-6 no-padding-left">
+            <address-display address="personalInfo" international="personalInfo.international" display-country="personalInfo.displayCountry" ng-if="!hideAddressInfo"></address-display>
+        </div>
+    </div>
+
+    <address-display address="personalInfo" international="personalInfo.international" display-country="personalInfo.displayCountry" ng-if="!hideAddressInfo && !isAccountInformation"></address-display>
+</div>

@@ -1,0 +1,147 @@
+<page-centered-container>
+    <div fxLayout="column">
+
+        <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+            <!-- Thank You Section-->
+            <section fxLayout="column">
+                <header>
+                    <div fxLayout="row"
+                         fxLayoutAlign="start center"
+                         fxLayout.lt-md="column"
+                         fxLayoutAlign.lt-md="start start">
+                        <h2 fxFlex="grow"
+                            fxFlexOrder="1"
+                            fxFlexOrder.lt-md="2">
+                            {{cmsSectionThankYou.Title}}
+                        </h2>
+                        <div fxFlex="none"
+                             fxFlexOrder="2"
+                             fxFlexOrder.lt-md="1"
+                             ngClass.lt-md="printContainer-extra-bottom-space">
+                            <print-link id="printButton"></print-link>
+                        </div>
+
+                    </div>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+            </section>
+
+            <section fxLayout="column">
+                <row-container [rowType]="'emphasis'">
+                    <article col-start
+                             id="totalPaymentLabel"
+                             fxFlex="grow">
+                        Payment Amount:
+                    </article>
+
+                    <article col-end
+                             id="totalPaymentValue"
+                             fxFlex="none">
+                        <currency [value]="paymentAmount"></currency>
+                    </article>
+                </row-container>
+            </section>
+
+            <section fxLayout="column" class="u-spacing__sectionToRow--marginTop">
+                <article>
+                    <cms-content id="thankYouSection" [template]="cmsSectionThankYou.LongDescription" [data]="thankYouSectionParams"></cms-content>
+                </article>
+            </section>
+            <!-- Billing Information Section -->
+            <section fxLayout="column"
+                     class="u-spacing__fieldToSection--marginTop">
+                <header>
+                    <h2>{{cmsContent.BillingInformationHeader}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <payment-display [billingType]="billingMethod.billingType"
+                                 [bankDetails]="billingMethod.eft"
+                                 [creditCard]="billingMethod.credit"
+                                 [showAccountNumber]="true">
+                </payment-display>
+
+                <address-display *ngIf="billingMethod.billingType"
+                                 class="u-spacing__addressToPaymentDisplay--marginTop"
+                                 [address]="billingMethod.billingType === BillingType.Credit ?  billingMethod.credit : billingMethod.eft"
+                                 [international]="billingMethod.billingType === BillingType.Credit ? billingMethod.credit.international : billingMethod.eft.international">
+                </address-display>
+            </section>
+
+            <!-- Important Information Section-->
+            <section fxLayout="column"
+                        class="u-spacing__fieldToSection--marginTop">
+                <header>
+                    <h2>{{cmsSectionImportantInformation.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <article>
+                    <cms-content *ngIf="!isAuthenticated" id="importantInformationSection" [template]="cmsSectionImportantInformation.LongDescription"></cms-content>
+                    <cms-content *ngIf="isAuthenticated" id="importantInformationSection" [template]="cmsSectionImportantInformation.ShortDescription"></cms-content>
+                </article>
+            </section>
+           
+            <!-- Remaining Balance Section-->
+            <section *ngIf="showRemainingBalance"
+                     fxLayout="column"
+                     class="u-spacing__fieldToSection--marginTop">
+                <header>
+                    <h2>{{cmsContent.RemainingBalanceHeader}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    {{cmsContent.RemainingBalanceSubHeader}}
+                </header>
+
+                <violations-plate-row *ngIf="searchPlateBalancePaid" [hideHeader]="false" [plate]="plateContainer.plate"
+                                      [showCollapseUi]="false"
+                                      [selectAllAsDefault]="false" [isEditAllowed]="false" [isRound]="true" [cmsData]="cmsContentPmntPlan">
+                </violations-plate-row>
+                <div *ngFor="let plate of plateContainer.associatedPlates">
+
+                    <violations-plate-row [hideHeader]="true" [plate]="plate"
+                                          [showCollapseUi]="false"
+                                          [selectAllAsDefault]="false" [isEditAllowed]="false" [isRound]="true" [cmsData]="cmsContentPmntPlan" [isAssociated]="true">
+                    </violations-plate-row>
+
+                </div>
+            
+                <row-container [rowType]="'emphasis'"
+                               [isBig]="true"
+                               style="margin-top: 10px;">
+                    <section col-start
+                             fxFlex="grow"
+                             style="font-weight: 700">
+                        Remaining Balance:
+                    </section>
+                    <section col-end
+                             fxFlex="none"
+                             class="totalAmountValue"
+                             style="font-weight: 700">
+                        <currency [value]="remainingBalance"></currency>
+                    </section>
+                </row-container>
+
+            </section>
+
+            <!-- Buttons/Links for 'next' & 'cancel' states -->
+            <section class="u-spacing--widthFill u-spacing__buttonToField--marginTop">
+                <storefront-utility #storefront></storefront-utility>
+                <section *ngIf="!storefront.isKioskView">
+                    <wizard-ui [reverseOrder]="true"
+                               (next)="goToLoginOrAccountOverview()"
+                               (previous)="backToSearchGrid()">
+                        <span wizard-next>{{isAuthenticated ? 'ACCOUNT DASHBOARD' : 'LOGIN TO MY ACCOUNT'}}</span>
+                        <span *ngIf="searchPlateBalancePaid" wizard-previous>Pay Remaining Balance</span>
+                    </wizard-ui>
+                </section>
+
+                <section *ngIf="storefront.isKioskView">
+                    <wizard-ui (next)="nextTask($event)">
+                        <span wizard-next>PROCEED</span>
+                    </wizard-ui>
+                </section>
+            </section>
+        </card-container>
+
+    </div>
+</page-centered-container>

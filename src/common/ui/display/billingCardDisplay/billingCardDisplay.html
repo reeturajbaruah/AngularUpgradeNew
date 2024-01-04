@@ -1,0 +1,172 @@
+
+<div *ngIf="noData === false" style="width:100%; height:232px;"
+     [ngStyle.md]="{'height.px': 272}">
+
+    <div fxLayout="row"
+         fxLayoutAlign="space-between start"
+         class="u-spacing--widthFill">
+        <header fxLayout="column">
+            <h3>{{billingTitle}}</h3>
+        </header>
+
+        <a *ngIf="!isAccountInvoiced" class="viewAllButton"
+           fxFlex="none" aria-label="View all Billing" (click)="viewBillingClick()">
+            View all
+        </a>
+    </div>
+
+    <div fxLayout="column"
+         fxLayoutAlign="center center"
+         style="width:100%;">
+
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             style="width:100%;">
+
+            <img class="cmsImage"
+                 [src]="cmsImage" />
+        </div>
+
+        <div fxLayout="row" style="top:8px;">
+            <div fxFlex class="accountNumberLabel">
+                <div fxLayout="row">
+                    {{paymentType}}
+                    <span *ngIf="paymentType !== 'Invoice'" class="accountNumberLabel" translation-skip>**** {{lastFour}}</span>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <span class="accountNumberLabel"
+                        *ngIf="expirationDate && paymentType !== 'Bank' && paymentType !== 'Invoice'">Exp: {{expirationDate |
+                        date:"M/yy"}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             *ngIf="isActive" class="accountNumberLabel" style="top:16px;">
+            <span style="padding-right:2.5px;">Status:</span>
+            <div class="active">
+                <span> Active</span>
+            </div>
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             *ngIf="isExpiring" class="accountNumberLabel" style="top:16px;">
+            <span style="padding-right:2.5px;">Status:</span>
+            <div>
+                <span class="active"> Active</span>
+                <span style="padding-left:5px;">
+                    <tool-tip class="toolTip">
+                        <span tool-tip-hover>
+                            <mat-icon class="expiring" svgIcon="alert"></mat-icon>
+                        </span>
+                        <span tool-tip-message
+                              ngClass="hoverBoxAdjusment"
+                              [ngStyle.lt-md]="{'left': '-140px'}">
+                            {{expiringTooltip}}
+                        </span>
+                    </tool-tip>
+                </span>
+            </div>
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             fxLayoutGap="5px"
+             *ngIf="isExpired" class="accountNumberLabel" style="top:16px;">
+            <span style="padding-right:2.5px;">Status:</span>
+            <div>
+                <span class="expired"> Expired</span>
+                <span style="padding-left:5px;">
+                    <tool-tip class="toolTip">
+                        <span tool-tip-hover>
+                            <mat-icon class="expired" svgIcon="alert"></mat-icon>
+                        </span>
+                        <span tool-tip-message ngClass="hoverBoxAdjusment"
+                              [ngStyle]="{'left': '-140px'}">
+                            {{expiredTooltip}}
+                        </span>
+                    </tool-tip>
+                </span>
+            </div>
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             fxLayoutGap="5px"
+             *ngIf="isBlocked" class="accountNumberLabel" style="top:16px;">
+            <span style="padding-right:2.5px;">Status:</span>
+            <div>
+                <span class="expired"> Blocked</span>
+                <span style="padding-left:5px;">
+                    <tool-tip class="toolTip">
+                        <span tool-tip-hover>
+                            <mat-icon class="expired" svgIcon="alert"></mat-icon>
+                        </span>
+                        <span tool-tip-message ngClass="hoverBoxAdjusment"
+                              [ngStyle]="{'left': '-140px'}"
+                              [innerHTML]="blockedTooltip | safeHtml">
+                        </span>
+                    </tool-tip>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="showAutoReplenishmentIndicator"
+         fxLayout="row"
+         fxLayoutAlign="start center">
+        <a fxFlex="none" aria-label="Update Replenishment Amount" (click)="updateReplenishmentAmountClick()" class="u-spacing--widthFill cardwidth">
+            <auto-replenishment-indicator [cmsData]="replenishmentIndicatorCMS" [callingComponent]="callingComponent"></auto-replenishment-indicator>
+        </a>
+    </div>
+
+</div>
+
+<div *ngIf="noData === true"
+     style="width:100%; height:232px;">
+
+    <div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+            <header fxLayout="column">
+                <h3>{{billingTitle}}</h3>
+            </header>
+
+            <span *ngIf="!this.isPendingClosure">
+                <a class="viewAllButton"
+                   fxFlex="none" aria-label="View all Billing" (click)="viewBillingClick()">
+                    View all
+                </a>
+            </span>
+        </div>
+
+        <div style="height:60px;">
+
+        </div>
+
+        <section fxLayout="column"
+                 fxLayoutAlign="center center">
+
+            <mat-icon class="noData" svgIcon="cc-icon"></mat-icon>
+
+            <span class="rowItem" style="text-align:center;">{{noDataTitle}}</span>
+        </section>
+
+        <div *ngIf="showAutoReplenishmentIndicator"
+             fxLayout="row"
+             fxLayoutAlign="start center"
+             class="u-spacing__fieldToField--marginTop">
+            <a fxFlex="none" aria-label="Update Replenishment Amount" (click)="updateReplenishmentAmountClick()" class="u-spacing--widthFill cardwidth">
+                <auto-replenishment-indicator [cmsData]="replenishmentIndicatorCMS" [callingComponent]="callingComponent"></auto-replenishment-indicator>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+

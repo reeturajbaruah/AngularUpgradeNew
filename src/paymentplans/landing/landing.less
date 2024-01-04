@@ -1,0 +1,51 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+
+    .or-separator {
+        text-align: center;
+        .t-header--fontFamily();
+        font-size: 15px;
+        font-weight: 700;
+        width: 125px;
+    }
+
+    .or-separator-spacing-desktop {
+        margin-top: 42px;
+    }
+
+    .or-separator-spacing-mobile {
+        margin-top: 12px;
+        margin-bottom: 10px;
+    }
+
+    @select-state-width: 100px;
+
+    mat-select {
+        width: @select-state-width;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    a {
+        font-size: 12px;
+    }
+
+    @input-max-width: 370px;
+
+    .plate-input-width {
+        max-width: @input-max-width;
+        min-width: 225px;
+    }
+
+    .invoice-number-container {
+        max-width: 445px;
+    }
+
+    .payment-plan-number-container {
+        max-width: 470px;
+    }
+}

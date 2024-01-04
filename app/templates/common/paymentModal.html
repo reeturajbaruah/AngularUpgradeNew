@@ -1,0 +1,21 @@
+﻿<div id="modal-popup">
+    <div class="modal-header" storefront-hide-if-enabled>
+        <div class="row">
+            <div class="col-xs-8 pull-left">
+                <h4>{{modalOptions.headerText}}</h4>
+            </div>
+            <div class="col-xs-1 pull-right">
+                <button type="button" data-ng-click="modalOptions.close()" class="close">&times;</button>
+            </div>
+        </div>
+    </div>
+    <div storefront-show-if-enabled>
+        <a ng-click="modalOptions.close()" class="storefrontModalClose" storefront-modal-close></a>
+    </div>
+
+    <div class="modal-body innerModalContent inner-payment-modal">
+        <p class="h2 bottom-buffer-xs" ng-bind-html="modalOptions.subHeading | trusted"></p>
+        <div ng-include="'/app/templates/account/manageBillingInformation/paymentDirectivesSwitch.html'"></div>
+        <p class="h5" ng-bind-html="modalOptions.subText | trusted"></p>
+    </div>
+</div>

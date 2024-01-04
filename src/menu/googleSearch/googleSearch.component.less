@@ -1,0 +1,198 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../../../Content/css/site-variables.less';
+
+
+::ng-deep table.gsc-search-box>tbody>tr>td:first-of-type {
+    padding-top: 2px;
+}
+
+::ng-deep table.gsc-search-box>tbody>tr>td:first-of-type div.gsc-input-box {
+    border-radius: 4px;
+}
+
+::ng-deep table.gsc-search-box>tbody>tr>td:first-of-type {
+    padding-top: 2px;
+}
+
+::ng-deep table.gsc-search-box>tbody>tr>td:first-of-type div.gsc-input-box {
+    border-radius: 4px;
+}
+
+::ng-deep .gsc-tabsArea>.gsc-tabHeader {
+    height: 35px !important;
+    padding-top: 4px;
+}
+
+::ng-deep .gsc-tabHeader.gsc-tabhInactive {
+    background-color: #e9e9e9 !important;
+    border-color: #e9e9e9 !important;
+    border-radius: 4px 4px 0px 0px !important;
+}
+
+::ng-deep .gsc-refinementsArea {
+    margin-bottom: 40px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+}
+
+::ng-deep .gsc-refinementsArea>div {
+    height: 0px !important;
+}
+
+::ng-deep .gsc-refinementhActive {
+    color: #47286c !important;
+    position: relative !important;
+    top: 65px !important;
+}
+
+::ng-deep .gsc-refinementhInactive {
+    position: relative !important;
+    top: 65px !important;
+}
+
+::ng-deep .gsc-above-wrapper-area {
+    min-height: 45px !important;
+}
+
+::ng-deep .gs-result.gs-webResult a.gs-title:link,
+::ng-deep .gs-result.gs-webResult a.gs-title:link b,
+::ng-deep .gs-imageResult a.gs-title:link,
+::ng-deep .gs-imageResult a.gs-title:link b {
+    color: #428bca !important;
+}
+
+::ng-deep .gs-webResult.gs-result a.gs-title:visited,
+::ng-deep .gs-webResult.gs-result a.gs-title:visited b,
+::ng-deep .gs-imageResult a.gs-title:visited,
+::ng-deep .gs-imageResult a.gs-title:visited b {
+    color: #428bca !important;
+}
+
+::ng-deep.cse .gsc-control-cse,
+::ng-deep .gsc-control-cse {
+    font-family: 'Avenir LT Std 45 Book Regular' !important;
+    padding: 0px !important;
+    width: auto !important;
+}
+
+@media screen and (max-width: 320px) {
+    #manage-ez-tags {
+        .col-xs-4 {
+            width: 82px;
+        }
+
+        select.form-control {
+            font-size: @h4-size-small-screen;
+        }
+
+        #june-redesign #searchbox {
+            .search {
+                .fa-search {
+                    float: right;
+                    left: -1px;
+                    padding: 10px 14px;
+                    position: relative;
+                    top: 31px;
+                    z-index: 1;
+                }
+            }
+        }
+
+        #what-is-ez-plate-link {
+            margin-top: -26px;
+        }
+    }
+}
+
+@media screen and (min-width: 321px) and (max-width: @maximum-mobile-width) {
+    #manage-ez-tags {
+        .col-xs-4 {
+            width: 106px;
+        }
+
+        select.form-control {
+            font-size: @h4-size-mo;
+        }
+
+        #june-redesign #searchbox {
+            .search {
+                .fa-search {
+                    float: right;
+                    left: -1px;
+                    position: relative;
+                    top: 30px;
+                    z-index: 1;
+                }
+            }
+        }
+
+        #what-is-ez-plate-link {
+            margin-top: -28px;
+        }
+    }
+}
+
+@media screen and (min-width: @minimum-desktop-width) {
+    #manage-ez-tags {
+        .col-xs-4 {
+            width: 140px;
+        }
+
+        #vehicle-search-label {
+            vertical-align: top;
+        }
+
+        #june-redesign #searchbox {
+            width: 327px;
+
+            .search {
+                width: auto;
+
+                .fa-search {
+                    left: 284px;
+                    z-index: 1;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: @maximum-mobile-width) {
+    #mobileGeneralGoogleSearchParent {
+        table.gsc-search-box>tbody>tr>td:first-of-type {
+            div.gsc-input-box>table>tbody>tr>td:first-of-type {
+                padding-top: 2px;
+            }
+        }
+    }
+
+    #googleMobileSearchElementHamburgerParent {
+        table.gsc-search-box>tbody>tr>td:first-of-type {
+            div.gsc-input-box>table>tbody>tr>td:first-of-type {
+                padding-top: 3px;
+            }
+        }
+    }
+
+    #searchField {
+        table.gsc-search-box>tbody>tr>td:first-of-type {
+            div.gsc-input-box>table>tbody>tr>td:first-of-type {
+                padding-top: 4px;
+            }
+        }
+    }
+
+    #searchResults {
+        div.gsc-orderby {
+            div.gsc-selected-option {
+                font-size: 10px;
+            }
+        }
+    }
+
+    .gs-col {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+    }
+}

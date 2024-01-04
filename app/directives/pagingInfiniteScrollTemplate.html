@@ -1,0 +1,48 @@
+﻿<div infinite-scroll="mobileSearch()" infinite-scroll-distance='0' infinite-scroll-disabled="infiniteScrollIsDisabled" >
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 id="{{titleId}}" class="pull-left no-margin-top-do no-margin-bottom-do">{{titleType}} Search Results</h2>
+            <h5 ng-if="totalItems > 0" class="pull-right top-buffer-md-half-mo no-margin-bottom-do top-buffer-xs-half-do">{{totalItems}} items found</h5>
+        </div>
+    </div>
+    <div class="desktopOnly">
+        <div class="row no-margin no-padding"></div>
+        <hr class="hr-base" />
+    </div>
+    <div class="bottom-buffer-xl" ng-repeat="article in articleArray">
+        <header class="header-spacing">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="no-margin-bottom" id="{{article.itemID}}">{{article.title}}</h2>
+                </div>
+                <div class="col-xs-12">
+                    <h4 ng-if="archiveTypeChecker.isClosures && article.subtitle" class="no-margin-bottom top-buffer-xs">
+                        {{article.subtitle}}
+                    </h4>
+                </div>
+                <div class="col-xs-12">
+                    <h6 ng-if="archiveTypeChecker.isFaqs && article.title != 'Transtar Map'" class="no-margin-bottom">
+                        Last Modified {{article.__Updated | date: 'longDate'}}
+                    </h6>
+                    <h6 ng-if="archiveTypeChecker.isNews && article.title != 'Transtar Map'" class="no-margin-bottom">
+                        Last Modified {{article.newsDisplayDate | date: 'longDate'}}
+                    </h6>
+                    <h6 ng-if="archiveTypeChecker.isClosures && article.displayDate && article.title != 'Transtar Map'" class="no-margin-bottom top-buffer-xs-half">
+                        {{article.displayDate}}
+                    </h6>
+                </div>
+            </div>
+            <hr class="desktopOnly" ng-show="hasArticles" />
+        </header>
+
+        <read-more-or-less [title-name]="article.title" [long-content]="article.longDescription" [short-content]="article.shortDescription" [default-to-more]="false" [item-path]="article.itemPath" [item-id]="article.itemID"></read-more-or-less>
+
+        <div ng-if="!hasArticles" class="desktopOnly row bottom-buffer-xl top-buffer-xl"></div>
+    </div>
+    <div ng-show="!hasArticles">{{articleNotFoundText}}</div>
+    <div class="row desktopOnly">
+        <div class="col-xs-12">
+            <paging-control data="pagingObject" search-function="search()" form="form" navigation-urls="navigationUrls"></paging-control>
+        </div>
+    </div>
+</div>

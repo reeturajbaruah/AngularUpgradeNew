@@ -1,0 +1,108 @@
+﻿@import '../css/site-variables';
+@import '../css/site-variables-june-redesign';
+
+
+@mega-menu-screen-lg: @screen-lg;
+@mega-menu-screen-sm: @screen-sm;
+@mega-minimum-desktop-width: @minimum-desktop-width;
+@mega-screen-md-max: @screen-md-max;
+
+#june-redesign {
+
+    @media screen and (min-width: @minimum-desktop-width) {
+        #header1 {
+            background: white;
+            height: 55px;
+            padding-top: 24px;
+
+            .glyphicon {
+                color: #333333;
+            }
+        }
+
+        #headLogin {
+            ul.nav.navbar-nav > li.hello-user {
+                ul.dropdown-menu {
+                    height: 64px;
+                    left: -1px;
+                    min-width: 122px;
+                    top: -1px;
+                    width: calc(~'100% + 2px');
+                    z-index: 1001;
+
+                    a#logoutLink {
+                        margin-top: 30px;
+                        padding-left: 0px;
+                    }
+                }
+            }
+
+            .hello-user {
+                button {
+                    min-width: 120px;
+                    width: auto;
+                }
+            }
+
+            .hello-caret {
+                display: block;
+                height: 8px;
+                left: -5px;
+                margin-right: 0px;
+                padding: 0px 0px 18px 0px;
+                position: relative;
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);
+                -ms-transform: rotate(90deg);
+                -o-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .hello-caret:before {
+                border-left-color: @hctra-gold;
+                left: 0px;
+            }
+        }
+    }
+
+
+    #headLogin {
+        span {
+            padding-left: 0px;
+            vertical-align: baseline;
+        }
+    }
+
+
+    #searchbox {
+        height: @button-height;
+        @search-box-width: 250px;
+
+        .search {
+            margin-top: -3px;
+            position: relative;
+            width: @search-box-width;
+
+            input {
+                border-color: black;
+                border-radius: 0px;
+                height: @button-height;
+                padding-right: 49px;
+                text-indent: 0px;
+            }
+
+            .fa-search {
+                background-color: @hctra-gold;
+                cursor: pointer;
+                left: @search-box-width - 43px;
+                padding: 8px 14px;
+                position: absolute;
+                top: 1px;
+            }
+        }
+    }
+
+    nav.yammR.navbar-default {
+        border-color: transparent;
+    }
+}

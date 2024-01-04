@@ -1,0 +1,31 @@
+<main ngClass="extended-row"
+      [ngClass.lt-md]="{'extended-row': false}">
+    <fx-row class="clickable"
+                                  (click)="openTollDetailsModal()">
+                                  
+        <section col-start
+                 class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+            <div class="fx-flex-auto-shrink-more limited-flex">
+                <a class="fx-layout-row fx-layout-align-start-center u--noUnderline">
+                    <div translation-skip class="fx-flex-none violationId--width">{{uninvoiced.violationNumber}}</div>
+                    <div class="fx-flex-none glyphicon glyphicon-chevron-right"></div>
+                </a>
+            </div>
+            <div translation-skip fxShow
+                 fxHide.lt-md
+                 class="fx-flex-auto-shrink-more limited-flex">
+                {{uninvoiced.violationDate | dateWithTimeZone: 'date1'}}
+            </div>
+            <div translation-skip fxShow
+                 fxHide.lt-md
+                 class="fx-flex-auto-grow-more unlimited-flex">
+                {{uninvoiced.agencyCode}}
+            </div>
+        </section>
+
+        <section col-end
+                 class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+            <div class="fx-flex-auto limited-flex-end"><currency [value]="uninvoiced.amountDue"></currency></div>
+        </section>
+    </fx-row>
+</main>

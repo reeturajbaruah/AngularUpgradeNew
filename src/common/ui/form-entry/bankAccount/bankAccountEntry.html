@@ -1,0 +1,249 @@
+<div *ngIf="legacy" [ngModelGroup]="name || 'bankAccount'">
+    <div class="form-group top-buffer-sm-half" [error-check]="BankAccountTypeSelect">
+        <label for="bankAccountType">Bank Account Type</label>
+        <select name="bankAccountType"
+                id="bankAccountType"
+                class="form-control form-entry-width"
+                [ngClass]="{ 'setItalic' : !bankDetails.accountType }"
+                #BankAccountTypeSelect="ngModel"
+                [(ngModel)]="bankDetails.accountType"
+                [required]="validate || BankAccountTypeSelect.pristine">
+            <option *ngIf="bankDetails.accountType === null" [value]="null" disabled selected>Select Bank Account Type</option>
+            <option [value]="BankAccountType.Personal">Personal</option>
+            <option [value]="BankAccountType.Business">Business</option>
+        </select>
+
+        <div *ngFor="let error of BankAccountTypeSelect.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please select the account type</p>
+            </ng-container>
+        </div>
+    </div>
+
+    <div *ngIf="showName" class="form-group top-buffer-sm-half" [error-check]="NameInput">
+        <label for="eftName">Name on Bank Account</label>
+        <input type="text"
+               id="eftName"
+               #NameInput="ngModel"
+               class="form-control form-entry-width"
+               [(ngModel)]="bankDetails.name"
+               name="eftName"
+               pattern="^[a-zA-Z\-\'\.,\s]*$"
+               [required]="validate" />
+
+        <div *ngFor="let error of NameInput.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please enter the bank account holder's name</p>
+                <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid name</p>
+            </ng-container>
+        </div>
+
+    </div>
+    <div class="form-group top-buffer-sm-half" [error-check]="RoutingInput">
+        <label for="routing">Routing Number</label>
+        <input type="text"
+               id="routing"
+               class="form-control form-entry-width"
+               #RoutingInput="ngModel"
+               [(ngModel)]="bankDetails.routingNumber"
+               name="routing"
+               pattern="^\d{9}$"
+               [required]="validate || RoutingInput.pristine"
+               (ngModelChange)="validatingRoutingNumber()"/>
+
+        <p class="top-buffer-xs no-margin-bottom">
+            <span class="h5"><a (click)="clickedHelp()">Routing Number</a> - </span>
+            <span class="h6">first group of numbers of your check</span>
+        </p>
+
+        <div *ngFor="let error of RoutingInput.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted || showRoutingNumberValidationMsg" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please enter a valid routing number</p>
+                <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid routing number</p>
+            </ng-container>
+        </div>
+
+    </div>
+
+    <div class="form-group top-buffer-sm-half" [error-check]="AccountNumberInput">
+        <label for="account">Account Number</label>
+        <input type="text"
+               id="account"
+               #AccountNumberInput="ngModel"
+               class="form-control form-entry-width"
+               [(ngModel)]="bankDetails.accountNumber"
+               name="account"
+               pattern="^(\d{1,17}|\*{12}\d{4})$"
+               [required]="validate || AccountNumberInput.pristine"
+              
+               />
+
+        <p class="top-buffer-xs no-margin-bottom">
+            <span class="h5"><a (click)="clickedHelp()">Account Number</a> - </span>
+            <span class="h6">second group of numbers of your check</span>
+        </p>
+
+        <div *ngFor="let error of AccountNumberInput.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please enter a valid account number</p>
+                <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid account number</p>
+            </ng-container>
+        </div>
+
+    </div>
+
+    <div class="form-group top-buffer-sm-half" [error-check]="[AccountNumber2Input, AccountNumberCompareInput]">
+
+        <label for="account2">Confirm Account Number</label>
+        <input type="text"
+               id="account2"
+               #AccountNumber2Input="ngModel"
+               class="form-control form-entry-width"
+               [(ngModel)]="bankDetails.account2"
+               name="account2"
+               [required]="validate || AccountNumber2Input.pristine" />
+
+        <input type="hidden"
+               #AccountNumberCompareInput="ngModel"
+               [ngModel]="accountNumbersMatch"
+               pattern="^true$"
+               name="accountNumberCompare" />
+
+        <div *ngFor="let error of AccountNumber2Input.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted && AccountNumberInput.valid" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please confirm the account number</p>
+            </ng-container>
+        </div>
+        <div *ngFor="let error of AccountNumberCompareInput.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted && AccountNumberInput.valid && AccountNumber2Input.valid" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'pattern'" class="help-block">Account numbers do not match</p>
+            </ng-container>
+        </div>
+
+    </div>
+
+    <!--EFT ACH DISCLAIMER-->
+    <eft-ach-disclaimer></eft-ach-disclaimer>
+</div>
+
+<div *ngIf="!legacy" class="refresh-2020" [ngModelGroup]="name || 'bankAccount'" fxLayout="column">
+    <!--Bank Account Type-->
+    <section [error-check]="BankAccountTypeSelect" class="u-spacing--widthFill">
+        <mat-label>BANK ACCOUNT TYPE</mat-label>
+        <mat-select name="bankType"
+                    [ngClass]="{ 'setItalic' : !bankDetails.accountType }"
+                    #BankAccountTypeSelect="ngModel"
+                    [(ngModel)]="bankDetails.accountType"
+                    [required]="validate || BankAccountTypeSelect.pristine"
+                    placeholder="Select Bank Account Type">
+            <mat-option [value]="BankAccountType.Personal">Personal</mat-option>
+            <mat-option [value]="BankAccountType.Business">Business</mat-option>
+        </mat-select>
+
+        <div *ngFor="let error of BankAccountTypeSelect.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please select the account type</p>
+            </ng-container>
+        </div>
+    </section>
+
+    <!--Name-->
+    <section *ngIf="showName" [error-check]="NameInput" class="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+        <mat-label>NAME ON BANK ACCOUNT</mat-label>
+        <input type="text"
+               id="eftName"
+               #NameInput="ngModel"
+               [(ngModel)]="bankDetails.name"
+               name="eftName"
+               pattern="^[a-zA-Z\-\'\.,\s]*$"
+               [required]="validate" />
+        <div *ngFor="let error of NameInput.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please enter the bank account holder's name</p>
+                <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid name</p>
+            </ng-container>
+        </div>
+    </section>
+
+    <!--Routing Number-->
+    <section [error-check]="RoutingInput" class="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+        <mat-label>ROUTING NUMBER</mat-label>
+        <input type="text"
+               id="routing"
+               #RoutingInput="ngModel"
+               [(ngModel)]="bankDetails.routingNumber"
+               name="routing"
+               pattern="^\d{9}$"
+               [required]="validate || RoutingInput.pristine"
+               (ngModelChange)="isValid && validatingRoutingNumber()"/>
+        <p class="tip-font">
+            <span><a (click)="openModal()">Routing Number</a> - </span>
+            <span>first group of numbers on your check</span>
+        </p>
+        <div *ngFor="let error of RoutingInput.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted || showRoutingNumberValidationMsg" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please enter a valid routing number</p>
+                <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid routing number</p>
+            </ng-container>
+        </div>
+    </section>
+
+    <!--Account Number-->
+    <section [error-check]="AccountNumberInput" class="u-spacing__fieldToField--marginTop">
+        <mat-label>ACCOUNT NUMBER</mat-label>
+        <input type="text"
+               id="account"
+               #AccountNumberInput="ngModel"
+               [(ngModel)]="bankDetails.accountNumber"
+               (ngModelChange)="accountNumberChange($event)"
+               name="account"
+               pattern="^(\d{1,17}|\*{12}\d{4})$"
+               [required]="validate || AccountNumberInput.pristine" />
+
+        <p class="tip-font">
+            <span><a (click)="openModal()">Account Number</a> - </span>
+            <span>second group of numbers on your check</span>
+        </p>
+
+        <div *ngFor="let error of AccountNumberInput.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please enter a valid account number</p>
+                <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid account number</p>
+            </ng-container>
+        </div>
+
+    </section>
+
+    <!--Account Number Confirmation-->
+    <section [error-check]="[AccountNumber2Input, AccountNumberCompareInput]" class="u-spacing__fieldToField--marginTop">
+        <mat-label>CONFIRM ACCOUNT NUMBER</mat-label>
+        <input type="text"
+               id="account2"
+               #AccountNumber2Input="ngModel"
+               [(ngModel)]="bankDetails.account2"
+               (ngModelChange)="accountNumberChange($event)"
+               name="account2"
+               [required]="validate || AccountNumber2Input.pristine" />
+
+        <input type="hidden"
+               #AccountNumberCompareInput="ngModel"
+               [ngModel]="accountNumbersMatch"
+               pattern="^true$"
+               name="accountNumberCompare" />
+
+        <div *ngFor="let error of AccountNumber2Input.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted && AccountNumberInput.valid" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please confirm the account number</p>
+            </ng-container>
+        </div>
+        <div *ngFor="let error of AccountNumberCompareInput.errors | keyvalue" role="alert">
+            <ng-container *ngIf="submitted && AccountNumberInput.valid && AccountNumber2Input.valid" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'pattern'" class="help-block">Account numbers do not match</p>
+            </ng-container>
+        </div>
+
+    </section>
+
+    <!--EFT ACH DISCLAIMER-->
+    <eft-ach-disclaimer></eft-ach-disclaimer>
+</div>

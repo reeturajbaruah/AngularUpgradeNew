@@ -1,0 +1,55 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../../../Content/css/site-variables.less';
+
+
+:host {
+
+    input[type='radio'] {
+        height: 15px;
+        width: 15px;
+    }
+
+    label {
+        margin-bottom: 0px;
+    }
+
+    .subTitleClass {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        color: @dark-gray-base;
+        font-weight: 500;
+        margin-left: 10px;
+    }
+
+    .padding-10 {
+        padding: 10px;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    .border {
+        border: 1px solid #c4c4c4;
+        padding: 10px;
+
+        &.first {
+            border-radius: 10px 10px 0px 0px;
+        }
+
+        &.last {
+            border-radius: 0px 0px 10px 10px;
+        }
+
+        &.radius {
+            border-radius: 10px;
+        }
+    }
+
+    .selected {
+        border-color: #007aff !important;
+        background-color: #e0e0ef !important;
+    }
+
+}

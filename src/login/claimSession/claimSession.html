@@ -1,0 +1,63 @@
+<main class="refresh-2020">
+    <title-banner>
+        {{cmsContent.Title}}
+    </title-banner>
+
+    <page-centered-container>
+        <div fxLayout="column">
+            <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+                <section fxLayout="column">
+
+                    <!--Header Section-->
+                    <header>
+                        <!--Title-->
+                        <h2>{{cmsContent.PinFormSectionTitle}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+
+                        <!--Details Paragraph (Pin explanation)-->
+                        <section>
+                            <div [innerHtml]="cmsContent.ShortDescription"></div>
+                        </section>
+                    </header>
+
+                    <!--PIN FORM (User Input Field and Submit Button)-->
+                    <section [ngClass]="cmsContent.ShortDescription ? 'u-spacing__sectionToSection--marginTop' : ''">
+                        <form #ClaimSessionForm="ngForm"
+                              validation-focus novalidate
+                              fxLayout="column start">
+
+                            <!-- PIN input box -->
+                            <div fxLayout="column"
+                                 [error-check]="pinInput">
+                                <mat-label for="pin">PLEASE ENTER PIN</mat-label>
+                                <input type="text"
+                                       id="pinTxtBox"
+                                       [(ngModel)]="pin"
+                                       #pinInput="ngModel"
+                                       name="pin"
+                                       tabindex="1"
+                                       required />
+
+                                <aside *ngFor="let error of pinInput.errors | keyvalue">
+                                    <ng-container *ngIf="ClaimSessionForm.submitted" [ngSwitch]="error.key">
+                                        <p *ngSwitchCase="'required'" class="help-block">Please enter a valid pin</p>
+                                    </ng-container>
+                                </aside>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="u-spacing__buttonToField--marginTop">
+
+                                <action-buttons (main)="submitPinNumber(ClaimSessionForm)">
+                                    <span action-main>SUBMIT</span>
+                                </action-buttons>
+                            </div>
+                        </form>
+
+                    </section>
+                </section>
+
+            </card-container>
+        </div>
+    </page-centered-container>
+</main>

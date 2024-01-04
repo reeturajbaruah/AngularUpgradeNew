@@ -1,0 +1,134 @@
+@import (reference) '../../styles/variables.less';
+
+:host {
+    .faqTitle {
+        font-family: @font-saira;
+        font-size: 24px;
+        font-weight: 500;
+        color: #000000;
+    }
+
+    .faqDescription {
+        font-family: @font-jura;
+    }
+
+    .accordian-main {
+
+        @media @breakpoint-xs {
+            margin-bottom: 40px;
+            width: 375px;
+
+            p {
+                font-family: @font-jura;
+                font-size: 17.5px;
+                width: 100%;
+            }
+        }
+
+        @media @breakpoint-sm {
+            margin-bottom: 40px;
+            width: 568px;
+
+            p {
+                font-family: @font-jura;
+                font-size: 17.5px;
+                width: 100%;
+            }
+        }
+
+        @media @breakpoint-md {
+            margin-bottom: 40px;
+            width: 816px;
+
+            p {
+                font-family: @font-jura;
+                font-size: 17.5px;
+                width: 100%;
+            }
+        }
+
+        @media @breakpoint-gt-md {
+            margin-bottom: 40px;
+            width: 1204px;
+
+            p {
+                font-family: @font-jura;
+                font-size: 17.5px;
+                width: 100%;
+            }
+        }
+    }
+
+
+
+    .expansion-panel-custom {
+
+        @media @breakpoint-xs {
+            border-bottom: 3px solid #ff8900;
+            border-bottom-right-radius: 0px !important;
+            border-bottom-left-radius: 0px !important;
+        }
+
+        @media @breakpoint-sm {
+            border-bottom: 3px solid #ff8900;
+            border-bottom-right-radius: 0px !important;
+            border-bottom-left-radius: 0px !important;
+        }
+
+        @media @breakpoint-md {
+            border-bottom: 3px solid #ff8900;
+            border-bottom-right-radius: 0px !important;
+            border-bottom-left-radius: 0px !important;
+        }
+
+        @media @breakpoint-gt-md {
+            border-bottom: 5px solid #ff8900;
+            border-bottom-right-radius: 0px !important;
+            border-bottom-left-radius: 0px !important;
+        }
+
+    }
+
+    .mat-expansion-panel-header:not([aria-disabled='true']) {
+        color: #000000;
+        font-family: @font-saira;
+        font-weight: 500;
+        font-size: 24px;
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+
+    .mat-expansion-panel:not([class*='mat-elevation-z']) {
+        box-shadow: none;
+        background: transparent;
+    }
+
+    /*  custom icon styles start*/
+    .mat-expanded .mat-expansion-panel-header-title .material-icons {
+        transform: rotate(180deg);
+    }
+
+    .mat-expansion-panel-header-title .open,
+    .mat-expanded .mat-expansion-panel-header-title .close {
+        display: inline-block;
+    }
+
+    .mat-expanded .mat-expansion-panel-header-title .open,
+    .mat-expansion-panel-header-title .close {
+        display: none;
+    }
+
+    .mat-expansion-panel-header-title {
+        justify-content: space-between;
+    }
+
+    .close {
+        opacity: 1;
+    }
+
+    ::ng-deep .close svg path:nth-of-type(1) {
+        fill: #f6f6f6 !important;
+    }
+
+    /*  custom icon styles end*/
+}

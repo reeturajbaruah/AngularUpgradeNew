@@ -1,0 +1,116 @@
+<main class="refresh-2020">
+
+    <section>
+        <h3>Transaction ID: {{data.uninvoicedDetails.violationNumber}}</h3>
+    </section>
+
+    <section fxLayout="row"
+             fxLayout.lt-md="row wrap"
+             [ngStyle]="{'margin-top': '16px'}">
+
+        <section fxFlex="auto">
+            <div class="u-spacing--widthFill">
+                <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                    <fx-row [isLabel]="true"
+                                           [backgroundColorClass]="'transparent-background'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>TRANSACTION DATE</mat-label>
+                        </section>
+                    </fx-row>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section translation-skip col-start
+                             fxFlex="auto">
+                        {{data.uninvoicedDetails.violationDate | dateWithTimeZone: 'dateTime3'}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlex="auto"
+                 fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 ngStyle.lt-md="width:100%">
+            <div class="u-spacing--widthFill">
+                <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                    <fx-row [isLabel]="true"
+                                           [backgroundColorClass]="'transparent-background'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>AGENCY</mat-label>
+                        </section>
+                    </fx-row>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section translation-skip
+                             col-start
+                             fxFlex="auto"
+                             fxShow
+                             fxHide.lt-md>
+                        {{data.uninvoicedDetails.agencyCode}}
+                    </section>
+                    <section translation-skip
+                             col-start
+                             fxFlex="auto"
+                             fxHide
+                             fxShow.lt-md>
+                        {{data.uninvoicedDetails.mobileAgency}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 class="hidden u-spacing--widthFill"
+                 [ngClass.lt-md]="{'hidden': false}"></section>
+
+        <section fxFlex="2 1 auto"
+                 fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1">
+            <div class="u-spacing--widthFill">
+                <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                    <fx-row [isLabel]="true"
+                                           [backgroundColorClass]="'transparent-background'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>TRANSACTION LOCATION</mat-label>
+                        </section>
+                    </fx-row>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section translation-skip
+                             col-start
+                             fxFlex="auto">
+                        <div>{{data.uninvoicedDetails.location}}</div>
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlex="none">
+            <div class="u-spacing--widthFill">
+                <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                    <fx-row [isLabel]="true"
+                                           [backgroundColorClass]="'transparent-background'">
+                        <section col-end
+                                 fxFlex="none"
+                                 class="u-spacing--widthFill c--textAlignEnd">
+                            <mat-label>AMOUNT</mat-label>
+                        </section>
+                    </fx-row>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section col-end
+                             fxFlex="none"
+                             class="u-spacing--widthFill c--textAlignEnd">
+                        <div><currency [value]="data.uninvoicedDetails.amountDue"></currency></div>
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+    </section>
+
+</main>

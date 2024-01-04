@@ -1,0 +1,32 @@
+@import (reference) '../../themes.less';
+
+
+mat-label {
+    .t-label--color(@theme-light);
+    .t-header--fontFamily;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 12px;
+    height: 15px;
+
+    .mat-sort-header-arrow {
+        margin: 0px 0px 0px 6px;
+        color: #007aff;
+
+        .mat-sort-header-stem {
+            margin: auto;
+        }
+
+        .mat-sort-header-indicator {
+            margin: auto;
+        }
+
+        .mat-sort-header-pointer-middle {
+            margin: auto;
+        }
+    }
+
+    .mat-sort-header-sorted {
+        color: #34353a;
+    }
+}

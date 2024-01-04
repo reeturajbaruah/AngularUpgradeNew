@@ -1,0 +1,147 @@
+<form #emailUsForm="ngForm" validation-focus name="emailUsForm">
+    <card-container>
+        <section>
+            <div [error-check]="emailInput">
+                <mat-label for="email">{{emailUsCms?.EmailAddressHeader}}</mat-label>
+
+                <input type="email" id="email" name="email"
+                       [placeholder]="emailUsCms?.EmailAddressPlaceholder"
+                       [(ngModel)]="emailUsData.email"
+                       #emailInput="ngModel"
+                       required
+                       email="true" />
+
+                <aside role="alert">
+                    <p *ngIf="emailUsForm.submitted && emailInput.errors?.required" class="help-block">{{emailUsCms.EmailRequiredText}}</p>
+                    <p *ngIf="emailUsForm.submitted && emailInput.errors?.email" class="help-block">{{emailUsCms.EmailValidationText}}</p>
+                </aside>
+
+            </div>
+
+        </section>
+
+        <section>
+            <div [error-check]="yourNameInput">
+                <mat-label for="yourName">{{emailUsCms?.YourNameHeader}}</mat-label>
+
+                <input type="text" id="YourName" name="YourName"
+                       [(ngModel)]="emailUsData.name"
+                       #yourNameInput="ngModel"
+                       pattern="^[a-zA-Z\-\'\.,\s]*$"
+                       required />
+
+                <aside *ngIf="emailUsForm.submitted && yourNameInput.errors" role="alert">
+                    <p class="help-block">{{emailUsCms?.YourNameRequiredText}}</p>
+                </aside>
+            </div>
+        </section>
+
+        <section *ngIf="formsCms">
+            <div class="howCanWeHelpTitle">{{emailUsCms?.HowCanWeHelpTitle}}</div>
+            <select name="selectedForm" [(ngModel)]="selectedForm" required>
+                <option value="" disabled selected>{{emailUsCms?.SelectTopicPlaceholder}}</option>
+                <option *ngFor="let formCms of formsCms"
+                        [ngValue]="formCms">
+                    {{ formCms?.Title }}
+                </option>
+            </select>
+            <aside *ngIf="emailUsForm.submitted && !selectedForm?.Title" role="alert">
+                <p class="help-block">{{emailUsCms?.SelectTopicHeader}}</p>
+            </aside>
+        </section>
+
+
+        <!-- FAQ Template -->
+        <section *ngIf="selectedForm?.FAQs">
+            <shared-accordion [items]="selectedForm?.FAQs"></shared-accordion>
+        </section>
+
+
+        <div *ngFor="let field of selectedForm.Fields">
+            <!-- Dropdown Template -->
+            <section *ngIf="fieldsCms[field.ItemName].Type === FieldTypes.Dropdown">
+                <div [error-check]="itemNameDropdown">
+                    <mat-label ngClass="labelMargin">{{fieldsCms[field.ItemName].Title}}</mat-label>
+                    <select name="{{field.ItemName}}"
+                            [(ngModel)]="fields[field.ItemName].value"
+                            #itemNameDropdown="ngModel"
+                            [required]="field.Required"
+                            [ngClass]="{'has-error': emailUsForm?.submitted && itemNameDropdown?.errors }">
+                        <option value="" disabled selected>{{ fieldsCms[field.ItemName].PlaceholderText }}</option>
+                        <option *ngFor="let fieldCms of fieldsCms[field.ItemName].Dropdown"
+                                [value]="fieldCms.ItemName"
+                                [ngClass]="{'bold': fieldCms.Bold}">
+                            {{ fieldCms.Title }}
+                        </option>
+                    </select>
+                    <aside *ngIf="emailUsForm.submitted && itemNameDropdown?.errors" role="alert">
+                        <p class="help-block">{{fieldsCms[field.ItemName].ValidationErrorText}}</p>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- TextArea Template -->
+            <section *ngIf="fieldsCms[field.ItemName].Type === FieldTypes.TextArea">
+                <div [error-check]="itemNameForTextArea">
+                    <mat-label ngClass="labelMargin">{{fieldsCms[field.ItemName].Title}}</mat-label>
+                    <textarea name="{{field.ItemName}}"
+                              #itemNameForTextArea="ngModel"
+                              [(ngModel)]="fields[field.ItemName].value"
+                              [placeholder]="fieldsCms[field.ItemName].PlaceholderText"
+                              [pattern]="fieldsCms[field.ItemName].ValidationRegex"
+                              [required]="field.Required">
+                </textarea>
+                    <aside *ngIf="emailUsForm.submitted && itemNameForTextArea.errors" role="alert">
+                        <p class="help-block">{{fieldsCms[field.ItemName].ValidationErrorText}}</p>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- FileUpload Template -->
+            <section *ngIf="fieldsCms[field.ItemName].Type === FieldTypes.FilesUpload">
+                <shared-file-upload (filesChanged)="emailUsData.files = $event"
+                                    [required]="field.Required"
+                                    [maxUploadSlots]="fieldsCms[field.ItemName].FileUploadMaxSlots"
+                                    [maxfileSizeInMb]="fieldsCms[field.ItemName].FileUploadSize"
+                                    [allowedExtensions]="fieldsCms[field.ItemName].FileUploadExtensions">
+                </shared-file-upload>
+            </section>
+
+            <!-- Input Template -->
+            <section *ngIf="fieldsCms[field.ItemName].Type === FieldTypes.Input">
+                <div [error-check]="itemName">
+                    <mat-label ngClass="labelMargin">{{fieldsCms[field.ItemName].Title}}</mat-label>
+                    <input [id]="field.ItemName"
+                           [name]="field.ItemName"
+                           [(ngModel)]="fields[field.ItemName].value"
+                           [placeholder]="fieldsCms[field.ItemName].PlaceholderText"
+                           [pattern]="fieldsCms[field.ItemName].ValidationRegex"
+                           #itemName="ngModel"
+                           (ngModelChange)="updatePhoneNumber(field.ItemName)"
+                           [required]="field.Required" />
+
+                    <aside *ngIf="emailUsForm.submitted && itemName.errors" role="alert">
+                        <p class="help-block">{{fieldsCms[field.ItemName].ValidationErrorText}}</p>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- Checkbox Template -->
+            <section *ngIf="fieldsCms[field.ItemName].Type === FieldTypes.Checkbox">
+                <shared-checkbox [(checkbox)]="fields[field.ItemName].value"
+                                 [desc]="fieldsCms[field.ItemName].PlaceholderText">
+                </shared-checkbox>
+            </section>
+
+        </div>
+    </card-container>
+
+    <section *ngIf="selectedForm?.Title">
+        <action-buttons (main)="submit(emailUsForm)"
+                        (alt)="exitModal(false)">
+            <span action-main>Submit</span>
+            <span action-alt>Cancel</span>
+        </action-buttons>
+    </section>
+
+</form>

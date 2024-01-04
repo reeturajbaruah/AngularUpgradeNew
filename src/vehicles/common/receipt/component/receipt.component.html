@@ -1,0 +1,119 @@
+<ng-container *ngIf="loadPage">
+<header fxLayout="row" fxLayoutAlign="space-between end">
+    <h2>
+        {{summary.title}}
+    </h2>
+</header>
+
+<mat-divider></mat-divider>
+
+<article>{{summary.description}}</article>
+<p>{{summary.subtitle}}</p>
+
+<section>
+    <div class="paymentAmountFlex summary paymentAmount">
+
+        <span>{{paymentInfo.paymentAmount.label}}:</span>
+        <currency [value]="paymentInfo.paymentAmount.amount"></currency>
+    </div>
+    <div class="summary">
+
+        {{paymentInfo.paymentDate.label}} {{paymentInfo.paymentDate.receivedDate | dateWithTimeZone: 'dateTime4'}}
+
+    </div>
+</section>
+
+<p> {{paymentInfo.replenishAmt}}</p>
+
+<header fxLayout="row" fxLayoutAlign="space-between end">
+    <h3>
+
+        {{accountInfo.title}}
+    </h3>
+</header>
+
+<mat-divider></mat-divider>
+
+<section fxLayout="column">
+
+    <span translation-skip>Account Name: {{actName}}</span>
+
+    <span translation-skip>Account Number: {{actNumber}}</span>
+</section>
+
+<section fxLayout="column">
+    <span>{{data.deliveryMethodInfo.description}}</span>
+
+    <ng-container *ngIf="isByMail">
+
+        <span class="itemFont">Ship EZ TAG(s) to:</span>
+        <address-display [address]="mailingAddress" [international]="mailingAddress.international" [showLabels]="false"
+            [showEdit]="false">
+        </address-display>
+
+    </ng-container>
+</section>
+
+ <ng-container *ngIf="billingInfo">
+    <header fxLayout="row" fxLayoutAlign="space-between end">
+        <h3>Billing Information</h3>
+    </header>
+
+    <mat-divider></mat-divider>
+
+    <section>
+
+        <payment-display [billingType]="billingInfo.billingType" [bankDetails]="billingInfo.eft"
+            [creditCard]="billingInfo.credit" [hideTitle]="true" [showAccountNumber]="true" [showNameOnCard]="true"
+            [showLabels]="false">
+        </payment-display>
+
+        <article class="u-spacing__addressToPaymentDisplay--marginTop">
+            <address-display *ngIf="billingInfo && billingInfo.billingType"
+                [address]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit : billingInfo.eft"
+                [international]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit.international : billingInfo.eft.international"
+                [showLabels]="false" [showEdit]="false">
+            </address-display>
+        </article>
+
+    </section>
+    </ng-container>
+
+
+<header fxLayout="row" fxLayoutAlign="space-between end">
+    <h3>{{tagsOrdered.title}}</h3>
+</header>
+
+<mat-divider></mat-divider>
+
+<ng-container *ngFor="let tag of tagsOrdered.tags">
+
+    <section class="u-spacing--widthFill">
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+
+            <div>
+                <fx-row [isLabel]="true" [backgroundColorClass]="'transparent-background'">
+                    <div col-start class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <mat-label class="fx-flex-auto-shrink-more limited-flex">
+                            {{tag.title}}
+                        </mat-label>
+                    </div>
+                </fx-row>
+            </div>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start" class="u-spacing--widthFill"
+            *ngFor="let ezTag of tag.ezTags; index as i">
+
+            <vehicle-cart-row-component [canRemove]="false" [canEdit]="false" [ezTag]="ezTag">
+            </vehicle-cart-row-component>
+
+        </div>
+
+    </section>
+
+</ng-container>
+
+</ng-container>

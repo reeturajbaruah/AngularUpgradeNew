@@ -1,0 +1,6 @@
+<div class="toaster-container"
+    [ngClass]="{'toasterContFadeInCheck' : showToasterCont, 'toasterContFadeOutCheck' : !showToasterCont}">
+    <app-toaster *ngFor="let toast of toasts$ | async; index as i" [toast]="toast"
+        class="container-position u-spacing--widthFill" [ngStyle]="setTopOffset(i)">
+    </app-toaster>
+</div>

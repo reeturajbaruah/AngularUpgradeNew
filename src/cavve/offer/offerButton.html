@@ -1,0 +1,203 @@
+<main>
+
+    <section fxLayout="column"
+             fxLayoutAlign="start start"
+             class="u-spacing--widthFill">
+
+        <div fxLayout="row"
+             fxLayout.lt-md="column"
+             fxLayoutAlign="space-between start"
+             [ngStyle]="{'width' : '962px'}"
+             [ngStyle.lt-md]="{'width' : '100%'}">
+
+            <div class="unSelected" [ngClass]="{'selected': choiceSelected === 'yes'}"
+                [ngStyle.lt-md]="{'width' : '100%', 'padding-bottom' : '5px'}"
+                [@slideYes]="{value: yesSummary, params: {height: yesPaymentSummary.isAdjustmentsZero ? '338px' : '388px'}}">
+            
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@slideYes]="{value: yesSummary, params: {height: yesPaymentSummary.isAdjustmentsZero ? '338px' : '388px'}}">
+
+                    <div fxLayout="row" fxLayoutAlign="start start">
+
+                        <div fxLayout="column"
+                             fxLayoutAlign="start center"
+                             class="radioColumn">
+
+                            <input type="radio"
+                                   id="acceptOfferRdo"
+                                   value="yes"
+                                   name="offerRdo"
+                                   #AcceptOfferRdo="ngModel"
+                                   [(ngModel)]="choiceSelected"
+                                   (change) = "updateValue()" />
+
+                            <label for="acceptOfferRdo">
+                            </label>
+
+                        </div>
+
+                        <div fxLayout="column"
+                             fxLayoutAlign="start start"
+                             class="displayColumn">
+
+                            <div>
+
+                                <span class="radioLabel">
+                                    Yes, Create My Account
+                                </span>
+
+                            </div>
+
+                            <div>
+
+                                <span class="totalDisplay">
+                                    <currency [value]="createAccountFromViolationsTotals.createAccountPlateTotal"></currency>
+                                </span>
+
+                                <span class="totalLabel">&nbsp;TOTAL TODAY</span>
+
+                            </div>
+
+                            <div class="paymentDisplayLabel">
+
+                                <div (click)="toggleYes()"
+                                     class="clickable"
+                                     fxLayout="row"
+                                     fxLayoutAlign="start start">
+
+                                    <div fxFlexOffset="5px">
+
+                                        <span [ngClass]="paymentSummaryYesCollapsed | collapsedClass"> </span>
+                                    </div>
+
+                                    <div fxFlexOffset="5px">
+
+                                        <span class="paymentSummary">View Payment Summary</span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start" [ngStyle.lt-md]="{'width' : '100%'}">
+
+                        <div id="paymentSummary" [ngStyle.lt-md]="{'width' : '100%'}">
+
+                            <cavve-payment-summary #yesPaymentSummary [@collapse]="paymentSummaryYesCollapsed"
+                                                   [isCreateAccount]="true"
+                                                   [fees]="createAccountFromViolationsTotals"
+                                                   [choiceSelected]="choiceSelected">
+                            </cavve-payment-summary>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="unSelected" [ngClass]="{'selected': choiceSelected === 'no'}"
+                [ngStyle.lt-md]="{'width' : '100%', 'padding-bottom' : '27px'}"
+                [@slideNo]="isFrp3 ? {value: noSummary, params: {height: yesPaymentSummary.isAdjustmentsZero ? '290px' : '340px'}} : {value: noSummary, params: {height: '288px'}}"
+                fxFlexOffset.lt-md="8px">
+            
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@slideNo]="isFrp3 ? {value: noSummary, params: {height: yesPaymentSummary.isAdjustmentsZero ? '290px' : '340px'}} : {value: noSummary, params: {height: '288px'}}">
+
+                    <div fxLayout="row" fxLayoutAlign="start start">
+
+                        <div fxLayout="column"
+                             fxLayoutAlign="start center"
+                             class="radioColumn">
+
+                            <input type="radio"
+                                   id="rejectOfferRdo"
+                                   value="no"
+                                   name="offerRdo"
+                                   #RejectOfferRdo="ngModel"
+                                   [(ngModel)]="choiceSelected"
+                                   (change) = "updateValue()" />
+
+                            <label for="rejectOfferRdo">
+                            </label>
+
+                        </div>
+
+                        <div fxLayout="column"
+                             fxLayoutAlign="start start"
+                             class="displayColumn">
+
+                            <div>
+
+                                <span class="radioLabel">
+                                    No, Don't Create My Account
+                                </span>
+
+                            </div>
+
+                            <div>
+
+                                <span class="totalDisplay">
+                                    <currency [value]="createAccountFromViolationsTotals.dontCreateAccountPlateTotal"></currency>
+                                </span>
+
+                                <span class="totalLabel">&nbsp;TOTAL TODAY</span>
+
+                            </div>
+
+                            <div class="paymentDisplayLabel">
+
+                                <div (click)="toggleNo()"
+                                     class="clickable"
+                                     fxLayout="row"
+                                     fxLayoutAlign="start start">
+
+                                    <div fxFlexOffset="5px">
+
+                                        <span [ngClass]="paymentSummaryNoCollapsed | collapsedClass"> </span>
+                                    </div>
+
+                                    <div fxFlexOffset="5px">
+
+                                        <span class="paymentSummary">View Payment Summary</span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start" [ngStyle.lt-md]="{'width' : '100%'}">
+                        <div id="paymentSummaryNoAccount" [ngStyle.lt-md]="{'width' : '100%'}">
+                            <cavve-payment-summary [@collapse]="paymentSummaryNoCollapsed"
+                                                   [isCreateAccount]="false"
+                                                   [fees]="createAccountFromViolationsTotals"
+                                                   [choiceSelected]="choiceSelected">
+                            </cavve-payment-summary>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>

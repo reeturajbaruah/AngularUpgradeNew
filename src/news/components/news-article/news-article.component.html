@@ -1,0 +1,177 @@
+
+<main class="refresh-2020 u-spacing--widthFill">
+
+    <page-filled-container [hasGutter]="false">
+
+
+        <main fxLayout="column" fxLayoutGap="20px" class="news-main">
+
+            <card-dash-container fxFlex="auto" [hasMargin]="false"
+                                 ngClass.gt-xs="u-spacing__firstHeaderToTitle--marginTop">
+
+                <section fxLayout="column">
+                    <div id="header1-row"
+                         fxLayout="row"
+                         fxLayoutAlign="space-between end"
+                         fxLayoutAlign.lt-md="space-between center"
+                         ngClass.lt-md="compact-menu">
+
+                        <div id="header1-left"
+                             fxLayout="column">
+
+                            <div style="padding-bottom:8px;">
+                                <span class="newsCategory">{{category}}</span>
+                            </div>
+
+                            <div style="padding-bottom:8px;">
+                                <span class="newsTitle">{{title}}</span>
+                            </div>
+
+                            <div>
+                                <span class="newsSubtitle">{{subtitle}}</span>
+                                <mat-divider></mat-divider>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="header2-row"
+                         fxLayout="row"
+                         fxLayoutAlign="space-between end"
+                         fxLayoutAlign.lt-md="space-between center"
+                         ngClass.lt-md="compact-menu"
+                         style="padding-bottom:32px;">
+
+                        <div id="header2-left"
+                             fxLayout="row"
+                             fxLayoutAlign="space-between end"
+                             fxLayoutAlign.lt-md="space-between center"
+                             style="height:32px;">
+
+                            <span><mat-icon svgIcon="clock"></mat-icon></span>
+                            <span class="published" style="padding-bottom:3px;">{{getVal('publishedOn')}} {{newsDisplayDate | date: 'longDate'}}</span>
+
+                        </div>
+
+
+                        <div id="header2-right"
+                             fxLayout="column"
+                             fxLayoutAlign="space-between end"
+                             fxLayoutAlign.lt-md="space-around end">
+
+                            <div fxShow
+                                 fxHide.lt-md
+                                 fxLayout="row"
+                                 fxLayoutAlign="space-between end">
+
+                                <div>
+                                    <a id="facebook-link" *ngIf="facebook$ | async as facebookLink" [href]="facebookLink" target="_blank">
+                                        <mat-icon svgIcon="facebook-icon"></mat-icon>
+                                    </a>
+                                </div>
+
+
+                                <div style="padding-left:8px;">
+                                    <a id="twitter-link" *ngIf="twitter$ | async as twitterLink" [href]="twitterLink" target="_blank">
+                                        <mat-icon svgIcon="twitter-icon"></mat-icon>
+                                    </a>
+                                </div>
+
+
+                                <div style="padding-left:8px;">
+                                    <a id="instagram-link" *ngIf="instagram$ | async as instagramLink" [href]="instagramLink" target="_blank">
+                                        <mat-icon svgIcon="instagram-icon"></mat-icon>
+                                    </a>
+                                </div>
+
+
+                                <div style="padding-left:8px;">
+                                    <a id="linkedin-link" *ngIf="linkedin$ | async as linkedinLink" [href]="linkedinLink" target="_blank">
+                                        <mat-icon svgIcon="linkedin-icon"></mat-icon>
+                                    </a>
+                                </div>
+
+
+                                <div style="padding-left:8px;">
+                                    <a id="youtube-link" *ngIf="youtube$ | async as youtubeLink" [href]="youtubeLink" target="_blank">
+                                        <mat-icon svgIcon="youtube-icon"></mat-icon>
+                                    </a>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="header3-row"
+                         fxLayout="row"
+                         fxLayoutAlign="space-between end"
+                         fxLayoutAlign.lt-md="space-between center"
+                         ngClass.lt-md="compact-menu">
+
+                        <section fxLayout="column">
+                            <article class="description" [innerHtml]="longDescription | safeHtml"></article>
+                        </section>
+
+                    </div>
+
+                </section>
+
+            </card-dash-container>
+
+            <div fxHide
+                 fxShow.lt-md
+                 fxLayout="column"
+                 fxLayoutAlight="center center">
+
+
+                <div fxLayout="row"
+                     fxLayoutAlign="center center" style="padding-top:20px">
+
+                    <a fxFlex="none" aria-label="View Archive Page" (click)="viewArchiveClick()">
+                        {{getVal('viewArchiveButtonText')}}
+                    </a>
+                </div>
+
+            </div>
+
+            <div id="footer-row"
+                 fxShow
+                 fxHide.lt-md
+                 fxLayout="row"
+                 fxLayoutAlign="space-between end"
+                 fxLayoutAlign.lt-md="space-between center"
+                 ngClass.lt-md="compact-menu">
+
+                <div id="footer-left"
+                     fxLayout="row"
+                     fxLayoutAlign="space-between end"
+                     fxLayoutAlign.lt-md="space-between center">
+
+                </div>
+
+                <div id="footer-right"
+                     fxLayout="column"
+                     fxLayoutAlign="space-between end"
+                     fxLayoutAlign.lt-md="space-around end">
+
+                    <div fxShow
+                         fxHide.lt-md
+                         fxLayout="row"
+                         fxLayoutAlign="space-between end">
+
+                        <a fxFlex="none" aria-label="View Archive Page" (click)="viewArchiveClick()">
+                            {{getVal('viewArchiveButtonText')}}
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+    </page-filled-container>
+
+</main>

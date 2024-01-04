@@ -1,0 +1,40 @@
+<header fxLayout="row"
+        fxLayoutAlign="space-between center"
+        ngClass.lt-md="compact-menu">
+    <a clickPreventDefault href="#menu-back" id="hamburger-back" (click)="back()"
+       fxLayout="row"
+       fxLayoutAlign="start center">
+        <span>
+            <mat-icon *ngIf="showBackIcon$ | async" svgIcon="previous-arrow"></mat-icon>
+        </span>
+        <span>Back</span>
+    </a>
+
+    <a clickPreventDefault
+       href="#close-menu"
+       id="hamburger-close"
+       (click)="closeAll()"
+       fxHide
+       fxShow.lt-md>
+        <mat-icon *ngIf="showCloseIcon$ | async" svgIcon="close-x"></mat-icon>
+    </a>
+</header>
+
+<div id="title"
+     fxLayout="row"
+     fxLayoutAlign="start center">
+    <mat-divider [vertical]="true"></mat-divider>
+    <span>{{title$ | async}}</span>
+</div>
+
+<ng-container *ngIf="currentViewLinks$ | async as currentViewLinks">
+    <hamburger-row *ngFor="let link of currentViewLinks"
+                   (click)="goTo(link, $event)"
+                   [external]="link.external"
+                   [url]="link.url"
+                   [label]="link.label"
+                   [hasChildren]="link.hasChildren">
+    </hamburger-row>
+</ng-container>
+
+

@@ -1,0 +1,58 @@
+<main>
+    <fx-row [isInner]="!isLast"
+                           [isBottom]="isLast">
+
+        <section col-start
+                 class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+            <div class="fx-flex-auto-shrink-more limited-flex">
+                <a class="fx-layout-row fx-layout-align-start-center u--noUnderline clickable"
+                   (click)="openTollDetailsModal()">
+                    <div translation-skip class="fx-flex-none violationId--width">{{uninvoiced.violationId}}</div>
+                    <div class="fx-flex-none glyphicon glyphicon-chevron-right"></div>
+                </a>
+            </div>
+            <div fxShow
+                 fxHide.lt-md
+                 class="fx-flex-auto-shrink-more limited-flex">
+            </div>
+            <div fxShow
+                 fxHide.lt-md
+                 class="fx-flex-auto-shrink-more limited-flex">
+            </div>
+            <div translation-skip
+                 fxShow
+                 fxHide.lt-md
+                 class="fx-flex-auto-grow-more unlimited-flex">
+                {{uninvoiced.agencyName}}
+            </div>
+        </section>
+
+        <section col-end
+                 class="fx-flex-none fx-layout-row fx-layout-align-end-center"
+                 style="width: 160px">
+            <div *ngIf="isEditAllowed && uninvoiced.checked;else amountDue"
+                 class="fx-flex-auto unlimited-flex-end"
+                 col-amount>
+                <label translation-skip [for]="inputMetadata.id" class="sr-only">{{inputMetadata.description}}</label>
+                <input type="text"
+                       [id]="inputMetadata.id"
+                       readonly
+                       (click)="$event.stopPropagation()"
+                       [ngModel]="paymentAmountString"
+                       col-amount/>
+            </div>
+            <ng-template #amountDue>
+                <div class="fx-flex-auto limited-flex-end"><currency [value]="uninvoiced.tollAmount"></currency></div>
+            </ng-template>
+            <div *ngIf="isEditAllowed"
+                 class="fx-layout-row fx-layout-align-end-center unlimited-flex-end">
+                <label translation-skip [for]="checkboxMetadata.id" class="sr-only">{{checkboxMetadata.description}}</label>
+                <input type="checkbox"
+                       [id]="checkboxMetadata.id"
+                       [(ngModel)]="isChecked"
+                       (change)="checkBoxChange()"
+                       (click)="$event.stopPropagation()"/>
+            </div>
+        </section>
+    </fx-row>
+</main>

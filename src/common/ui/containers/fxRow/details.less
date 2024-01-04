@@ -1,0 +1,123 @@
+@import (reference) '../../../../styles/variables.less';
+
+:host {
+    width: 100%;
+
+    .hidden {
+        display: none;
+        visibility: hidden;
+    }
+
+
+    .fx-flex-auto {
+        .fx-flex-auto-mixin();
+    }
+
+    .fx-flex-none {
+        .fx-flex-none-mixin();
+    }
+
+    .fx-flex-auto-shrink-more {
+        .fx-flex-auto-shrink-more-mixin();
+    }
+
+    .fx-flex-auto-grow-more {
+        .fx-flex-auto-grow-more-mixin();
+    }
+
+    .fx-layout-row {
+        .fx-layout-row-mixin();
+    }
+
+    .fx-layout-column {
+        .fx-layout-column-mixin();
+    }
+
+    .fx-layout-align-start-center {
+        .fx-layout-align-start-center-mixin();
+    }
+
+    .fx-layout-align-end-center {
+        .fx-layout-align-end-center-mixin();
+    }
+
+    .limited-flex {
+        min-width: 170px;
+        max-width: 530px;
+        width: 100%;
+    }
+
+    .unlimited-flex {
+        width: 100%;
+    }
+
+    .limited-flex-end {
+        min-width: 70px;
+        max-width: 80px;
+        width: 100%;
+        text-align: end;
+    }
+
+    .larger-limited-flex-end {
+        min-width: 143px;
+        max-width: 145px;
+        width: 100%;
+        text-align: end;
+    }
+
+    .table-space {
+        margin-top: 8px;
+
+        &.lt-md {
+            margin-top: 2px;
+        }
+    }
+}
+
+
+
+// Mixins to appease performance
+.fx-flex-auto-mixin() {
+    flex: 1 1 auto;
+    box-sizing: border-box;
+}
+
+.fx-flex-none-mixin() {
+    // lesshint-disable-next-line zeroUnit
+    flex: 0 0 auto;
+    box-sizing: border-box;
+}
+
+.fx-flex-auto-shrink-more-mixin() {
+    flex: 1 2 auto;
+    box-sizing: border-box;
+}
+
+.fx-flex-auto-grow-more-mixin() {
+    flex: 2 1 auto;
+    box-sizing: border-box;
+}
+
+.fx-layout-row-mixin() {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.fx-layout-column-mixin() {
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.fx-layout-align-start-center-mixin() {
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.fx-layout-align-end-center-mixin() {
+    align-content: center;
+    justify-content: flex-end;
+    align-items: center;
+}

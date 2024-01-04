@@ -1,0 +1,16 @@
+<div>
+    <!-- Top FAQ Header -->
+    <header>
+        <h2 [innerHtml]="topFaqCms.Title"></h2>
+        <mat-divider></mat-divider>
+        <span [innerHtml]="topFaqCms.ShortDescription"></span>
+    </header>
+
+    <!-- Top 5 FAQ Accordion -->
+    <shared-accordion [items]="topFaqItems"></shared-accordion>
+
+    <!-- Top FAQ Footer -->
+    <section>
+        <span [innerHtml]="topFaqCms.LongDescription"></span>
+    </section>
+</div>

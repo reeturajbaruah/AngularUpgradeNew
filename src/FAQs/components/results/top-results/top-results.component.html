@@ -1,0 +1,10 @@
+<div class="accordion-container">
+    <section class="accordion" [ngClass]="{'accordion-open': isOpen}" (click)="isOpen = !isOpen">
+        <h2>{{cmsContent.TopFiveFaqTitle}}</h2>
+        <mat-icon svgIcon="caret-down"></mat-icon>
+    </section>
+    
+    <section *ngIf="isOpen">
+        <shared-accordion [items]="topFaqItems"></shared-accordion>
+    </section>
+</div>

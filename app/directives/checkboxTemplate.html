@@ -1,0 +1,12 @@
+﻿<div ng-class="validation.getErrorStatusClass('checkbox')">
+
+    <div class="checkbox bottom-buffer-xs">
+        <label>
+            <input id="checkbox" type="checkbox" ng-model="checkboxIsTruthy" name="checkbox" required /><ng-transclude></ng-transclude>
+        </label>
+    </div>
+    <div ng-messages="validation.getErrorList('checkbox')" ng-if="validation.hasSubmitted()" role="alert">
+        <p ng-message="required" class="help-block">{{errorMessage}}</p>
+    </div>
+
+</div>

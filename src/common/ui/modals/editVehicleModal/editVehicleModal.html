@@ -1,0 +1,26 @@
+<form #EditVehicleForm="ngForm" validation-focus
+      fxLayout="column"
+      class="u-spacing--widthFill">
+
+    <card-container>
+        <header>
+            <h2>{{modalCms.vehicleInfoTitle}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <vehicle-info-form-entry [modalCms]="modalCms"
+                                 [vehicleInfo]="vehicleInfo"
+                                 [stateList]="stateList"
+                                 [plateIsReadOnly]="plateIsReadOnly"
+                                 [config]="config">
+        </vehicle-info-form-entry>
+    </card-container>
+
+    <section class="u-spacing__buttonToField--marginTop">
+        <action-buttons (main)="submit()"
+                        (alt)="cancel()">
+            <span action-main>SAVE</span>
+            <span action-alt>Cancel</span>
+        </action-buttons>
+    </section>
+</form>

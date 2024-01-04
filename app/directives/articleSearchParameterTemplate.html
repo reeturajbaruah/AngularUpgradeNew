@@ -1,0 +1,10 @@
+﻿<div class="row">
+	<div class="form-group col-xs-8 col-sm-5 col-md-4 col-lg-3" s>
+		<label for="category">Search by Category</label>
+		<select name="category" ng-model="categoryHolder.category" ng-class="isItalic('category')" class="form-control" id="category" ng-options="category.displayName for category in categories">
+		</select>
+	</div>
+	<div class="col-xs-3 col-sm-2">
+		<button type="submit" id="search" name="search" ng-click="userClickedSearch()" class="btn top-margin-do top-margin-mo">Search</button>
+	</div>
+</div>

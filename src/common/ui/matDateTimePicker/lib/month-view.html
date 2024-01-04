@@ -1,0 +1,25 @@
+<table class="mat-calendar-table" role="presentation">
+    <thead class="mat-calendar-table-header">
+        <tr>
+            <th scope="col" *ngFor="let day of weekdays" [attr.aria-label]="day.long">{{day.narrow}}</th>
+        </tr>
+        <tr><th class="mat-calendar-table-header-divider" colspan="7" aria-hidden="true"></th></tr>
+    </thead>
+    <tbody hctra-mat-calendar-body
+           [label]="monthLabel"
+           [rows]="weeks"
+           [todayValue]="todayDate!"
+           [startValue]="rangeStart!"
+           [endValue]="rangeEnd!"
+           [comparisonStart]="comparisonRangeStart"
+           [comparisonEnd]="comparisonRangeEnd"
+           [previewStart]="previewStart"
+           [previewEnd]="previewEnd"
+           [isRange]="isRange"
+           [labelMinRequiredCells]="3"
+           [activeCell]="dateAdapter.getDate(activeDate) - 1"
+           (selectedValueChange)="dateSelected($event)"
+           (previewChange)="previewChanged($event)"
+           (keydown)="handleCalendarBodyKeydown($event)">
+    </tbody>
+</table>

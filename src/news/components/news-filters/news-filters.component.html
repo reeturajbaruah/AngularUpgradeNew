@@ -1,0 +1,20 @@
+<section class="filter-section" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px">
+
+    <div class="filter-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <span class="filter-category-title">{{getVal('filterByCategories')}}</span>
+        <div fxLayout="column" fxLayoutAlign="start start">
+            <dropdown [list]="list" (onChange)="handleCategoryEvent($event)"></dropdown>
+        </div>
+    </div>
+
+    <div class="view-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <span class="filter-view-title">{{getVal('view')}}</span>
+        <mat-button-toggle-group [value]="selectedView" name="fontStyle" aria-label="Font Style">
+            <mat-button-toggle (click)="handleToggleView(viewType.Latest)" [value]="viewType.Latest">
+                {{getVal('latestNews')}}
+            </mat-button-toggle>
+            <mat-button-toggle (click)="handleToggleView(viewType.Archive)" class="archive" [value]="viewType.Archive">
+                {{getVal('archive')}}</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+</section>

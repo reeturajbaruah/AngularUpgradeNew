@@ -1,0 +1,18 @@
+<main id="modal-popup" class="refresh-2020" style="position:relative">
+    <section fxLayout="column" ngClass.lt-md="mobile-style" ngClass="desktop-style">
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <header fxLayout="column" fxLayoutAlign="center center">
+                <h2>{{data?.title}}</h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+        </div>
+        <div>
+            Your username: <span style="font-weight: 700;">{{data?.username}}</span>
+        </div>
+        <div class="close-margin">
+            <a aria-label="close" (click)="closeModal()">
+                Close
+            </a>
+        </div>
+    </section>
+</main>

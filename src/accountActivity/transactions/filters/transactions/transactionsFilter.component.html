@@ -1,0 +1,46 @@
+
+<div fxLayout="column"
+     fxLayoutAlign="start start">
+
+<div fxLayout="row"
+    fxLayoutAlign="space-between center"
+    cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin"
+    (click)="isOpen = !isOpen"
+    class="criteria-shape criteria-color criteria-size criteria-text criteria-hover">
+
+   <span style="color: #007aff; font-size: 14px;">
+       {{selectedTransaction}}
+   </span>
+
+   <ng-container *ngTemplateOutlet="icon"></ng-container>
+
+</div>
+
+<ng-template cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayOpen]="isOpen"
+            [cdkConnectedOverlayPanelClass]="'overlayPanelClass'"
+            (overlayOutsideClick)="close()">
+
+   <div class="filter-panel">
+
+       <div *ngFor="let transactionType of data"
+            fxLayout="column" fxLayoutAlign="start start">
+           <div (click)="onChange(transactionType.text)" class="transactionType-text criteria-hover">
+               <span [ngClass]="{parentItem: transactionType.hierarchy < 2}">{{'&nbsp;'.repeat(4 * transactionType.hierarchy)}}{{transactionType.text}}</span>
+           </div>
+
+       </div>
+
+   </div>
+
+</ng-template>
+
+<ng-template #icon>
+   <div class="glyphicon glyphicon-chevron-down chevron-color chevron-adjustment">
+
+   </div>
+</ng-template>
+
+</div>

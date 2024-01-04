@@ -1,0 +1,40 @@
+<main class="refresh-2020 u-spacing--widthFill container">
+    <title-banner id="title-baner">
+        {{title}}
+    </title-banner>
+    <page-filled-container [hasGutter]="false" id="page-conatiner">
+        <main fxLayout="column" fxLayoutGap="20px" class="main container">
+            <card-dash-container fxFlex="auto" [hasMargin]="true"
+                class="u-spacing__firstHeaderToTitle--marginTop container" id="card-dash-container">
+                <div class="content-border">
+                    <div [ngClass]="{'bottom-buffer-lg': (shortDescription && isHelpPage) || longDescription}">
+                        <div *ngIf="isHelpPage" [innerHTML]="shortDescription | safeHtml"></div>
+                        <div [innerHTML]="longDescription | safeHtml"></div>
+                    </div>
+                    <div *ngFor="let section of cmsChildSectionArray; let isLast = last; let isFirst = first">
+                        <div [ngClass]="{'bottom-buffer-lg': isLast}">
+                            <header class="header-spacing">
+                                <h2 id="{{section.ItemName}}" class="h1-mo"
+                                    [ngClass]="{'no-margin-top-do': isFirst && ((!shortDescription && isHelpPage) || !isHelpPage) && !longDescription}">
+                                    {{section.Title}}</h2>
+                                <hr />
+                            </header>
+                            <div class="cms-picture-auto-scale">
+                                <div *ngIf="isHelpPage" [innerHTML]="section.ShortDescription | safeHtml"></div>
+                                <img *ngIf="section.Image" src="{{section.Image}}"
+                                    [ngClass]="{'top-buffer-sm-half': section.ShortDescription && isHelpPage, 'bottom-buffer-sm-half': section.LongDescription}" />
+                                <div [innerHTML]="section.LongDescription | safeHtml"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div storefront-hide-if-enabled="true" *ngIf="isHelpPage"
+                    class="border-with-footer-bottom mobile-bottom-buffer top-buffer-md-mo">
+                    <button (click)="closeNeedHelp()" id="close">
+                        Close
+                    </button>
+                </div>
+            </card-dash-container>
+        </main>
+    </page-filled-container>
+</main>

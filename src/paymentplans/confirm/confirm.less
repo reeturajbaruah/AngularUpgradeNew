@@ -1,0 +1,41 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/variables';
+
+:host {
+
+    h2 {
+        max-height: 70px;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    .noteBoxLayout {
+        .t-textbox--backgroundColor(@theme-light);
+        padding: 16px 20px;
+        margin-left: -20px;
+        margin-right: -20px;
+        border-radius: 10px 10px;
+    }
+
+    #totalPaymentLabel {
+        .t-body--fontFamily;
+        .t-header--color(@theme-light);
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    #totalPaymentValue {
+        text-align: right;
+        .t-body--fontFamily;
+        .t-body--color(@theme-light);
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .editButton {
+        font-weight: 500;
+        .t-header--fontFamily;
+    }
+}

@@ -1,0 +1,31 @@
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+    .header-flex-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0px;
+    }
+
+    .right-align-items {
+        display: flex;
+        align-items: center;
+
+        h2 {
+            font-size: 20px;
+        }
+
+        h2:nth-child(1) {
+            padding: 0px 50px;
+
+            @media @breakpoint-lt-sm {
+                padding: 0px 20px;
+            }
+        }
+
+        h2:nth-child(2) {
+            padding-right: 20px;
+        }
+    }
+}

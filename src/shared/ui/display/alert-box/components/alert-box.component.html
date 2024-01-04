@@ -1,0 +1,28 @@
+<div class="alert-box-container" [ngClass]="containerClass">
+
+    <div class="main-flex-box">
+        <mat-icon
+            *ngIf="svgIcon"
+            [svgIcon]="svgIcon"
+            [ngClass]="svgIconClass">
+        </mat-icon>
+
+        <span *ngIf="title"
+            class="title"
+            [ngClass]="titleClass"
+            [innerHtml]="title | safeHtml">
+        </span>
+
+        <span *ngIf="!title"
+            [innerHtml]="desc | safeHtml">
+        </span>
+    </div>
+
+
+    <div *ngIf="title && desc" class="alt-flex-box">
+        <span
+            [innerHtml]="desc | safeHtml">
+        </span>
+    </div>
+    
+</div>

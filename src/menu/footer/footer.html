@@ -1,0 +1,134 @@
+<ng-container *ngIf="links$ | async as links">
+    <footer fxLayout="column"
+            fxLayoutAlign="center center"
+            ngClass.lt-md="compact-footer"            
+            fxLayoutGap="20px"
+            *ngIf="activeBreakPoints$ | async as breakPoint">
+
+        <ng-template [ngIf]="breakPoint['lt-md']" [ngIfElse]="largeDeviceLayout">
+
+            <ng-container *ngTemplateOutlet="hctraLogoTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="primaryLinksTemplate"></ng-container>
+            <language-select></language-select>
+            <ng-container *ngTemplateOutlet="socialMedialLinksTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="secondryLinksTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="copyrightTextTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template #largeDeviceLayout>
+
+            <div fxLayout="column"
+                    fxLayoutAlign="center start"
+                    fxLayoutGap="53px">
+                <ng-container *ngFor="let template of [primaryRowTemplate, secondaryRowTemplate]">
+                    <ng-container *ngTemplateOutlet="largeDeviceRow; context: { $implicit: template }">
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-template>
+    </footer>
+
+    <ng-template #largeDeviceRow let-template>
+        <div fxLayout="row"
+             fxLayoutAlign="start center"
+             fxLayoutGap="63px">
+            <ng-container *ngTemplateOutlet="template"></ng-container>
+        </div>
+    </ng-template>
+
+    <ng-template #primaryRowTemplate>
+        <ng-container *ngTemplateOutlet="hctraLogoTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="primaryLinksTemplate"></ng-container>
+    </ng-template>
+
+    <ng-template #secondaryRowTemplate>
+        <ng-container *ngTemplateOutlet="socialMedialLinksTemplate"></ng-container>
+        <div fxLayout="column"
+             fxLayoutAlign="center start"
+             fxLayoutGap="10px">
+
+            <ng-container *ngTemplateOutlet="secondryLinksTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="copyrightTextTemplate"></ng-container>
+        </div>
+    </ng-template>
+
+    <ng-template #hctraLogoTemplate>
+        <section id="footer-hctra-logo" class="footer-left">
+            <mat-icon *ngIf="showHctraLogo$ | async" svgIcon="hctra-logo"></mat-icon>
+        </section>
+    </ng-template>
+
+
+    <ng-template #socialMedialLinksTemplate>
+        <section ngClass.gt-sm="footer-left"
+                 fxLayout="row"
+                 fxLayoutAlign="end start"
+                 fxLayoutAlign.lt-md="center center"
+                 fxLayoutGap="11px">
+
+            <a id="facebook-link" *ngIf="facebook$ | async as facebookLink" [href]="facebookLink" target="_blank">
+                <mat-icon svgIcon="facebook-icon"></mat-icon>
+            </a>
+
+            <a id="twitter-link" *ngIf="twitter$ | async as twitterLink" [href]="twitterLink" target="_blank">
+                <mat-icon svgIcon="twitter-icon"></mat-icon>
+            </a>
+
+            <a id="instagram-link" *ngIf="instagram$ | async as instagramLink" [href]="instagramLink" target="_blank">
+                <mat-icon svgIcon="instagram-icon"></mat-icon>
+            </a>
+
+            <a id="linkedin-link" *ngIf="linkedin$ | async as linkedinLink" [href]="linkedinLink" target="_blank">
+                <mat-icon svgIcon="linkedin-icon"></mat-icon>
+            </a>
+
+            <a id="youtube-link" *ngIf="youtube$ | async as youtubeLink" [href]="youtubeLink" target="_blank">
+                <mat-icon svgIcon="youtube-icon"></mat-icon>
+            </a>
+
+        </section>
+    </ng-template>
+
+    <ng-template #primaryLinksTemplate>
+        <section fxLayout="row wrap"
+                 fxLayoutGap="32px"
+                 fxLayoutGap.lt-sm="3.5vw"
+                 fxLayoutAlign="start center"
+                 fxLayoutAlign.lt-md="center center">
+            <ng-container *ngIf="links[0]">
+                <a *ngFor="let link of links[0].authorizedChildren"
+                   [href]="link.url"
+                   [target]="link.external ? '_blank' : ''">
+                    <span>{{link.label}}</span>
+                </a>
+            </ng-container>
+        </section>
+    </ng-template>
+
+    <ng-template #secondryLinksTemplate>
+        <section fxLayout="row wrap"
+                 fxLayoutGap="15px"
+                 fxLayoutAlign.lt-md="center center"
+                 fxLayoutAlign="start center">
+            <ng-container *ngIf="links[1]">
+                <article *ngFor="let link of links[1].authorizedChildren">
+                    <a [href]="link.url"
+                       [target]="link.external ? '_blank' : ''"
+                       >
+                        <span>{{link.label}}</span>
+                    </a>
+                </article>
+            </ng-container>
+        </section>
+    </ng-template>
+
+    <ng-template #copyrightTextTemplate>
+        <section id="copyright-text">
+            <span [innerHTML]="copyRightText$ | async">
+            </span>
+        </section>
+    </ng-template>
+</ng-container>
+
+
+

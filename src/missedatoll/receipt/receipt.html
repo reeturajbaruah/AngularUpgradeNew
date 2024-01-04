@@ -1,0 +1,116 @@
+<page-centered-container>
+    <storefront-utility #storefront></storefront-utility>
+
+    <div fxLayout="column">
+
+        <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+            <section fxLayout="column">
+                <header>
+                    <div fxLayout="row"
+                         fxLayoutAlign="start center"
+                         fxLayout.lt-md="column"
+                         fxLayoutAlign.lt-md="start start">
+                        <h2 fxFlex="grow"
+                            fxFlexOrder="1"
+                            fxFlexOrder.lt-md="2">
+                            {{thankYou.Title}}
+                        </h2>
+                        <div fxFlex="none"
+                             fxFlexOrder="2"
+                             fxFlexOrder.lt-md="1"
+                             ngClass.lt-md="printContainer-extra-bottom-space">
+                            <print-link id="printButton"></print-link>
+                        </div>
+
+                    </div>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <row-container [rowType]="'emphasis'">
+                    <article col-start
+                             id="totalPaymentLabel"
+                             fxFlex="grow">
+                        Total Payment:
+                    </article>
+
+                    <article col-end
+                             id="totalPaymentValue"
+                             fxFlex="none">
+                        <currency [value]="totalPayment"></currency>
+                    </article>
+                </row-container>
+
+                <section class="u-spacing__sectionToRow--marginTop">
+                    <cms-content [template]="thankYou.LongDescription" [data]="longDescriptionParams"></cms-content>
+                </section>
+            </section>
+
+            <section fxLayout="column" class="u-spacing__headerToSection--marginTop">
+                <header>
+                    <h2>{{billing.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <payment-display [billingType]="billingInfo.billingType"
+                                 [bankDetails]="billingInfo.eft"
+                                 [creditCard]="billingInfo.credit"
+                                 [showAccountNumber]="true">
+                </payment-display>
+
+                <address-display class="u-spacing__addressToPaymentDisplay--marginTop"
+                                 [address]="billingInfo.billingType === BillingType.Credit ?  billingInfo.credit : billingInfo.eft"
+                                 [international]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit.international : billingInfo.eft.international">
+                </address-display>
+            </section>
+
+            <section *ngIf="!storefront.isKioskView"
+                     fxLayout="column"
+                     class="u-spacing__headerToSection--marginTop">
+                <header>
+                    <h2>{{gotInvoice.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <article>
+                    <div [innerHtml]="gotInvoice.LongDescription"></div>
+                </article>
+
+                <section class="u-spacing__buttonToField--marginTop">
+                    <action-buttons [reverseOrder]="true"
+                                    [alignment]="'start center'"
+                                    (main)="payInvoiceClick()">
+                        <span action-main>PAY FOR AN INVOICE</span>
+                    </action-buttons>
+                </section>
+            </section>
+
+            <section *ngIf="!storefront.isKioskView"
+                     fxLayout="column"
+                     class="u-spacing__headerToSection--marginTop">
+                <header>
+                    <h2>{{importantInfo.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom">></mat-divider>
+                </header>
+
+                <article>
+                    <div [innerHtml]="importantInfo.LongDescription"></div>
+                </article>
+
+                <section class="u-spacing__buttonToField--marginTop">
+                    <action-buttons [reverseOrder]="true"
+                                    [alignment]="'start center'"
+                                    (main)="acctOverviewClick()">
+                        <span action-main>ACCOUNT OVERVIEW</span>
+                    </action-buttons>
+                </section>
+            </section>
+
+            <section *ngIf="storefront.isKioskView">
+                <wizard-ui (next)="nextTask($event)">
+                    <span wizard-next>PROCEED</span>
+                </wizard-ui>
+            </section>
+        </card-container>
+
+    </div>
+</page-centered-container>

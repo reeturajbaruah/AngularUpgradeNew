@@ -1,0 +1,17 @@
+<header fxLayout="row"
+        fxLayoutAlign="start center"
+        [ngClass]="{'harMarginBottom': harMarginBottom}"
+        class="refresh-2020 u-spacing--widthFill"
+        ngClass.lt-md="lt-md">
+    <mat-divider [vertical]="true"
+                 ngClass.lt-md="lt-md"></mat-divider>
+    <h1 fxFlex="grow"
+        fxFlexOffset="20px"
+        fxFlexOffset.lt-md="10px"
+        ngClass.lt-md="lt-md">
+        <ng-content></ng-content>
+    </h1>
+    <div fxFlex="none">
+        <ng-content select="[banner-end]"></ng-content>
+    </div>
+</header>

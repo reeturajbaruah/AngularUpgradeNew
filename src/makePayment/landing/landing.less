@@ -1,0 +1,35 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/custom/spacing/sections.less';
+@import (reference) '../../styles/custom/spacing/dividers.less';
+@import (reference) '../../styles/variables.less';
+
+// lesshint-disable-next-line emptyRule
+:host {
+
+    mat-divider {
+        width: @width-divider;
+        .refresh-2020.u-spacing__divider--marginTopBottom();
+    }
+
+    h3 {
+        .refresh-2020.u-spacing__fieldToField--marginTop();
+        margin-bottom: 16px;
+    }
+
+    wizard-ui {
+        display: block;
+        .refresh-2020.u-spacing__fieldToField--marginTop();
+
+        [wizard-next] {
+            text-transform: uppercase;
+        }
+
+        [wizard-cancel] {
+            text-transform: capitalize;
+        }
+    }
+
+    mat-label {
+        text-transform: uppercase;
+    }
+}

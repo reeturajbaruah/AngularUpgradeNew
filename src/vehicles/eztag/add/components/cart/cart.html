@@ -1,0 +1,89 @@
+<page-centered-container class="refresh-2020">
+
+    <div class="u-spacing__fieldToSection--marginTop">
+        <card-container>
+            <h2>{{pageCms.Title}} {{cartTags.length}} item<span *ngIf="cartTags.length > 1 || cartTags.length === 0">s</span></h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <article [innerHtml]="pageCms.LongDescription | safeHtml"></article>
+
+            <section class="u-spacing--widthFill">
+
+                <div fxLayout="row"
+                     fxLayoutAlign="start start">
+
+                    <section class="u-spacing--widthFill u-spacing__gridToRecords--marginTop">
+                        <fx-row [isLabel]="true"
+                                               [backgroundColorClass]="'transparent-background'">
+                            <section col-start
+                                     class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <mat-label class="fx-flex-auto-shrink-more limited-flex">EZ TAGS REQUESTED</mat-label>
+                            </section>
+                        </fx-row>
+                    </section>
+
+                </div>
+
+                <section fxLayout="row"
+                         fxLayoutAlign="start start"
+                         class="u-spacing--widthFill"
+                         *ngFor="let ezTag of cartTags; index as i">
+                    <vehicle-cart-row-component [ezTag]="ezTag"
+                                                (removeVehicle)="removeVehicle(i)"
+                                                (editVehicle)="editVehicle($event, i)"
+                                                [deleteModalCms]="deleteModalCms"
+                                                [editModalCms]="editModalCms"
+                                                [stateList]="stateList"
+                                                [canRemove]="cartTags.length > 1">
+                    </vehicle-cart-row-component>
+                </section>
+            </section>
+
+            <section *ngIf="!addingAdditionalVehicle"
+                     class="u-spacing__fieldToSection--marginTop"
+                     fxLayout="row"
+                     fxLayoutAlign="center center"
+                     (click)="resetAddAdditionalVehicle()">
+                <mat-icon svgIcon="add-icon"></mat-icon>
+                <a fxFlexOffset="6px"
+                   class="add-text">Add Additional Vehicle</a>
+            </section>
+
+        </card-container>
+    </div>
+
+    <section *ngIf="!addingAdditionalVehicle" class="u-spacing__buttonToField--marginTop">
+        <wizard-ui (next)="addEzTagDeliveryMethodClick($event)"
+        (cancel)="cancel($event)">
+            <span wizard-next>NEXT</span>
+            <span wizard-cancel>Cancel</span>
+        </wizard-ui>
+    </section>
+
+    <form *ngIf="addingAdditionalVehicle"
+          #AddVehicleForm="ngForm"
+          validation-focus
+          fxLayout="column"
+          class="u-spacing--widthFill u-spacing__fieldToSection--marginTop">
+
+        <card-container>
+
+            <h2>{{addAdditionalTagCms.Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+
+            <vehicle-info-form-entry [modalCms]="addAdditionalTagCms"
+                                     [stateList]="stateList"
+                                     [vehicleInfo]="addVehicle"
+                                     [plateIsReadOnly]="false"
+                                     [motorcycleDisabled]="false">
+            </vehicle-info-form-entry>
+        </card-container>
+
+        <section class="u-spacing__buttonToField--marginTop">
+            <action-buttons (main)="addAdditionalVehicle()"
+                            (alt)="resetAddAdditionalVehicle()">
+                <span action-main>SAVE</span>
+                <span action-alt>Cancel</span>
+            </action-buttons>
+        </section>
+    </form>
+</page-centered-container>

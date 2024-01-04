@@ -1,0 +1,19 @@
+<main id="modal-popup" class="refresh-2020" style="position:relative">
+    <section class="block-screen"></section>
+
+    <section class="screen-center flex-center box extended"
+             [ngClass.lt-md]="{'lt-md': true}">
+        <header class="flex-center">
+            <h2 mat-dialog-title>{{cmsContent.Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <div class="flex-center"
+             [innerHtml]="cmsContent.ShortDescription | safeHtml">
+        </div>
+
+        <div class="u-spacing__buttonToField--marginTop">
+            <button mat-button mat-dialog-close>Close</button>
+        </div>
+    </section>
+</main>

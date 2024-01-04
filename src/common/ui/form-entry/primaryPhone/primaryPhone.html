@@ -1,0 +1,20 @@
+<div [error-check]="Telephone">
+    <mat-label 
+               ngClass="labelMargin" [innerHtml]="displayHeader"></mat-label>
+    <input #Telephone="ngModel"
+           placeholder="xxx-xxx-xxxx"           
+           type="text"
+           id="Telephone"
+           name="telephone"
+           [(value)]="primaryPhone"
+           [(ngModel)]="primaryPhone"
+           pattern="^[0-9]{10}$|^[0-9]{3}-[0-9]{3}-[0-9]{4}$"
+           (ngModelChange)="updateValue()"
+           required />
+    <aside *ngFor="let error of Telephone.errors | keyvalue" role="alert">
+        <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+            <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid phone number</p>
+            <p *ngSwitchCase="'required'" class="help-block">Please enter a valid phone number</p>
+        </ng-container>
+    </aside>
+</div>

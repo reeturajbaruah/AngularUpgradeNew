@@ -1,0 +1,13 @@
+<a style="height: 47px;"
+    [href] ="url"
+    [target]="external ? '_blank' : ''"
+    [clickPreventDefault]="{ enabled: hasChildren }"
+    [class.border-top]="borderTop"
+    [class.call-to-action]="isCallToAction"
+    fxLayout="row"
+    fxLayoutAlign="space-between center">
+    <span>{{label}}</span>
+    <span *ngIf="hasChildren" class="right-arrow">
+        <mat-icon *ngIf="showRightArrow$ | async" svgIcon="right-arrow"></mat-icon>
+    </span>
+</a>

@@ -1,0 +1,29 @@
+<div id="june-redesign">
+    <div id="toll-road-map">
+        <div fxLayout="row">
+            <div fxLayout.xs="col">
+                <header class="header-spacing">
+                    <h1 class="title-color">{{pageCms?.Title}}</h1>
+                </header>
+            </div>
+        </div>
+        <div class="border-without-footer">
+            <div class="bottom-buffer-lg">
+                <header class="header-spacing">
+                    <h2 class="no-margin-top-do">{{topContent?.Title}}</h2>
+                    <hr />
+                </header>
+                <div [innerHTML]="topContent?.LongDescription | safeHtml"></div>
+            </div>
+            <div [innerHTML]="pageCms?.LongDescription | safeHtml">
+            </div>
+            <div>
+                <header class="header-spacing">
+                    <h2>{{bottomContent?.Title}}</h2>
+                    <hr />
+                </header>
+                <div [innerHTML]="bottomContent?.LongDescription  | safeHtml"></div>
+            </div>
+        </div>
+    </div>
+</div>

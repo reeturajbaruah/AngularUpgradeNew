@@ -1,0 +1,40 @@
+@import (reference) '../../../styles/custom/spacing/utility.less';
+@import (reference) '../../../styles/custom/spacing/sections.less';
+@import (reference) '../../../styles/custom/spacing/dividers.less';
+
+mat-label {
+    text-transform: uppercase;
+}
+
+card-container {
+    display: block;
+    .refresh-2020.u-spacing__sectionToSection--marginTop();
+
+    section {
+        .refresh-2020.u-spacing--widthFill();
+    }
+
+    section+section {
+        .refresh-2020.u-spacing__sectionToSection--marginTop();
+    }
+}
+
+article {
+    .refresh-2020.u-spacing__divider--marginTopBottom();
+    margin: 5px 0px;
+}
+
+aside {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.accountIdOption {
+    .refresh-2020.u-spacing--widthFill();
+}
+
+mat-divider {
+    .refresh-2020.u-spacing__divider--marginTopBottom();
+    width: @width-divider;
+}

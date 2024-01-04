@@ -1,0 +1,26 @@
+<card-container  class="u-spacing__sectionToSection--marginBottom">
+    <header>
+        <h2>{{modalCms.Title}}</h2>
+        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+    </header>
+
+    <article [innerHtml]="modalCms.LongDescription | safeHtml"></article>
+
+    <fx-row [isLabel]="true"
+                           [backgroundColorClass]="'transparent-background'"
+                           class="table-header">
+        
+        <mat-label col-start>DESCRIPTION</mat-label>
+        <mat-label col-end>TAG ACTIVATION FEE</mat-label>
+    </fx-row>
+
+    <fx-row *ngFor="let tableRow of tagTable; let i = index"
+                            [isTop]="isTop(i)"
+                            [isInner]="isInner(i)"
+                            [isBottom]="isBottom(i)"
+                            class="table-row">
+
+        <span col-start>{{tableRow.desc}}</span>
+        <span col-end>{{tableRow.fee}}</span>
+    </fx-row>
+</card-container>

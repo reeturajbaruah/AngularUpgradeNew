@@ -1,0 +1,32 @@
+:host {
+
+  .imgCompLayout {
+    display: flex;
+    margin: 20px auto;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    place-content: center flex-start;
+    opacity: 1;
+    transition: 1s ease;
+  }
+
+  .imgCompLayout :focus-visible {
+    outline: none !important;
+    outline-offset: none !important;
+  }
+
+  .slider_images {
+    width: 100%;
+  }
+
+  .handle_image {
+    pointer-events: initial !important;
+    cursor: pointer;
+  }
+
+  .slider-split-line {
+      --divider-width: 3px;
+  }
+
+}

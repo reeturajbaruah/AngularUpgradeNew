@@ -1,0 +1,153 @@
+@storefront-width: 1920px;
+@storefront-height: 1080px;
+
+@hctragold: #ffdd09;
+@storefront-purple: #381462;
+
+@storefront-button-margin: 2px;
+@storefront-button-background-color: #ffdd09;
+@storefront-button-color: #3c4858;
+@storefront-border-radius: 0px;
+
+@storefront-sm-button-width: 140px;
+@storefront-sm-button-height: 45px;
+@storefront-sm-button-font-size: 16px;
+@storefront-sm-button-font-weight: 400;
+@storefront-md-button-width: 263px;
+@storefront-md-button-height: 43px;
+@storefront-md-button-font-size: 16pt;
+@storefront-md-button-font-weight: 700;
+@storefront-lg-button-width: 400px;
+@storefront-lg-button-height: 43px;
+@storefront-lg-button-font-size: 20px;
+@storefront-lg-button-font-weight: 700;
+
+@storefront-select-width: 1440px;
+@storefront-select-height: 810px;
+@storefront-select-item-width: 472px;
+@storefront-select-item-height: 262px;
+@storefront-select-label-height: 110px;
+@storefront-select-icon-height: 60px;
+@storefront-select-icon-width: 60px;
+
+@storefront-curtain-width: 1660px;
+@storefront-curtain-height: 940px;
+
+@storefront-side-menu-width: 220px;
+@storefront-side-menu-item-height: 117.5px;
+
+@storefront-credit-card-modal-width: 600px;
+@storefront-credit-card-modal-padding: 30px;
+@storefront-modal-width: 939px;
+@storefront-modal-height: 519px;
+@storefront-modal-container-width: 960px;
+@storefront-modal-padding: 270px;
+
+@storefront-font-family-bold: 'Lato-bold', Arial, sans-serif;
+@storefront-site-font-family: 'Avenir LT Std 45 Book Regular', Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@storefront-font-family: 'Lato-regular', Arial, sans-serif;
+
+@storefront-external-dialog-width: 1720px;
+@storefront-external-dialog-inner-width: 1700px;
+@storefront-external-dialog-iframe-width: 1699px;
+@storefront-external-dialog-padding: 100px;
+@storefront-external-max-height: 860px;
+
+html.storefront {
+    overflow: hidden;
+
+    button.mediumBtn {
+        width: @storefront-md-button-width;
+        height: @storefront-md-button-height !important;
+        margin: @storefront-button-margin;
+        font-size: @storefront-md-button-font-size;
+        font-weight: @storefront-md-button-font-weight;
+        background-color: @storefront-button-background-color;
+        color: @storefront-button-color;
+        border-radius: @storefront-border-radius;
+    }
+
+    button.smallBtn,
+    action-buttons.smallBtn > main > button {
+        width: @storefront-sm-button-width;
+        height: @storefront-sm-button-height !important;
+        margin: @storefront-button-margin;
+        font-size: @storefront-sm-button-font-size;
+        font-weight: @storefront-sm-button-font-weight;
+        background-color: @storefront-button-background-color;
+        color: @storefront-button-color;
+        border-radius: @storefront-border-radius;
+    }
+
+    button.largeBtn,
+    action-buttons.largeBtn > main > button {
+        width: @storefront-lg-button-width;
+        height: @storefront-lg-button-height !important;
+        margin: @storefront-button-margin;
+        font-size: @storefront-lg-button-font-size;
+        font-weight: @storefront-lg-button-font-weight;
+        background-color: @storefront-button-background-color;
+        color: @storefront-button-color;
+        border-radius: @storefront-border-radius;
+    }
+
+    .float-panel {
+        max-height: initial !important;
+        max-width: initial !important;
+
+        mat-dialog-container {
+            transform: none !important;
+        }
+    }
+
+    .mat-select.is-open {
+        .mat-select-value,
+        .mat-select-arrow-wrapper:before {
+            color: @hctragold;
+        }
+    }
+
+    .col-md-12 {
+        width: 100%;
+    }
+
+    .col-md-4 {
+        width: 33.33%;
+    }
+
+    .col-md-8 {
+        width: 66.67%;
+    }
+
+    .col-md-4,
+    .col-md-12 {
+        position: relative;
+        min-height: 1px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .col-md-4 {
+        float: left;
+    }
+}
+
+.storefront-language-select-panel {
+    background-color: white;
+    margin-top: 40px;
+    max-height: 300px !important;
+
+    .mat-option {
+        border-radius: 0px;
+        border: 1px solid black;
+        border-bottom: 0px;
+    }
+
+    .mat-option:last-child {
+        border-bottom: 1px solid black !important;
+    }
+
+    .mat-option:hover {
+        background-color: @hctragold !important;
+    }
+}

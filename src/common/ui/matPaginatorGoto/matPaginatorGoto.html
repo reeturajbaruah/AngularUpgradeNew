@@ -1,0 +1,32 @@
+<main fxLayout="row"
+     fxLayoutAlign="end space-between">
+    <div id="toAndFromContainer"
+         fxFlex="none">
+        {{pageIndex * pageSize + 1}} - {{(pageIndex + 1) * pageSize > length ? length : (pageIndex + 1) * pageSize}} of {{length}}
+    </div>
+    <div id="paginatorControlsContainer"
+         fxFlex="none"
+         fxLayout="row"
+         fxLayoutAlign="start center">
+
+        <!-- Apply the binding below if we ever need the first/last buttons -->
+        <!-- [showFirstLastButtons]="showFirstLastButtons" -->
+        <mat-paginator fxFlex="none"
+                       [length]="length"
+                       [pageIndex]="pageIndex"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="pageSizeOptions"
+                       [disabled]="disabled"
+                       [hidePageSize]="hidePageSize"
+                       (page)="paginationChange($event)">
+        </mat-paginator>
+
+        <!-- Apply the binding below if we ever need the first/last buttons -->
+        <!--[ngClass]="{'first-last-buttons-centered': showFirstLastButtons}"-->
+        <mat-select fxFlex="none"
+                    [(ngModel)]="goto"
+                    (selectionChange)="gotoChange()">
+            <mat-option *ngFor="let pageNumber of pageNumbers" [value]="pageNumber">page {{pageNumber}}</mat-option>
+        </mat-select>
+    </div>
+</main>

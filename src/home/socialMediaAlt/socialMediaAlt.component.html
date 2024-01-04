@@ -1,0 +1,26 @@
+<section class="socialMediaAltSection" ngClass.lt-md="lt-md">
+    <div class="socialMediaAltLeftBox" ngClass.lt-md="lt-md">
+        <div class="socialMediaAltLeftPadding" ngClass.lt-md="lt-md">
+            <div class="socialMediaAltLeftContent" ngClass.lt-md="lt-md">
+                <mat-divider class="matDivider"></mat-divider>
+                <article [innerHTML]="cmsData.LeftDescription | safeHtml"></article>
+            </div>
+        </div>
+    </div>
+
+    <div class="socialMediaAltRightBox" ngClass.lt-md="lt-md"
+         *ngIf="tweets.length === 0 || tweets.length === undefined">
+        <div fxlayout="column"
+             fxlayoutalign="space-between center"
+             [innerHTML]="cmsData.RightDescription | safeHtml">
+        </div>
+    </div>
+
+    <div class="socialMediaAltRightBox" ngClass.lt-md="lt-md"
+         *ngIf="tweets.length > 0 && tweets.length !== undefined"
+         translation-skip>
+        <tweet-carousel [imageSliderArrow]="imageSliderArrow">
+            <div *ngFor="let tweet of tweets" [innerHtml]="tweet"></div>
+        </tweet-carousel>
+    </div>
+</section>

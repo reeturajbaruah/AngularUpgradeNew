@@ -1,0 +1,67 @@
+@import (reference) '../../styles/themes.less';
+
+:host {
+    input[type='radio'] {
+        cursor: pointer;
+        height: 23px;
+        width: 23px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .selected {
+        .t-table__emphasis--backgroundColor(@theme-light);
+        box-shadow: 0px 0px 0px 1px rgb(43, 144, 255);
+    }
+
+    .unSelected {
+        border-width: 2px;
+        border-style: solid;
+        border-color: rgb(209, 209, 213);
+        border-radius: 10px;
+        height: 136px;
+        width: 473px;
+    }
+
+    .radioLabel {
+        font-size: 20px;
+        font-weight: bold;
+        .t-header--fontFamily();
+    }
+
+    .totalDisplay {
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    .totalLabel {
+        font-size: 10px;
+        .t-label--color(@theme-light);
+    }
+
+    .paymentDisplayLabel {
+        padding-top: 14px;
+    }
+
+    .yesStretched {
+        padding-top: 90px;
+    }
+
+    .noStretched {
+        padding-top: 50px;
+    }
+
+    .radioColumn {
+        width: 43px;
+        padding-top: 20px;
+    }
+
+    .displayColumn {
+        height: 136px;
+        padding-top: 20px;
+    }
+
+    .paymentSummary {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,45 @@
+<page-centered-container class="refresh-2020">
+    <form #Form="ngForm" validation-focus novalidate>
+        <div class="u-spacing__fieldToSection--marginTop">
+            <card-container>
+                <header>
+                    <h2>{{cmsMvuDeliveryMethod.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <section fxLayout="column" fxLayoutAlign="start start" class="u-spacing--widthFill">
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <div fxLayout="column" fxLayoutAlign="start start" class="descriptions">
+                            <div><b>Note: </b>{{cmsMvuDeliveryMethod.Note}}</div>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="!allowPickup">
+                        <div fxLayout="row" fxLayoutAlign="start start" class="u-spacing__fieldToSection--marginTop">
+                            <div fxLayout="column" fxLayoutAlign="start start" class="descriptions">
+                                <div [innerHtml]="cmsMvuDeliveryMethod.PickUpOption"></div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </section>
+                <ng-container>
+                    <choose-delivery-method [isMvu]="true"
+                                            [mailingInfo]="mailingInfo"
+                                            [(deliveryMethod)]="selectedDeliveryMethod"
+                                            (onEdit)="onMailingAddressEdit($event)"
+                                            [isAddEzTag]="true">>
+                    </choose-delivery-method>
+                </ng-container>
+            </card-container>
+            <section class="u-spacing__buttonToField--marginTop">
+                <wizard-ui #Wizard (next)="nextStep($event)" (cancel)="cancel($event)"
+                    [disabled]="Form.submitted && Form.invalid || (disable())">
+                    <span wizard-next>CONTINUE</span>
+                    <span wizard-previous fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon svgIcon="previous-arrow"></mat-icon>
+                        Previous
+                    </span>
+                    <span wizard-cancel>Cancel</span>
+                </wizard-ui>
+            </section>
+        </div>
+    </form>
+</page-centered-container>

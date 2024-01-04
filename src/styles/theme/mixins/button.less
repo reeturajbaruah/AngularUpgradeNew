@@ -1,0 +1,16 @@
+@import (reference) '../../variables.less';
+
+
+@button--color-light: @valentino-purple;
+@button--backgroundColor-light: @school-bus-yellow;
+
+
+.t-button--color(@theme) {
+    @color: 'button--color-@{theme}';
+    color: @@color;
+}
+
+.t-button--backgroundColor(@theme) {
+    @color: 'button--backgroundColor-@{theme}';
+    background-color: @@color;
+}

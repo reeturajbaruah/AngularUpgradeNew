@@ -1,0 +1,13 @@
+<main>
+    <mat-select id="yeartransition"
+                name="yeartransition"
+                [(ngModel)]='selectedYear'
+                (selectionChange)="updateValue()"
+                [disableOptionCentering]="true"
+                style="width:322px;">
+        <mat-option *ngFor="let yearTransition of yearTransitionData; index as indexOfData;"
+                    [value]="yearTransition">
+            {{yearTransition}}
+        </mat-option>
+    </mat-select>
+</main>

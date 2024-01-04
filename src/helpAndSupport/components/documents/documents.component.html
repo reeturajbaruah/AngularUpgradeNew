@@ -1,0 +1,13 @@
+<div>
+    <!-- Documents Header -->
+    <header>
+        <h2 [innerHtml]="documentsCms.Title"></h2>
+        <mat-divider></mat-divider>
+        <span [innerHtml]="documentsCms.ShortDescription | safeHtml"></span>
+    </header>
+
+    <!-- PDF Section -->
+    <section>
+        <span [innerHtml]="documentsCms.LongDescription | safeHtml"></span>
+    </section>
+</div>

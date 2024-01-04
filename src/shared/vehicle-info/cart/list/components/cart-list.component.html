@@ -1,0 +1,52 @@
+
+<card-container *ngIf="data && data.ezTags">
+    <h2>{{data.title}} {{data.ezTags.length}} item<span *ngIf="data.ezTags.length > 1 || data.ezTags.length === 0">s</span></h2>
+    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+    <article [innerHtml]="data.context | safeHtml"></article>
+
+    <section class="u-spacing--widthFill">
+
+        <div fxLayout="row"
+             fxLayoutAlign="start start">
+
+            <section class="u-spacing--widthFill u-spacing__gridToRecords--marginTop">
+                <fx-row [isLabel]="true"
+                                       [backgroundColorClass]="'transparent-background'">
+                    <section col-start
+                             class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <mat-label class="fx-flex-auto-shrink-more limited-flex">
+                            {{data.vehicleDetailsHeader}}</mat-label>
+                    </section>
+                </fx-row>
+            </section>
+
+        </div>
+
+        <section fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill"
+                 *ngFor="let ezTag of data.ezTags; index as i">
+            <vehicle-cart-row-component [ezTag]="ezTag"
+                                        (removeVehicle)="removeVehicle(i)"
+                                        (editVehicle)="editVehicle($event, i)"
+                                        [deleteModalCms]="data.modalContent.remove"
+                                        [editModalCms]="data.modalContent.edit"
+                                        [stateList]="data.states"
+                                        [canRemove]="data.ezTags.length>1"
+                                        [config]="data.config"
+                                        [tagOrderDesc]="tagOrderDesc">
+            </vehicle-cart-row-component>
+        </section>
+    </section>
+
+    <section *ngIf="!addingAdditionalVehicle"
+             class="u-spacing__fieldToSection--marginTop"
+             fxLayout="row"
+             fxLayoutAlign="center center"
+             (click)="addAdditionalVehicle()">
+        <mat-icon svgIcon="add-icon"></mat-icon>
+        <a fxFlexOffset="6px"
+           class="add-text">Add Additional Vehicle</a>
+    </section>
+
+</card-container>

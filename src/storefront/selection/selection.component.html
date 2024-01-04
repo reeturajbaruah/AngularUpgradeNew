@@ -1,0 +1,33 @@
+<div class="selection-container" *ngIf="show && !hide" @simpleFadeAnimation>
+    <div>
+        <h2>{{cmsContent.Title}}</h2>
+    </div>
+
+    <div class="work-item-container">
+        <div *ngFor="let task of tasks" class="work-item" [ngClass]="task.class" (mouseenter)="onMouseEnter(task)" (mouseleave)="onMouseLeave(task)" (click)="handleClick(task)">
+            <div class="icon-container" *ngIf="['selected', 'disabled'].includes(task.class)">
+                <img class="icon" src={{task.cmsContent.selectedIcon.image}} alt={{task.cmsContent.selectedIcon.alt}} />
+            </div>
+            <div class="icon-container" *ngIf="!['selected', 'disabled'].includes(task.class)">
+                <img class="icon" src={{task.cmsContent.unselectedIcon.image}} alt={{task.cmsContent.unselectedIcon.alt}} />
+            </div>
+            <label>{{task.cmsContent.displayName}}</label>
+            <div class="icon-container">
+                <img class="icon" src={{task.cmsContent.checkbox.ItemMedialUrl}} alt={{task.cmsContent.checkbox.Alt}} />
+            </div>
+        </div>
+    </div>
+
+    <div class="select-footer storefront">
+        <a (click)="dontSeeWhatINeed()">I don't see what I need.</a>
+        <section>
+            <action-buttons class="smallBtn" (main)="proceed(wizardUi)" [disabled]="!workflowContainsTasks">
+                <span action-main>Proceed</span>
+            </action-buttons>
+            <wizard-ui #wizardUi></wizard-ui>
+        </section>
+    </div>
+</div>
+
+
+

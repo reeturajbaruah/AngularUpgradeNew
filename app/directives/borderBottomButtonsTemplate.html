@@ -1,0 +1,46 @@
+﻿<div class="row">
+    <div class="col-xs-12">
+
+        <span class="sr-only"></span>
+        
+        <div storefront-hide-if-enabled ng-if="!storefrontOnly">
+            <button id="submitBtn" 
+                    ng-disabled="isDisabled" 
+                    ng-transclude type="submit" 
+                    ng-click="continueSaveInvoked()" 
+                    ng-hide="hideContinueSave" 
+                    ng-class="{'exclude-global-disable': excludeGlobalDisable}" 
+                    class="btn padding-sides-sm pull-right">
+            </button>
+
+            <a id="cancelLnk"
+               ng-show="showCancel"
+               class="pull-right padding-top-sm bottom-buffer-sm-half right-buffer-lg-do right-buffer-md-mo"
+               aria-label="Cancel"
+               ng-click="onCancel()">{{cancelText}}</a>
+
+            <a ng-show="showPrevious"
+               class="pull-left padding-top-sm bottom-buffer-sm-half"
+               aria-label="Previous"
+               ng-click="onPrevious()">{{previousText || 'Previous'}}</a>    
+        </div>
+        <div
+            storefront-navigation
+            on-proceed="continueSaveInvoked()"
+            preserve-work-item="preserveWorkItem"
+            on-cancel="onCancel()"
+            on-previous="onPrevious()"             
+            on-continue-save="onContinueSave()"
+            
+            hide-proceed="hideContinueSave"
+            is-proceed-disabled="isDisabled"
+            is-form-completion="formComplete"
+            show-cancel="showCancel"
+            show-previous="showPrevious"
+            exclude-global-disable="excludeGlobalDisable">
+            
+            <span ng-if="!formComplete" ng-transclude></span>
+            <span ng-if="formComplete">Proceed</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+//@import (reference) '../common.less';
+@import (reference) '../../../styles/basic/links/anchor.less';
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/mixins.less';
+
+:host {
+
+    .filter-section {
+        display: flex;
+        gap: 15px;
+    }
+    .menuItem {
+        cursor: pointer;
+    }
+    .archive.mat-button-toggle-checked {
+        border-left: 1px solid @azure-radiance-blue;
+    }
+    .parentItem {
+        font-weight: bold;
+    }
+    .filter-category-title,
+    .filter-view-title {
+        font-family: @font-jost;
+        font-size: 18px;
+    }
+    ::ng-deep dropdown .criteria-shape {
+        padding: 0px 22px;
+        span {
+            white-space: nowrap;
+        }
+    }
+}
+
+
+::ng-deep .mat-button-toggle {
+    button {
+        background-color: unset !important;
+        padding: 0px !important;
+    }
+    .mat-button-toggle-label-content {
+        height: 42px;
+        line-height: 42px !important;
+    }
+}
+
+::ng-deep .mat-button-toggle-checked {
+    background: @snuff-gray 0% 0% no-repeat padding-box;
+    border: 1px solid @azure-radiance-blue;
+}
+
+
+
+

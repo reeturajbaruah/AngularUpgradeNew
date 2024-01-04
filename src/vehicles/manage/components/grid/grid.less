@@ -1,0 +1,77 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/variables.less';
+
+:host {
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: start;
+    align-content: stretch;
+    align-items: stretch;
+    row-gap: 10px;
+
+    fx-row:first-child {
+        height: 15px;
+    }
+
+    .hide {
+        visibility: hidden;
+    }
+
+    @media not @breakpoint-lt-md {
+        padding: 16px;
+    }
+
+    @media @breakpoint-lt-md {
+        padding: 16px 0px;
+    }
+
+    .vehicle-row,
+    .vehicle-header {
+        width: 100%;
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 10px;
+    }
+
+    .vehicle-header {
+        text-transform: uppercase;
+        padding: 10px 0px;
+    }
+
+    .vehicle-header-end {
+        width: 115px;
+    }
+
+    .vehicle-row {
+        padding: 10px 0px;
+        height: 100%;
+        min-height: 70px;
+
+        @media @breakpoint-lt-md {
+            align-items: flex-start;
+        }
+    }
+
+    .mat-icon[svgIcon='previous-arrow'] {
+        transform: scale(0.6) translate(0px, 2px) rotate(180deg);
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .btn-edit {
+        background-color: #ffffff;
+        color: #007aff;
+        border: 1px solid #007aff;
+        padding: 0px 15px;
+        margin-left: 10px;
+    }
+
+    .vehicle-header + div > .mat-icon[svgIcon='previous-arrow'] {
+        .hide();
+    }
+}

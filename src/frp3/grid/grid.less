@@ -1,0 +1,105 @@
+@import '../../styles/themes.less';
+@import '../../common/ui/containers/fxRow/details.less';
+@import '../../violationsCommon/components/violationsDetails/violationsDetails.component.less';
+@import '../../styles/custom/spacing/dividers.less';
+@import '../../styles/variables.less';
+@import '../../styles/custom/spacing/utility.less';
+@import '../../styles/custom/spacing/sections.less';
+
+.green-text {
+    .t-body__positiveFeedback--color(@theme-light);
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+h2 {
+    max-height: 70px;
+}
+
+mat-divider {
+    width: @width-divider;
+    .refresh-2020.u-spacing__divider--marginTopBottom();
+
+    &.mat-divider-vertical {
+        height: 15px;
+        width: 0px;
+        border-width: 2px;
+        .t-divider__dash--borderColor(@theme-light);
+        margin-top: -1px;
+        margin-left: 8px;
+        margin-right: 12px;
+    }
+}
+
+#records-found-text {
+    min-width: 140px;
+}
+
+.smaller-font {
+    font-size: 14px;
+}
+
+.max-width-half {
+    max-width: 50%;
+}
+
+.payment-summary-desktop {
+    width: 100%;
+}
+
+.hoverBoxAdjustment {
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    bottom: 1.5em;
+    left: -9em;
+    width: 320px;
+    margin-left: 10em;
+}
+
+.tool-tip-heading {
+    font-weight: 700;
+}
+
+.tool-tip {
+    width: 12.5px;
+    margin-left: 0px;
+
+    &.lt-md {
+        margin-left: 0px;
+        height: 20px;
+    }
+}
+
+.align-currency {
+    padding-right: 23px;
+}
+
+.link-spacing {
+    padding-top: 40px;
+}
+
+wizard-ui {
+    display: block;
+    .refresh-2020.u-spacing__buttonToField--marginTop();
+}
+
+violations-plate-row {
+    display: block;
+    margin-top: 10px;
+}
+
+input[type='checkbox'] {
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    display: inline;
+    margin: 0px 14px 3px 0px;
+}
+

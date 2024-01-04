@@ -1,0 +1,41 @@
+<main class="refresh-2020" >
+
+    <title-banner>
+        {{bannerTitle}}
+    </title-banner>
+
+    <page-filled-container>
+
+        <div [ngClass.gt-sm]="'desktop'" fxLayout="column" fxLayoutGap="20px">
+
+            <header class="u-spacing__firstHeaderToTitle--marginTop">
+                <h1>{{title}}</h1>
+            </header>
+            <div fxLayout="row">
+
+                <article fxFlex.lt-md="fill" fxFlex="70%">{{desc}}</article>
+            </div>
+
+            <ng-container *ngFor="let selectedDisplay of dynamicDisplays">
+
+                <div *ngIf="selectedDisplay" fxLayout="row" [ngClass.lt-md]="'ltmd'" fxLayout.lt-md="column"
+                     fxLayoutGap="30px">
+
+                    <picture fxFlexOrder="1" fxFlexOrder.lt-md="2">
+                        <source [srcset]="selectedDisplay.mobileImage" [media]="mobileMediaQuery" />
+                        <img fxFlex.lt-md="100%" fxFlex="300px" [src]="selectedDisplay.image" />
+                    </picture>
+
+                    <div fxFlexOrder="2" fxFlexOrder.lt-md="1" fxLayout="column" fxFlex="50%" fxLayoutGap="15px">
+                        <h2>{{selectedDisplay.title}}</h2>
+                        <mat-divider></mat-divider>
+                        <p [innerHTML]="selectedDisplay.content | safeHtml"></p>
+                    </div>
+
+                </div>
+
+            </ng-container>
+
+        </div>
+    </page-filled-container>
+</main>

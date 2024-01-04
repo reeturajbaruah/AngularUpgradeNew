@@ -1,0 +1,33 @@
+@import (reference) '../../../../../styles/themes.less';
+
+:host {
+    .phone-number-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .phone-number-section,
+    .phone-number-ext-section {
+        flex: 1;
+    }
+
+    .phone-number-ext-section {
+        max-width: 125px;
+    }
+
+    .phone-number-container > div:not(:first-child) {
+        margin-left: 20px;
+    }
+
+    .trash-icon-section {
+        margin-top: 37px;
+    }
+
+    mat-label {
+        @media @breakpoint-lt-md {
+            min-height: 25px;
+            display: block;
+        }
+    }
+}

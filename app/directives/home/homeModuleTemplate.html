@@ -1,0 +1,17 @@
+﻿<module-button on-module-click="onModuleClick()">
+    <div class="row">
+        <div class="col-sm-4 module-img">
+            <span class="helper"></span>
+            <img class="btnIcon" ng-src="{{moduleObject.getImageSrc()}}" />
+            <!--<img class="hover-image btnIcon" ng-src="{{moduleObject.getHoverImageSrc()}}" />-->
+        </div>
+        <div class="col-sm-8 no-padding-left">
+            <h1 class="bottom-buffer-xs-half">{{moduleObject.getTitle()}}</h1>
+            <div class="module-cms-content home-module-cms-text" ng-bind-html="moduleObject.getContent()"></div>
+            <div>
+                <button class="btn top-buffer-sm">{{moduleObject.getLinkTitle()}}</button>
+                <a ng-click="goToFirstTimeLogin($event)" class="bold-do link-by-button" ng-show="isLoginModule" style="padding-top: 6px;">First time to login?</a>
+            </div>
+        </div>
+    </div>
+</module-button>

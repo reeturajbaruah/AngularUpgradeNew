@@ -1,0 +1,15 @@
+<card-container>
+
+    <header>
+        <h2>{{cmsContent.Title}}</h2>
+        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+    </header>
+
+    <vehicle-info-form-entry [modalCms]="cmsContent" 
+        [vehicleInfo]="vehicleInfo" [stateList]="statesList"
+        [plateIsReadOnly]="false"
+        [config]="config">
+    </vehicle-info-form-entry>
+
+</card-container>
+

@@ -1,0 +1,10 @@
+@import (reference) '../../variables.less';
+
+
+@textbox--backgroundColor-light: @alabaster-gray;
+
+
+.t-textbox--backgroundColor(@theme) {
+    @color: 'textbox--backgroundColor-@{theme}';
+    background-color: @@color;
+}

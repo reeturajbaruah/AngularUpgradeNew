@@ -1,0 +1,18 @@
+﻿<div ng-class="inputDropdownClass()" up-down-enter-interceptor="keyActions">
+
+   <input class="form-control" type="text" name="{{requiredBindings.name}}" id="{{requiredBindings.id}}" title="{{title}}" 
+          placeholder="{{placeholder}}" tabindex="{{tabIndex}}"
+          ng-model="userInput" ng-change="inputChange()" ng-focus="inputFocus($event)" ng-blur="inputBlur($event)" autocomplete="off"/>
+    <ul ng-show="dropdownVisible" ng-style="setWidth()" id="{{inputDropdownBoxId}}">
+       <li ng-repeat="item in filteredItems" ng-class="selectedItemClass($index)" title=""
+            ng-mousedown="selectItem(item)" id="{{inputDropdownItemIdPrefix}}{{$index}}" ng-mousemove="setActive($index)">
+            <span>{{requiredBindings.getItemDisplayName(item)}}</span>
+        </li>
+    </ul>
+    <div ng-messages="validationService(requiredBindings.form).getErrorListWithNullCheck(requiredBindings.name)"
+          ng-if="showValidation()" role="alert">
+        <p ng-message="inputError" class="help-block">Please enter a valid license plate</p>
+        <p ng-message="submissionError" class="help-block">Please enter a valid license plate</p>
+    </div>
+
+</div>

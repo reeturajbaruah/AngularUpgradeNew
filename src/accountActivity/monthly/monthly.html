@@ -1,0 +1,215 @@
+<div fxLayout="column" style="display:block;">
+    <card-dash-container class="display-block" [hasMargin]="false">
+        <h2>Monthly Statements</h2>
+
+        <section fxLayout="row wrap"
+                 fxLayoutAlign="start end"
+                 fxLayoutGap="8px">
+
+            <section *ngIf="showStatementMonths" ngClass.lt-md="select-section" fxFlex="none">
+                <mat-label>SELECT STATEMENT</mat-label>
+                <mat-select translation-skip
+                            [disableOptionCentering]="true"
+                            [(value)]="currentMonth"
+                            required>
+                    <mat-option *ngFor="let date of statementsData.dates" [value]="date">
+                        {{date}}
+                    </mat-option>
+                </mat-select>
+
+            </section>
+
+            <section *ngIf="showStatementMonths" class="section-width" fxFlex="none">
+                <button class="search-button" (click)="monthSearch()">
+                    SEARCH
+                </button>
+            </section>
+        </section>
+
+        <section *ngIf="!showStatement" class="u-spacing__fieldToSection--marginTop">
+            <div *ngIf="!showStatementMonths && !currentUser.largeAccountFlag">
+                <mat-icon class="no-statements" svgIcon="alert"></mat-icon>
+                {{cmsContent.NO_DATA}}
+            </div>
+            <div *ngIf="showStatementMonths && currentUser.largeAccountFlag">
+                <mat-icon class="no-statements" svgIcon="alert"></mat-icon>
+                {{cmsContent.LARGE_ACCOUNT}}
+            </div>
+        </section>
+    </card-dash-container>
+
+    <card-dash-container *ngIf="showStatementMonths" class="display-block" [hasMargin]="false">
+
+        <section [innerHtml]="cmsContent.ShortDescription | safeHtml"></section>
+
+        <section [ngClass]="{'u-spacing__sectionToSection--marginBottom': showStatement}">
+            <header>
+                <h2>{{searchedMonth}} Statement</h2>
+                <mat-divider></mat-divider>
+            </header>
+
+            <section fxLayout="row wrap" fxLayoutGap="8px">
+                <div [innerHtml]="cmsContent.LongDescription"></div>
+                <a *ngIf="!environmentConfig.hidePdfAccountActivity"
+                   fxFlex="none"
+                   (click)="getMonthlyStatementPdf()"
+                   class="download-link"
+                   [ngClass]="{'disabled': reportDownloading}">
+                    <img src="/Content/icons/pdf.gif" class="download-icon" />PDF Statement
+                </a>
+                <a *ngIf="!environmentConfig.hideExcelAccountActivity"
+                   fxFlex="none"
+                   (click)="getMonthlyStatementExcel()"
+                   class="download-link"
+                   [ngClass]="{'disabled': reportDownloading}">
+                    <img src="/Content/icons/excel.gif" class="download-icon" />Excel Statement
+                </a>
+            </section>
+
+            <section *ngIf="showStatement">
+                <h3 class="field-margin-top">Account Summary</h3>
+
+                <div class="row-margin">
+                    <row-container [rowType]="'transparent'" [isLabel]="true">
+                        <section fxHide fxShow.lt-md col-start
+                                 class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                            <mat-label fxFlex="fx-flex-auto-shrink-more limited-flex" fxShow.lt-md>DESCRIPTION</mat-label>
+                        </section>
+                        <section fxHide fxShow.lt-md col-end
+                                 class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                            <mat-label fxFlex="1 1 10em">QTY</mat-label>
+                            <mat-label fxFlex="1 1 auto" fxShow.lt-md>AMOUNT</mat-label>
+                        </section>
+
+                        <section fxShow fxHide.lt-md col-start
+                                 class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                            <mat-label fxFlex="65" fxShow.lt-md>DESCRIPTION</mat-label>
+                            <mat-label class="fx-flex-auto-shrink-more limited-flex">TOLL COUNT</mat-label>
+                        </section>
+                        <section fxShow fxHide.lt-md col-end
+                                 class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                            <mat-label class="fx-flex-auto limited-flex-end" fxShow.lt-md>AMOUNT</mat-label>
+                        </section>
+                    </row-container>
+
+                    <div class="u-spacing--widthFill" fxLayout="column" fxLayoutGap="2px">
+                        <div *ngFor="let accountTagSummary of accountTagSummaries; let i = index; let last = last; ">
+                            <div [ngClass.lt-md]="{'extended-row': false}" style="margin-top:2px;">
+                                <row-container [isTop]="i === 0 && accountTagSummaries.length > 1 ? true : false"
+                                               [isInner]="i > 0 && i+1 < accountTagSummaries.length ? true : false"
+                                               [isBottom]="i > 0 && i+1 === accountTagSummaries.length ? true : false"
+                                               [rowType]="last ? 'emphasis' : 'body'">
+
+                                    <section fxHide fxShow.lt-md col-start
+                                             class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                        <div fxFlex="67" fxShow.lt-md>{{accountTagSummary.description}}</div>
+
+                                    </section>
+                                    <section fxHide fxShow.lt-md col-end
+                                             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                        <div fxFlex="1 1 5em" class="fx-flex-auto-shrink-more">
+                                            {{accountTagSummary.quantity ? accountTagSummary.quantity : ''}}
+                                        </div>
+                                        <div fxFlex="1 1 4em" class="fx-flex-auto limited-flex-end" fxShow.lt-md>
+                                            {{accountTagSummary.amount ? (accountTagSummary.amount | currency) : ''}}
+                                        </div>
+                                    </section>
+
+                                    <section fxShow fxHide.lt-md col-start
+                                             class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                        <div fxFlex="67" fxShow.lt-md>{{accountTagSummary.description}}</div>
+                                        <div class="fx-flex-auto-shrink-more limited-flex">
+                                            {{accountTagSummary.quantity ? accountTagSummary.quantity : ''}}
+                                        </div>
+                                    </section>
+                                    <section fxShow fxHide.lt-md col-end
+                                             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                        <div class="fx-flex-auto limited-flex-end" fxShow.lt-md>
+                                            {{accountTagSummary.amount ? (accountTagSummary.amount | currency) : ''}}
+                                        </div>
+                                    </section>
+                                </row-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section *ngIf="showStatement">
+            <h3>Vehicle Summary (TAG Summary)</h3>
+
+            <div class="row-margin">
+                <row-container [rowType]="'transparent'" [isLabel]="true">
+                    <section fxHide fxShow.lt-md col-start
+                             class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <mat-label fxFlex="fx-flex-auto-shrink-more limited-flex" fxShow.lt-md>TAG ID</mat-label>
+                    </section>
+                    <section fxHide fxShow.lt-md col-end
+                             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <mat-label fxFlex="1 1 7em">QTY</mat-label>
+                        <mat-label fxFlex="1 1 auto" style="margin-left: 30px;" fxShow.lt-md>AMOUNT</mat-label>
+                    </section>
+
+
+                    <section fxShow fxHide.lt-md col-start
+                             class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <mat-label class="fx-flex-auto-shrink-more limited-flex">TAG ID</mat-label>
+                        <mat-label class="fx-flex-auto-frow-more unlimited-flex">LICENSE PLATE</mat-label>
+                        <mat-label class="fx-flex-auto-grow-more unlimited-flex">TOLL COUNT</mat-label>
+                    </section>
+                    <section fxShow fxHide.lt-md col-end
+                             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <mat-label class="fx-flex-auto limited-flex-end" style="margin-left: 30px;">AMOUNT</mat-label>
+                    </section>
+                </row-container>
+
+                <div class="u-spacing--widthFill" fxLayout="column" fxLayoutGap="2px">
+                    <div *ngFor="let tagSummary of ezTagSummaries; let i = index; let last = last;" style="width:100%;">
+                        <div [ngClass.lt-md]="{'extended-row': false}" style="margin-top:2px;">
+                            <row-container [isTop]="i === 0 && ezTagSummaries.length > 1 ? true : false"
+                                           [isInner]="i > 0 && i+1 < ezTagSummaries.length-1 ? true : false"
+                                           [isBottom]="i > 0 && i+1 === ezTagSummaries.length ? true : false"
+                                           [rowType]="last ? 'emphasis' : 'body'">
+
+                                <section fxHide fxShow.lt-md col-start
+                                         class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                    <div class="fx-flex-auto-shrink-more limited-flex">
+                                        {{getTagId(i, ezTagSummaries.length, tagSummary.tagId)}}
+                                    </div>
+                                </section>
+                                <section fxHide fxShow.lt-md col-end
+                                         class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                    <div fxFlex="1 1 5em" class="fx-flex-auto-grow-more unlimited-flex">
+                                        {{tagSummary.quantity ? tagSummary.quantity : ''}}
+                                    </div>
+                                    <div fxFlex="1 1 4em" class="fx-flex-auto limited-flex-end">
+                                        {{tagSummary.amount ? (tagSummary.amount | currency) : ''}}
+                                    </div>
+                                </section>
+                                <section fxShow fxHide.lt-md col-start
+                                         class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                    <div class="fx-flex-auto-shrink-more limited-flex">
+                                        {{getTagId(i, ezTagSummaries.length, tagSummary.tagId)}}
+                                    </div>
+                                    <div class="fx-flex-auto-grow-more unlimited-flex">{{tagSummary.licensePlate}}</div>
+                                    <div class="fx-flex-auto-grow-more unlimited-flex">
+                                        {{tagSummary.quantity ? tagSummary.quantity : ''}}
+                                    </div>
+                                </section>
+                                <section fxShow fxHide.lt-md col-end
+                                         class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                    <div class="fx-flex-auto limited-flex-end">
+                                        {{tagSummary.amount ? (tagSummary.amount | currency) : ''}}
+                                    </div>
+                                </section>
+                            </row-container>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </card-dash-container>
+
+</div>

@@ -1,0 +1,6 @@
+
+export const CmsIds = {
+    AddTagVehicleInfo: '1D70B229-12FB-49F3-A719-A07EBAD3C3B5',
+    AddPlateVehicleInfo: 'B1C34397-15A2-4AF4-85C2-00825A3F79D1',
+    Root: 'BED6EF0B-DCB8-4209-BB88-3440C888B6C0'
+};

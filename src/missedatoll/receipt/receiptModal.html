@@ -1,0 +1,63 @@
+<main id="modal-popup" class="refresh-2020" style="position:relative">
+
+    <section fxLayout="column"
+             class="mat-receipt-modal"
+             style="padding-top:32px;"
+             [ngStyle.lt-md]="{'width' : '100%', 'padding-top' : '45px'}"
+             [ngStyle]="{'max-width' : '635px', 'padding-top' : '32px'}">
+
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             style="width:100%; max-width:635px; text-align:center;">
+
+            <header fxLayout="column"
+                    fxLayoutAlign="center center"
+                    [ngStyle.lt-md]="{'width' : '100%'}"
+                    [ngStyle]="{'max-width' : '635px'}">
+
+
+                <h2>{{cmsContent.Title}}</h2>
+                <mat-divider></mat-divider>
+
+            </header>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             style="padding-top:20.5px; text-align:center; ">
+
+            <div [innerHtml]="cmsContent.LongDescription"></div>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             style="padding-top:33px;">
+
+            <button id="payInvoiceBtn"
+                    [ngStyle.lt-md]="{'width' : '100%'}"
+                    [ngStyle]="{'width' : 'auto'}"
+                    type="button"
+                    (click)="payInvoiceClick();">
+                PAY FOR AN INVOICE
+            </button>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             style="padding-top:33px;">
+
+            <a id="ViewReceipt"
+               fxFlexAlign="center"
+               aria-label="Close"
+               (click)="close()">
+                View My Receipt
+            </a>
+
+        </div>
+
+    </section>
+
+</main>

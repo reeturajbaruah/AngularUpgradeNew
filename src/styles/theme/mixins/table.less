@@ -1,0 +1,22 @@
+@import (reference) '../../variables.less';
+
+
+@table__header--backgroundColor-light: @athens-gray;
+@table__body--backgroundColor-light: @wild-sand-gray;
+@table__emphasis--backgroundColor-light: @snuff-gray;
+
+
+.t-table__header--backgroundColor(@theme) {
+    @color: 'table__header--backgroundColor-@{theme}';
+    background-color: @@color;
+}
+
+.t-table__body--backgroundColor(@theme) {
+    @color: 'table__body--backgroundColor-@{theme}';
+    background-color: @@color;
+}
+
+.t-table__emphasis--backgroundColor(@theme) {
+    @color: 'table__emphasis--backgroundColor-@{theme}';
+    background-color: @@color;
+}

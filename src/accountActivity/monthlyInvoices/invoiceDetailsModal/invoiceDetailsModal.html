@@ -1,0 +1,78 @@
+<div class="title-margin">
+    <h2>{{modalTitle}}</h2>
+</div>
+
+<div fxLayout="column" fxHide fxShow.lt-md>
+    <div *ngFor="let trRecord of invoiceDetails">
+        <div fxLayout="column">
+            <div class="detail-card-responsive">
+                <div class="fx-layout-row" style="margin-top: 5px; margin-left: 5px;">
+                    <section class="fx-flex-80">
+                        <mat-label>DATE/TIME</mat-label>
+                        <div translation-skip>{{trRecord.trxnDate | dateWithTimeZone: 'dateTime5'}}</div>
+                    </section>
+                    <section>
+                        <mat-label>AMOUNT</mat-label>
+                        <div>{{trRecord.amount | currency}}</div>
+                    </section>
+                </div>
+                <section style="margin-top:10px; margin-left: 5px;">
+                    <mat-label>LOCATION</mat-label>
+                    <div>{{trRecord.locationName}}</div>
+                </section>
+                <section style="margin-top: 10px; margin-left: 5px;">
+                    <mat-label>DESCRIPTION</mat-label>
+                    <div>{{trRecord.transType}}</div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<row-container fxShow fxHide.lt-md [rowType]="'transparent'" [isLabel]="true">
+    <section col-start
+             class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+        <mat-label class="fx-flex-auto-shrink-more limited-flex">DATE/TIME</mat-label>
+        <mat-label class="fx-flex-auto-grow-more unlimited-flex">LOCATION</mat-label>
+        <mat-label class="fx-flex-auto-grow-more unlimited-flex">DESCRIPTION</mat-label>
+    </section>
+    <section col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+        <mat-label class="fx-flex-auto limited-flex-end" style="margin-right: 30px;">AMOUNT</mat-label>
+    </section>
+</row-container>
+
+<div *ngFor="let trRecord of invoiceDetails; first as isFirst; last as isLast; let i = index; let last = last;"
+     class="show-desktop">
+    <div ngClass="extended-row" [ngClass.lt-md]="{ 'extended-row': false }" style="margin-top: 2px; background-color: white;">
+        <fx-row [isTop]="i === 0 && invoiceDetails.length > 1 ? true: false"
+                [isInner]="i > 0 && i+1 <= invoiceDetails.length ? true : false"
+                [backgroundColorClass]="'white-background'">
+            <section col-start
+                     class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                <div translation-skip class="fx-flex-auto-shrink-more limited-flex" style="margin-left: 10px;">
+                    {{trRecord.trxnDate | dateWithTimeZone: 'dateTime5'}}
+                </div>
+                <div class="fx-flex-auto-grow-more unlimited-flex">{{trRecord.locationName}}</div>
+                <div class="fx-flex-auto-grow-more unlimited-flex">{{trRecord.transType}}</div>
+            </section>
+            <section col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                <div class="fx-flex-auto limited-flex-end" style="margin-right: 30px;">{{trRecord.amount | currency}}</div>
+            </section>
+        </fx-row>
+    </div>
+</div>
+
+<div *ngIf="invoiceDetails && invoiceDetails.length > 0" style="margin-top:2px">
+    <fx-row [isBottom]="true"
+            [backgroundColorClass]="'white-background'">
+        <section col-start
+                 class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+            <div class="fx-flex-auto-shrink-more limited-flex" style="margin-left: 10px; font-weight: bold;">
+                Total
+            </div>
+        </section>
+        <section col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+            <div class="fx-flex-auto limited-flex-end" style="margin-right: 30px; font-weight: bold;">{{totalAmount | currency}}</div>
+        </section>
+    </fx-row>
+</div>

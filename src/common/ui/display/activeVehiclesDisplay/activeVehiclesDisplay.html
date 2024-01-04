@@ -1,0 +1,65 @@
+<!--EZ Tag Vehicles-->
+<div *ngIf="activeVehiclesList && activeVehiclesList.length > 0">
+    <header class="header-spacing">
+        <h2 class="h1-mo">{{cmsContent.EZTagVehiclesHeader}}</h2>
+        <hr />
+    </header>
+
+    <table class="table info-table-border">
+        <tbody>
+            <tr>
+                <th>Nickname</th>
+                <th>EZ TAG #</th>
+                <th>Lic. Plate</th>
+                <th>Make</th>
+            </tr>
+            <tr class="info-table-body" *ngFor="let tag of paginatedArrVehicles">
+                <td>{{tag.nickname}}</td>
+                <td>{{tag.fullTagId}}</td>
+                <td>{{tag.licPlate}}</td>
+                <td>{{tag.vehicleMake}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <new-generic-paging-control 
+                                (pageUpdate)="paginatedArrVehicles = $event"
+                                [fullList]="activeVehiclesList"
+                                [itemsPerPage]="itemsPerPage"
+                                [itemCountLabel]="cmsContent.ItemCountLabelEZTags">
+    </new-generic-paging-control>
+
+</div>
+
+<!--EZ Plate Vehicles-->
+<div *ngIf="activeEZPlatesList && activeEZPlatesList.length > 0">
+    <header class="header-spacing">
+        <h2 class="h1-mo">{{cmsContent.EZPlateVehiclesHeader}}</h2>
+        <hr />
+    </header>
+    <table class="table info-table-border">
+        <tbody>
+            <tr>
+                <th>Nickname</th>
+                <th>Lic. Plate</th>
+                <th>Make</th>
+                <th>Start date</th>
+                <th>End date</th>
+            </tr>
+            <tr class="info-table-body" *ngFor="let plate of paginatedArrEzPlates">
+                <td>{{plate.nickname}}</td>
+                <td>{{plate.licPlate}}</td>
+                <td>{{plate.vehicleMake}}</td>
+                <td>{{plate.pbpStartDate | dateWithTimeZone : 'dateTimeFull'}}</td>
+                <td>{{plate.pbpEndDate | dateWithTimeZone : 'dateTimeFull'}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <new-generic-paging-control 
+                                (pageUpdate) ="paginatedArrEzPlates = $event"
+                                [fullList]="activeEZPlatesList"
+                                [itemsPerPage]="itemsPerPage"
+                                [itemCountLabel]="cmsContent.ItemCountLabelEZPlates">
+    </new-generic-paging-control>
+</div>

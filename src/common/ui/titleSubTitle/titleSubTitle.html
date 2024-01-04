@@ -1,0 +1,10 @@
+<div style="padding-bottom: 18px;">
+    <div style="padding-top:24px;">
+        <span class="titleClass">
+            {{titleDescription}}
+        </span>
+    </div>
+    <div *ngIf="showSubTitle" style="padding-top:10px;">
+        <span class="subTitleClass" [innerHtml]="subtitleDescription | safeHtml"></span>
+    </div>
+</div>

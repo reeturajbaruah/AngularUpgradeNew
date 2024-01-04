@@ -1,0 +1,121 @@
+<main class="refresh-2020">
+    <storefront-utility #storefront></storefront-utility>
+
+    <!--Large Page/Flow title-->
+    <title-banner>
+        {{cmsContent.Title}}
+    </title-banner>
+
+    <page-centered-container>
+        <div fxLayout="column">
+            <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+                <section fxLayout="column">
+                    <!--Smaller title-->
+                    <header>
+                        <h2>{{cmsContent.LoginSectionTitle}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </header>
+
+                    <section>
+                        <form #LoginForm="ngForm"
+                              validation-focus novalidate
+                              fxLayout="column start"
+                              method="post">
+
+                            <!-- Username input box -->
+                            <div fxLayout="column"
+                                 [error-check]="usernameInput">
+                                <mat-label for="username">USERNAME</mat-label>
+                                <input type="text"
+                                       id="usernameTxtBox"
+                                       [(ngModel)]="login.userName"
+                                       #usernameInput="ngModel"
+                                       name="username"
+                                       tabindex="1"
+                                       required />
+
+                                <error-messages [errors]="usernameInput.errors" [activeBeforeSubmit]="usernameInput.touched">                    
+                                    <error-message rule="required">Please enter your username</error-message>                   
+                                </error-messages> 
+                            </div>
+                            
+                            <!-- Forgot Username Link -->
+                            <ng-container *ngIf="enableForgotUsername">
+                                <div class="linkSpacing">
+                                    <!--href="/ForgotUsername"-->
+                                    <a id="forgotUsernameLnk" (click)="goToForgotUsernamePage()">Forgot Username?</a>
+                                </div>
+                            </ng-container>
+
+                            <!-- Password input box -->
+                            <div fxLayout="column"
+                                 class="u-spacing__fieldToField--marginTop"
+                                 ngClass="spanPosition"
+                                 [error-check]="passwordInput">
+                                <mat-label for="password">PASSWORD</mat-label>
+                                <input type="text"
+                                       id="passwordTxtBox"
+                                       [(ngModel)]="login.password"
+                                       #passwordInput="ngModel"
+                                       name="password"
+                                       tabindex="2"
+                                       [type]="isShowPassword ? 'text' : 'password'"
+                                       [ngClass]="isShowPassword ? 'pwd-hide' : 'pwd-show'"
+                                       required />
+
+                                <show-hide-input-button [(showField)]="isShowPassword"></show-hide-input-button>
+
+                                <error-messages [errors]="passwordInput.errors" [activeBeforeSubmit]="passwordInput.touched">                    
+                                    <error-message rule="required">Please enter your password</error-message>
+                                </error-messages> 
+                            </div>
+
+                            <!-- Forgot Password Link -->
+                            <div class="linkSpacing">
+                                <!--href="/ForgotPassword"-->
+                                <a id="forgotPasswordLnk" (click)="goToForgotPasswordPage()">Forgot password?</a>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="u-spacing__buttonToField--marginTop">
+                                <button class="btn u-spacing--widthFill"
+                                        (click)="getLogin(LoginForm, wizardUi)"
+                                        tabindex="3">
+                                    LOGIN
+                                </button>
+
+                                <!--This is only used to handle the states while in KIOSK. It is passed into getLogin() for LOGIN button-->
+                                <wizard-ui #wizardUi></wizard-ui>
+                            </div>
+                        </form>
+
+                        <!-- First Time Login link and Sign Up link -->
+                        <section *ngIf="!storefront.isKioskView"
+                                 id="linksSection"
+                                 fxLayout="row"
+                                 fxLayoutAlign="space-around center"
+                                 class="u-spacing__buttonToField--marginTop"
+                                 ngClass.lt-md="lt-md">
+
+                            <!--FIRST TIME LOGIN LINK-->
+                            <a id="firstTimeLoginLnk"
+                               ngClass.lt-md="lt-md"
+                               (click)="goToFirstTimeLoginPage()">First Time Login?</a>
+
+                            <!--DIVIDER-->
+                            <mat-divider [vertical]="true"
+                                         ngClass.lt-md="lt-md"></mat-divider>
+
+                            <!--SIGN UP LINK-->
+                            <a id="signUpLnk"
+                               ngClass.lt-md="lt-md"
+                               (click)="goToSignUpPage()">Sign Up For EZ TAG</a>
+                        </section>
+                    </section>
+                </section>
+
+            </card-container>
+        </div>
+    </page-centered-container>
+
+</main>

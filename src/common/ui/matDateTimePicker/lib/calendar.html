@@ -1,0 +1,35 @@
+
+<ng-template [cdkPortalOutlet]="calendarHeaderPortal"></ng-template>
+
+<div class="mat-calendar-content" [ngSwitch]="currentView" cdkMonitorSubtreeFocus tabindex="-1">
+    <hctra-mat-month-view *ngSwitchCase="'month'"
+                        [(activeDate)]="activeDate"
+                        [selected]="selected"
+                        [dateFilter]="dateFilter"
+                        [maxDate]="maxDate"
+                        [minDate]="minDate"
+                        [dateClass]="dateClass"
+                        (selectedChange)="dateSelected($event)"
+                        (userSelection)="userSelected()">
+    </hctra-mat-month-view>
+
+    <hctra-mat-year-view *ngSwitchCase="'year'"
+                       [(activeDate)]="activeDate"
+                       [selected]="selected"
+                       [dateFilter]="dateFilter"
+                       [maxDate]="maxDate"
+                       [minDate]="minDate"
+                       (monthSelected)="monthSelectedInYearView($event)"
+                       (selectedChange)="goToDateInView($event, 'month')">
+    </hctra-mat-year-view>
+
+    <hctra-mat-multi-year-view *ngSwitchCase="'multi-year'"
+                             [(activeDate)]="activeDate"
+                             [selected]="selected"
+                             [dateFilter]="dateFilter"
+                             [maxDate]="maxDate"
+                             [minDate]="minDate"
+                             (yearSelected)="yearSelectedInMultiYearView($event)"
+                             (selectedChange)="goToDateInView($event, 'year')">
+    </hctra-mat-multi-year-view>
+</div>

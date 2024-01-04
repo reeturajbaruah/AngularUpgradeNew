@@ -1,0 +1,48 @@
+<main id="modal-popup" class="refresh-2020" style="position:relative">
+
+    <section fxLayout="column"
+             class="completion-modal"
+             ngClass.gt-md="gt-md"
+             ngClass.lt-md="lt-md">
+
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             ngClass="title">
+
+            <header fxLayout="column"
+                    fxLayoutAlign="center center"
+                    ngClass.lt-md="lt-md">
+
+                <h2>{{cmsContent.Title}}</h2>
+                <mat-divider></mat-divider>
+
+            </header>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             class="content"
+             ngClass.lt-md="lt-md">
+
+            <mat-icon id="checkMark" svgIcon="checkmark"></mat-icon>
+            <div class="modalBodyText" [innerHtml]="cmsContent.PrimaryContent | safeHtml"></div>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             ngClass.lt-md="lt-md"
+             ngClass="accept-button">
+
+            <button id="acceptButton"
+                    type="button"
+                    (click)="acceptButtonClick();">
+                {{cmsContent.AcceptButton}}
+            </button>
+
+        </div>
+
+    </section>
+
+</main>

@@ -1,0 +1,94 @@
+<page-centered-container class="refresh-2020" hasAlternateBackgroundColor="true">
+
+    <form #Form="ngForm" validation-focus novalidate>
+
+        <card-container>
+
+            <header>
+                <h2 translation-skip>{{header}}: {{plate.fullTagId}}</h2>
+                <mat-divider></mat-divider>
+            </header>
+
+            <article [innerHtml]="cmsContent.LongDescription | safeHtml"></article>
+
+
+            <section style="margin-top: 30px;">
+
+                <mat-label fxLayout="row">STATUS </mat-label>
+                <strong [ngClass]="{'active': isActive }" translation-skip>Active</strong>
+
+
+            </section>
+
+
+            <vehicle-info-form-entry [modalCms]="cmsContent" [vehicleInfo]="plate"
+                                     [showTempPlate]="false" [stateList]="states">
+            </vehicle-info-form-entry>
+
+            <section fxLayout="row" fxLayoutAlign="space-between center" style="padding-top:32px;">
+                <mat-label>START DATE/TIME</mat-label>
+                <mat-label>NO. OF DAYS</mat-label>
+                <mat-label fxShow fxHide.lt-sm>END DATE/TIME</mat-label>
+            </section>
+
+
+            <section fxLayout="row"
+                     fxLayoutAlign="space-between center"
+                     fxLayoutGap="8px">
+
+                <hctra-mat-datetime-picker-with-input [name]="'startDate'" [dateTimeModel]="startDateTime" [isDisablePicker] = "startDatePickerState"
+                                                      (dateTimeModelChange)="startDateTime=$event;onDateEntered()">
+                </hctra-mat-datetime-picker-with-input>
+
+                <div fxLayout="column" [error-check]="NumberOfDaysCheck">
+                    <input type="number" id="numberOfDays" #NumberOfDaysCheck="ngModel" name="numberOfDays"
+                           aria-label="Number of Days" min="0" onkeypress="return event.charCode >= 48" required
+                           [ngModel]="numberOfDays" (ngModelChange)="numberOfDays=$event;onNumberOfDaysEntered()"
+                           ngPattern="/^([0-9]+)$/" style="max-width: 80px; padding-right:9px;" />
+
+                    <div *ngFor="let error of NumberOfDaysCheck.errors | keyvalue" role="alert">
+                        <ng-container *ngIf="Form.submitted" [ngSwitch]="error.key">
+                            <p *ngSwitchCase="'required'" class="help-block">Please enter # of days</p>
+                            <p *ngSwitchCase="'invalidNum'" class="help-block">{{error.value}}</p>
+                        </ng-container>
+                    </div>
+
+
+                </div>
+
+                <hctra-mat-datetime-picker-with-input fxShow fxHide.lt-sm [name]="'endDate'" [dateTimeModel]="endDateTime"
+                                                      (dateTimeModelChange)="endDateTime=$event;onDateEntered()">
+                </hctra-mat-datetime-picker-with-input>
+
+            </section>
+
+            <section fxLayout="row" fxLayoutAlign="space-between center">
+                <mat-label>Time displayed in CDT</mat-label>
+                <mat-label fxShow fxHide.lt-sm>Time displayed in CDT</mat-label>
+            </section>
+
+            <section fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.gt-xs style="padding-top:32px;">
+                <mat-label>END DATE/TIME</mat-label>
+            </section>
+
+            <section fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.gt-xs>
+                <hctra-mat-datetime-picker-with-input fxShow fxHide.lt-xs [name]="'endDate'" [dateTimeModel]="endDateTime"
+                                                      (dateTimeModelChange)="endDateTime=$event;onDateEntered()">
+                </hctra-mat-datetime-picker-with-input>
+
+            </section>
+
+            <section fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.gt-xs>
+                <mat-label>Time displayed in CDT</mat-label>
+            </section>
+
+        </card-container>
+
+        <action-buttons (main)="exitModal(true)" (alt)="exitModal(false)">
+            <span action-main>SAVE</span>
+            <span action-alt>Cancel</span>
+        </action-buttons>
+
+    </form>
+
+</page-centered-container>

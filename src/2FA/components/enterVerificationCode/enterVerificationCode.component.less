@@ -1,0 +1,62 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/custom/spacing/sections.less';
+@import (reference) '../../../styles/custom/spacing/dividers.less';
+
+h2 {
+    max-height: 70px;
+}
+
+mat-divider {
+    width: @width-divider;
+}
+
+.spanPosition {
+    position: relative;
+}
+
+.linkSpacing {
+    margin-top: 16px;
+}
+
+a {
+    .t-header--fontFamily();
+}
+
+.linksSection {
+    action-buttons {
+        margin-left: auto;
+    }
+
+    mat-divider {
+        height: 15px;
+        width: 2px;
+        border-width: 2px;
+        border-color: @tuna-gray;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+card-container {
+    display: block;
+    .refresh-2020.u-spacing__sectionToSection--marginTop();
+}
+
+mat-divider {
+    width: @width-divider;
+}
+
+article {
+    margin: 5px 0px;
+}
+
+.remember-chk-label {
+    font-weight: 600;
+}
+
+.remember-chk-desc {
+    font-size: 12px;
+    font-family: 'Montserrat';
+    font-weight: 500;
+}

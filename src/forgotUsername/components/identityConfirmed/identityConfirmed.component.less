@@ -1,0 +1,41 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/custom/spacing/sections.less';
+
+page-centered-container {
+    display: block;
+    margin-top: 19px;
+}
+
+h2 {
+    max-height: 70px;
+}
+
+mat-divider {
+    width: @width-divider;
+}
+
+article {
+    .t-body--fontFamily();
+    font-size: 16px;
+    line-height: 22px;
+    display: block;
+    margin-top: 20px;
+}
+
+section {
+    display: block;
+}
+
+wizard-ui {
+    .refresh-2020.u-spacing__sectionToSection--marginTop();
+    display: block;
+
+    [wizard-next] {
+        text-transform: uppercase;
+    }
+}
+
+.linkSpacing {
+    margin-top: 32px;
+}

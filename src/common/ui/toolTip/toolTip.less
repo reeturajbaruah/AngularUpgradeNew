@@ -1,0 +1,38 @@
+@import (reference) '../../../styles/themes.less';
+
+tool-tip:not(.useOverlay) {
+
+    a,
+    a:hover {
+        text-decoration: none;
+        color: unset !important;
+    }
+
+    a + div {
+        position: relative;
+    }
+
+    a + div > :first-child {
+        position: absolute;
+        opacity: 0.0;
+        background-color: white;
+        transition: opacity 500ms, z-index 500ms;
+        text-align: left;
+        font-size: 12px;
+        line-height: 15px;
+        .t-body--fontFamily;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.16);
+        z-index: -1;
+    }
+
+    a:hover + div > :first-child {
+        opacity: 1.0;
+        z-index: 1000;
+    }
+
+    a + div.stayOpenOnHover > :first-child:hover {
+        opacity: 1.0 !important;
+        z-index: 1000 !important;
+    }
+}
+

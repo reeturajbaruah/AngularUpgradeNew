@@ -1,0 +1,588 @@
+﻿@import 'site-variables';
+
+
+//Warning: Changes to this file may require updating the CMS css file
+
+.font-avenir-medium {
+    font-family: @avenir-medium !important;
+}
+
+.glyphicon-triangle-right:before {
+    content: '\e250';
+}
+
+.glyphicon-triangle-left:before {
+    content: '\e251';
+}
+
+.glyphicon-triangle-bottom:before {
+    content: '\e252';
+}
+
+.glyphicon-triangle-top:before {
+    content: '\e253';
+}
+
+.glyphicon {
+    font-family: @glyphicons-halflings !important;
+}
+
+table {
+    color: @dark-gray-text;
+    font-family: @avenir-regular;
+}
+
+a {
+    color: @link-blue-text !important;
+    font-family: @avenir-regular;
+
+    p {
+        color: @link-blue-text !important;
+    }
+}
+
+.italicize {
+    font-style: italic;
+}
+
+select.setItalic {
+    color: @light-gray-text;
+    font-style: italic;
+}
+
+select.setItalic > option:not(:first-child) {
+    color: @dark-gray-text;
+    font-style: normal;
+}
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.base-text-style() {
+    color: @dark-gray-text;
+    font-family: @avenir-regular;
+}
+
+.customer-account-data {
+    .font-avenir-medium !important;
+    color: black !important;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+@media screen and (max-width: @maximum-mobile-width) {
+    .bold-mo {
+        .bold;
+    }
+}
+
+@media screen and (min-width: @minimum-desktop-width) {
+    .bold-do {
+        .bold;
+    }
+}
+
+
+/* Sitecore font classes */
+.HCTRA-Bold {
+    .customer-account-data;
+}
+
+@media screen and (max-width: @maximum-mobile-width) {
+    .HCTRA-Title {
+        font-size: @h2-size-mo;
+        .base-text-style;
+    }
+
+    .HCTRA-Subtitle {
+        font-size: @h3-size-mo;
+        .base-text-style;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .HCTRA-Title {
+        font-size: @h2-size-small-screen;
+        .base-text-style;
+    }
+
+    .HCTRA-Subtitle {
+        font-size: @h3-size-small-screen;
+        .base-text-style;
+    }
+}
+
+@media screen and (min-width: @minimum-desktop-width) {
+    .HCTRA-Title {
+        font-size: @h2-size-do;
+        .base-text-style;
+    }
+
+    .HCTRA-Subtitle {
+        font-size: @h3-size-do;
+        .base-text-style;
+    }
+}
+/* End Sitecore font classes */
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.h7,
+p,
+div,
+span {
+    line-height: 1.3;
+}
+
+@media screen and (max-width: @maximum-mobile-width) {
+    /* Sitecore font classes */
+    big {
+        font-size: @big-size-mo;
+        .base-text-style;
+    }
+    /* End Sitecore font classes */
+
+    h1,
+    .h1 {
+        font-size: @h1-size-mo;
+        .base-text-style;
+    }
+
+    .h1-half {
+        font-size: @h1-half-size-mo;
+    }
+
+    h2,
+    .h2 {
+        font-size: @h2-size-mo;
+        .base-text-style;
+    }
+
+    .h2-half {
+        font-size: @h2-half-size-mo;
+    }
+
+    h3,
+    .h3 {
+        font-size: @h3-size-mo;
+        .base-text-style;
+    }
+
+    .h3-half {
+        font-size: @h3-half-size-mo;
+    }
+
+    h4,
+    .h4 {
+        font-size: @h4-size-mo;
+        .base-text-style;
+    }
+
+    .h4-half {
+        font-size: @h4-half-size-mo;
+    }
+
+    h5,
+    .h5 {
+        font-size: @h5-size-mo;
+        .base-text-style;
+    }
+
+    .h5-half {
+        font-size: @h5-half-size-mo;
+    }
+
+    h6,
+    .h6 {
+        font-size: @h6-size-mo;
+        .base-text-style;
+    }
+
+    /* Sitecore font classes */
+    small,
+    .note-text {
+        font-size: @small-size-mo;
+        .base-text-style;
+    }
+    /* End Sitecore font classes */
+
+    p,
+    select,
+    input,
+    button {
+        .base-text-style;
+    }
+
+    label {
+        .h4;
+    }
+
+    label.text-small {
+        .h5;
+    }
+
+    select.form-control {
+        font-size: @h4-size-mo;
+    }
+
+    input.form-control {
+        font-size: @h4-size-mo;
+    }
+
+    button.btn[type='submit'] {
+        font-size: @h3-size-small-screen;
+    }
+
+    .h1-mo {
+        font-size: @h1-size-mo;
+    }
+
+    .h1-half-mo {
+        font-size: @h1-half-size-mo;
+    }
+
+    .h2-mo {
+        font-size: @h2-size-mo;
+    }
+
+    .h2-half-mo {
+        font-size: @h2-half-size-mo;
+    }
+
+    .h3-mo {
+        font-size: @h3-size-mo;
+    }
+
+    .h3-half-mo {
+        font-size: @h3-half-size-mo;
+    }
+
+    .h4-mo {
+        font-size: @h4-size-mo;
+    }
+
+    .h4-half-mo {
+        font-size: @h4-half-size-mo;
+    }
+
+    .h5-mo {
+        font-size: @h5-size-mo;
+    }
+
+    .h5-half-mo {
+        font-size: @h5-half-size-mo;
+    }
+
+    .h6-mo {
+        font-size: @h6-size-mo;
+    }
+
+    .note-text-mo {
+        font-size: @small-size-mo;
+    }
+
+    .max-width-400-mo {
+        max-width: 400px;
+    }
+
+	.grid-text-mo {
+		font-size: @small-size-small-screen;
+	}
+}
+
+/* iPhone5 and Small Screen Font Sizes */
+@media screen and (max-width: 340px) {
+    /* Sitecore font classes */
+    big {
+        font-size: @big-size-small-screen;
+    }
+    /* End Sitecore font classes */
+
+    h1,
+    .h1 {
+        font-size: @h1-size-small-screen;
+    }
+
+    .h1-half {
+        font-size: @h1-half-size-small-screen;
+    }
+
+    h2,
+    .h2 {
+        font-size: @h2-size-small-screen;
+    }
+
+    .h2-half {
+        font-size: @h2-half-size-small-screen;
+    }
+
+    h3,
+    .h3 {
+        font-size: @h3-size-small-screen;
+    }
+
+    .h3-half {
+        font-size: @h3-half-size-small-screen;
+    }
+
+    h4,
+    .h4 {
+        font-size: @h4-size-small-screen;
+    }
+
+    .h4-half {
+        font-size: @h4-half-size-small-screen;
+    }
+
+    h5,
+    .h5 {
+        font-size: @h5-size-small-screen;
+    }
+
+    .h5-half {
+        font-size: @h5-half-size-small-screen;
+    }
+
+    h6,
+    .h6 {
+        font-size: @h6-size-small-screen;
+    }
+
+    /* Sitecore font classes */
+    small,
+    .note-text {
+        font-size: @small-size-small-screen;
+    }
+    /* End Sitecore font classes */
+
+    label {
+        font-size: @h3-size-small-screen;
+    }
+
+    label.text-small {
+        font-size: @h5-size-small-screen;
+    }
+
+    select.form-control {
+        font-size: @h3-size-small-screen;
+    }
+
+    input.form-control {
+        font-size: @h3-size-small-screen;
+    }
+
+    button.btn[type='submit'] {
+        font-size: @h3-size-small-screen;
+    }
+
+    .h1-mo {
+        font-size: @h1-size-small-screen;
+    }
+
+    .h1-half-mo {
+        font-size: @h1-half-size-small-screen;
+    }
+
+    .h2-mo {
+        font-size: @h2-size-small-screen;
+    }
+
+    .h2-half-mo {
+        font-size: @h2-half-size-small-screen;
+    }
+
+    .h3-mo {
+        font-size: @h3-size-small-screen;
+    }
+
+    .h3-half-mo {
+        font-size: @h3-half-size-small-screen;
+    }
+
+    .h4-mo {
+        font-size: @h4-size-small-screen;
+    }
+
+    .h4-half-mo {
+        font-size: @h4-half-size-small-screen;
+    }
+
+    .h5-mo {
+        font-size: @h5-size-small-screen;
+    }
+
+    .h5-half-mo {
+        font-size: @h5-half-size-small-screen;
+    }
+
+    .h6-mo {
+        font-size: @h6-size-small-screen;
+    }
+
+    .note-text-mo {
+        font-size: @small-size-small-screen;
+    }
+
+	.grid-text-mo {
+		font-size: 5pt;
+	}
+}
+
+@media screen and (min-width: @minimum-desktop-width) {
+    /* Sitecore font classes */
+    big {
+        font-size: @big-size-do;
+        .base-text-style;
+    }
+    /* End Sitecore font classes */
+
+    h1,
+    .h1 {
+        font-size: @h1-size-do;
+        .base-text-style;
+    }
+
+    .h1-half {
+        font-size: @h1-half-size-do;
+    }
+
+    h2,
+    .h2 {
+        font-size: @h2-size-do;
+        .base-text-style;
+    }
+
+    .h2-half {
+        font-size: @h2-half-size-do;
+    }
+
+    h3,
+    .h3 {
+        font-size: @h3-size-do;
+        .base-text-style;
+    }
+
+    .h3-half {
+        font-size: @h3-half-size-do;
+    }
+
+    h4,
+    .h4 {
+        font-size: @h4-size-do;
+        .base-text-style;
+    }
+
+    .h4-half {
+        font-size: @h4-half-size-do;
+    }
+
+    h5,
+    .h5 {
+        font-size: @h5-size-do;
+        .base-text-style;
+    }
+
+    .h5-half {
+        font-size: @h5-half-size-do;
+    }
+
+    h6,
+    .h6 {
+        font-size: @h6-size-do;
+        .base-text-style;
+    }
+
+    /* Sitecore font classes */
+    small,
+    .note-text {
+        font-size: @small-size-do;
+        .base-text-style;
+    }
+    /* End Sitecore font classes */
+
+    p,
+    select,
+    input,
+    button {
+        .base-text-style;
+    }
+
+    label {
+        .h4;
+    }
+
+    label.text-small {
+        .h5;
+    }
+
+    select.form-control {
+        font-size: @h4-size-do;
+    }
+
+    input.form-control {
+        font-size: @h4-size-do;
+    }
+
+    button.btn[type='submit'] {
+        font-size: 1.0em;
+    }
+
+    .h1-do {
+        font-size: @h1-size-do;
+    }
+
+    .h1-half-do {
+        font-size: @h1-half-size-do;
+    }
+
+    .h2-do {
+        font-size: @h2-size-do;
+    }
+
+    .h2-half-do {
+        font-size: @h2-half-size-do;
+    }
+
+    .h3-do {
+        font-size: @h3-size-do;
+    }
+
+    .h3-half-do {
+        font-size: @h3-half-size-do;
+    }
+
+    .h4-do {
+        font-size: @h4-size-do;
+    }
+
+    .h4-half-do {
+        font-size: @h4-half-size-do;
+    }
+
+    .h5-do {
+        font-size: @h5-size-do;
+    }
+
+    .h5-half-do {
+        font-size: @h5-half-size-do;
+    }
+
+    .h6-do {
+        font-size: @h6-size-do;
+    }
+
+    .note-text-do {
+        font-size: @small-size-do;
+    }
+}
+
+.smallerFont {
+    font-size: 90%; /*65, 75*/
+}

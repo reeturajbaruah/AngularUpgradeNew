@@ -1,0 +1,404 @@
+<main>
+
+    <section fxLayout="column"
+             fxLayoutAlign="start start"
+             class="u-spacing--widthFill">
+
+        <div *ngIf="!isAddEzTag && allowDeliveryByMail && !allowPickup">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+
+                <div *ngIf="!mailingInfo"
+                     fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptions">
+
+                    <div>
+
+                        <div [innerHtml]="deliveryMethodCMS.ShortDescription"></div>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf="mailingInfo"
+                     fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptionMailInfo">
+
+                    <div>
+
+                        <div *ngIf="mailingInfo">
+                            <article>{{deliveryMethodCMS.MailCMS}}</article>
+                            <address-display class="context"
+                                             [address]="mailingInfo"
+                                             [international]="mailingInfo.internationalAddress"
+                                             [showLabels]="false">
+                            </address-display>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div fxLayout="column"
+                     fxLayoutAlign="end end"
+                     *ngIf="mailingInfo"
+                     style="padding-top:38px;">
+
+                    <div>
+
+                  </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="isAddEzTag && allowDeliveryByMail && !allowPickup" class="address-whenNoPickup">
+
+            <div fxLayout="row" fxLayoutAlign="start start" >
+                
+
+                <div *ngIf="!mailingInfo"
+                     fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptions">
+
+                    <div>
+
+                        <div [innerHtml]="deliveryMethodCMS.ShortDescription"></div>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf="mailingInfo"
+                     fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptionMailInfo">
+
+                    <div>
+                        <article>{{deliveryMethodCMS.MailCMS}}</article>
+                        <div *ngIf="mailingInfo?.address1 !== null">
+                            <address-display class="context"
+                                             [address]="mailingInfo"
+                                             [international]="mailingInfo.internationalAddress"
+                                             [showLabels]="false">
+                            </address-display>
+
+                        </div>
+                        <div *ngIf="mailingInfo?.address1 === null">
+                            <p style="color:red;">{{deliveryMethodCMS.missingMailing}}</p>
+                            <a (click)="onMailingAddressEdit('Add')">{{deliveryMethodCMS.addMailing}}</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div fxLayout="column"
+                     fxLayoutAlign="end end"
+                     *ngIf="mailingInfo?.address1 !== null"
+                     class="editMailingAddressNoPickup">
+
+                    <div>
+
+                        <a (click)="onMailingAddressEdit('Edit')">Edit</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="!allowDeliveryByMail && allowPickup">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+
+                <div fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptions">
+
+                    <div>
+
+                        <div [innerHtml]="deliveryMethodCMS.LongDescription"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="!isAddEzTag && allowDeliveryByMail && allowPickup">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+
+                <header fxLayout="column">
+                    <h3>{{deliveryMethodCMS.MailingHeader}}</h3>
+                </header>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start"
+                 class="unSelected"
+                 [ngClass]="{'selected': deliveryMethod === deliveryMethodType.Mail}"
+                 style="margin-top:16px;">
+
+                <div fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="checkboxContainers">
+
+                    <input type="radio"
+                           id="shipDeliveryRdo"
+                           [value]="deliveryMethodType.Mail"
+                           name="deliveryRdo"
+                           #AcceptOfferRdo="ngModel"
+                           [(ngModel)]="deliveryMethod"
+                           (change)="deliveryMethodChanged()" />
+
+                    <label for="shipDeliveryRdo">
+                    </label>
+
+                </div>
+
+                <div *ngIf="!mailingInfo"
+                     fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptions">
+
+                    <div>
+
+                        <div [innerHtml]="deliveryMethodCMS.ShortDescription"></div>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf="mailingInfo"
+                     fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptionMailInfo">
+
+                    <div>
+
+                        <div *ngIf="mailingInfo">
+                            <article>{{deliveryMethodCMS.MailCMS}}</article>
+                            <address-display class="context"
+                                             [address]="mailingInfo"
+                                             [international]="mailingInfo.internationalAddress"
+                                             [showLabels]="false">
+                            </address-display>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div fxLayout="column"
+                     fxLayoutAlign="end end"
+                     *ngIf="mailingInfo"
+                     style="padding-top:38px;">
+
+                    <div *ngIf="!hideTooltip">
+
+                        <tool-tip [ngStyle]="{'width': '12.5px'}">
+                            <span tool-tip-hover>
+                                <mat-icon svgIcon="information"></mat-icon>
+                            </span>
+                            <span tool-tip-message ngClass="hoverBoxAdjusment"
+                                  [ngStyle]="{'left': '-150px'}">
+                                {{deliveryMethodCMS.MailingAddressTooltip}}
+                            </span>
+                        </tool-tip>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start" style="padding-top: 24px;">
+
+                <header fxLayout="column">
+                    <h3>{{deliveryMethodCMS.PickupHeader}}</h3>
+                </header>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start"
+                 class="unSelected"
+                 [ngClass]="{'selected': deliveryMethod === deliveryMethodType.Store}"
+                 style="margin-top: 16px;">
+
+                <div fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="checkboxContainers">
+
+                    <input type="radio"
+                           id="pickupDeliveryRdo"
+                           [value]="deliveryMethodType.Store"
+                           name="deliveryRdo"
+                           #RejectOfferRdo="ngModel"
+                           [(ngModel)]="deliveryMethod"
+                           (change)="deliveryMethodChanged()" />
+
+                    <label for="pickupDeliveryRdo">
+                    </label>
+
+                </div>
+
+                <div fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptions">
+
+                    <div>
+
+                        <div [innerHtml]="deliveryMethodCMS.LongDescription"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="isAddEzTag && allowDeliveryByMail && allowPickup">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+
+                <header fxLayout="column">
+                    <h3>{{deliveryMethodCMS.MailingHeader}}</h3>
+                </header>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start"
+                 class="unSelected"
+                 [ngClass]="{'selected': deliveryMethod === deliveryMethodType.Mail}"
+                 style="margin-top:16px;">
+
+                <div fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="checkboxContainers">
+
+                    <input type="radio"
+                           id="shipDeliveryRdo"
+                           [value]="deliveryMethodType.Mail"
+                           name="deliveryRdo"
+                           #AcceptOfferRdo="ngModel"
+                           [(ngModel)]="deliveryMethod"
+                           (change)="deliveryMethodChanged()" />
+
+                    <label for="shipDeliveryRdo">
+                    </label>
+
+                </div>
+
+                <div *ngIf="!mailingInfo"
+                     fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptions">
+
+                    <div>
+
+                        <div [innerHtml]="deliveryMethodCMS.ShortDescription"></div>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf="mailingInfo"
+                     fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptionMailInfo">
+
+                    <div>
+
+                        <div>
+                            <article>{{deliveryMethodCMS.MailCMS}}</article>
+                            <address-display class="context"
+                                             [address]="mailingInfo"
+                                             [international]="mailingInfo.internationalAddress"
+                                             [showLabels]="false">
+                            </address-display>
+                        </div>
+                        <div *ngIf="mailingInfo?.address1 === null && deliveryMethod === deliveryMethodType.Mail">
+                            <p style="color:red;">{{deliveryMethodCMS.missingMailing}}</p>
+                            <a (click)="onMailingAddressEdit('Add')">{{deliveryMethodCMS.addMailing}}</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div fxLayout="column"
+                     fxLayoutAlign="end end"
+                     *ngIf="mailingInfo?.address1 !== null"
+                     class="editMailingAddress">
+
+                    <div>
+
+                        <a (click)="onMailingAddressEdit('Edit')">Edit</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start" style="padding-top: 24px;">
+
+                <header fxLayout="column">
+                    <h3>{{deliveryMethodCMS.PickupHeader}}</h3>
+                </header>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start"
+                 class="unSelected"
+                 [ngClass]="{'selected': deliveryMethod === deliveryMethodType.Store}"
+                 style="margin-top: 16px;">
+
+                <div fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="checkboxContainers">
+
+                    <input type="radio"
+                           id="pickupDeliveryRdo"
+                           [value]="deliveryMethodType.Store"
+                           name="deliveryRdo"
+                           #RejectOfferRdo="ngModel"
+                           [(ngModel)]="deliveryMethod"
+                           (change)="deliveryMethodChanged()" />
+
+                    <label for="pickupDeliveryRdo">
+                    </label>
+
+                </div>
+
+                <div fxLayout="column"
+                     fxLayoutAlign="start start"
+                     class="descriptions">
+
+                    <div>
+
+                        <div [innerHtml]="deliveryMethodCMS.LongDescription"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>

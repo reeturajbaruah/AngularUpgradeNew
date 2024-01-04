@@ -1,0 +1,554 @@
+﻿@import '../css/site-variables';
+@import '../css/site-variables-june-redesign';
+@import '../css/storefront';
+
+@mega-menu-screen-lg: @screen-lg;
+@mega-menu-screen-sm: @screen-sm;
+@mega-minimum-desktop-width: @minimum-desktop-width;
+@mega-screen-md-max: @screen-md-max;
+
+/* Fix for bug 7217*/
+#june-redesign {
+    .account-details-header .h3 {
+        color: #000000;
+    }
+
+    .hover-hand button.pull-left-desktop.btn span {
+        color: #000000;
+    }
+
+    .btn-text() {
+        color: @black-base;
+        font-family: @avenir-heavy;
+        font-size: @h4-size-do-new;
+    }
+
+    .btn {
+        background-color: @hctra-gold;
+        border-color: @dark-gray-base;
+        border-radius: 0px;
+        height: @button-height;
+        min-width: 120px;
+        .btn-text;
+
+        span {
+            .btn-text;
+        }
+    }
+
+    @media screen and (min-width: @minimum-desktop-width) {
+        .header-spacing {
+            margin: 15px 0px -20px 0px;
+            padding: 0px 0px 25px 0px;
+        }
+    }
+
+    .base-text-style() {
+        color: @dark-gray-text;
+    }
+
+    @media screen and (min-width: @minimum-desktop-width) {
+        // These wouldn't normally be in here but we don't want any changes affecting mobile
+        .customer-account-data {
+            color: black !important;
+            font-weight: bold !important;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: @avenir-heavy, Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        h4,
+        h5,
+        h6,
+        a,
+        p,
+        div,
+        span {
+            font-family: Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* End Element changes*/
+
+        /* Sitecore font classes */
+
+        big {
+            font-size: @big-size-do-new;
+            .base-text-style;
+        }
+
+        /* End Sitecore font classes */
+
+        h1,
+        .h1 {
+            color: @dark-purple-text;
+            font-family: @avenir-heavy;
+            font-size: @h1-size-do-new;
+        }
+
+        .h1-half {
+            font-size: @h1-half-size-do-new;
+        }
+
+        h2,
+        .h2 {
+            .base-text-style;
+            font-family: @avenir-heavy;
+            font-size: @h2-size-do-new;
+        }
+
+        .h2-half {
+            font-size: @h2-half-size-do-new;
+        }
+
+        h3,
+        .h3 {
+            color: @dark-purple-text;
+            font-family: @avenir-heavy;
+            font-size: @h3-size-do-new;
+        }
+
+        .font-lg {
+            font-size: @h3-size-do-new;
+        }
+
+        .h3-half {
+            font-size: @h3-half-size-do-new;
+        }
+
+        h4,
+        .h4 {
+            font-size: @h4-size-do-new;
+            .base-text-style;
+        }
+
+        .font-md,
+        p,
+        div,
+        span,
+        a {
+            font-size: @h4-size-do-new;
+        }
+
+        .h4-half {
+            font-size: @h4-half-size-do-new;
+        }
+
+        h5,
+        .h5 {
+            font-size: @h5-size-do-new;
+            .base-text-style;
+        }
+
+        .font-sm {
+            font-size: @h5-size-do-new;
+        }
+
+        .h5-half {
+            font-size: @h5-half-size-do-new;
+        }
+
+        h6,
+        .h6 {
+            font-size: @h6-size-do-new;
+            .base-text-style;
+        }
+
+        /* Sitecore font classes */
+
+        small,
+        .note-text {
+            font-size: @small-size-do-new;
+            .base-text-style;
+        }
+
+        /* End Sitecore font classes */
+
+        p,
+        select,
+        input,
+        button {
+            .base-text-style;
+        }
+
+        label {
+            .h4;
+        }
+
+        label.text-small {
+            .h5;
+        }
+
+        select.form-control {
+            font-size: @h4-size-do-new;
+        }
+
+        input.form-control {
+            font-size: @h4-size-do-new;
+        }
+
+        button.btn[type='submit'] {
+            font-size: 1.0em;
+        }
+
+        .h1-do {
+            font-size: @h1-size-do-new;
+        }
+
+        .h1-half-do {
+            font-size: @h1-half-size-do-new;
+        }
+
+        .h2-do {
+            font-size: @h2-size-do-new;
+        }
+
+        .h2-half-do {
+            font-size: @h2-half-size-do-new;
+        }
+
+        .h3-do,
+        .font-lg-do {
+            font-size: @h3-size-do-new;
+        }
+
+        .h3-half-do {
+            font-size: @h3-half-size-do-new;
+        }
+
+        .h4-do,
+        .font-md-do {
+            font-size: @h4-size-do-new;
+        }
+
+        .h4-half-do {
+            font-size: @h4-half-size-do-new;
+        }
+
+        .h5-do,
+        .font-sm-do {
+            font-size: @h5-size-do-new;
+        }
+
+        .h5-half-do {
+            font-size: @h5-half-size-do-new;
+        }
+
+        .h6-do {
+            font-size: @h6-size-do-new;
+        }
+
+        .note-text-do {
+            font-size: @small-size-do-new;
+        }
+    }
+}
+
+.from-date-desktop .btn-default,
+.to-date-desktop .btn-default {
+    background-color: @menu-dark-gray-nav-item;
+}
+
+.from-date-desktop .btn-sm,
+.to-date-desktop .btn-sm {
+    background-color: @menu-dark-gray-nav-item;
+}
+
+.from-date-desktop .btn-sm:hover,
+.to-date-desktop .btn-sm:hover {
+    background-color: @gold-base;
+}
+
+.from-date-desktop .btn-sm.active,
+.to-date-desktop .btn-sm.active,
+.from-date-desktop .btn-sm.active:hover,
+.to-date-desktop .btn-sm.active:hover {
+    background-color: @gold-base;
+    border-color: #000000;
+}
+
+.from-date-desktop th .btn-sm,
+.to-date-desktop th .btn-sm,
+.from-date-desktop .btn-info,
+.from-date-desktop .btn-danger,
+.from-date-desktop .btn-success,
+.to-date-desktop .btn-info,
+.to-date-desktop .btn-danger,
+.to-date-desktop .btn-success {
+    background-color: @gold-base;
+    color: #000000;
+}
+
+#special-redesign-background.purple-background {
+    background-color: @dark-purple-base;
+
+    #special-redesign.container {
+        /*background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%), linear-gradient(to bottom, @dark-purple-base-rgba 0%, @dark-purple-base-rgba 100%);
+		-moz-background-clip: content-box, padding-box;
+		-webkit-background-clip: content-box, padding-box;
+		background-clip: content-box, padding-box;*/
+        background-color: @white-base;
+        padding-bottom: 6px;
+
+        @media screen and (min-width: @screen-md-max) and (max-width: @maximum-mobile-width) {
+            padding-top: 54px;
+        }
+
+        @media screen and (min-width: 1200px) {
+            padding-right: 44px;
+            padding-left: 44px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        @media screen and (min-width: @screen-md) and (max-width: 1199px) {
+            padding-right: 44px;
+            padding-left: 44px;
+            width: 100%;
+        }
+
+        @media screen and (min-width: @minimum-desktop-width) {
+            padding-top: 0px;
+        }
+    }
+
+    // TODO: needed?
+    .inner-container {
+        margin: 0px 40px 0px 40px;
+    }
+}
+
+// TODO: needed?
+.container {
+
+    @media screen and (max-width: @maximum-mobile-width) {
+        padding-top: 54px;
+    }
+
+    @media screen and (min-width: 1200px) {
+        padding-right: @container-lg-padding;
+        padding-left: @container-lg-padding;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        max-width: @max-breakpoint !important;
+    }
+
+    @media screen and (max-width: 1199px) {
+        padding-right: @container-padding;
+        padding-left: @container-padding;
+    }
+
+    @media screen and (min-width: @minimum-desktop-width) {
+        padding-top: 0px;
+    }
+}
+
+body {
+    &.refresh-hybrid-background {
+        @media screen and (min-width: @minimum-desktop-width) {
+            background-color: @dark-purple-base;
+        }
+    }
+}
+
+#top-menu-container {
+    padding-left: 85px;
+    padding-right: 85px;
+}
+
+[device-type='desktop'] .footerCopyright div p {
+    color: #333333;
+}
+
+[device-type='desktop kiosk'] .footerCopyright div p {
+    color: #ffffff;
+}
+
+.refresh-hybrid-container {
+    background-color: #ffffff;
+
+    @media screen and (min-width: @minimum-desktop-width) {
+        padding-right: @container-lg-padding;
+        padding-left: @container-lg-padding;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: -1px;
+        width: 100%;
+        max-width: @max-breakpoint;
+    }
+
+
+    @media screen and (max-width: @maximum-mobile-width) {
+        padding-right: @container-padding;
+        padding-left: @container-padding;
+        padding-top: 1px;
+        padding-bottom: 6px;
+    }
+}
+
+// TODO: needed?
+@media screen and (min-width: @screen-sm) {
+    .container-small {
+        width: 300px;
+    }
+
+    .container-large {
+        width: 970px;
+    }
+}
+
+// TODO: needed?
+@media screen and (min-width: @screen-md) {
+    .container-small {
+        width: 500px;
+    }
+
+    .container-large {
+        width: 1170px;
+    }
+}
+
+// TODO: needed?
+@media screen and (min-width: @screen-lg) {
+    .container-small {
+        width: 700px;
+    }
+
+    .container-large {
+        width: 1600px;
+    }
+}
+
+// TODO: needed?
+.container-small,
+.container-large {
+    max-width: 100%;
+}
+
+.container-home {
+    margin-left: -22px;
+    width: 100vw;
+}
+
+.account-details-header {
+    float: right;
+    margin: -64px -36px 0px 0px;
+    padding: 15px 0px 0px 0px;
+}
+
+.account-details-col1 {
+    float: left;
+    padding: 2px 7px 0px 0px;
+    text-align: right;
+}
+
+.verticalLine {
+    border-left: 2px solid @black-base;
+    float: left;
+    height: 47px;
+    margin-top: -5px;
+    padding: 0px 7px 0px 0px;
+}
+
+.verticalLinePaymentPlans {
+    border-left: 2px solid @black-base;
+    float: left;
+    height: 60px;
+    margin-top: -5px;
+    padding: 0px 7px 0px 0px;
+}
+
+.account-details-col2 {
+    float: left;
+    padding-right: 35px;
+    padding-top: 2px;
+}
+
+
+/* Bootstrap overrides */
+/* Now keeping site at 1200px until more dynamicism can be brought to some of the redesigned pages */
+
+@media (min-width: @screen-md) {
+    .container {
+        max-width: 1200px !important;
+        min-width: 1200px !important;
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .container {
+        max-width: 1200px !important;
+        min-width: 1200px !important;
+    }
+}
+
+
+@media screen and (max-width: @maximum-mobile-width) {
+    .padding-top10-mo {
+        padding-top: 10px;
+    }
+}
+
+.modal.fade.side-drawer .modal-dialog {
+    padding: 0px;
+    min-height: 100%;
+    background: #ffffff;
+    margin: 0px 0px 0px auto;
+
+    @media screen and (min-width: @minimum-desktop-width) {
+        width: 400px;
+    }
+
+    @media screen and (max-width: @maximum-mobile-width) {
+        width: 100%;
+    }
+}
+
+.modal-open .side-drawer {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.modal.fade.side-drawer .modal-dialog {
+    -webkit-transform: translate(30%, 0);
+    transform: translate(30%, 0);
+}
+
+.modal.in.side-drawer .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.side-drawer {
+    [storefront-navigation] {
+        margin: 10px;
+
+        button {
+            background-color: @storefront-hctragold;
+            color: @storefront-gray;
+            border: 1px solid none;
+            display: block;
+            float: right;
+        }
+
+        a {
+            display: block;
+            float: left;
+        }
+    }
+
+
+    .modal-content {
+        height: 100%;
+        border: 0px;
+        border-radius: 0px;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+}

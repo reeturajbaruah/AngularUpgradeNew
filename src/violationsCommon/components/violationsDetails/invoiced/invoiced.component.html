@@ -1,0 +1,72 @@
+<main>
+    <fx-row [isInner]="!isLast"
+                           [isBottom]="isLast">
+
+        <section col-start
+                 class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+            <div class="fx-flex-auto-shrink-more limited-flex">
+                <a class="fx-layout-row fx-layout-align-start-center u--noUnderline clickable"
+                   (click)="openTollDetailsModal()">
+                    <div translation-skip class="fx-flex-none violationId--width">{{invoiced.invoiceNum}}</div>
+                    <div class="fx-flex-none glyphicon glyphicon-chevron-right"></div>
+                </a>
+            </div>
+            <div fxShow
+                 fxHide.lt-md
+                 class="fx-flex-auto-shrink-more limited-flex">
+                {{invoiced.mailedDate | dateWithTimeZone : 'date1' | default : 'To be mailed'}}
+            </div>
+            <div fxShow
+                 fxHide.lt-md
+                 class="fx-flex-auto-shrink-more limited-flex">
+                {{invoiced.dueDate | dateWithTimeZone : 'date1' | default : 'To be mailed'}}
+            </div>
+            <div fxShow
+                 fxHide.lt-md
+                 fxLayoutAlign="start start"
+                 fxLayout="row"
+                 class="fx-flex-auto-grow-more unlimited-flex">
+                <span translation-skip>{{invoiced.agencyName}}</span>
+                <tool-tip *ngIf ="invoiced.hasCAOFineEstimate"
+                          [ngStyle]="{'width': '12.5px', 'margin-left': '5px'}">
+                    <span tool-tip-hover>
+                        <mat-icon svgIcon="information"></mat-icon>
+                    </span>
+                    <span tool-tip-message ngClass="hoverBoxAdjusment">
+                        <cms-content [template]="caoToolTipCms" [data]="caoToolTipData"></cms-content>
+                    </span>
+                </tool-tip>
+            </div>
+        </section>
+
+        <section col-end
+                 class="fx-flex-none fx-layout-row fx-layout-align-end-center"
+                 style="width: 160px">
+            <div *ngIf="isEditAllowed && invoiced.checked;else amountDue"
+                 class="fx-flex-auto unlimited-flex-end"
+                 col-amount>
+                <label translation-skip [for]="inputMetadata.id" class="sr-only">{{inputMetadata.description}}</label>
+                <input type="text"
+                       [id]="inputMetadata.id"
+                       (click)="$event.stopPropagation()"
+                       (keypress)="allowKey($event.key)"
+                       [ngModel]="paymentAmountString"
+                       (ngModelChange)="amountChanged($event)"
+                       (blur)="amountBlur()"
+                       col-amount/>
+            </div>
+            <ng-template #amountDue>
+                <div class="fx-flex-auto limited-flex-end"><currency [value]="invoiced.invoiceDueBeforeDiscount"></currency></div>
+            </ng-template>
+            <div *ngIf="isEditAllowed"
+                 class="fx-layout-row fx-layout-align-end-center unlimited-flex-end">
+                <label translation-skip [for]="checkboxMetadata.id" class="sr-only">{{checkboxMetadata.description}}</label>
+                <input type="checkbox"
+                       [id]="checkboxMetadata.id"
+                       [(ngModel)]="isChecked"
+                       (change)="checkBoxChange()"
+                       (click)="$event.stopPropagation()"/>
+            </div>
+        </section>
+    </fx-row>
+</main>

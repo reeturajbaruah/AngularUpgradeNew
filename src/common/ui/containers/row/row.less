@@ -1,0 +1,85 @@
+@import (reference) '../../../../styles/themes.less';
+
+
+:host {
+    width: 100%;
+
+    div {
+        min-height: 50px;
+        .t-body--fontFamily;
+        .t-body--color(@theme-light);
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 10px;
+
+        &.lt-md {
+            border-radius: 0px;
+        }
+
+        &.extended {
+            margin-left: -20px;
+            margin-right: -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+
+            &.lt-md {
+                margin-left: -@page-bar-margin-static-lt-md;
+                margin-right: -@page-bar-margin-static-lt-md;
+                padding-left: @page-bar-margin-static-lt-md;
+                padding-right: @page-bar-margin-static-lt-md;
+            }
+        }
+
+
+        &.body--backgroundColor {
+            background-color: @wild-sand-gray;
+        }
+
+        &.bodyInvert--backgroundColor {
+            background-color: @white;
+        }
+
+        &.emphasis--backgroundColor {
+            background-color: @snuff-gray;
+        }
+
+        &.semi-emphasis--backgroundColor {
+            background-color: @athens-gray;
+        }
+
+        &.transparent--backgroundColor {
+            background-color: transparent;
+        }
+
+
+        &.is-label {
+            min-height: 26px;
+        }
+
+        &.is-top {
+            border-radius: 10px 10px 0px 0px;
+
+            &.lt-md {
+                border-radius: 0px;
+            }
+        }
+
+        &.is-inner {
+            border-radius: 0px;
+            margin-top: 2px;
+        }
+
+        &.is-bottom {
+            border-radius: 0px 0px 10px 10px;
+            margin-top: 2px;
+
+            &.lt-md {
+                border-radius: 0px;
+            }
+        }
+
+        &.big {
+            min-height: 70px;
+        }
+    }
+}

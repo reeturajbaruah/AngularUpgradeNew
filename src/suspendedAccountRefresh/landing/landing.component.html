@@ -1,0 +1,17 @@
+<card-container class="u-spacing--widthFill">
+
+    <h2>{{title}}</h2>
+
+    <section>
+        <article [innerHtml]="content | safeHtml"></article>        
+    </section>
+
+    <wizard-ui 
+        *ngIf="showWizard" 
+        [input]="isPositiveBalance"
+        (next)="goToNextState($event)" 
+        [reverseOrder]="true">
+            <span wizard-next>Make a Payment</span>
+    </wizard-ui>
+
+</card-container>

@@ -1,0 +1,17 @@
+<page-centered-container>
+
+    <card-container>
+
+        <payment-confirmation
+         [billingInfo]="billingInfo" [paymentConfirmConfig]="paymentConfirmConfig"
+        (edit)="editPayment(Wizard)"></payment-confirmation>
+
+    </card-container>
+
+    <wizard-ui #Wizard [input]="hasViolations" (next)="nextStep($event)" (previous)="previous($event)">
+        <span wizard-next>SUBMIT PAYMENT</span>
+        <span wizard-cancel>Cancel</span>
+        <span wizard-previous>Previous</span>
+    </wizard-ui>
+
+</page-centered-container>

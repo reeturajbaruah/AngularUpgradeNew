@@ -1,0 +1,51 @@
+<header fxLayout="row"
+        fxLayoutAlign="start center"
+        ngClass.lt-md="compact-menu">
+
+    <a clickPreventDefault href="#close-menu" id="hamburger-close" (click)="closeModal()">
+        <mat-icon *ngIf="showCloseIcon$ | async" svgIcon="close-menu-icon"></mat-icon>
+    </a>
+
+    <div id="hamburger-hctra-logo">
+        <mat-icon *ngIf="showHctraLogo$ | async" svgIcon="hctra-logo"></mat-icon>
+    </div>
+</header>
+
+<ng-container *ngIf="currentViewLinks$ | async as links">
+    <ng-container *ngIf="links[0]">
+
+        <hamburger-row *ngIf="!isLoggedIn" (click)="goTo(loginLink, loginLink.label, $event)" 
+                        [external]="loginLink.external" 
+                        [url]="loginLink.url"
+                        [label]="loginLink.label" 
+                        [hasChildren]="loginLink.hasChildren" 
+                        isCallToAction="true">
+        </hamburger-row>
+
+        <hamburger-row *ngIf="isLoggedIn" (click)="logout(logoutLink, logoutLink.label, $event)" 
+                        [external]="logoutLink.external" 
+                        [url]="logoutLink.url"
+                        [label]="logoutLink.label" 
+                        [hasChildren]="logoutLink.hasChildren" 
+                        isCallToAction="true">
+        </hamburger-row>
+
+        <hamburger-row *ngFor="let link of links[0].authorizedChildren"
+                       (click)="goTo(link, links[0].label, $event)"
+                       [external]="link.external"
+                       [url]="link.url"
+                       [label]="link.label"
+                       [hasChildren]="link.hasChildren"
+                       isCallToAction="true">
+        </hamburger-row>
+    </ng-container>
+    <ng-container *ngIf="links[1]">
+            
+        <hamburger-menu-layers *ngIf="links[1]" 
+        (handleClick$)="goToOtherLinks($event)"
+        [links]="getLinks(links[1].authorizedChildren)" ></hamburger-menu-layers>
+    
+    </ng-container>
+</ng-container>
+
+

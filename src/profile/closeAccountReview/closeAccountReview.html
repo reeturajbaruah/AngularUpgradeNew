@@ -1,0 +1,21 @@
+<page-centered-container hasAlternateBackgroundColor="true">
+    <card-container>
+        <section>
+            <section *ngIf="cmsContent.TitlePretext"
+                     class="u-spacing__sectionToSection--marginBottom">
+                <p>{{cmsContent.TitlePretext}}</p>
+            </section>
+            <header>
+                <h2>{{cmsContent.TitleReview}}</h2>
+            </header>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <article [innerHtml]="cmsContent.ShortDescription | safeHtml"></article>
+        </section>
+        <section class="u-spacing__buttonToField--marginTop">
+            <wizard-ui [reverseOrder]="true"
+                       (next)="nextState($event)">
+                <span wizard-next>{{cmsContent.BtnContinue}}</span>
+            </wizard-ui>
+        </section>
+    </card-container>
+</page-centered-container>

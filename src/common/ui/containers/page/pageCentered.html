@@ -1,0 +1,11 @@
+<main fxLayout="column"
+      fxLayoutAlign="start center"
+      class="refresh-2020 u-spacing--widthFill"
+      [ngClass]="{'has-alternateBackgroundColor': hasAlternateBackgroundColor}"
+      [ngClass.lt-md]="{'lt-md': true, 'has-gutter': hasGutter}">
+
+    <div class="u-spacing--widthFill">
+        <ng-content></ng-content>
+    </div>
+
+</main>

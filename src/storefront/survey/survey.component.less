@@ -1,0 +1,121 @@
+@import (reference) '../../styles/custom/storefront.less';
+
+:host {
+    display: block;
+    height: 100%;
+    user-select: none;
+
+    h1 {
+        font-family: @storefront-site-font-family;
+    }
+
+    .survey-container {
+        background-color: #ffffff;
+        padding: 50px 10%;
+        margin: 0px 5%;
+
+        .row div {
+            padding: 0px 10px 0px 0px;
+        }
+
+        .row div + div {
+            padding: 0px 0px 0px 10px;
+        }
+
+        button {
+            height: 45px;
+            border: 1px solid;
+            color: @storefront-button-color;
+        }
+
+        .survey-option-container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .survey-option:hover {
+            cursor: pointer;
+        }
+
+        .skip-button {
+            background-color: #ffffff;
+        }
+
+        .submit-button {
+            background-color: @storefront-button-color;
+            opacity: 0.95;
+            color: #ffffff;
+        }
+
+        .submit-button.active {
+            background-color: @storefront-button-background-color;
+            color: @storefront-button-color;
+        }
+
+        .submitted {
+            display: block;
+
+            h1 {
+                margin-bottom: 30px !important;
+            }
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+        }
+
+        img {
+            display: block;
+            width: 100px;
+            height: 100px;
+        }
+
+        .icon-text {
+            .green {
+                color: #009245;
+            }
+
+            .orange {
+                color: #f7931e;
+            }
+
+            .red {
+                color: #ed1c24;
+            }
+
+            width: 100px;
+            display: inline-block;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        p {
+            text-align: right;
+        }
+
+        textarea {
+            height: 225px;
+            display: block;
+            resize: none;
+            margin: 10px auto;
+            border-radius: 5px;
+            overflow-x: hidden;
+            outline-color: #e59700;
+        }
+
+        input {
+            opacity: 0;
+            width: 0px;
+            height: 0px;
+            margin: 0px;
+        }
+
+        h1 {
+            color: @storefront-purple;
+            font-weight: 700;
+            text-align: center;
+            font-size: 48px;
+        }
+    }
+}

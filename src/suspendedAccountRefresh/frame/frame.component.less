@@ -1,0 +1,63 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/variables.less';
+
+:host {
+
+    main {
+        .t-body--backgroundColor2(@theme-light);
+
+        @media not @breakpoint-lt-md {
+            padding-left: @page-bar-margin-static;
+            padding-right: @page-bar-margin-static;
+        }
+
+        header {
+
+            h1 {
+                font-size: 24px;
+                line-height: 30px;
+                color: @torch-red;
+                margin-bottom: 10px;
+
+                @media @breakpoint-lt-md {
+                    margin-top: 15px;
+                }
+            }
+
+            account-balance-header {
+                margin: 0px;
+
+                @media @breakpoint-lt-md {
+                   margin: 0px auto;
+                }
+            }
+
+            padding: 24px 15px 16px 15px;
+
+            @media @breakpoint-lt-md {
+                padding: 11px @page-bar-margin-static-lt-md 15px @page-bar-margin-static-lt-md;
+            }
+        }
+    }
+
+    stepper {
+        display: block;
+        min-height: 32px;
+
+        @media @breakpoint-lt-md {
+            min-height: unset;
+        }
+    }
+
+    page-filled-container {
+        display: block;
+
+        @media not @breakpoint-lt-md {
+            .t-body--backgroundColor2(@theme-light);
+        }
+
+        @media @breakpoint-lt-md {
+            .t-body--backgroundColor(@theme-light);
+        }
+    }
+}

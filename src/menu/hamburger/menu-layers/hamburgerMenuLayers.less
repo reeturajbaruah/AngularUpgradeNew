@@ -1,0 +1,61 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+@import '../../../styles/mixins.less';
+
+:host {
+
+    mat-icon {
+        width: 100px;
+        height: 20px;
+    }
+
+    span {
+        .t-header--fontFamily();
+        color: @valentino-purple;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: 500;
+       // font-size: 18px;
+        line-height: 24px;
+        white-space: nowrap;
+    }
+
+    a {
+        text-decoration: none;
+        display: block;
+        height: 60px;
+        padding-left: 24px;
+
+        .right-arrow {
+            display: inline-block;
+            margin-right: 32px;
+            width: 11px;
+            height: 11px;
+            line-height: 11px;
+        }
+
+        &:hover {
+            background-color: @athens-gray;
+        }
+
+        &.border-top {
+            border-top: 1px solid @athens-gray;
+            height: 59px;
+        }
+
+        &.call-to-action {
+
+            span {
+                color: @purple-heart-purple;
+                font-size: 20px;
+                padding-right: 32px;
+
+                &.compact-menu {
+                    padding-right: 24px;
+                }
+            }
+        }
+    }
+
+
+}

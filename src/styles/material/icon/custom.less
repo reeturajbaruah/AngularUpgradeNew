@@ -1,0 +1,55 @@
+mat-icon {
+    &[svgIcon='alert'] {
+        height: 16px;
+        width: 20px;
+    }
+
+    &[svgIcon='checkmark'] {
+        height: 21px;
+        width: 21px;
+    }
+
+    &[svgIcon='information'] {
+        height: 12px;
+        width: 12px;
+    }
+
+    &[svgIcon='previous-arrow'],
+    &[svgIcon='back-arrow'],
+    &[svgIcon='close-x'] {
+        height: 20px;
+        width: 20px;
+    }
+
+    &[svgIcon='no-invoices-found'] {
+        height: 80px;
+        width: 80px;
+        margin: 20px 0px;
+    }
+
+    &[svgIcon='add-icon'] {
+        fill: #007aff;
+
+        &.disable {
+            fill: #c4c4c4;
+            pointer-events: none;
+        }
+
+        &.error {
+            fill: #fd9092;
+        }
+    }
+
+    &[svgIcon='trash-icon'] {
+        fill: #007aff;
+
+        &.disable {
+            fill: #c4c4c4;
+            pointer-events: none;
+        }
+
+        &.error {
+            fill: #fd9092;
+        }
+    }
+}

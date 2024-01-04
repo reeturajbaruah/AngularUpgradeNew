@@ -1,0 +1,38 @@
+<hctra-mat-calendar cdkTrapFocus
+                  [id]="datepicker.id"
+                  [ngClass]="datepicker.panelClass"
+                  [startAt]="datepicker.startAt"
+                  [startView]="datepicker.startView"
+                  [minDate]="datepicker.minDate"
+                  [maxDate]="datepicker.maxDate"
+                  [dateFilter]="datepicker.dateFilter"
+                  [headerComponent]="datepicker.calendarHeaderComponent"
+                  [selected]="datepicker.selected"
+                  [dateClass]="datepicker.dateClass"
+                  [@fadeInCalendar]="'enter'"
+                  (selectedChange)="datepicker.select($event)"
+                  (yearSelected)="datepicker.selectYear($event)"
+                  (monthSelected)="datepicker.selectMonth($event)">
+</hctra-mat-calendar>
+<ng-container *ngIf="isViewMonth">
+    <div *ngIf="!datepicker.hideTime" class="time-container" [class.disable-seconds]="!datepicker.showSeconds">
+        <hctra-mat-timepicker [showSpinners]="datepicker.showSpinners"
+                            [showSeconds]="datepicker.showSeconds"
+                            [disabled]="datepicker.disabled"
+                            [stepHour]="datepicker.stepHour"
+                            [stepMinute]="datepicker.stepMinute"
+                            [stepSecond]="datepicker.stepSecond"
+                            [(ngModel)]="datepicker.selected"
+                            [color]="datepicker.color"
+                            [enableMeridian]="datepicker.enableMeridian"
+                            [disableMinute]="datepicker.disableMinute">
+        </hctra-mat-timepicker>
+    </div>
+    <div class="actions">
+        <button mat-button (click)="datepicker.ok()" mat-stroked-button [color]="datepicker.color" cdkFocusInitial
+                [disabled]="!valid">
+            <mat-icon *ngIf="!datepicker.customIcon">done</mat-icon>
+            <ng-template [cdkPortalOutlet]="templateCustomIconPortal"></ng-template>
+        </button>
+    </div>
+</ng-container>

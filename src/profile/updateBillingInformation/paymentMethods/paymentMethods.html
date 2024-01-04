@@ -1,0 +1,301 @@
+<main fxLayout="column">
+
+    <div style="padding-top:4px; padding-bottom:4px;">
+        <fx-row [isSelectedTop]="isSelected"
+                               [isTop]="isSelected"
+                               [ngSwitch]="paymentMethod.billingType"
+                               class="clickable"
+                               (click)="changeSelection()">
+
+            <section col-start fxFlex="grow">
+                <div fxLayout="row"
+                     fxLayoutAlign="start start"
+                     style="padding-top: 32px;"
+                     [ngStyle]="{'padding-bottom' : isSelected ? '20px' : '32px'}">
+
+                    <div class="fx-flex-auto-shrink-more limited-flex">
+
+                        <div *ngSwitchCase="BillingType.Credit">
+
+                            <div fxLayout="row"
+                                 fxLayoutAlign="start start">
+
+                                <div>
+                                    <mat-icon svgIcon="previous-arrow" class="iconUnselected" [@rotatedState]='animationState'></mat-icon>
+                                </div>
+
+                                <div style="padding-left: 12px;">
+                                    <img *ngIf="cmsImage" [src]="cmsImage" />
+                                </div>
+
+                                <div fxLayout="column"
+                                     fxLayoutAlign="start start"
+                                     style="padding-left:12px; vertical-align:bottom;">
+
+                                    <div *ngIf="paymentMethod.credit.primary" class="isPrimary">primary</div>
+
+                                    <div style="min-width:169px;">
+                                        <span translation-skip class="itemFont">{{paymentMethod.credit.cardCode | cardType | uppercase}}&nbsp;</span>
+                                        <span fxShow
+                                              fxHide.gt-xs>
+                                            <br />
+                                        </span>
+                                        <span translation-skip class="itemFont">{{paymentMethod.credit.cardNbr | maskCreditCard:paymentMethod.credit.cardCode}}&nbsp;</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div *ngSwitchCase="BillingType.Eft">
+
+                            <div fxLayout="row"
+                                 fxLayoutAlign="start start">
+
+                                <div>
+                                    <mat-icon svgIcon="previous-arrow" class="iconUnselected" [@rotatedState]='animationState'></mat-icon>
+                                </div>
+
+                                <div style="padding-left: 12px;">
+                                    <img *ngIf="cmsImage" [src]="cmsImage" />
+                                </div>
+
+                                <div fxLayout="column"
+                                     fxLayoutAlign="start start"
+                                     ngClass.gt-sm="bankAccountWidth"
+                                     style="padding-left:12px; vertical-align:bottom;">
+
+                                    <div *ngIf="paymentMethod.eft.primary" class="isPrimary">primary</div>
+
+                                    <div>
+                                        <span>Bank Account&nbsp;</span>
+                                        <span fxShow
+                                              fxHide.gt-xs>
+                                            <br />
+                                        </span>
+                                        <span translation-skip class="itemFont">{{paymentMethod.eft.accountNumber | maskBankAccount}}&nbsp;</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div fxShow
+                         fxHide.lt-md
+                         style="vertical-align:bottom; padding-left:20px; width:185px; text-align:right;"
+                         [ngStyle]="{'padding-top' : isPrimary ? '22px' : '0px','width' : isBlocked ? '160px' : '185px'}"
+                         *ngSwitchCase="BillingType.Credit">
+                        <span style="padding-right:40px;">
+                            <span translation-skip class="itemFont">{{paymentMethod.credit.expMonth}} / {{paymentMethod.credit.expYear}}</span>
+                        </span>
+                    </div>
+                </div>
+            </section>
+            <section col-end
+                     style="text-align: right; vertical-align:top; min-width:100px;">
+
+                <div *ngIf="isActive" class="activeStatus"
+                     style="padding-right:10px;"
+                     [ngStyle]="{'padding-top' : isPrimary ? '22px' : '0px'}">
+                    Active
+                </div>
+
+                <section *ngIf="isExpiring"
+                         [ngStyle]="{'padding-top' : isPrimary ? '22px' : '0px'}"
+                         fxLayout="row"
+                         fxLayoutAlign="start start">
+                    <div style="padding-right:5px;">
+                        <tool-tip class="toolTip">
+                            <span tool-tip-hover>
+                                <mat-icon class="expiring" svgIcon="alert"></mat-icon>
+                            </span>
+                            <span tool-tip-message
+                                  ngClass="hoverBoxAdjusment"
+                                  [ngStyle.lt-md]="{'left': '-200px'}">
+                                {{expiringTooltip}}
+                            </span>
+                        </tool-tip>
+                    </div>
+                    <div>
+                        <span class="activeStatus">Active</span>
+                    </div>
+                </section>
+
+                <section *ngIf="isExpired"
+                         [ngStyle]="{'padding-top' : isPrimary ? '22px' : '0px'}"
+                         fxLayout="row"
+                         fxLayoutAlign="start start">
+                    <div style="padding-right:5px;">
+                        <tool-tip class="toolTip">
+                            <span tool-tip-hover>
+                                <mat-icon class="expired" svgIcon="alert"></mat-icon>
+                            </span>
+                            <span tool-tip-message ngClass="hoverBoxAdjusment"
+                                  [ngStyle]="{'left': '-200px'}">
+                                {{expiredTooltip}}
+                            </span>
+                        </tool-tip>
+                    </div>
+                    <div>
+                        <span class="expiredStatus">Expired</span>
+                    </div>
+                </section>
+
+                <section *ngIf="isBlocked"
+                         [ngStyle]="{'padding-top' : isPrimary ? '22px' : '0px'}"
+                         fxLayout="row"
+                         fxLayoutAlign="start start">
+                    <div style="padding-right:5px;">
+                        <tool-tip class="toolTip">
+                            <span tool-tip-hover>
+                                <mat-icon class="expired" svgIcon="alert"></mat-icon>
+                            </span>
+                            <span tool-tip-message ngClass="hoverBoxAdjusment"
+                                  [ngStyle]="{'left': '-200px'}" [innerHtml]="blockedTooltip">
+                            </span>
+                        </tool-tip>
+                    </div>
+                    <div>
+                        <span class="blockedStatus">Blocked</span>
+                    </div>
+                </section>
+            </section>
+
+        </fx-row>
+
+        <fx-row [isSelectedBottom]="true"
+                               [isBottom]="true"
+                               [ngSwitch]="paymentMethod.billingType"
+                               fxLayout="row"
+                               fxLayoutAlign="start center"
+                               [@collapse]="!isSelected">
+
+            <section col-start style="padding-bottom: 32px;" fxFlex="2 1 auto">
+                <div *ngSwitchCase="BillingType.Credit">
+
+                    <div fxHide fxShow.lt-md *ngIf="isSelected" style="padding-left: 31px;" >
+                        <mat-label>EXPIRES</mat-label>
+                        <div translation-skip class="nameFormat">{{paymentMethod.credit.expMonth}} / {{paymentMethod.credit.expYear}}</div>
+                    </div>
+
+                    <div *ngIf="isSelected" style="padding-left: 31px;">
+                        <mat-label>NAME</mat-label>
+                        <div translation-skip class="nameFormat">{{paymentMethod.credit.nameOnCard}}</div>
+                    </div>
+
+                    <div *ngIf="isSelected" style="padding-left: 31px;">
+                        <mat-label>BILLING ADDRESS</mat-label>
+                        <address-display [address]="paymentMethod.credit"
+                                         [international]="paymentMethod.credit.international">
+                        </address-display>
+                    </div>
+
+                    <div ngClass.gt-sm="hide" style="padding-left: 31px; padding-top:10px;">
+                        <span *ngIf="!isBlocked" style="padding-top: 100%;">
+                            <a class="add-text"
+                               (click)="openEditPaymentMethodModal()"
+                               style="vertical-align: bottom;">
+                                Edit
+                            </a>
+                        </span>
+                        <span *ngIf="!isBlocked" style="padding:0px 5px;">|</span>
+                        <a [fxShow]="!isOnlyPayment || isFlexPay" (click)="removePaymentMethod()">Remove</a>
+                        <tool-tip [fxShow]="isOnlyPayment && !isFlexPay" [stayOpenOnHover]="true">
+                            <span tool-tip-hover>
+                                <span>Remove</span>
+                            </span>
+                            <span tool-tip-message
+                                  ngClass="hoverBoxAdjusment"
+                                  [ngStyle]="setRightOffset()"
+                                  [innerHTML]="removeOnlyCMS.ShortDescription | safeHtml">
+                            </span>
+                        </tool-tip>
+                        <span *ngIf="isBlocked" style="padding:0px 5px;">|</span>
+                        <a [fxShow]="isBlocked" (click)="unblockPaymentMethod()">Unblock</a>
+                        <span *ngIf="!isPrimary && !isBlocked" style="padding:0px 5px;">|</span>
+                        <a [fxShow]="!isPrimary && !isBlocked" (click)="makePrimaryPayment()">Make Primary</a>
+                    </div>
+                </div>
+
+                <div *ngSwitchCase="BillingType.Eft">
+
+                    <div *ngIf="paymentMethod.eft.nameOnBankAccount && isSelected" style="padding-left: 31px;">
+                        <mat-label>NAME</mat-label>
+                        <div translation-skip class="nameFormat">{{paymentMethod.eft.nameOnBankAccount}}</div>
+                    </div>
+
+                    <div *ngIf="isSelected" style="padding-left: 31px;">
+                        <mat-label>ROUTING NUMBER</mat-label>
+                        <div translation-skip class="itemFont">{{paymentMethod.eft.routingNumber}}</div>
+                    </div>
+
+                    <div ngClass.gt-sm="hide" style="padding-left: 31px; padding-top:10px;">
+                        <span *ngIf="!isBlocked" style="padding-top: 100%;">
+                            <a class="add-text"
+                               (click)="openEditPaymentMethodModal()"
+                               style="vertical-align: bottom;">
+                                Edit
+                            </a>
+                        </span>
+                        <span *ngIf="!isBlocked" style="padding:0px 5px;">|</span>
+                        <a [fxShow]="!isOnlyPayment || isFlexPay" (click)="removePaymentMethod()">Remove</a>
+                        <tool-tip [fxShow]="isOnlyPayment && !isFlexPay" [stayOpenOnHover]="true">
+                            <span tool-tip-hover>
+                                <span>Remove</span>
+                            </span>
+                            <span tool-tip-message
+                                  ngClass="hoverBoxAdjusment"
+                                  [ngStyle]="setRightOffset()"
+                                  [innerHTML]="removeOnlyCMS.ShortDescription | safeHtml">
+                            </span>
+                        </tool-tip>
+                        <span *ngIf="isBlocked" style="padding:0px 5px;">|</span>
+                        <a [fxShow]="isBlocked" (click)="unblockPaymentMethod()">Unblock</a>
+                        <span *ngIf="!isPrimary && !isBlocked" style="padding:0px 5px;">|</span>
+                        <a [fxShow]="!isPrimary && !isBlocked" (click)="makePrimaryPayment()">Make Primary</a>
+                    </div>
+
+                </div>
+
+
+            </section>
+            <section col-end
+                     fxFlex="none">
+                <div ngClass.lt-sm="hide">
+                    <span *ngIf="!isBlocked" style="padding-top: 100%;">
+                        <a class="add-text"
+                           (click)="openEditPaymentMethodModal()"
+                           style="vertical-align: bottom;">
+                            Edit
+                        </a>
+                    </span>
+                    <span *ngIf="!isBlocked" style="padding:0px 5px;">|</span>
+                    <a [fxShow]="!isOnlyPayment || isFlexPay" (click)="removePaymentMethod()">Remove</a>
+                    <tool-tip [fxShow]="isOnlyPayment && !isFlexPay" [stayOpenOnHover]="true">
+                        <span tool-tip-hover>
+                            <span>Remove</span>
+                        </span>
+                        <span tool-tip-message
+                              ngClass="hoverBoxAdjusment"
+                              [ngStyle]="setRightOffset()"
+                              [innerHTML]="removeOnlyCMS.ShortDescription | safeHtml">
+                        </span>
+                    </tool-tip>
+                    <span *ngIf="isBlocked" style="padding:0px 5px;">|</span>
+                    <a [fxShow]="isBlocked" (click)="unblockPaymentMethod()">Unblock</a>
+                    <span *ngIf="!isPrimary && !isBlocked" style="padding:0px 5px;">|</span>
+                    <a [fxShow]="!isPrimary && !isBlocked" (click)="makePrimaryPayment()">Make Primary</a>
+                </div>
+
+            </section>
+
+        </fx-row>
+    </div>
+
+</main>

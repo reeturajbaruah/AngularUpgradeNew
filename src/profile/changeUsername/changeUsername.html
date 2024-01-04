@@ -1,0 +1,88 @@
+<page-centered-container hasAlternateBackgroundColor="true">
+    <div fxLayout="column">
+        <div fxFlexOffset="21px">
+
+            <form #ChangeUsernameForm="ngForm"
+                  validation-focus novalidate
+                  fxLayout="column start"
+                  method="post">
+
+                <!-- This is double wrapped in 2 divs to apply the fxFlexOffset to replicate "padding-top: 21px" -->
+                <card-container>
+
+                    <!--Title-->
+                    <header>
+                        <h2>{{cmsContent.Title}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </header>
+
+                    <!--Description/Subtitle-->
+                    <section *ngIf="cmsContent.ShortDescription">
+                        <article [innerHtml]="cmsContent.ShortDescription"></article>
+                    </section>
+
+                    <section>
+                        <!--currentPassword input box-->
+                        <div fxLayout="column"
+                             class="u-spacing__fieldToField--marginTop"
+                             ngClass="spanPosition"
+                             [error-check]="currentPasswordInput">
+                            <mat-label for="currentPassword">CURRENT PASSWORD (REQUIRED)</mat-label>
+                            <input type="text"
+                                   id="currentPasswordTxtBox"
+                                   [(ngModel)]="addMissingInformation.currentPassword"
+                                   #currentPasswordInput="ngModel"
+                                   name="currentPassword"
+                                   tabindex="1"
+                                   [type]="isShowPassword ? 'text' : 'password'"
+                                   required />
+
+                            <show-hide-input-button [(showField)]="isShowPassword"></show-hide-input-button>
+
+                            <error-messages [errors]="currentPasswordInput.errors" [activeBeforeSubmit]="currentPasswordInput.touched">
+                                <error-message rule="required">Please enter your password</error-message>
+                            </error-messages>
+                        </div>
+
+                        <!--New Username input box-->
+                        <div fxLayout="column"
+                             class="u-spacing__fieldToField--marginTop"
+                             [error-check]="newUsernameInput">
+                            <mat-label for="newUsername">NEW USERNAME</mat-label>
+                            <input type="text"
+                                   id="newUsernameTxtBox"
+                                   [(ngModel)]="addMissingInformation.newUsername"
+                                   #newUsernameInput="ngModel"
+                                   name="newUsername"
+                                   tabindex="2"
+                                   minlength="6"
+                                   maxlength="30"
+                                   pattern="^[a-zA-Z0-9-_@.]{0,30}$"
+                                   required />
+
+                            <error-messages [errors]="newUsernameInput.errors" [activeBeforeSubmit]="newUsernameInput.touched">
+                                <error-message rule="required">Please enter a username</error-message>
+                                <error-message rule="minlength">Must be at least 6 characters</error-message>
+                                <error-message rule="maxlength">Must be no more than 30 characters</error-message>
+                                <error-message rule="pattern">Please enter a valid username</error-message>
+                            </error-messages>
+                        </div>
+
+                    </section>
+                </card-container>
+
+                <!--Submit Button-->
+                <div class="u-spacing__buttonToField--marginTop">
+                    <action-buttons (main)="saveInformation(ChangeUsernameForm)"
+                                    (alt)="cancel()">
+                        <span action-main
+                              tabindex="3">SAVE</span>
+                        <span action-alt
+                              tabindex="4">Cancel</span>
+                    </action-buttons>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</page-centered-container>

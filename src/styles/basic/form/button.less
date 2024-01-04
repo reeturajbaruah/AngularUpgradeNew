@@ -1,0 +1,44 @@
+@import (reference) '../../themes.less';
+
+
+.refresh-2020 {
+    button {
+        &:not(.mat-icon-button) {
+            .t-button--backgroundColor(@theme-light);
+            border-radius: 20px 20px;
+            border: 0px;
+            .t-header--color(@theme-light);
+            .t-header--fontFamily;
+            font-size: 15px;
+            font-weight: 700;
+            height: 42px;
+            float: none;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+    }
+}
+
+button[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.65;
+    box-shadow: none;
+}
+
+button,
+html input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  -webkit-appearance: button;
+  cursor: pointer;
+  line-height: inherit;
+}
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+    border: 1px solid #c4c4c4 !important;
+}
+
+

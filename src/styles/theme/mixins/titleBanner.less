@@ -1,0 +1,16 @@
+@import (reference) '../../variables.less';
+
+
+@titleBanner--color-light: @valentino-purple;
+@titleBanner--backgroundColor-light: @snuff-gray;
+
+
+.t-titleBanner--color(@theme) {
+    @color: 'titleBanner--color-@{theme}';
+    color: @@color;
+}
+
+.t-titleBanner--backgroundColor(@theme) {
+    @color: 'titleBanner--backgroundColor-@{theme}';
+    background-color: @@color;
+}

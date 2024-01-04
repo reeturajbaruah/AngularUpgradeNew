@@ -1,0 +1,178 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+
+:host {
+    .toast {
+        width: 100%;
+        min-height: 40px;
+        cursor: pointer;
+        right: 0px;
+        border-bottom: 1px solid @silver-gray;
+    }
+
+    .toast-Success {
+        //overwrite cms context
+        color: white !important;
+        .t-success--backgroundColor(@theme-light);
+    }
+
+    .toast-Error {
+        //overwrite cms context
+        color: white !important;
+        .t-error--backgroundColor(@theme-light);
+    }
+
+    .toast-Warning {
+        .t-body--color(@theme-light);
+        .t-warning--backgroundColor(@theme-light);
+    }
+
+    .toast-heading {
+        font-size: 16px;
+        font-weight: 500;
+        .t-body--fontFamily();
+        width: 98%;
+        max-width: 1284px;
+
+        @media @breakpoint-lt-md {
+            width: 100%;
+            padding-left: 14px;
+        }
+    }
+
+    .toast-close {
+        width: 2%;
+        font-size: 30px;
+
+        @media @breakpoint-lt-md {
+            width: auto;
+            padding-right: 8px;
+        }
+    }
+
+    .toastTrue {
+        visibility: visible;
+    }
+
+    .toastFalse {
+        visibility: hidden;
+    }
+}
+
+
+
+.toasterFadeInCheck {
+    animation: toastFadeIn forwards ease 0.5s;
+    /*-webkit-animation: toastFadeIn ease 0.5;
+    -moz-animation: toastFadeIn ease 0.5;
+    -o-animation: toastFadeIn ease 0.5;
+    -ms-animation: toastFadeIn ease 0.5;*/
+}
+
+@keyframes toastFadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+/*@-moz-keyframes toastFadeIn {
+    0% {
+        visibility: hidden;
+    }
+
+    100% {
+        visibility: visible;
+    }
+}
+
+@-webkit-keyframes toastFadeIn {
+    0% {
+        visibility: hidden;
+    }
+
+    100% {
+        visibility: visible;
+    }
+}
+
+@-o-keyframes toastFadeIn {
+    0% {
+        visibility: hidden;
+    }
+
+    100% {
+        visibility: visible;
+    }
+}
+
+@-ms-keyframes toastFadeIn {
+    0% {
+        visibility: hidden;
+    }
+
+    100% {
+        visibility: visible;
+    }
+}*/
+
+.toasterFadeOutCheck {
+    animation: toastFadeOut forwards ease 0.5s;
+    /*-webkit-animation: toastFadeOut ease 0.5;
+    -moz-animation: toastFadeOut ease 0.5;
+    -o-animation: toastFadeOut ease 0.5;
+    -ms-animation: toastFadeOut ease 0.5;*/
+}
+
+@keyframes toastFadeOut {
+    0% {
+        opacity: 1.0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/*@-moz-keyframes toastFadeOut {
+    0% {
+        visibility: visible;
+    }
+
+    100% {
+        visibility: hidden;
+    }
+}
+
+@-webkit-keyframes toastFadeOut {
+    0% {
+        visibility: visible;
+    }
+
+    100% {
+        visibility: hidden;
+    }
+}
+
+@-o-keyframes toastFadeOut {
+    0% {
+        visibility: visible;
+    }
+
+    100% {
+        visibility: hidden;
+    }
+}
+
+@-ms-keyframes toastFadeOut {
+    0% {
+        visibility: visible;
+    }
+
+    100% {
+        visibility: hidden;
+    }
+}*/

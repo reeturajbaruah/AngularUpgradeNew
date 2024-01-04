@@ -1,0 +1,125 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/mixins.less';
+@import (reference) '../../styles/custom/spacing/utility.less';
+@import (reference) '../../styles/custom/spacing/sections.less';
+@import (reference) '../../styles/custom/spacing/dividers.less';
+@import '../../common/ui/containers/fxRow/details.less';
+
+mat-divider {
+    width: @width-divider;
+}
+
+.display-block {
+    display: block;
+}
+
+.search-button {
+    margin-bottom: 4px;
+
+    @media @breakpoint-lt-md {
+        width: 100%;
+    }
+}
+
+.download-icon {
+    margin-top: -5px;
+    padding-right: 8px;
+}
+
+.download-link {
+    .t-header--fontFamily();
+    font-size: 16px;
+    font-weight: 500;
+}
+
+a.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.no-statements {
+    fill: @pizazz-gold;
+}
+
+.gridish {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gridish > * {
+    flex: 1 1 10em;
+}
+
+.gridish-title {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gridish-title > * {
+    flex: 1 1 10em;
+}
+
+card-dash-container {
+    .refresh-2020.u-spacing--widthFill();
+}
+
+card-dash-container + card-dash-container {
+    .refresh-2020.u-spacing__cardToCard--marginTop();
+}
+
+h3 {
+    .refresh-2020.u-spacing__sectionToSection--marginBottom();
+}
+
+mat-divider {
+    .refresh-2020.u-spacing__divider--marginTopBottom();
+}
+
+.field-margin-top {
+    .refresh-2020.u-spacing__fieldToField--marginTop();
+}
+
+.mobileStateDropdown {
+    width: 100%;
+}
+
+.standardStateDropdown {
+    width: 322px;
+}
+
+mat-select {
+    width: 320px;
+
+    @media @breakpoint-lt-md {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+}
+
+.select-section {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.row-margin {
+    margin-left: 14px;
+    margin-right: 14px;
+
+    @media @breakpoint-lt-md {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+mat-label {
+    @media @breakpoint-gt-md {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+.section-width {
+    @media @breakpoint-lt-md {
+        width: 100%;
+    }
+}

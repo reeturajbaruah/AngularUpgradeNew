@@ -1,0 +1,25 @@
+@import (reference) '../../../styles/variables.less';
+
+:host {
+    section {
+        margin-left: 90px;
+
+        @media @breakpoint-lt-md {
+            margin-left: 0px;
+        }
+    }
+
+    .help-and-support-container {
+        width: 100%;
+        margin-left: -40px;
+        padding-left: 15px;
+        padding-right: 15px;
+
+        @media @breakpoint-lt-md {
+            width: 100%;
+            margin-left: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
+}

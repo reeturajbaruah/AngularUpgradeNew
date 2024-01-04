@@ -1,0 +1,85 @@
+<card-dash-container fxFlex="auto"
+                         [hasMargin]="false"
+                         class="u-spacing__cardToCard--marginTop">
+        <section class="table-padding">
+
+            <section fxLayout="row wrap"
+                     fxLayoutAlign="space-between"
+                     class="transactions-found-display">
+
+                <section fxFlex="none"
+                         fxFlex.lt-md="grow"
+                         fxLayout="row"
+                         fxLayoutAlign="space-between">
+                    <div fxFlex="none">{{totalRecordsCount}} Record{{totalRecordsCount > 1 ? 's' : ''}} found</div>
+
+                    <div fxFlex="none"
+                         fxFlexOffset="32px"
+                         fxFlexOffset.lt-md="0px"
+                         fxLayout="row"
+                         fxLayoutGap="16px">
+                        <a translation-skip
+                           *ngIf="!environmentConfig.hideMediaActionButtons.TransactionTabPdf && !environmentConfig.hidePdfAccountActivity"
+                           fxFlex="none"
+                           (click)="getTransactionsPdf()"
+                           class="download-link"
+                           [ngClass]="{'disabled': reportDownloading}">
+                            <img src="/Content/icons/pdf.gif" class="download-icon" />PDF
+                        </a>
+                        <a translation-skip
+                           *ngIf="!environmentConfig.hideMediaActionButtons.TransactionTabExcel && !environmentConfig.hideExcelAccountActivity"
+                           fxFlex="none"
+                           (click)="getTransactionsExcel()"
+                           class="download-link"
+                           [ngClass]="{'disabled': reportDownloading}">
+                            <img src="/Content/icons/excel.gif" class="download-icon" />Excel
+                        </a>
+                    </div>
+                </section>
+
+                <section fxFlex="1 1 300px"
+                         fxFlex.lt-md="grow"
+                         class="transactions-total-display">
+                    <span>Filtered Total:</span><span translation-skip>{{filteredTotal | currency:'USD'}}</span>
+                </section>
+            </section>
+
+            <section *ngIf="totalRecordsCount >= paginationLimit"
+                     fxLayout="row"
+                     fxLayoutAlign="start center"
+                     class="u-spacing--widthFill"
+                     style="margin-top:10px">
+                <div fxShow
+                     fxHide.lt-md
+                     fxFlex="auto"
+                     fxLayout="row"
+                     fxLayoutAlign="end center">
+                    <mat-paginator-goto [length]="totalRecordsCount"
+                                        [pageIndex]="0"
+                                        [pageSize]="defaultPageSize"
+                                        [hidePageSize]="true"
+                                        (page)="updateTransactionsTable($event)">
+                    </mat-paginator-goto>
+                </div>
+            </section>
+
+            <section class="u-spacing--widthFill u-spacing__gridToRecords--marginTop">
+                <account-activity-transactions-table [showPostedDate]="showPostedDate" *ngIf="totalRecordsCount < paginationLimit && showNoDataIcon === true" [transactionRecords]="listOfAllRecords" [showLocationLink]="showLocationLink" [cmsContent]="cmsContent" [isLargeAcount]="currentUser.largeAccountFlag"></account-activity-transactions-table>
+                <account-activity-transactions-table [showPostedDate]="showPostedDate" *ngIf="totalRecordsCount >= paginationLimit && showNoDataIcon === true" fxShow fxHide.lt-md [transactionRecords]="paginatedRecords" [showLocationLink]="showLocationLink" [cmsContent]="cmsContent" [isLargeAcount]="currentUser.largeAccountFlag"></account-activity-transactions-table>
+                <account-activity-transactions-table [showPostedDate]="showPostedDate" *ngIf="totalRecordsCount >= paginationLimit && showNoDataIcon === true" fxHide fxShow.lt-md [transactionRecords]="mobileLoadedRecords" [showLocationLink]="showLocationLink" [cmsContent]="cmsContent" [isLargeAcount]="currentUser.largeAccountFlag"></account-activity-transactions-table>
+            </section>
+
+            <section *ngIf="totalRecordsCount >= paginationLimit && mobileLoadedRecords.length < totalRecordsCount"
+                     fxLayout="row"
+                     fxLayoutAlign="center"
+                     fxHide
+                     fxShow.lt-md
+                     class="u-spacing--widthFill u-spacing__loadMore--margin">
+                <a class="u--noUnderline"
+                   (click)="mobileLoadMore()">Load more</a>
+            </section>
+
+        </section>
+
+
+</card-dash-container>

@@ -1,0 +1,85 @@
+<page-centered-container class="refresh-2020">
+    <form *ngIf="display" #LogininfoForm="ngForm" validation-focus name="creatAccountLogininfoForm"
+          class="u-spacing--widthFill bottomPadding" >
+
+        <div fxLayout="column" fxLayoutGap="32px">
+            <card-container alignment="start start">
+
+                <div class="create-account-desc">
+                    <header>
+                        <h2>{{cmsFrame.Title}}</h2>
+                        <mat-divider></mat-divider>
+                    </header>
+                    <span [innerHtml]="subTitleDesc"></span>
+                </div>
+
+                <section fxLayout="column"
+                         fxLayoutAlign="start start"
+                         class="u-spacing--widthFill bottomPadding">
+
+                    <div fxLayout="row"
+                         fxLayoutAlign="space-between start"
+                         class="u-spacing--widthFill">
+                        <header>
+                            <h2>{{personalInfoPage.contactInfoHeader}}</h2>
+                            <mat-divider></mat-divider>
+                        </header>
+                    </div>
+                </section>
+                <section>
+                    <div>
+                        <contact-info-form-entry class="u-spacing--widthFill"  [(contactInfoData)]="loginAndPersonalAcctInfo" >
+                        </contact-info-form-entry>
+                    </div>
+                    <shared-alert-box *ngIf="!loginAndPersonalAcctInfo.isSaveMailingAddressChecked"
+                            svgIcon="alert" svgIconClass="alert-icon-class"
+                            [desc]="personalInfoPage.noMailingAddressAlertDesc">
+                    </shared-alert-box>
+                </section>
+            </card-container>
+        </div>
+
+        <div *ngIf="!facade.isUserLoggedIn" fxLayout="column" fxLayoutGap="32px">
+            <card-container alignment="start start">
+                <section fxLayout="column"
+                         fxLayoutAlign="start start"
+                         class="u-spacing--widthFill bottomPadding" >
+                    <div fxLayout="row"
+                         fxLayoutAlign="space-between start"
+                         class="u-spacing--widthFill">
+                        <header>
+                            <h2>{{personalInfoPage.securityInfoHeader}}</h2>
+                            <mat-divider></mat-divider>
+                        </header>
+                    </div>
+                </section>
+                <section>
+                    <!--login info comp.-->
+                    <create-account-form-entry
+                     [(isShowEmail)]="loginAndPersonalAcctInfo.isShowEmail"
+                                               [(isShowPrimaryPhone)]="loginAndPersonalAcctInfo.isShowPrimaryPhone"
+                                               [(accLoginInfo)]="loginAndPersonalAcctInfo"
+                                               [(sercurityInfo)]="loginInfo"
+                                               [securityQuestions]="loginAndPersonalAcctInfo.securityQuestions"
+                                               [(isShowPassword)]="loginAndPersonalAcctInfo.isShowPassword"
+                                               [(isShowSecurityAnswer)]="loginAndPersonalAcctInfo.isShowSecurityAnswer"
+                                               [passwordValidationCMS]="pwCmsData">
+                    </create-account-form-entry>
+                </section>
+            </card-container>
+          
+
+            <section>
+                <action-buttons (main)="submit($event)"
+                                (alt)="cancel($event,wizardUi)">
+                    <span action-main>{{submitBtnText}}</span>
+                    <span action-alt>Cancel</span>
+                </action-buttons>
+                <wizard-ui #wizardUi></wizard-ui>
+            </section>
+
+        </div>
+
+    </form>
+</page-centered-container>
+

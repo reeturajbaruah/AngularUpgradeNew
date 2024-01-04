@@ -1,0 +1,103 @@
+<main [ngModelGroup]="'creditCardEntry' + nameSuffix">
+
+    <div class="refresh-2020" fxLayout="column" fxLayoutAlign="start start">
+        <section [error-check]="CardNameInput" class="u-spacing--widthFill">
+            <mat-label>NAME ON CREDIT CARD</mat-label>
+            <input type="text"
+                   [id]="'cardName' + nameSuffix"
+                   [disabled]="nameDisabled"
+                   [(ngModel)]="creditCard.nameOnCard"
+                   [name]="'cardName' + nameSuffix"
+                   #CardNameInput="ngModel"
+                   [required]="!disableValidation"
+                   pattern="^[a-zA-Z\-\'\.,\s]*$"
+                   maxlength="80"/>
+
+                <error-messages [errors]="CardNameInput.errors" [activeBeforeSubmit]="CardNameInput.touched">
+                    <error-message rule="required">Please enter the name on the card</error-message>
+                    <error-message rule="pattern">Please enter a valid name</error-message>
+                </error-messages>
+        </section>
+        <section fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+
+            <div *ngIf="showEdit" fxLayout="column" fxLayoutAlign="start start">
+                <mat-label>CREDIT CARD NUMBER</mat-label>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <span>
+                        {{creditCard.cardNbr | maskCreditCard:creditCard.cardCode}}
+                    </span>
+                    <span fxFlexOffset="30px">
+                        <a class="editButton"
+                           fxFlex="none"
+                           aria-label="Edit" (click)="changeEdit()">
+                            Edit
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+            <div [ngClass]="{'not-Displayed':showEdit}" style="width:100%;">
+                <ng-container #viewContainerRef></ng-container>
+            </div>
+
+        </section>
+
+        <section fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill"
+                 style="margin-top:20px">
+            <div [error-check]="expMonthDisabled ? [ValidExpirationInput] : [ExpirationMonthSelect, ValidExpirationInput]"
+                 style="width:160px;">
+                <mat-label>EXP. MONTH</mat-label>
+
+                <mat-select translation-skip [name]="'expMonth' + nameSuffix"
+                            #ExpirationMonthSelect="ngModel"
+                            [disabled]="expMonthDisabled"
+                            [(ngModel)]="creditCard.expMonth"
+                            [id]="'expMonth' + nameSuffix"
+                            [required]="!disableValidation"
+                            placeholder="Month">
+                    <mat-option *ngFor="let month of monthsList; index as indexOfMonth;" [value]="indexOfMonth + 1">{{month}}</mat-option>
+                </mat-select>
+
+                <error-messages [errors]="ExpirationMonthSelect.errors">
+                    <error-message rule="required">Please enter a valid expiration month</error-message>
+                </error-messages>
+
+            </div>
+            <div [error-check]="expYearDisabled ? [ValidExpirationInput] : [ExpirationYearSelect, ValidExpirationInput]"
+                 fxFlexOffset="30px"
+                 style="width:160px;">
+                <mat-label>EXP. YEAR</mat-label>
+                <mat-select [name]="'expYear' + nameSuffix"
+                            #ExpirationYearSelect="ngModel"
+                            [id]="'expYear' + nameSuffix"
+                            [disabled]="expYearDisabled"
+                            [(ngModel)]="creditCard.expYear"
+                            [required]="!disableValidation"
+                            placeholder="Year">
+                    <mat-option *ngIf="creditCard.expYear && creditCard.expYear < yearList[0]" [value]="creditCard.expYear">{{creditCard.expYear}}</mat-option>
+                    <mat-option *ngFor="let year of yearList" [value]="year">{{year}}</mat-option>
+                </mat-select>
+
+                <error-messages [errors]="ExpirationYearSelect.errors">
+                    <error-message rule="required">Please enter a valid expiration year</error-message>
+                </error-messages>
+
+                <error-messages [errors]="(ExpirationYearSelect.valid || expYearDisabled) && (ExpirationMonthSelect.valid || expMonthDisabled) ? ValidExpirationInput.errors : []">
+                    <error-message rule="pattern">Please enter a valid expiration date</error-message>
+                </error-messages>
+
+            </div>
+
+
+            <input type="hidden"
+                   [name]="'validExpiration' + nameSuffix"
+                   [ngModel]="isValidExpirationDate"
+                   #ValidExpirationInput="ngModel"
+                   pattern="^true$" />
+        </section>
+    </div>
+</main>

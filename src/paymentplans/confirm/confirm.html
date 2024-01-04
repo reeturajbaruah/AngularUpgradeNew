@@ -1,0 +1,125 @@
+<page-centered-container>
+    <form #ConfirmForm="ngForm" validation-focus name="paymentPlanConfirmForm">
+
+        <card-container>
+            <section fxLayout="column">
+                <article>
+                    {{cmsContent.reviewInfoHeader}}
+                </article>
+            </section>
+
+            <section *ngIf="!isEzTagFlow"
+                     fxLayout="column"
+                     class="u-spacing__sectionToSection--marginTop">
+                <header>
+                    <h2>{{cmsContent.paymentDetailsTitle}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <div [innerHtml]="cmsContent.emailInstruction"></div>
+
+                <!--Email-->
+                <section [error-check]="EmailAddressInput" class="u-spacing--widthFill u-spacing__fieldToSection--marginTop">
+                    <mat-label>EMAIL</mat-label>
+                    <input type="text"
+                           id="emailAddress"
+                           name="emailAddress"
+                           #EmailAddressInput="ngModel"
+                           [(ngModel)]="emailReceipt"
+                           maxLength="80"
+                           minLength="1"
+                           placeholder="username@domain.com"
+                           class="u-spacing--widthFill"
+                           email />
+
+                    <div *ngFor="let error of EmailAddressInput.errors | keyvalue" role="alert">
+                        <ng-container *ngIf="ConfirmForm.submitted" [ngSwitch]="error.key">
+                            <p *ngSwitchCase="'email'" class="help-block">Please enter a valid email address</p>
+                            <p *ngSwitchCase="'maxLength'" class="help-block">Please enter a valid email address</p>
+                            <p *ngSwitchCase="'minLength'" class="help-block">Please enter a valid email address</p>
+                        </ng-container>
+                    </div>
+                </section>
+            </section>
+
+            <section fxLayout="column"
+                     class="u-spacing__headerToSection--marginTop">
+                <header>
+                    <div fxLayout="row"
+                         fxLayoutAlign="start center"
+                         class="u-spacing--widthFill">
+                        <h2 fxFlex="grow">{{cms.paymentDetailsHeader}}</h2>
+                        <a class="editButton"
+                           (click)="Wizard.gotoPreviousState()"
+                           fxFlex="none"
+                           aria-label="Edit">
+                            Edit
+                        </a>
+                    </div>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <payment-display [billingType]="planData.billingMethod.billingType"
+                                 [bankDetails]="planData.billingMethod.eftPaymentMethod"
+                                 [creditCard]="planData.billingMethod.creditCardPaymentMethod"
+                                 [showAccountNumber]="true"
+                                 [showLabels]="true"
+                                 (edit)="Wizard.gotoPreviousState()">
+                </payment-display>
+
+                <address-display [address]="planData.billingMethod.address"
+                                 [international]="planData.billingMethod.address.international"
+                                 [showLabels]="true">
+                </address-display>
+            </section>
+
+            <row-container [rowType]="'emphasis'"
+                           class="u-spacing__rowToSection--marginTop">
+                <section col-start
+                         id="totalPaymentLabel"
+                         fxFlex="grow">
+                    {{cmsContent.paymentPlanAmountLabel}}
+                </section>
+
+                <section col-end
+                         id="totalPaymentValue"
+                         fxFlex="none">
+                    <currency [value]="planData.paymentAmount"></currency>
+                </section>
+            </row-container>
+
+            <section fxLayout="row"
+                     class="u-spacing__sectionToRow--marginTop">
+                <article fxFlex="grow">
+                    {{cmsContent.paymentDateLabel}}
+                </article>
+                <article fxFlex="none">
+                    {{todayFormatted}}
+                </article>
+            </section>
+
+            <section *ngIf="hasOverage && !isMaxPayment"
+                     class="noteBoxLayout u-spacing__sectionToSection--marginTop">
+                <article>
+                    <cms-content [template]="cmsContent.amountSelectionNoteTemplate"
+                                 [data]="{paymentAmount : paymentAmount , nextUpcomingInstallmentDateFormatted: nextUpcomingInstallmentDateFormatted}"></cms-content>
+                </article>
+            </section>
+        </card-container>
+
+        <section fxLayout="column"
+                 class="u-spacing__buttonToField--marginTop">
+            <wizard-ui #Wizard
+                       (next)="makePayment($event)">
+                <span wizard-next>SUBMIT PAYMENT</span>
+                <span wizard-cancel>Cancel</span>
+                <span wizard-previous
+                      fxLayout="row"
+                      fxLayoutAlign="start center">
+                    <mat-icon svgIcon="previous-arrow"></mat-icon>
+                    Previous
+                </span>
+            </wizard-ui>
+        </section>
+
+    </form>
+</page-centered-container>

@@ -1,0 +1,13 @@
+﻿ <div class="workMenuItem"
+      ng-repeat="item in workItems"
+      ng-show="item.isSelected && !item.isShadowItem"
+      ng-click="skipToItem(item)"
+      ng-class="{ 'active': isItemCurrent(item), 'skippable': (!isItemCurrent(item) && currentItem().isSkippable) && !item.isCompleted && item.isSelected && !item.isUnavailable, 'complete': item.isCompleted}">
+     <div>
+         <img src="{{currentItem().id === item.id ? item.unselectedIcon.image: item.selectedIcon.image}}" 
+              alt="{{currentItem().id === item.id ? item.unselectedIcon.alt: item.selectedIcon.alt}}"/>
+     </div>
+     <label>{{item.storefrontDisplayName}}</label>
+     <div class="workItemSaveState" ng-if="item.isCompleted"><img src={{taskCompleteIcon.Url}} alt={{taskCompleteIcon.Alt}} /></div>
+     <div class="workItemSaveState" ng-if="item.isUnsaved"><img src={{taskNotCompleteIcon.Url}} alt={{taskNotCompleteIcon.Alt}} /></div>
+ </div>

@@ -1,0 +1,52 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/custom/spacing/sections.less';
+
+@import (reference) '../../styles/custom/spacing/dividers.less';
+
+:host {
+
+    card-container {
+        display: block;
+
+        @media not @breakpoint-lt-md {
+            .refresh-2020.u-spacing__cardToCard--marginTop();
+        }
+    }
+
+    h2 {
+        @media @breakpoint-lt-md {
+            margin-top: 16px;
+        }
+    }
+
+    wizard-ui {
+        [wizard-next] {
+            text-transform: uppercase;
+        }
+    }
+
+    p,
+    section {
+        .refresh-2020.u-spacing__sectionToSection--marginBottom();
+    }
+
+    mat-divider {
+        width: 64px;
+        .refresh-2020.u-spacing__divider--marginTopBottom();
+    }
+
+    .summary {
+        height: 50px;
+        padding: 16px;
+        padding-bottom: 11px;
+        font-size: 16px;
+        line-height: 26px;
+        margin: 0px -16px;
+    }
+
+    .paymentAmount {
+        border-radius: 10px;
+        background-color: @snuff-gray;
+        font-weight: bold;
+    }
+}

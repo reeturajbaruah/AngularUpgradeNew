@@ -1,0 +1,481 @@
+﻿@import '../bootstrap/variables';
+@import 'site-variables';
+
+@mega-menu-screen-lg: @screen-lg;
+@mega-menu-screen-sm: @screen-sm;
+@mega-minimum-desktop-width: @minimum-desktop-width;
+@mega-screen-md-max: @screen-md-max;
+
+.navbar-name {
+    cursor: pointer;
+}
+
+@media screen and (max-width: (@mega-menu-screen-lg - 1px)) {
+    .yammR {
+        #menu-title3 {
+            position: relative;
+        }
+
+        #menu3.dropdown-menu11 {
+            left: -1px;
+        }
+    }
+}
+
+@media screen and (min-width: @mega-menu-screen-lg) {
+    .yammR {
+        #menu-title3 {
+            position: relative;
+        }
+
+        #menu3.dropdown-menu11 {
+            left: -1px;
+        }
+    }
+}
+
+@media screen and (max-width: @mega-screen-md-max) {
+    #globalSearchParent.megaMenuGoogleSearch {
+        display: none;
+    }
+}
+
+#globalSearchParent.megaMenuGoogleSearch {
+    position: relative;
+    top: -4px;
+    width: 300px;
+}
+
+@media screen and (min-width: 1200px) {
+    .sub-navbar-item {
+        padding: 0px 25px 0px 25px;
+        -moz-transform: translate(0, -80%);
+        -ms-transform: translate(0, -80%);
+        -o-transform: translate(0, -80%);
+        -webkit-transform: translate(0, -80%);
+        transform: translate(0, -80%);
+    }
+}
+
+@media screen and (min-width: @minimum-desktop-width) and (max-width: 1200px) {
+    .sub-navbar-item {
+        padding: 0px 25px 0px 25px;
+        -moz-transform: translate(0, -35%);
+        -ms-transform: translate(0, -35%);
+        -o-transform: translate(0, -35%);
+        -webkit-transform: translate(0, -35%);
+        transform: translate(0, -35%);
+    }
+}
+
+@media screen and (min-width: @mega-minimum-desktop-width) and (max-width: @mega-screen-md-max) {
+    .navbar {
+        li.dropdown.open div.underline::after {
+            border-bottom: 4px solid @white-base;
+            bottom: -15px;
+            content: '';
+            left: -15px;
+            position: absolute;
+            width: 131%;
+            z-index: 1000;
+        }
+    }
+}
+
+@media screen and (min-width: @mega-menu-screen-lg) {
+    .navbar {
+        li.dropdown.open div.underline::after {
+            border-bottom: 4px solid @white-base;
+            bottom: -42px;
+            content: '';
+            left: 0px;
+            position: absolute;
+            width: 100%;
+            z-index: 1000;
+        }
+    }
+}
+
+@media screen and (min-width: @mega-menu-screen-lg) {
+    #menu0 {
+        left: 0px;
+    }
+
+    .navbar-name {
+        float: left;
+    }
+}
+
+@media screen and (min-width: @minimum-desktop-width) {
+
+    .navbar {
+        background-color: @white-base;
+        height: @navbar-height;
+        margin: 0px;
+
+        li.dropdown {
+            a.dropdown-toggle {
+                color: @dark-gray-text !important;
+                cursor: pointer;
+            }
+        }
+
+        li.dropdown.open {
+            a.dropdown-toggle {
+                color: @dark-purple-text !important;
+            }
+
+            ul.dropdown-menu {
+                a.mega-menu-link {
+                    color: @dark-gray-text !important;
+                    margin: 0px 0px 0px -24px;
+                }
+
+                a.active {
+                    color: @dark-purple-text !important;
+                    font-weight: 900;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .sub-navbar {
+        background-color: #f8f8f8;
+        border-bottom: solid 2px @light-gray-base;
+        border-color: #e7e7e7;
+        border-top: solid 2px @light-gray-base;
+        height: 30px;
+        margin: 2px 0px 0px 0px;
+        position: relative;
+
+        > ul {
+            list-style-type: none;
+
+            > li {
+                display: inline-block;
+            }
+        }
+
+        .non-active {
+            display: none;
+        }
+
+        .active {
+            margin-left: auto;
+            margin-right: auto;
+            width: 15px;
+        }
+
+        .active:before,
+        .active:after {
+            border: 6px solid transparent;
+            content: '';
+            display: block;
+            position: absolute;
+        }
+
+        .active:before {
+            border-bottom-color: @dark-purple-base;
+            bottom: -2px;
+        }
+
+        .active:after {
+            border-bottom-color: white;
+            bottom: -4px;
+        }
+    }
+
+    .yammR {
+        .nav .open > a,
+        .nav .open > a:hover,
+        .nav .open > a:focus {
+            background-color: transparent;
+        }
+
+        .navbar-nav > li {
+            padding: 33px 0px 0px 0px;
+
+            .dropdown-menu {
+                border: 1px solid;
+                left: 0px; /* REMOVED left:auto;*/
+                width: 900px;
+            }
+
+            > a {
+                padding: 0px 15px 0px 40px;
+            }
+        }
+
+        .nav {
+            padding: 0px 0px 0px 0px;
+            position: relative;
+            top: -2px;
+        }
+
+        .collapse,
+        .dropup {
+            position: static;
+        }
+
+        .dropdown {
+            display: inline !important;
+            padding: 25px 0px 0px 0px;
+            position: static;
+        }
+
+        li.dropdown {
+            border: 1px solid;
+            border-bottom: 0px;
+            border-color: transparent;
+            min-height: @navbar-height;
+        }
+
+        li.dropdown.open {
+            border: 1px solid;
+            border-bottom: 0px;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        .yammR-content3 {
+            max-width: 847px;
+            min-height: 30px;
+            min-width: 111px;
+            padding: 25px 230px 70px 50px;
+        }
+
+        .yammR-content2 {
+            .yammR-content3;
+            max-width: 700px;
+        }
+
+        .yammR-content1 {
+            max-width: 240px;
+            min-height: 30px;
+            min-width: 11px;
+            padding: 25px 230px 70px 20px;
+        }
+
+        .dropdown.yammR-fw .dropdown-menu {
+            left: auto;
+            right: 0px;
+        }
+
+        .dropdown-menu11,
+        .dropdown-menu31 {
+            // IE fix for mega menu single column dropdowns
+            max-width: 270px;
+        }
+
+        .dropdown-menu31 {
+            left: auto;
+        }
+
+
+        .column {
+            width: 810px;
+        }
+
+        .menu-column {
+            width: 720px;
+        }
+
+        .sub-menu {
+            padding: 0px 0px 20px 0px;
+
+            li {
+                padding: 0px 0px 0px 10px;
+
+                a {
+                    font-size: smaller;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: @minimum-desktop-width) and (max-width: 840px) {
+    .yammR {
+        #menu1.dropdown-menu11 {
+            right: 167px;
+        }
+
+        .dropdown-menu31 {
+            right: 278px;
+        }
+    }
+}
+
+@media screen and (min-width: 841px) and (max-width: @screen-sm-max) {
+    .yammR {
+        #menu1.dropdown-menu11 {
+            right: 227px;
+        }
+
+        .dropdown-menu31 {
+            right: 353px;
+        }
+
+        #menu-title3 {
+            position: relative;
+        }
+
+        #menu3.dropdown-menu {
+            left: -1px;
+        }
+    }
+}
+
+@media screen and (min-width: @screen-md) and (max-width: @screen-md-max) {
+    .yammR {
+        .navbar-nav > li {
+            padding: 20px 0px 0px 0px;
+
+            .navbar-name {
+                color: @black-navbar-links;
+            }
+
+            a {
+                font-size: small;
+                padding: 0px 10px 0px 10px;
+
+                .caret {
+                    float: right;
+                    margin: 7px 0px 0px 5px;
+                }
+            }
+        }
+
+        .yammR-content3,
+        .yammR-content2 {
+            max-width: 880px;
+            min-height: 300px;
+            padding: 25px 230px 70px 50px;
+        }
+
+        .yammR-content1 {
+            max-width: 240px;
+            min-height: 30px;
+            min-width: 11px;
+            padding: 25px 230px 70px 20px;
+        }
+
+        #menu1.dropdown-menu11 {
+            right: 333px;
+        }
+
+        .dropdown-menu31 {
+            right: 488px;
+        }
+    }
+}
+
+@media screen and (min-width: @screen-lg) {
+    .yammR {
+        #menu1.dropdown-menu11 {
+            right: 419px;
+        }
+
+        .dropdown-menu31 {
+            right: 597px;
+        }
+
+        .dropdown-menu32 {
+            right: 145px;
+        }
+
+        .navbar-nav > li {
+            padding: 20px 0px 0px 0px;
+
+            .navbar-name {
+                color: @black-navbar-links;
+            }
+
+            a {
+                font-size: small;
+                padding: 0px 10px 0px 10px;
+
+                .caret {
+                    float: right;
+                    margin: 7px 0px 0px 5px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 0) and (max-width: (@mega-menu-screen-lg - 1)) {
+    .yammR {
+        .navbar-nav > li {
+            float: left;
+            padding: 10px 10px 0px 15px;
+
+            .navbar-name {
+                color: @black-navbar-links;
+                text-align: center;
+                width: 65px;
+                -ms-word-wrap: break-word;
+                word-wrap: break-word;
+            }
+
+            a {
+                padding: 0px 10px 0px 10px;
+
+                .caret {
+                    float: right;
+                    margin: -20px -10px 0px 0px;
+                }
+            }
+        }
+
+        .yammR-content3 {
+            max-width: 725px;
+            min-height: 300px;
+            padding: 25px 230px 70px 20px;
+        }
+
+        .yammR-content1 {
+            max-width: 240px;
+            min-height: 30px;
+            min-width: 11px;
+            padding: 25px 230px 70px 20px;
+        }
+    }
+}
+
+@media screen and (min-width: (@screen-lg + 74)) {
+    .yammR {
+        .navbar-nav > li {
+            .navbar-name {
+                float: left;
+            }
+
+            a {
+                padding: 0px 10px 0px 10px;
+            }
+        }
+
+        #menu-title3 {
+            position: relative;
+        }
+
+        #menu3.dropdown-menu11 {
+            left: -1px;
+        }
+    }
+}
+
+@media screen and (min-width: @minimum-desktop-width) {
+    .yammR {
+        .navbar-nav > li {
+            .sub-menu {
+                li > a.mega-menu-link {
+                    padding: 0px 15px 0px 25px;
+                }
+            }
+        }
+    }
+}

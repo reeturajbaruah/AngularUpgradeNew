@@ -1,0 +1,23 @@
+<main>
+
+    <h1>{{title}}</h1>
+    <h2>{{subtitle}}</h2>
+
+    <div class="content">   
+        <ng-container *ngFor="let panel of panels">
+            <picture>                  
+                <source [srcset]="panel.mobileImage" mq-alias="lt-md" />
+                <img enhanced [src]="panel.image" />
+            </picture>
+            <div>  
+                <div>
+                    <mat-divider></mat-divider>
+                    <h3>{{panel.title}}</h3>                                   
+                </div>
+                <article [innerHtml]="panel.content | safeHtml"></article>
+                <button (click)="invoke(panel)">{{panel.buttonText}}</button>
+            </div>
+        </ng-container>        
+    </div>     
+
+</main>

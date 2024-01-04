@@ -1,0 +1,100 @@
+<div id="lynchburgFerry">
+    <header class="header-spacing">
+        <h1 class="h1-mo ferry-Header">{{pageTitle}}</h1>
+    </header>
+    <div class="row border-without-footer">
+        <mat-carousel [autoplay]="true"
+                    [interval]="interval"
+                    maxWidth="auto"
+                    height="565px"
+                    [maintainAspectRatio]="false"
+                    [loop]="true"
+                    [hideArrows]="false"
+                    [hideIndicators]="false"
+                    [useKeyboard]="true"
+                    matIconArrow="mat-imageSliderArrow"
+                    orientation="ltr">
+            <mat-carousel-slide #matCarouselSlide class="mat-data"
+                                *ngFor="let slide of sliderImages; let i = index"
+                                [image]="slide"
+                                [disableContent]="true"
+                                [useLink]="true"
+                                [showDivider]="false">
+            </mat-carousel-slide>
+    </mat-carousel>
+        <br class="desktopOnly"/>
+        <div class="row info_section_layout desktopOnly">
+            <div class="desktop-container">
+                <div class="col-md-7 ferry-alignment">
+                    <label class="info_section_title">{{pageTitle}}</label>
+                    <hr class="line_design" />
+                    <div class="info_section_description">
+                        <span [innerHtml]="cmsPage.ShortDescription | safeHtml"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-md-5 col-xs-12">
+                        <div class="row box_layout">
+                            <div *ngIf="statusCode !== -1 && operationToggle">
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="row box_object_title">
+                                        <div class="col-md-12 col-xs-12" *ngIf="statusCode === 1">
+                                            <div class="row box_object_title">
+                                                <div style="padding-left:30px;" [innerHTML]="twoFerryMessage | safeHtml"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-xs-12" *ngIf="statusCode === 2">
+                                            <div class="row box_object_title">
+                                                <div style="padding-left:30px;" [innerHTML]="oneFerryMessage | safeHtml"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-xs-12" *ngIf="statusCode === 3">
+                                            <div class="row box_object_title">
+                                                <div style="padding-left:30px;" [innerHTML]="closedFerryMessage | safeHtml"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span [innerHtml]="cmsPage.LongDescription | safeHtml"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 mobileOnly padding-layout">
+            <div *ngIf="statusCode !== -1 && operationToggle" class="row no-padding">
+                <div class="col-md-12 col-xs-12" *ngIf="statusCode === 1">
+                    <div class="row">
+                        <div class="ferry-status" [innerHTML]="twoFerryMessage | safeHtml"></div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12" *ngIf="statusCode === 2">
+                    <div class="row">
+                        <div class="ferry-status" [innerHTML]="oneFerryMessage | safeHtml"></div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12" *ngIf="statusCode === 3">
+                    <div class="row">
+                        <div class="ferry-status" [innerHTML]="closedFerryMessage | safeHtml"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-padding">
+                <span [innerHtml]="cmsPage.LongDescription | safeHtml"></span>
+            </div>
+            <div class="col-xs-12 no-padding row">
+                <hr class="line_design no-margin-top" />
+                <br />
+                <label class="info_section_title no-margin-bottom">{{pageTitle}}</label>
+                <hr class="line_design no-margin-top" />
+                <div class="info_section_description">
+                    <span [innerHtml]="cmsPage.ShortDescription | safeHtml"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

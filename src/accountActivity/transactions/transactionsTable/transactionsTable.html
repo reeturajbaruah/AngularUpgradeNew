@@ -1,0 +1,83 @@
+
+<main #GridContainer>
+    <fx-row *ngIf="transactionRecords?.length > 0; else noTransactions" [isLabel]="true"
+            [backgroundColorClass]="'transparent-background'">
+        <section col-start
+                 class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+            <mat-label class="fx-flex-auto-shrink-more unlimited-flex-vehicle-transaction-date">
+                VEHICLE / {{showPostedDate ? 'POSTED DATE' : 'TRANSACTION DATE'}}
+            </mat-label>
+            <mat-label class="fx-flex-auto-shrink-more limited-flex-transaction-date">
+                {{showPostedDate ? 'POSTED DATE' : 'TRANSACTION DATE'}}
+            </mat-label>
+            <mat-label class="fx-flex-auto-shrink-more limited-flex-license-plate">LIC. PLATE</mat-label>
+            <mat-label class="fx-flex-auto-shrink-more limited-flex-nickname">NICKNAME</mat-label>
+            <mat-label class="fx-flex-auto-grow-more unlimited-flex-location">LOCATION</mat-label>
+            <mat-label class="fx-flex-auto-shrink-more limited-flex-description">DESCRIPTION</mat-label>
+        </section>
+        <section col-end
+                 class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+            <mat-label class="fx-flex-auto limited-flex-end-amount">AMOUNT</mat-label>
+        </section>
+    </fx-row>
+    <ng-template #noTransactions>
+        <section *ngIf="!isLargeAcount" fxLayout="column"
+                 fxLayoutAlign="center center">
+
+            <mat-icon class="noData" svgIcon="bar-chart-icon"></mat-icon>
+
+            <span class="rowItem">{{cmsContent.NO_TRANSACTIONS}}</span>
+        </section>
+        <section *ngIf="isLargeAcount" fxLayout="column"
+                 fxLayoutAlign="center center">
+            <span class="rowItem">{{cmsContent.LARGE_ACCOUNT}}</span>
+        </section>
+    </ng-template>
+
+    <div name="newRow" *ngFor="let record of transactionRecords; first as isFirst">
+        <div [ngClass]="{'table-space': !isFirst}"
+             [ngClass.lt-md]="{'table-space': !isFirst, 'lt-md': true}">
+            <div>
+                <fx-row class="clickable"
+                        (click)="openTransactionRecordDetailsModal(record)">
+
+                    <section name="transaction-row" col-start
+                             class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+
+                        <div class="unlimited-flex-vehicle-transaction-date">
+                            <div>{{record.licenseStateAndPlate}}</div>
+                            <div translation-skip>
+                                {{(showPostedDate ? record.postedDate : record.trxnDate) | dateWithTimeZone: 'dateTime5'}}
+                            </div>
+                        </div>
+                        <div attr.name="{{getDateHeader()}}" translation-skip class="limited-flex-transaction-date">
+                            {{(showPostedDate ? record.postedDate : record.trxnDate) | dateWithTimeZone: 'dateTime5'}}
+                        </div>
+                        <div name="lic. plate" class="limited-flex-license-plate">
+                            {{record.licenseStateAndPlate}}
+                        </div>
+                        <div name="nickname" class="limited-flex-nickname">
+                            {{record.vehicleNickName}}
+                        </div>
+                        <div name="location" class="unlimited-flex-location">
+                            <a>
+                                <div class="fx-flex-none u-spacing--widthFill font-size-location">
+                                    <agency-and-location-link [record]="record" [showLocationLink]="showLocationLink"></agency-and-location-link>
+                                </div>
+                            </a>
+                        </div>
+                        <div name="description" class="limited-flex-description">
+                            {{record.transType}}
+                        </div>
+                    </section>
+
+                    <section name="amount" col-end
+                             class="fx-flex-none fx-layout-row fx-layout-align-end-center amount-adjustment">
+                        <div translation-skip class="fx-flex-auto limited-flex-end-amount">{{record.amount | currency: 'USD'}}</div>
+                        <div class="fx-flex-none glyphicon glyphicon-chevron-right chevron-color chevron-adjustment"></div>
+                    </section>
+                </fx-row>
+            </div>
+        </div>
+    </div>    
+</main>

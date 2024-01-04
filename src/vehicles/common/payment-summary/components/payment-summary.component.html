@@ -1,0 +1,62 @@
+<card-container>
+
+    <h2>{{data.header}}</h2>
+    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+    <div *ngIf="data.replenishmentAmt.isOptIn">
+        <article [innerHtml]="data.paymentContext | safeHtml"></article>
+        <a (click)="onClickReplenishmentLink()" style="padding: 8px 0px;">
+            {{data.replenishmentAmt.link.linkDesc}}</a>
+
+        <fx-row [isLabel]="true" [backgroundColorClass]="'transparent-background'"
+            class="gridLabelRow u-spacing--widthFill u-spacing__gridToRecords--marginTop">
+            <section col-start style="margin-top: 8px;">
+                <mat-label>DESCRIPTION</mat-label>
+            </section>
+            <section col-end style="margin-left: auto; margin-top: 8px;">
+                <mat-label>AMOUNT</mat-label>
+            </section>
+
+        </fx-row>
+    </div>
+    <fx-row *ngIf="data.paymentDueInfo.totalAmt > 0" [isTop]="true">
+        <section col-start>
+            Replenishment Amount:
+            <tool-tip [stayOpenOnHover]="true">
+                <span tool-tip-hover>
+                    <mat-icon class="infoIcon" svgIcon="information"></mat-icon>
+                </span>
+                <span tool-tip-message [ngStyle.lt-sm]="{'right': '0px'}"
+                    [ngStyle.gt-sm]="{'bottom': '30px', 'right': '0px'}"
+                    [innerHTML]="data.paymentDueInfo.rebillTooltip | safeHtml">
+                </span>
+            </tool-tip>
+        </section>
+        <section col-end style="margin-left: auto;">
+            <div>
+                {{data.paymentDueInfo.tagSalesAmt | currency:'USD'}}
+            </div>
+        </section>
+    </fx-row>
+    <fx-row style="margin-bottom: 20px;" [isBottom]="data.paymentDueInfo.totalAmt > 0"
+        [backgroundColorClass]="'gray-purple-background'">
+        <section col-start>
+            Total
+        </section>
+        <section col-end style="margin-left: auto;">
+            <div>
+                {{data.paymentDueInfo.totalAmt | currency:'USD'}}
+            </div>
+        </section>
+    </fx-row>
+
+    <ng-container *ngIf="data.tagInfo.display">
+
+        <article [innerHtml]="data.tagInfo.contextDesc | safeHtml"></article>
+
+        <article style="padding-top: 16px;" *ngIf="data.tagInfo.motorcycleText"
+         [innerHtml]="data.tagInfo.motorcycleText | safeHtml"></article>
+
+        <a style="padding-top: 16px;" (click)="onClickTagInfo()">{{data.tagInfo.link.linkDesc}}</a>
+
+    </ng-container>
+</card-container>

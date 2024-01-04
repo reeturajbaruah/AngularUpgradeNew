@@ -1,0 +1,36 @@
+<card-container class="u-spacing__sectionToSection--marginBottom">
+    <header>
+        <h2>{{modalCms.Title}}</h2>
+        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+    </header>
+
+    <article [innerHtml]="modalCms.LongDescription | safeHtml"></article>
+
+    <fx-row [isLabel]="true"
+                           [backgroundColorClass]="'transparent-background'"
+                           class="table-header">
+        <section col-start>
+            <mat-label>NO. OF VEHICLES</mat-label>
+            <mat-label>PRE-PAID DEPOSIT/ REPLENISHMENT AMOUNT</mat-label>
+        </section>
+
+        <mat-label col-end>BALANCE AT WHICH REPLENISHMENT REQUIRED</mat-label>
+    </fx-row>
+
+    <div *ngFor="let tableRow of rebillTable; let i = index">
+        <fx-row [isTop]="isTop(i)"
+                               [isInner]="isInner(i)"
+                               [isBottom]="isBottom(i)"
+                               class="table-row">
+
+            <section col-start>
+                <span>{{tableRow.numVehicles}}</span>
+                <span>{{tableRow.rebillAmt}}</span>
+            </section>
+
+            <span col-end>{{tableRow.rebillMin}}</span>
+        </fx-row>
+    </div>
+
+    <article [innerHtml]="modalCms.ShortDescription | safeHtml"></article>
+</card-container>

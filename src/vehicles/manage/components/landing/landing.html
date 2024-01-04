@@ -1,0 +1,319 @@
+<storefront-utility #storefront></storefront-utility>
+
+<page-filled-container [hasGutter]="false">
+
+    <header
+        fxLayout="row"
+        fxLayout.lt-md="column-reverse"
+        fxLayoutAlign="space-between end"
+        fxLayoutAlign.lt-md="start center">
+
+
+        <titleSubTitle 
+            [showSubTitle]="true"
+            [titleDescription]="vehicleCmsContent.Title"
+            [subtitleDescription]="vehicleCmsContent.ShortDescription">
+        </titleSubTitle>
+        
+        <account-balance-header></account-balance-header>
+    </header>
+    
+    <section 
+        class="toolbar"
+        fxLayout="row"
+        fxLayout.lt-md="column-reverse"
+        fxLayoutAlign="space-between center"
+        fxLayoutAlign.lt-md="start stretch"
+        fxLayoutGap="10px">
+
+        <div
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px">
+                <a class="productSelection"
+                [ngClass]="{selected: filter.product === VehicleProduct.eztag}"
+                (click)="toEZTag()">{{vehicleCmsContent.eztags}}</a>
+    
+            <mat-divider [vertical]="true"></mat-divider>
+    
+            <a class="productSelection"
+                [ngClass]="{selected: filter.product === VehicleProduct.ezplate}"
+                (click)="toEZPlate()">{{vehicleCmsContent.ezplates}}</a>
+
+            <tool-tip [stayOpenOnHover]="true" [ngClass.lt-md]="'tool-tip-absolute'">
+                <mat-icon tool-tip-hover svgIcon="information"></mat-icon>                                
+                <div tool-tip-message>
+                    {{vehicleCmsContent.ezplateToolTip}}
+                </div>
+            </tool-tip>
+
+        </div>
+        
+        <vehicles-search 
+            (search)="queryVehicles($event)"
+            [placeHolder]="vehicleCmsContent.search"
+            ></vehicles-search>
+
+    </section>
+
+    <card-dash-container [hasMargin]="false">
+        
+        <div fxLayout="row"
+             fxLayout.lt-md="column"
+             fxLayoutAlign="start center"
+             fxLayoutAlign.lt-md="start stretch"
+             fxLayoutGap="32px">
+            <h2>
+                {{filter.isActive ? vehicleCmsContent.active : vehicleCmsContent.inactive}}
+                {{filter.product === VehicleProduct.eztag ? vehicleCmsContent.eztags : vehicleCmsContent.ezplates}}
+            </h2>
+
+            <section fxLayout="row" fxLayoutGap="5px">
+            <a aria-label="Manage Vehicles"
+               fxLayout="row"
+               fxLayoutAlign="start center"
+               fxLayoutGap="5px"
+               (click)="addProduct()"
+               [class.disabled]="disableAddProductLink">
+                <mat-icon svgIcon="add-icon"></mat-icon>
+                <span>{{filter.product === VehicleProduct.eztag ? vehicleCmsContent.addEzTag : vehicleCmsContent.addEzPlate}}</span>
+
+            </a>
+
+            <tool-tip *ngIf="disableAddProductLink" [stayOpenOnHover]="true" [ngClass.lt-md]="'tool-tip-absolute'">
+                <mat-icon tool-tip-hover svgIcon="information"></mat-icon>                                
+                <div tool-tip-message>
+                    {{disableAddEzPlatLinkError}}
+                </div>
+            </tool-tip>
+        </section>
+
+            <a aria-label="Manage Vehicles"
+               fxLayout="row"
+               fxLayoutAlign="start center"
+               fxLayoutGap="5px"
+               (click)="addMVU()"
+               fxHide.lt-md
+               *ngIf="isMVUEligible && !storefront.isKioskView">
+
+                <mat-icon svgIcon="add-icon"></mat-icon>
+                <span>{{vehicleCmsContent.addMVU}}</span>
+            </a>
+        </div>
+
+        <div #GridContainer>
+            <ng-container
+            *ngTemplateOutlet="filter.product === VehicleProduct.eztag ? eztaggrid : ezplategrid; context: {$implicit: filteredVehicles}"            
+        ></ng-container>
+        </div>
+        
+        <a 
+            *ngIf="hasMore"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            (click)="loadMore()">
+            Load More
+        </a>
+
+    </card-dash-container>
+    
+    <section
+        fxLayout="row"
+        fxLayoutAlign="end center">
+        <a class="statusToggle" (click)="toggleVehicleStatus()">
+            View
+            {{filter.isActive ? vehicleCmsContent.inactive : vehicleCmsContent.active}}
+            {{filter.product === VehicleProduct.eztag ? vehicleCmsContent.eztags : vehicleCmsContent.ezplates}}
+        </a>
+    </section>
+
+    <wizard-ui *ngIf="storefront.isKioskView">
+        <span wizard-next>PROCEED</span>
+    </wizard-ui>
+
+</page-filled-container>
+
+<ng-template #eztaggrid let-vehicles>
+
+    <vehicles-grid [headerTemplate]="eztagHeader"
+                   [rowTemplate]="eztagRow"
+                   [emptyTemplate]="noVehicles"
+                   [vehicles]="vehicles"
+                   (arrowClick)="editEzTag($event)"
+                   [showArrowPredicate]="canEdit"
+                   [editButtonText]="editBtnText"
+                   matSort matSortDisableClear="true" (matSortChange)="sortData($event)">
+        <ng-template #eztagHeader>
+
+            <mat-label class="row-start eztag header" mat-sort-header="{{sortCol.nickname}}">{{ vehicleCmsContent.nickname }}</mat-label>
+            <mat-label mat-sort-header="{{sortCol['year/make/model']}}">{{ vehicleCmsContent.yearMakeModel }}</mat-label>
+            <mat-label mat-sort-header="{{sortCol.licencePlate}}">{{ vehicleCmsContent.licensePlate }}</mat-label>
+            <mat-label mat-sort-header="{{sortCol.eztagnum}}">{{ vehicleCmsContent.ezTagNumber }}</mat-label>
+            <mat-label mat-sort-header="{{sortCol.color}}" class="small-col">{{ vehicleCmsContent.color }}</mat-label>
+            <mat-label mat-sort-header="{{sortCol.axles}}" class="small-col">{{ vehicleCmsContent.axles }}</mat-label>
+            <mat-label mat-sort-header="{{sortCol.status}}">{{ vehicleCmsContent.status }}</mat-label>
+            <mat-label>{{ vehicleCmsContent.vehicleLicensePlate }}</mat-label>
+        </ng-template>
+
+        <ng-template #eztagRow let-vehicle>
+            <span name="nickname" class="row-start eztag">{{vehicle.nickname}}</span>
+            <span name="year/make/model">{{vehicle.vehicleYear}} {{vehicle.vehicleMake}} {{vehicle.vehicleModel}}</span>
+            <span name="licence plate">{{vehicle.licState}}-{{vehicle.licPlate}}</span>
+            <span name="ez tag number">{{vehicle.fullTagId === '0' ? '' : vehicle.fullTagId}}</span>
+            <span name="color" class="small-col">{{vehicle.vehicleColor}}</span>
+            <span name="axles">{{vehicle.vehicleClassCode}}</span>
+
+            <div name="status">
+                <span *ngIf="vehicle.tagStatusDesc === VehicleState.pendingActivation; else otherState" class="pendingActivationStatus">
+                    <a (click)="pendingActivationClick()"><ng-container *ngTemplateOutlet="ezTagStatus; context: { $implicit: vehicle }"></ng-container></a>
+                </span>
+                <ng-template #otherState><ng-container *ngTemplateOutlet="ezTagStatus; context: { $implicit: vehicle }"></ng-container></ng-template>
+            </div>
+
+            <div>
+                <span *ngIf="vehicle.nickname">{{vehicle.nickname}}</span>
+                <span>{{vehicle.vehicleYear}} {{vehicle.vehicleMake}} {{vehicle.vehicleModel}}</span>
+                <span>{{vehicle.licState}}-{{vehicle.licPlate}}</span>
+                <mat-label>status</mat-label>
+                <span *ngIf="vehicle.tagStatusDesc === VehicleState.pendingActivation; else otherState" class="pendingActivationStatus">
+                    <a (click)="pendingActivationClick()"><ng-container *ngTemplateOutlet="ezTagStatus; context: { $implicit: vehicle }"></ng-container></a>
+                </span>
+            </div>
+            <wizard-ui #wizard></wizard-ui>
+        </ng-template>
+
+    </vehicles-grid>
+
+</ng-template>
+
+<ng-template #ezplategrid let-vehicles>
+
+    <vehicles-grid     
+        [headerTemplate]="ezplateHeader" 
+        [rowTemplate]="ezplateRow"
+        [emptyTemplate]="noVehicles"
+        [vehicles]="vehicles"
+        (arrowClick)="editEzPlate($event)"
+        [showArrowPredicate]="canEdit"
+        [editButtonText]="editBtnText"
+        matSort (matSortChange)="sortData($event)">
+
+        <ng-template #ezplateHeader>
+
+            <mat-label mat-sort-header="{{sortCol.nickname}}" class="row-start ezplate header">nickname</mat-label>
+            <mat-label mat-sort-header="{{sortCol['year/make/model']}}">year/make/model</mat-label>
+            <mat-label mat-sort-header="{{sortCol.licencePlate}}">license plate</mat-label>
+            <mat-label mat-sort-header="{{sortCol.color}}">color</mat-label>
+            <mat-label mat-sort-header="{{sortCol.startDate}}">start date</mat-label>
+            <mat-label>vehicle/license plate</mat-label>
+            <mat-label [ngClass]="{'disabled': isLtMd === true}"  mat-sort-header="{{sortCol.endDate}}">end date</mat-label>
+            <mat-label mat-sort-header="{{sortCol.status}}">status</mat-label>
+        </ng-template>
+
+        <ng-template #ezplateRow let-vehicle>
+            <span name="nickname" class="row-start ezplate">{{vehicle.nickname}}</span>
+            <span name="year/make/model">{{vehicle.vehicleYear}} {{vehicle.vehicleMake}} {{vehicle.vehicleModel}}</span>
+            <span name="licence plate">{{vehicle.licState}}-{{vehicle.licPlate}}</span>
+            <span name="color">{{vehicle.vehicleColor}}</span>
+            <span name="start date">
+                {{vehicle.pbpStartDate | dateWithTimeZone: 'date3'}}
+                <br />
+                {{vehicle.pbpStartDate | dateWithTimeZone: 'time1'}}
+            </span>
+
+            <div>
+                <span *ngIf="vehicle.nickname">{{vehicle.nickname}}</span>
+                <span>{{vehicle.vehicleMake}} {{vehicle.vehicleYear}} {{vehicle.vehicleModel}}</span>
+                <span>{{vehicle.licState}}-{{vehicle.licPlate}}</span>
+                <mat-label>status</mat-label>
+                <ng-container *ngTemplateOutlet="ezPlateStatus; context: { $implicit: vehicle }"></ng-container>
+            </div>
+
+            <span name="end date">                
+                {{vehicle.pbpEndDate | dateWithTimeZone: 'date3'}}
+                <br />
+                {{vehicle.pbpEndDate | dateWithTimeZone: 'time1'}}
+            </span>
+
+            <div name="status">
+                <ng-container *ngTemplateOutlet="ezPlateStatus; context: { $implicit: vehicle }"></ng-container>
+            </div>            
+            
+        </ng-template>
+
+    </vehicles-grid>
+
+</ng-template>
+
+<ng-template #noVehicles>
+    <div
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        class="emptyVehicles">
+        <mat-icon svgIcon="vehicles-icon"></mat-icon>
+        <article>{{emptyVehicleCmsContent}}</article>
+    </div>    
+</ng-template>
+
+<ng-template #noVehicles>
+    <div
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        class="emptyVehicles">
+        <mat-icon svgIcon="vehicles-icon"></mat-icon>
+        <article>{{emptyVehicleCmsContent}}</article>
+    </div>    
+</ng-template>
+
+<ng-template #ezTagStatus let-vehicle>
+
+    <span *ngIf="filter.isActive && (getVehicleState(vehicle) !== VehicleState.active); else nonactive">
+        {{getVehicleStateDescription(vehicle)}}
+    </span>
+    <ng-template #nonactive>
+        <mat-select
+        #vehicleAction
+        ngClass="c--nopad"
+        [value]="VehicleAction.none"             
+        (selectionChange)="doVehicleAction(vehicle, VehicleProduct.eztag, $event.value); vehicleAction.value = VehicleAction.none">
+            <mat-select-trigger>
+                <span [ngClass]="{'active': isActive(vehicle) }">
+                    {{isActive(vehicle) ? vehicleCmsContent.active : vehicleCmsContent.inactive}}
+                </span>
+            </mat-select-trigger>
+            <mat-option style="display: none;" [value]="VehicleAction.none"></mat-option>
+            
+                <ng-container *ngIf="eztagStatusValues">
+                  <mat-option *ngFor="let option of filterStatus(vehicle)" 
+                     [value]="option.value">{{option.key}}
+                  </mat-option>
+                </ng-container>
+    
+    </mat-select>
+    </ng-template>
+
+</ng-template>
+
+
+<ng-template #ezPlateStatus let-vehicle>
+    <mat-select                    
+    *ngIf="getVehicleState(vehicle) === VehicleState.active"
+    #vehicleAction
+    ngClass="c--nopad"
+    [value]="VehicleAction.none"             
+    (selectionChange)="doVehicleAction(vehicle, VehicleProduct.ezplate, $event.value); vehicleAction.value = VehicleAction.none">
+        <mat-select-trigger>
+            <span [ngClass]="{'active': isActive(vehicle) }">
+                {{isActive(vehicle) ? vehicleCmsContent.active : vehicleCmsContent.inactive}}
+            </span>
+        </mat-select-trigger>
+        <mat-option style="display: none;" [value]="VehicleAction.none"></mat-option>
+        <mat-option [value]="VehicleAction.activate">{{vehicleCmsContent.active}}</mat-option>
+        <mat-option [value]="VehicleAction.deactivate">{{vehicleCmsContent.inactivate}}</mat-option>
+        <!-- <mat-option [value]="VehicleAction.replace">{{vehicleCmsContent.replace}}</mat-option> -->
+    </mat-select>
+    <span 
+        *ngIf="getVehicleState(vehicle) !== VehicleState.active">
+            {{getVehicleStateDescription(vehicle)}}
+    </span>
+</ng-template>

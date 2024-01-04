@@ -1,0 +1,54 @@
+
+<div fxLayout="row"
+     fxLayoutAlign="space-between center"
+     cdkOverlayOrigin
+     #trigger="cdkOverlayOrigin"
+     (click)="open()">
+
+    <span class="mat-date-range-picker-with-header-trigger-content">
+        {{selectedRange?.start | date : (format || 'MMM dd, YYYY')}}
+        <span *ngIf="hasRangeValue">to</span>
+        {{selectedRange?.end | date : (format || 'MMM dd, YYYY')}}
+    </span>
+
+    <ng-container *ngTemplateOutlet="icon"></ng-container>
+
+</div>
+
+<ng-template cdkConnectedOverlay
+             [cdkConnectedOverlayOrigin]="trigger"
+             [cdkConnectedOverlayOpen]="isOpen"
+             [cdkConnectedOverlayPanelClass]="'overlayPanelClass'"
+             (overlayOutsideClick)="close()">
+
+    <div class="mat-date-range-picker-with-header-panel">
+        <mat-label>FROM</mat-label>
+        <section fxLayout="column">
+            <section fxLayout="row"
+                     fxLayoutAlign="space-between center">
+                <mat-date-range-input [separator]="'to'">
+                    <input matStartDate [value]="selectedRange.start" (keyup) ="checkStartDateInput($event.target.value)"   (dateChange)="setStartDate($event.value, $event.targetElement)" />
+                    <input matEndDate [value]="selectedRange.end" (keyup) ="checkEndDateInput($event.target.value)" (dateChange)="setEndDate($event.value, $event.targetElement)" />
+                </mat-date-range-input>
+                <ng-container *ngTemplateOutlet="icon"></ng-container>
+            </section>
+            <div *ngIf="!isValid" fxLayout="row"
+                 fxLayoutAlign="space-between center">
+                <div role="alert">
+                    <p class="help-block">Please enter a valid date</p>
+                </div>                
+            </div>
+        </section>        
+        <mat-calendar [selected]="selectedRange"
+                      (selectedChange)="selectedChange($event)"
+                      [minDate]="minDate"
+                      [maxDate]="maxDate"></mat-calendar>
+    </div>
+</ng-template>
+
+<ng-template #icon>
+    <svg viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor" focusable="false" class="mat-datepicker-toggle-default-icon ng-star-inserted"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"></path></svg>
+</ng-template>
+
+
+

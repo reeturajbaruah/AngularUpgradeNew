@@ -1,0 +1,155 @@
+<page-centered-container>
+
+    <card-container>
+
+        <header fxLayout="row" fxLayoutAlign="space-between end" class="title">
+            <h2>
+                {{pageCms.Title}}
+            </h2>
+        </header>
+
+        <mat-divider></mat-divider>
+
+        <article>{{pageCms.LongDescription}}</article>
+        <p>{{pageCms.ShortDescription}}</p>
+
+        <section>
+            <div fxLayout="row" fxLayoutAlign="space-between end" class="summary paymentAmount">
+
+                <span>{{pageCms.paymentAmount}}:</span>
+                <currency [value]="paymentAmount"></currency>
+            </div>
+            <div class="summary">
+
+                {{pageCms.paymentReceivedOn}} {{paymentDate | dateWithTimeZone: 'dateTime4'}}
+
+            </div>
+        </section>
+
+        <p> {{pageCms.replenishAmt}}</p>
+
+
+        <header fxLayout="row" fxLayoutAlign="space-between end">
+            <h3>
+
+                {{pageCms.accountInfo}}
+            </h3>
+        </header>
+
+        <mat-divider></mat-divider>
+
+        <section fxLayout="column">
+
+            <span translation-skip> {{pageCms.accountName}}: {{actName}}</span>
+
+            <span translation-skip>{{pageCms.accountNumber}}: {{actNumber}}</span>
+        </section>
+
+        <section fxLayout="column" *ngIf="(mailingAddress$ | async) as mailingAddress ">
+            <span>{{deliveryMethod}}</span>
+            <ng-container *ngIf="isByMail">
+
+                <span class="itemFont">Ship EZ TAG(s) to:</span>
+                <address-display [address]="mailingAddress" [international]="mailingAddress.international"
+                                 [showLabels]="false" [showEdit]="false">
+                </address-display>
+
+            </ng-container>
+        </section>
+
+        <header fxLayout="row" fxLayoutAlign="space-between end">
+            <h3>
+
+                {{pageCms.billingInfo}}
+            </h3>
+        </header>
+
+        <mat-divider></mat-divider>
+
+        <section *ngIf="billingInfo">
+
+            <payment-display [billingType]="billingInfo.billingType" [bankDetails]="billingInfo.eft"
+                             [creditCard]="billingInfo.credit" [hideTitle]="true" [showAccountNumber]="true" [showNameOnCard]="true"
+                             [showLabels]="false">
+            </payment-display>
+
+            <article class="u-spacing__addressToPaymentDisplay--marginTop">
+                <address-display *ngIf="billingInfo && billingInfo.billingType"
+                                 [address]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit : billingInfo.eft"
+                                 [international]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit.international : billingInfo.eft.international"
+                                 [showLabels]="false" [showEdit]="false">
+                </address-display>
+            </article>
+
+        </section>
+
+        <header fxLayout="row" fxLayoutAlign="space-between end">
+            <h3>
+
+                {{pageCms.tagsOrdered}}
+            </h3>
+        </header>
+
+        <mat-divider></mat-divider>
+
+        <section class="u-spacing--widthFill">
+            <ng-template [ngIf]="tags?.length > 0">
+                <div fxLayout="row" fxLayoutAlign="start start">
+
+                    <div>
+                        <fx-row [isLabel]="true" [backgroundColorClass]="'transparent-background'">
+                            <div col-start class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <mat-label class="fx-flex-auto-shrink-more limited-flex">
+                                    {{pageCms.tagsRequested}}
+                                </mat-label>
+                            </div>
+                        </fx-row>
+                    </div>
+
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start" class="u-spacing--widthFill"
+                     *ngFor="let ezTag of tags; index as i">
+                    <vehicle-cart-row-component [canRemove]="false" [canEdit]="false" [ezTag]="ezTag">
+
+                    </vehicle-cart-row-component>
+
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="inactiveTags?.length > 0">
+                <div fxLayout="row" fxLayoutAlign="start start">
+
+                    <div>
+                        <fx-row [isLabel]="true" [backgroundColorClass]="'transparent-background'">
+                            <div col-start class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <mat-label class="fx-flex-auto-shrink-more limited-flex">
+                                    {{pageCms.InactivationSubtitle}}
+                                </mat-label>
+                            </div>
+                        </fx-row>
+                    </div>
+
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start" class="u-spacing--widthFill"
+                     *ngFor="let ezTag of inactiveTags; index as i">
+                    <vehicle-cart-row-component [canRemove]="false" [canEdit]="false" [ezTag]="ezTag">
+
+                    </vehicle-cart-row-component>
+
+                </div>
+            </ng-template>
+
+        </section>
+
+        <section fxLayout="row" fxLayout.lt-md="column">
+
+            <action-buttons reverseOrder="true" (main)="goToAccountOverview()">
+                <span action-main>{{pageCms.accountDashboard}}</span>
+            </action-buttons>
+
+            <a (click)="viewVehiclesClick()">{{pageCms.manageMyVehicles}}</a>
+
+        </section>
+    </card-container>
+</page-centered-container>

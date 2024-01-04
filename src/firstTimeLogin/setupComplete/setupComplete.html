@@ -1,0 +1,24 @@
+<page-centered-container class="refresh-2020">
+
+    <card-container>
+            <h2>{{cmsData?.Title}}</h2>
+            <mat-divider></mat-divider>
+            
+            <section>                
+                <mat-icon svgIcon="checkmark"></mat-icon>
+                <span class="setupComplete">{{cmsData?.Purpose}}</span>
+            </section>
+            
+            <section>
+                <p class="info" [innerHtml]="cmsData?.ShortDescription"></p>
+            </section>
+
+            <wizard-ui [reverseOrder]="true">
+                <span wizard-next>login to your account</span>
+            </wizard-ui>
+
+        </card-container>
+    
+</page-centered-container>
+
+

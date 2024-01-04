@@ -1,0 +1,103 @@
+@import (reference) '../../../styles/themes.less';
+@import 'common/ui/containers/fxRow/details.less';
+
+:host {
+
+    .isPrimary {
+        display: inline-block;
+        border-radius: 5px;
+        width: 64px;
+        height: 18px;
+        font-size: 8px;
+        line-height: 18px;
+        text-align: center;
+        background-color: @school-bus-yellow;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .iconSelected {
+        width: 19px;
+        height: 19px;
+        transform: rotate(270deg);
+    }
+
+    .iconUnselected {
+        width: 19px;
+        height: 19px;
+        transform: rotate(90deg);
+    }
+
+    .itemFont {
+        font-size: 16px;
+        font-family: @font-montserrat;
+    }
+
+    .nameFormat {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        text-transform: capitalize;
+    }
+
+    .activeStatus {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        color: @tropical-rain-forest-green;
+    }
+
+    .expiredStatus {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        color: @torch-red;
+    }
+
+    .blockedStatus {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        color: @torch-red;
+        padding-left: -20px;
+    }
+
+    .expiring {
+        color: @pizazz-gold;
+    }
+
+    .expiring svg > path {
+        fill: @pizazz-gold;
+    }
+
+    .expired {
+        color: @torch-red;
+    }
+
+    .expired svg > path {
+        fill: @torch-red;
+    }
+
+    .hoverBoxAdjusment {
+        padding: 15px;
+        min-width: 300px;
+        font-size: 16px;
+        line-height: 2;
+    }
+
+    .bankAccountWidth {
+        width: 365px;
+    }
+
+    .bankAccountWidthMob {
+        width: 160px;
+    }
+
+    .mobWidth {
+        min-width: 100%;
+    }
+
+    span[tool-tip-hover] {
+        color: @boulder-gray;
+    }
+
+    tool-tip {
+        display: inline-block;
+    }
+}

@@ -1,0 +1,195 @@
+<page-centered-container>
+
+    <card-container>
+        <ng-container *ngIf="billingInfo">
+
+            <header fxLayout="row" fxLayoutAlign="space-between end">
+                <h2 *ngIf="billingInfo.billingType === BillingType.Cash">{{receiptInfoPage.accountAlmostSetupText}}</h2>
+                <h2 *ngIf="billingInfo.billingType !== BillingType.Cash">{{receiptInfoPage.receiptInfoPageTitle}}</h2>
+                <div>
+                    <print-link id="PrintButton"></print-link>
+                </div>
+            </header>
+
+            <mat-divider></mat-divider>
+
+            <section *ngIf="billingInfo.billingType === BillingType.Cash">
+                <h3>{{receiptInfoPage.benefitsOfPrefundingText}}</h3>
+                <div [innerHtml]="receiptInfoPage.ShortDescription | safeHtml" class="content"></div>
+            </section>
+
+            <section>
+                <div class="paymentAmountFlex summary paymentAmount">
+
+                    <span>{{receiptInfoPage.paymentAmountText}}:</span>
+                    <currency [value]="paymentAmount"></currency>
+                </div>
+                <div *ngIf="billingInfo.billingType !== BillingType.Cash" class="summary">
+                    {{receiptInfoPage.paymentReceivedOnText}} {{paymentDate | dateWithTimeZone: 'dateTime4'}}
+                    <currency [value]="paymentAmount"></currency>
+                </div>
+            </section>
+
+            <section class="shared-alert-box">
+                <shared-alert-box *ngIf="billingInfo.billingType !== BillingType.Cash"
+                    containerClass="extend-container-class"
+                    svgIcon="checkmark"
+                    [title]="receiptInfoPage.accountCreatedText" titleClass="green-title-class"
+                    [desc]="receiptInfoPage.accountNumberText + ': ' + actNumber">
+                </shared-alert-box>
+
+                <shared-alert-box *ngIf="billingInfo.billingType === BillingType.Cash"
+                    containerClass="extend-container-class"
+                    svgIcon="red-x"
+                    [title]="receiptInfoPage.accountCreatedForCashText" titleClass="red-title-class"
+                    [desc]="receiptInfoPage.accountNumberText + ': ' + actNumber">
+                </shared-alert-box>
+
+                <div *ngIf="billingInfo.billingType !== BillingType.Cash" class="disclaimer">
+                    {{receiptInfoPage.paymentDisclaimerText}}
+                </div>
+            </section>
+
+            <header fxLayout="row" fxLayoutAlign="space-between end">
+                <h3>{{receiptInfoPage.paymentMethodText}}</h3>
+            </header>
+
+            <mat-divider></mat-divider>
+
+            <section>
+
+                <payment-display [billingType]="billingInfo.billingType" [bankDetails]="billingInfo.eft"
+                    [creditCard]="billingInfo.credit" [hideTitle]="true" [showAccountNumber]="true"
+                    [showNameOnCard]="true" [showLabels]="false"
+                    [savePaymentStatus]="billingInfo.savePaymentStatus">
+                </payment-display>
+
+                <section *ngIf="billingInfo.billingType !== BillingType.Cash">
+                    <article class="u-spacing__addressToPaymentDisplay--marginTop">
+                        <address-display *ngIf="billingInfo && billingInfo.billingType"
+                            [address]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit : billingInfo.eft"
+                            [international]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit.international : billingInfo.eft.international"
+                            [showLabels]="false" [showEdit]="false">
+                        </address-display>
+                    </article>
+                </section>
+
+                <span *ngIf="billingInfo.billingType === BillingType.Cash">{{receiptInfoPage.proceedToEzTagStoreText}}</span>
+
+                <auto-replenishment-display *ngIf="isFlexPay"  
+                [autoReplenishmentStatus]="billingInfo.autoReplenishmentStatus"></auto-replenishment-display>
+            </section>
+        </ng-container>
+
+        <ng-container *ngIf="tagsOrdered">
+            <header fxLayout="row" fxLayoutAlign="space-between end">
+                <h3>{{tagsOrdered.title}}</h3>
+            </header>
+
+            <mat-divider></mat-divider>
+
+            <ng-container *ngFor="let tag of tagsOrdered.tags">
+
+                <section class="u-spacing--widthFill">
+
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start" class="u-spacing--widthFill"
+                         *ngFor="let ezTag of tag.ezTags; index as i">
+
+                        <vehicle-cart-row-component [canRemove]="false" [canEdit]="false" [ezTag]="ezTag">
+                        </vehicle-cart-row-component>
+
+                    </div>
+
+                </section>
+
+            </ng-container>
+
+        </ng-container>
+
+        <ng-container *ngIf="hasEzTag">
+            <header fxLayout="row" fxLayoutAlign="space-between end">
+                <h3>{{deliveryMethodInfoPage.deliveryMethodInfoHeader}}</h3>
+            </header>
+
+            <mat-divider></mat-divider>
+
+            <section fxLayout="column">
+                <span>{{deliveryMethodDesc}}</span>
+
+                <ng-container *ngIf="isByMail">
+
+                    <span class="itemFont">Ship EZ TAG(s) to:</span>
+                    <address-display [address]="mailingAddress" [international]="mailingAddress.international"
+                                     [showLabels]="false" [showEdit]="false">
+                    </address-display>
+
+                </ng-container>
+            </section>
+        </ng-container>
+
+        <ng-container *ngIf="!isKiosk">
+            <ng-container *ngIf="hasEzTag">
+                <p>{{receiptInfoPage.orderText}}</p>
+            </ng-container>
+
+            <ng-container *ngIf="billingInfo">
+                <section *ngIf="billingInfo.billingType !== BillingType.Cash">
+
+                    <ng-container *ngIf="!deliveryMethodInfo?.addressInfo?.address1">
+                        <header fxLayout="row" fxLayoutAlign="space-between end">
+                            <h3>{{receiptInfoPage.gettingAccountStartedTitle}}</h3>
+                        </header>
+                        <mat-divider></mat-divider>
+            
+                        <section fxLayout="column" fxLayoutGap="16px">
+                            <span>{{receiptInfoPage.gettingAccountStartedDesc}}</span>
+                            <a class="add-text" (click)="routeToMailingAddress()">{{receiptInfoPage.addAMailingAddressText}}</a>
+                        </section>
+                    </ng-container>
+
+                    <header>
+                        <h3>{{receiptInfoPage.additionalAccountsettingsText}}</h3>
+                    </header>
+                    <mat-divider></mat-divider>
+
+                    <section fxLayout="column" fxLayoutGap="16px">
+                        <a class="add-text" (click)="routeToAuthorizedContact()">{{receiptInfoPage.addAnAuthorizedContactText}}</a>
+                        <a class="add-text"
+                            (click)="routeToSecondaryPaymentMethod()">{{receiptInfoPage.addASecondaryPaymentMethodText}}</a>
+                        <a class="add-text"
+                            (click)="routeToCommunicationPreferences()">{{receiptInfoPage.updateMyCommunicationPreferencesText}}</a>
+                    </section>
+                </section>
+            </ng-container>
+        </ng-container>
+
+    </card-container>
+
+    <section class="kioskProceed" *ngIf="isKiosk; else nonkiosk">
+        <action-buttons (main)="proceed()">
+            <span action-main>PROCEED</span>
+        </action-buttons>
+    </section>
+
+    <ng-template #nonkiosk>
+
+        <section class="acctDashboard" fxLayout.lt-md="column" >
+            <!-- [reverseOrder]="true"  -->
+            <wizard-ui (next)="nextStep($event)">
+                <span wizard-next>
+                    <!-- {{cmsContent.accountDashboard}} -->
+                    ACCOUNT DASHBOARD
+                </span>
+            </wizard-ui>
+
+        </section>
+
+
+    </ng-template>
+
+    <!-- </div> -->
+    <!-- </form> -->
+</page-centered-container>

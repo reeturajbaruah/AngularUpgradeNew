@@ -1,0 +1,22 @@
+<card-dash-container>
+    <div class="bottom-row-heights">
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+            <header fxLayout="column">
+                <h3 fxLayout="row"
+                    fxLayoutAlign="space-between start">
+                    {{loginSecurityTitle}}
+                </h3>
+            </header>
+        </div>
+
+        <div [ngClass]="{'disable': isAccountClosed}">
+            <a (click)="changeUsername()">Change Username</a>
+            <a (click)="changePassword()">Change Password</a>
+            <a (click)="updateSecurityQuestion()">Update Security Question</a>
+            <a (click)="closeAccount()">Close Account</a>
+        </div>
+    </div>
+</card-dash-container>

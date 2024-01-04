@@ -1,0 +1,42 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/variables.less';
+@import (reference) '../../../../styles/custom/spacing/sections.less';
+
+card-container {
+    display: block;
+    margin-bottom: 20px;
+}
+
+section {
+    width: 100%;
+}
+
+mat-divider {
+    width: @width-divider;
+}
+
+h2 {
+    max-height: 70px;
+    padding-bottom: 20px;
+}
+
+.bottomPadding {
+    padding-bottom: 21px;
+}
+
+:host {
+    .create-account-desc {
+        padding-bottom: 35px;
+
+        span {
+            display: block;
+            padding-top: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        @media @breakpoint-lt-md {
+            padding-top: 20px;
+        }
+    }
+}

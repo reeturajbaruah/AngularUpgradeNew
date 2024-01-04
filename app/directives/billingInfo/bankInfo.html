@@ -1,0 +1,45 @@
+﻿<div id="billing-info-partial" class="bottom-buffer-lg">
+    <header ng-if="!isAccountInformation" class="header-spacing">
+        <a ng-if="!hideEdit" class="pull-right" ng-click="onEdit()" ng-show="showEdit" aria-label="Edit Billing Info">Edit</a>
+        <h2 ng-if="noTransHeader" class="h1-mo title-color-mo no-margin-top-do">{{headerText}}</h2>
+        <ng-transclude></ng-transclude>
+        <hr />
+    </header>
+
+    <div class="group-paragraphs">
+        <div class="no-margin-bottom">
+            <div class="row">
+                <div class="col-xs-6 no-padding-right billing-info-label">
+                    <p class="h4"><span ng-if="guaranteedPrimary">Primary </span>Payment Method:</p>
+                </div>
+                <div class="col-xs-6 no-padding-left">
+                    <p class="h4 font-avenir-medium"><span class="nobr">{{ bankDetails.accountTypeDisplay | capitalize }} Bank Account</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="group-paragraphs">
+        <div class="no-margin-bottom">
+            <div class="row">
+                <div class="col-xs-6 no-padding-right billing-info-label">
+                    <p class="h4">Routing Number:</p>
+                </div>
+                <div class="col-xs-6 no-padding-left">
+                    <p translation-skip class="h4 font-avenir-medium customer-account-data">{{ bankDetails.routingNumber }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-buffer-xs" ng-show="showAccountNumber">
+            <div class="row">
+                <div class="col-xs-6 no-padding-right billing-info-label">
+                    <p class="h4">Account Number:</p>
+                </div>
+                <div class="col-xs-6 no-padding-left">
+                    <p translation-skip class="h4 font-avenir-medium customer-account-data">{{ bankDetails.accountNumber | bankAccount }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

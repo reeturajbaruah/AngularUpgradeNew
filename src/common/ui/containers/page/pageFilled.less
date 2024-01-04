@@ -1,0 +1,23 @@
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+    width: 100%;
+
+    main {
+        max-width: 100vw;
+        padding-top: 0px;
+        padding-left: @page-bar-margin-static;
+        padding-right: @page-bar-margin-static;
+        padding-bottom: 60px;
+
+        &.lt-md {
+            padding-left: 0px;
+            padding-right: 0px;
+
+            &.has-gutter {
+                padding-left: @page-bar-margin-static-lt-md;
+                padding-right: @page-bar-margin-static-lt-md;
+            }
+        }
+    }
+}

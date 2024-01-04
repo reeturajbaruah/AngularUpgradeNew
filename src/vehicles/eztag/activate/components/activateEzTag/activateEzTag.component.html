@@ -1,0 +1,61 @@
+<storefront-utility #storefrontUtility></storefront-utility>
+<page-centered-container hasAlternateBackgroundColor="true">
+    <div fxLayout="column">
+        <div fxFlexOffset="21px">
+            <form #activateEZTag="ngForm" validation-focus novalidate fxLayout="column start" method="post">
+                <card-container>
+                    <header>
+                        <h2>{{activateEzTag.Title}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </header>
+                    <section>
+                        <div [innerHTML]="activateEzTag.LongDescription | safeHtml"></div>
+                        <section>
+                            <div fxLayout="column" class="u-spacing__fieldToField--marginTop">
+                                <mat-label for="newReplenishmentAmount">TAG REQUEST ACTIVATION NUMBER</mat-label>
+                                <input #tagRequestActivationNumberInput="ngModel" type="text" tabindex="-1"
+                                    name="tagRequestActivationNumber" [(ngModel)]="tagRequestActivationNumber" (keypress)="numberOnly($event)" pattern="^\d+$"
+                                    required/>
+                            </div>
+                            <error-messages [errors]="tagRequestActivationNumberInput.errors">
+                                <error-message rule="required">Please enter a valid tag request activation number
+                                </error-message>
+                                <error-message rule="pattern">Please enter a valid tag request activation number
+                                </error-message>
+                            </error-messages>
+                        </section>
+                        <div [innerHTML]="activateEzTag.ShortDescription | safeHtml"></div>
+                        <div class="u-spacing__fieldToField--marginTop" *ngIf="!isAuthenticated">
+                            <section fxLayout="column" class="u-spacing__fieldToField--marginTop" [error-check]="VerifyOptionSelect">
+                                <mat-select name="loginResetOption" required placeholder="Select option" [(ngModel)]="VerifyOption" #VerifyOptionSelect="ngModel">
+                                    <mat-option [value]="VerifyOptions.Email">Email address</mat-option>
+                                    <mat-option [value]="VerifyOptions.Phone">Phone number</mat-option>
+                                </mat-select>
+                                <error-messages [errors]="VerifyOptionSelect.errors">
+                                    <error-message rule="required">Please select a verification option.</error-message>
+                                </error-messages>
+                                <aside role="note" *ngIf="VerifyOption === VerifyOptions.Email">Please enter the email address associated with your EZ TAG account.</aside>
+                                <aside role="note" *ngIf="VerifyOption === VerifyOptions.Phone">Please enter the phone number associated with your EZ TAG account.</aside>                    
+                            </section>
+                            <section class="verify-option" *ngIf="VerifyOption === VerifyOptions.Email">
+                                <email-address [(emailAddress)]="emailAddress" [hideMinMax]="true"></email-address>
+                            </section>                    
+                            <section class="verify-option" *ngIf="VerifyOption === VerifyOptions.Phone">
+                                <primary-phone [(primaryPhone)]="phoneNumber"></primary-phone>
+                            </section>
+                        </div>
+                        <div class="u-spacing__fieldToField--marginTop" (click)="mountEzTag()">
+                            <a>How to mount EZ TAG?</a>
+                        </div>
+                    </section>
+                </card-container>
+                <section class="u-spacing__buttonToField--marginTop">
+                    <wizard-ui (next)="nextState($event)" (cancel)="onCancel(storefrontUtility.isKioskView)" [input]="storefrontUtility.isKioskView">
+                        <span wizard-next>CONTINUE</span>
+                        <span wizard-cancel>Cancel</span>
+                    </wizard-ui>
+                </section>
+            </form>
+        </div>
+    </div>
+</page-centered-container>

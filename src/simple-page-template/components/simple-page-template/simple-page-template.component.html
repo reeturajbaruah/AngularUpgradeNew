@@ -1,0 +1,13 @@
+<main class="refresh-2020 u-spacing--widthFill">
+    <title-banner id="title-baner" [harMarginBottom]="true">
+        {{title}}
+    </title-banner>
+
+    <page-filled-container [hasGutter]="false" id="page-conatiner">
+        <main fxLayout="column" fxLayoutGap="20px" class="main">
+            <card-dash-container fxFlex="auto" [hasMargin]="true" [hasNoExtented]="true" class="u-spacing__firstHeaderToTitle--marginTop card-dash-container">
+                <div [innerHTML]="longDescription | safeHtml"></div>
+            </card-dash-container>
+        </main>
+    </page-filled-container>
+</main>

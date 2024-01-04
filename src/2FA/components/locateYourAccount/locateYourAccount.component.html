@@ -1,0 +1,73 @@
+<card-container>
+
+    <h2>{{additionalInfoCmsData?.Title}}</h2>
+    <mat-divider></mat-divider>
+    <article [innerHtml]="additionalInfoCmsData?.LongDescription"></article>
+
+    <section [error-check]="AccountIndentificationOptionSelect">
+        <mat-label>{{additionalInfoCmsData?.identificationOption}}</mat-label>
+        <mat-select name="accountIndentificationOption" #AccountIndentificationOptionSelect="ngModel"
+            [ngModel]="data.accountIdentificationOption"
+            (ngModelChange)="data.accountIdentificationOption = $event; updateValue()" required
+            placeholder="Select identification option">
+            <mat-option [value]="AccountIdentificationOptionEnum.AccountNumber">Account Number</mat-option>
+            <mat-option [value]="AccountIdentificationOptionEnum.EzTagNumber">EZ TAG Number</mat-option>
+        </mat-select>
+
+        <error-messages [errors]="AccountIndentificationOptionSelect.errors">
+            <error-message rule="required">Please select a valid identification option.</error-message>
+        </error-messages>
+
+    </section>
+
+    <ng-container [ngSwitch]="data.accountIdentificationOption">
+
+        <section *ngSwitchCase="AccountIdentificationOptionEnum.AccountNumber" [error-check]="AccountNumber">
+            <mat-label>{{additionalInfoCmsData?.enterAccountNumber}}</mat-label>
+            <input #AccountNumber="ngModel" type="text" name="accountNumber" [ngModel]="data.accountNumber"
+                (ngModelChange)="data.accountNumber = $event; updateValue()" pattern="^\d{1,12}$" required />
+
+            <error-messages [errors]="AccountNumber.errors">
+                <error-message rule="required">Please input an account number.</error-message>
+                <error-message rule="pattern">Please input a valid account number.</error-message>
+            </error-messages>
+
+            <aside from-cms [innerHtml]="helpLinkCmsData?.ShortDescription | safeHtml"></aside>
+
+        </section>
+
+        <section *ngSwitchCase="AccountIdentificationOptionEnum.EzTagNumber" fxLayout="row" fxLayout.lt-md="column"
+            fxLayoutAlign="space-between start" fxLayoutGap="20px">
+
+            <div fxFlex="25" fxFlex.lt-md="none" class="accountIdOption" [error-check]="AgencySelect">
+                <mat-label>{{additionalInfoCmsData?.selectAgency}}</mat-label>
+                <mat-select name="agency" #AgencySelect="ngModel" [ngModel]="data.selectedAgency"
+                    (ngModelChange)="data.selectedAgency = $event; updateValue()" required>
+                    <mat-option *ngFor="let agency of agencies" [value]="agency">{{agency}}</mat-option>
+                </mat-select>
+
+                <error-messages [errors]="AgencySelect.errors">
+                    <error-message rule="required">Please select an agency.</error-message>
+                </error-messages>
+            </div>
+
+            <div fxFlex flFlex.lt-md="none" class="accountIdOption" [error-check]="EzTagNumber">
+                <mat-label [innerHtml]="additionalInfoCmsData?.ShortDescription"></mat-label>
+                <input #EzTagNumber="ngModel" type="text" name="ezTagNumber" [ngModel]="data.ezTagNumber"
+                    (ngModelChange)="data.ezTagNumber = $event; updateValue()" pattern="^\d{1,13}$" required />
+
+                <error-messages [errors]="EzTagNumber.errors">
+                    <error-message rule="required">Please input an <span translation-skip>EZ TAG</span>
+                        number.</error-message>
+                    <error-message rule="pattern">Please input a valid <span translation-skip>EZ TAG</span>
+                        number.</error-message>
+                </error-messages>
+
+                <aside from-cms [innerHtml]="helpLinkCmsData?.LongDescription | safeHtml"></aside>
+            </div>
+
+        </section>
+
+    </ng-container>
+
+</card-container>

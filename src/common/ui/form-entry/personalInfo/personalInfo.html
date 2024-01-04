@@ -1,0 +1,45 @@
+<main class="refresh-2020" [ngModelGroup]="formElementName || 'personalInfoEntry'">
+
+    <section [error-check]="FirstNameInput">
+
+        <mat-label>First Name</mat-label>
+        <input id="firstName"
+               name="firstName"
+               [(ngModel)]="personalInfo.firstName"
+               #FirstNameInput="ngModel"
+               type="text"
+               maxLength="100"
+               pattern="^[a-zA-Z\-\'\.,\s]*$"
+               required />
+
+        <div *ngFor="let error of FirstNameInput.errors | keyvalue">
+            <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'maxlength'" class="help-block">First Name is too long</p>
+                <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid First Name</p>
+                <p *ngSwitchCase="'required'" class="help-block">First Name is Missing</p>
+            </ng-container>
+        </div>
+    </section>
+
+    <section [error-check]="LastNameInput">
+
+        <mat-label>Last Name</mat-label>
+        <input id="lastName"
+               name="lastName"
+               [(ngModel)]="personalInfo.lastName"
+               #LastNameInput="ngModel"
+               type="text"
+               maxLength="100"
+               pattern="^[a-zA-Z\-\'\.,\s]*$"
+               required />
+
+        <div *ngFor="let error of LastNameInput.errors | keyvalue">
+            <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'maxlength'" class="help-block">Last Name is too long</p>
+                <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid Last Name</p>
+                <p *ngSwitchCase="'required'" class="help-block">Last Name is Missing</p>
+            </ng-container>
+        </div>
+    </section>
+
+</main>

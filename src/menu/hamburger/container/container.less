@@ -1,0 +1,27 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+
+:host {
+    > div {
+        position: fixed !important;
+        background-color: @white;
+        top: 0px;
+        left: 0px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100vh;
+        width: 500px;
+
+        &.compact-menu {
+            width: 100vw;
+        }
+
+        @media @breakpoint-lt-md {
+            padding-bottom: 100px;
+        }
+
+        @media @breakpoint-lt-lg {
+            padding-bottom: 100px;
+        }
+    }
+}

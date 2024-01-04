@@ -1,0 +1,7 @@
+﻿<ul class="vehicle-list">
+    <li id="manage-ez-tags-list-item" ng-repeat="file in internalFiles">
+        <div class="row no-margin-top bottom-buffer-sm">
+            <file-upload id="file.id" validations="validations" file="file" form="form" should-show-delete="true" on-delete="processDelete" on-update="updateFunc()"></file-upload>
+        </div>
+    </li>
+</ul>

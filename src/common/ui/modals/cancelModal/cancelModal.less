@@ -1,0 +1,65 @@
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+
+    .cancel-modal {
+        padding: 35px;
+        padding-top: 32px;
+
+        &.gt-md {
+            min-width: 700px;
+            max-width: 700px;
+        }
+
+        &.lt-md {
+            width: 100%;
+            padding-top: 45px;
+        }
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    .title {
+        width: 100%;
+        max-width: 700px;
+        text-align: center;
+
+        header {
+            max-width: 700px;
+
+            &.lt-md {
+                width: 100%;
+            }
+        }
+
+        h2 {
+            margin: 0px 0px;
+            padding-bottom: 24px;
+        }
+    }
+
+    .content {
+        padding-top: 20.5px;
+        text-align: center;
+    }
+
+    .continue-button {
+        padding-top: 33px;
+
+        button {
+            width: auto;
+
+            &.lt-md {
+                width: 100%;
+                padding-left: 32px;
+                padding-right: 32px;
+            }
+        }
+    }
+
+    .reject-button {
+        padding-top: 33px;
+    }
+}

@@ -1,0 +1,30 @@
+<card-dash-container>
+    <section class="top-row-heights">
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+            <header fxLayout="column">
+                <h3 fxLayout="row"
+                    fxLayoutAlign="space-between start">
+                    {{authContactsTitle}}
+                </h3>
+            </header>
+            <a [fxHide]="isAccountClosed" (click)="editAuthorizedContact()">Manage</a>
+        </div>
+
+        <div *ngIf="this.totalContacts > 0" class="context">
+            <div translation-skip *ngFor="let name of this.authContactsNames; let i = index">
+                <div>{{i + 1}}. {{name | titlecase}}</div>
+            </div>
+            <div class="card-footer">
+                {{this.authContactsNames.length}} of {{this.totalContacts}} Contact{{this.totalContacts > 1 ? 's':''}}
+            </div>
+        </div>
+
+        <div *ngIf="this.totalContacts === 0">
+            <mat-icon svgIcon="no-auth-contacts" fxFlexAlign="center"></mat-icon>
+            <div class="context" fxFlexAlign="center">{{noAuthContacts}}</div>
+        </div>
+    </section>
+</card-dash-container>

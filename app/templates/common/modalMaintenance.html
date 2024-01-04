@@ -1,0 +1,11 @@
+﻿<div id="maintenance-modal-popup">
+    <div class="modal-body">
+        <div ng-bind-html="modalOptions.bodyText | trusted"></div>
+        <button type="button" class="btn"
+                data-ng-click="modalOptions.close()">
+            <span>
+                {{modalOptions.closeButtonText}}
+            </span>
+        </button>
+    </div>
+</div>

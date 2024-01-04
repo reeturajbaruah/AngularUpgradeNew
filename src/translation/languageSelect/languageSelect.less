@@ -1,0 +1,63 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+    mat-select {
+        border: 0px;
+        color: @purple-heart-purple !important;
+    }
+
+    .logoImgAndToolTip {
+        margin-right: 8px;
+        height: 18px;
+    }
+
+    .hoverBoxAdjusment {
+        padding: 15px;
+        min-width: 225px;
+        font-size: 16px;
+        line-height: 2;
+    }
+
+
+    #tooltip {
+        width: 12.5px;
+        margin-left: 6px;
+
+        a,
+        a:hover {
+            text-decoration: none;
+            color: unset !important;
+        }
+
+        a + div {
+            position: relative;
+        }
+
+        a + div > :first-child {
+            .t-body--fontFamily();
+            position: absolute;
+            opacity: 0.0;
+            background-color: white;
+            text-align: left;
+            font-size: 12px;
+            line-height: 15px;
+            .t-body--fontFamily;
+            box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.16);
+            z-index: -1;
+            transition-duration: 2s;
+            transition-delay: 1s;
+            top: 0px;
+            right: 0px;
+        }
+
+        a:hover + div > :first-child,
+        a:focus + div > :first-child {
+            opacity: 1.0;
+            z-index: 10000;
+            color: black; //Needed, otherwise, the font color will not be black and will not be visible to user.
+            transition-duration: 0.3s;
+            transition-delay: 0.1s;
+        }
+    }
+}

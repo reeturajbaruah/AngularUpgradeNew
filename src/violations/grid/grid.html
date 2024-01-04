@@ -1,0 +1,639 @@
+<page-filled-container>
+
+    <div *ngIf="showPreviouslyPaidPlate && !hasOutstandingViolations;then paidInvoices; else activeInvoices"></div>
+    <ng-template #activeInvoices>
+        <div *ngIf="showDiscountPage;then discountPage; else noDiscountPage"></div>
+        <ng-template #discountPage>
+            <section fxLayout="column"
+                     class="u-spacing--widthFill">
+                <header>
+                    <h2>
+                        <cms-content [template]="cms.discountTop.invoiceHeader"
+                                     [data]="cms.noDiscountTop.data"></cms-content>
+                    </h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <div [innerHTML]="cms.discountTop.invoiceHeaderDescription"></div>
+            </section>
+            <div *ngIf="!discountPerAgencyAvailable">
+                <section fxLayout="column"
+                         class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+                    <header>
+                        <h2 [innerHTML]="cms.discountTop.selectHeader"></h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </header>
+                    <div [innerHTML]="cms.discountTop.selectHeaderDescription"></div>
+                </section>
+            </div>
+            <section fxLayout="column"
+                     class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+                <header>
+                    <h2 [innerHTML]="cms.discountTop.importantReminderHeader"></h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <div [innerHTML]="cms.discountTop.importantReminder"></div>
+            </section>
+            <section fxLayout="column"
+                     fxLayoutAlign="start center"
+                     class="u-spacing--widthFill u-spacing__sectionToSection--marginTop">
+                <section fxLayout="row"
+                         fxLayoutAlign="start center"
+                         class="u-spacing--widthFill">
+                    <aside id="records-found-text"
+                           [fxFlex]="cms.discountTop.data['itemsFound'] >= paginationLimit ? 'none' : 'grow'">
+                        {{cms.discountTop.data['itemsFound']}} Record{{cms.discountTop.data['itemsFound'] > 1 ? 's' : ''}} found
+                    </aside>
+                    <mat-divider [vertical]="true"
+                                 [fxShow]="cms.discountTop.data['itemsFound'] >= paginationLimit"
+                                 fxHide.lt-md></mat-divider>
+                    <a id="prevPaidInvoicesLink"
+                       *ngIf="plateContainer.plate.previouslyPaidInvoices && plateContainer.plate.previouslyPaidInvoices.length > 0"
+                       fxFlex.gt-sm="none"
+                       [ngClass.gt-sm]="{'text-align-right': cms.discountTop.data['itemsFound'] < paginationLimit}"
+                       ngClass.lt-md="text-align-right smaller-font"
+                       (click)="openPrevPaidInvoices()">
+                        View Previously Paid Invoices
+                    </a>
+                    <div *ngIf="cms.discountTop.data['itemsFound'] >= paginationLimit"
+                         fxShow
+                         fxHide.lt-md
+                         fxFlex="auto"
+                         fxLayout="row"
+                         fxLayoutAlign="end center">
+                        <mat-paginator-goto [length]="cms.discountTop.data['itemsFound']"
+                                            [pageIndex]="0"
+                                            [pageSize]="defaultPageSize"
+                                            [hidePageSize]="true"
+                                            (page)="updateViolationsDetailsTable($event)">
+                        </mat-paginator-goto>
+                    </div>
+                </section>
+            </section>
+            <section fxLayout="column"
+                     class="u-spacing--widthFill">
+                <violations-plate-row-refresh [plate]="plateContainer.plate"></violations-plate-row-refresh>
+                <violations-details-rows-refresh *ngIf="cms.discountTop.data['itemsFound'] < paginationLimit"
+                                         totalDescription="Original Amount Due"
+                                         [arePlatesExpanded]="true"
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [plate]="plateContainer.plate"
+                                         [paginatedPlate]="plateContainer.plate"
+                                         class="u-spacing__sectionToSection--marginTop">
+                </violations-details-rows-refresh>
+                <violations-details-rows-refresh *ngIf="cms.discountTop.data['itemsFound'] >= paginationLimit"
+                                         fxShow
+                                         fxHide.lt-md
+                                         totalDescription="Original Amount Due"
+                                         [arePlatesExpanded]="true"
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [plate]="plateContainer.plate"
+                                         [paginatedPlate]="paginatedPlate"
+                                         class="u-spacing__sectionToSection--marginTop">
+                </violations-details-rows-refresh>
+                <violations-details-rows-refresh *ngIf="cms.discountTop.data['itemsFound'] >= paginationLimit"
+                                         fxHide
+                                         fxShow.lt-md
+                                         totalDescription="Original Amount Due"
+                                         [arePlatesExpanded]="true"
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [plate]="plateContainer.plate"
+                                         [paginatedPlate]="mobileLoadedPlate"
+                                         class="u-spacing__sectionToSection--marginTop">
+                    <div *ngIf="cms.discountTop.data['itemsFound'] >= paginationLimit && mobileLoadedCombinedViolationsArrayLength < cms.discountTop.data['itemsFound']"
+                         fxLayout="row"
+                         fxLayoutAlign="center"
+                         class="u-spacing--widthFill u-spacing__loadMore--margin">
+                        <a class="u--noUnderline"
+                           (click)="mobileLoadMore()">Load more</a>
+                    </div>
+                </violations-details-rows-refresh>
+            </section>
+            <section fxLayout="column"
+                     class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+                <header>
+                    <h2 [innerHTML]="discountCmsData.SUMMARY_HEADER"></h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <div fxLayout="row"
+                     fxLayoutAlign="space-between start"
+                     fxLayout.lt-md="column"
+                     class="u-spacing--widthFill">
+                    <div ngClass.gt-sm="max-width-half">
+                        <div>
+                            <p [innerHtml]="discountCmsData.PAYMENT_SUMMARY_INFO | safeHtml"></p>
+                        </div>
+                        <div *ngFor="let summary of discountArray">
+                            <p [innerHtml]="summary | safeHtml"></p>
+                        </div>
+                        <span *ngIf="!discountArray || discountArray.length === 0" [innerHtml]="cms.discountTop.summary | safeHtml"></span>
+                        <span *ngIf="plateContainer.plate.hasCAOFineEstimates" [innerHtml]="cmsData.CAO_FEE_INFO | safeHtml"></span>
+                    </div>
+
+                    <!-- DiscountPerAgencyAvailable FT OFF -->
+                    <div *ngIf="!discountPerAgencyAvailable"
+                         ngClass.gt-sm="payment-summary-desktop"
+                         ngClass.lt-md="u-spacing--widthFill">
+                        <row-container [rowType]="'semi-emphasis'"
+                                       [isTop]="true">
+                            <section col-start
+                                     fxFlex="grow">
+                                {{cmsData.LABEL_ORIGINAL_DUE}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none">
+                                <currency [value]="plateContainer.plate.plateDueBeforeDiscount"></currency>
+                            </section>
+                        </row-container>
+                        <row-container [rowType]="'emphasis'"
+                                       [isInner]="true">
+                            <section col-start
+                                     fxFlex="grow"
+                                     class="green-text">
+                                {{cmsData.LABEL_DISCOUNT}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none"
+                                     class="green-text">
+                                -<currency [value]="plateContainer.plate.totalFeesDiscounted"></currency>
+                            </section>
+                        </row-container>
+                        <row-container [rowType]="'semi-emphasis'"
+                                       [isInner]="true"
+                                       *ngIf="plateContainer.plate.serviceFee !== 0">
+                            <section col-start
+                                     fxFlex="grow">
+                                {{cmsData.LABEL_ADMIN_FEE}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none">
+                                <currency [value]="plateContainer.plate.serviceFee"></currency>
+                            </section>
+                        </row-container>
+                        <row-container [rowType]="'semi-emphasis'"
+                                       [isBottom]="true">
+                            <section col-start
+                                     fxFlex="grow">
+                                {{cmsData.LABEL_TOTAL_DUE}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none">
+                                <currency [value]="plateContainer.plate.totalPaymentAmount"></currency>
+                            </section>
+                        </row-container>
+                    </div>
+
+                    <!-- DiscountPerAgencyAvailable FT ON -->
+                    <div *ngIf="discountPerAgencyAvailable"
+                         ngClass.gt-sm="payment-summary-desktop"
+                         ngClass.lt-md="u-spacing--widthFill">
+
+                        <section col-end
+                                 class="fx-flex-none fx-layout-row fx-layout-align-end-center"
+                                 style="padding-bottom: 5px;">
+                            <div class="fx-layout-column fx-layout-align-end-start unlimited-flex-end">
+                                <mat-label class="pay-label">PAY</mat-label>
+                                <input id="selectPayAllAgenciesCheckbox"
+                                       type="checkbox"
+                                       (change)="selectAllCheckboxes($event)" />
+                            </div>
+                        </section>
+
+                        <div fxShow fxHide.lt-md *ngFor="let agency of unpaidAgencies; first as isFirst;">
+                            <row-container [isTop]="isFirst"
+                                           [isInner]="!isFirst"
+                                           [isBottom]="false"
+                                           id="{{agency.agencyName}}Row">
+
+                                <section translation-skip col-start
+                                         fxFlex="grow">
+                                    {{agency.agencyName}}:
+                                </section>
+
+                                <!--Checkboxes per agency-->
+                                <section col-end
+                                         class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                    <section fxFlex="none">
+                                        <div class="fx-flex-auto limited-flex-end"><currency [value]="agency.totalDueBeforeDiscount"></currency></div>
+
+                                    </section>
+
+                                    <div class="fx-flex-auto unlimited-flex-end">
+                                        <input type="checkbox"
+                                               id="selectPayAgency{{agency.agencyName}}Checkbox"
+                                               [value]="agency.agencyName"
+                                               [checked]="agency.isChecked"
+                                               (change)="selectSingleAgencyToPay($event)"
+                                               col-amount />
+                                    </div>
+                                </section>
+
+                            </row-container>
+                        </div>
+                        <div fxHide fxShow.lt-md *ngFor="let agency of unpaidAgencies; first as isFirst;">
+                            <row-container [isTop]="isFirst"
+                                           [isInner]="!isFirst"
+                                           [isBottom]="false"
+                                           id="{{agency.mobileAgencyName}}Row">
+
+                                <section col-start
+                                         fxFlex="grow">
+                                    {{agency.mobileAgencyName}}:
+                                </section>
+
+                                <!--Checkboxes per agency-->
+                                <section col-end
+                                         class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                    <section fxFlex="none">
+                                        <div class="fx-flex-auto limited-flex-end"><currency [value]="agency.totalDueBeforeDiscount"></currency></div>
+
+                                    </section>
+
+                                    <div class="fx-flex-auto unlimited-flex-end">
+                                        <input type="checkbox"
+                                               id="selectPayAgency{{agency.agencyName}}Checkbox"
+                                               [value]="agency.agencyName"
+                                               [checked]="agency.isChecked"
+                                               (change)="selectSingleAgencyToPay($event)"
+                                               col-amount />
+                                    </div>
+                                </section>
+
+                            </row-container>
+                        </div>
+                        <!--ADMIN FEE-->
+                        <row-container *ngIf="plateContainer.plate.serviceFee > 0"
+                                       id="adminFeeRow"
+                                       [isInner]="true">
+
+                            <section col-start
+                                     fxFlex="grow">
+                                {{cmsData.LABEL_ADMIN_FEE}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none"
+                                     class="align-currency">
+                                <currency [value]="plateContainer.plate.serviceFee"></currency>
+                            </section>
+                        </row-container>
+
+                        <!--FEE REDUCTION-->
+                        <row-container [isInner]="true"
+                                       id="feeReductionRow">
+                            <section col-start
+                                     fxFlex="grow"
+                                     fxFlex.lt-md="50">
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <div class="green-text"
+                                         [ngStyle.lt-md]="{'max-width': '160px'}">
+                                        {{cmsData.LABEL_DISCOUNT}}
+                                    </div>
+                                    <tool-tip [hidden]="selectedAgenciesToPay.length === 0"
+                                              class="tool-tip"
+                                              [ngClass.lt-md]="{'lt-md': true}"
+                                              fxFlex="none">
+                                        <span tool-tip-hover>
+                                            <mat-icon svgIcon="information"></mat-icon>
+                                        </span>
+                                        <div tool-tip-message class="hoverBoxAdjustment">
+                                            <p class="tool-tip-heading">{{cmsData.CAF_TOOL_TIP_TITLE}}</p>
+                                            <hr />
+                                            <div *ngFor="let agencies of selectedAgenciesToPay">
+                                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                    <div translation-skip fxShow fxHide.lt-md>{{agencies.agencyName}}</div>
+                                                    <div translation-skip fxHide fxShow.lt-md>{{agencies.mobileAgencyName}}</div>
+                                                    <div class="green-text">-<currency [value]="agencies.discountTotal"></currency></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tool-tip>
+                                </div>
+                            </section>
+                            <section col-end
+                                     fxFlex="none"
+                                     fxFlex.lt-md="50"
+                                     style="text-align: right"
+                                     class="green-text align-currency">
+                                <div>-<currency [value]="plateContainer.plate.totalFeesDiscounted"></currency></div>
+                            </section>
+
+                        </row-container>
+
+                        <!--TOTAL PAYMENT AMOUNT-->
+                        <row-container [rowType]="'emphasis'"
+                                       [isInner]="true"
+                                       id="totalPaymentRow">
+                            <section col-start
+                                     fxFlex="grow">
+                                {{prevPaidCmsData.LABEL_TOTAL_PAYMENT}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none"
+                                     class="align-currency">
+                                <currency [value]="plateContainer.plate.totalSelected + plateContainer.plate.serviceFee"></currency>                                
+                            </section>
+                        </row-container>
+
+                        <!--REMAINING BALANCE -->
+                        <row-container [isBottom]="true"
+                                       id="remainingBalanceRow">
+                            <section col-start
+                                     fxFlex="grow">
+                                {{prevPaidCmsData.LABEL_REMAINING_BALANCE}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none"
+                                     class="align-currency">
+                                <currency [value]="plateContainer.remainingBalance"></currency>
+                            </section>
+                        </row-container>
+                    </div>
+                </div>
+            </section>
+
+        </ng-template>
+
+        <ng-template #noDiscountPage>
+            <section fxLayout="column"
+                     class="u-spacing--widthFill">
+                <header>
+                    <h2>
+                        <cms-content [template]="cms.noDiscountTop.plateHeader" [data]="cms.noDiscountTop.data"></cms-content>
+                    </h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <div [innerHTML]="cms.noDiscountTop.plateHeaderDescription"></div>
+            </section>
+            <section fxLayout="column"
+                     class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+                <header>
+                    <h2 [innerHTML]="cms.noDiscountTop.outstandingViolationsHeader"></h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <div [innerHTML]="cms.noDiscountTop.outstandingViolationsHeaderDescription"></div>
+            </section>
+            <section fxLayout="column"
+                     fxLayoutAlign="start center"
+                     class="u-spacing--widthFill u-spacing__sectionToSection--marginTop">
+                <section fxLayout="row"
+                         fxLayoutAlign="start center"
+                         class="u-spacing--widthFill">
+                    <aside id="records-found-text"
+                           [fxFlex]="cms.noDiscountTop.data['itemsFound'] >= paginationLimit ? 'none' : 'grow'">
+                        {{cms.noDiscountTop.data['itemsFound']}} Record{{cms.noDiscountTop.data['itemsFound'] > 1 ? 's' : ''}} found
+                    </aside>
+                    <mat-divider [vertical]="true"
+                                 [fxShow]="cms.noDiscountTop.data['itemsFound'] >= paginationLimit"
+                                 fxHide.lt-md></mat-divider>
+                    <a id="prevPaidInvoicesLink"
+                       *ngIf="plateContainer.plate.previouslyPaidInvoices && plateContainer.plate.previouslyPaidInvoices.length > 0"
+                       fxFlex.gt-sm="none"
+                       [ngClass.gt-sm]="{'text-align-right': cms.noDiscountTop.data['itemsFound'] < paginationLimit}"
+                       ngClass.lt-md="text-align-right smaller-font"
+                       (click)="openPrevPaidInvoices()">
+                        View Previously Paid Invoices
+                    </a>
+                    <div *ngIf="cms.noDiscountTop.data['itemsFound'] >= paginationLimit"
+                         fxShow
+                         fxHide.lt-md
+                         fxFlex="auto"
+                         fxLayout="row"
+                         fxLayoutAlign="end center">
+                        <mat-paginator-goto [length]="cms.noDiscountTop.data['itemsFound']"
+                                            [pageIndex]="0"
+                                            [pageSize]="defaultPageSize"
+                                            [hidePageSize]="true"
+                                            (page)="updateViolationsDetailsTable($event)">
+                        </mat-paginator-goto>
+                    </div>
+                </section>
+            </section>
+            <section fxLayout="column"
+                     class="u-spacing--widthFill ">
+                <violations-plate-row-refresh [plate]="plateContainer.plate"
+                                      [noDiscount]="true"></violations-plate-row-refresh>
+                <violations-details-rows-refresh *ngIf="cms.noDiscountTop.data['itemsFound'] < paginationLimit"
+                                         [isEditAllowed]="true"
+                                         [arePlatesExpanded]="true"
+                                         totalDescription="Selected Payment Amount "
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [cmsData]="overpaymentModalCmsContent"
+                                         [plate]="plateContainer.plate"
+                                         [paginatedPlate]="plateContainer.plate"
+                                         class="u-spacing__sectionToSection--marginTop">
+                </violations-details-rows-refresh>
+                <violations-details-rows-refresh *ngIf="cms.noDiscountTop.data['itemsFound'] >= paginationLimit"
+                                         fxShow
+                                         fxHide.lt-md
+                                         [isEditAllowed]="true"
+                                         [arePlatesExpanded]="true"
+                                         totalDescription="Selected Payment Amount "
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [cmsData]="overpaymentModalCmsContent"
+                                         [plate]="plateContainer.plate"
+                                         [paginatedPlate]="paginatedPlate"
+                                         class="u-spacing__sectionToSection--marginTop">
+                </violations-details-rows-refresh>
+                <violations-details-rows-refresh *ngIf="cms.noDiscountTop.data['itemsFound'] >= paginationLimit"
+                                         fxHide
+                                         fxShow.lt-md
+                                         [isEditAllowed]="true"
+                                         [arePlatesExpanded]="true"
+                                         totalDescription="Selected Payment Amount "
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [cmsData]="overpaymentModalCmsContent"
+                                         [plate]="plateContainer.plate"
+                                         [paginatedPlate]="mobileLoadedPlate"
+                                         class="u-spacing__sectionToSection--marginTop">
+                    <div *ngIf="cms.noDiscountTop.data['itemsFound'] >= paginationLimit && mobileLoadedCombinedViolationsArrayLength < cms.discountTop.data['itemsFound']"
+                         fxLayout="row"
+                         fxLayoutAlign="center"
+                         class="u-spacing--widthFill u-spacing__loadMore--margin">
+                        <a class="u--noUnderline"
+                           (click)="mobileLoadMore()">Load more</a>
+                    </div>
+                </violations-details-rows-refresh>
+            </section>
+            <section fxLayout="column"
+                     class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+                <header>
+                    <h2 [innerHTML]="noDiscountCmsData.SUMMARY_HEADER"></h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <div fxLayout="row"
+                     fxLayoutAlign="space-between start"
+                     fxLayout.lt-md="column">
+                    <div ngClass.gt-sm="max-width-half">
+                        <span [innerHtml]="noDiscountCmsData.ShortDescription | safeHtml"></span>
+                        <span *ngIf="plateContainer.plate.hasCAOFineEstimates" [innerHtml]="cmsData.CAO_FEE_INFO | safeHtml"></span>
+                    </div>
+
+                    <div ngClass.gt-sm="payment-summary-desktop"
+                         ngClass.lt-md="u-spacing--widthFill">
+                        <row-container [rowType]="'semi-emphasis'"
+                                       [isTop]="true">
+                            <section col-start
+                                     fxFlex="grow">
+                                {{noDiscountCmsData.LABEL_ORIGINAL_DUE}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none">
+                                <currency [value]="plateContainer.plate.plateDueBeforeDiscount"></currency>
+                            </section>
+                        </row-container>
+                        <row-container [rowType]="'emphasis'"
+                                       [isInner]="true">
+                            <section col-start
+                                     fxFlex="grow">
+                                {{noDiscountCmsData.LABEL_SELECTED}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none">
+                                <currency [value]="plateContainer.plate.totalSelected"></currency>
+                            </section>
+                        </row-container>
+                        <row-container [rowType]="'semi-emphasis'"
+                                       [isBottom]="true">
+                            <section col-start
+                                     fxFlex="grow">
+                                {{noDiscountCmsData.LABEL_REMAINING}}
+                            </section>
+                            <section col-end
+                                     fxFlex="none">
+                                <currency [value]="plateContainer.plate.remainingBalance"></currency>
+                            </section>
+                        </row-container>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+
+        <div *ngIf="hasOutstandingViolations"
+             class="u-spacing--widthFill u-spacing__buttonToField--marginTop">
+            <div *ngIf="showDiscountPage;then discountWizard; else noDiscountWizard"></div>
+            <ng-template #discountWizard>
+                <wizard-ui (next)="goToNextState($event)"
+                           (previous)="goToPreviousState($event)"
+                           (cancel)="hideDiscount()"
+                           [disabled]="discountPerAgencyAvailable && selectedAgenciesToPay.length === 0">
+                    <span wizard-next>ACCEPT</span>
+                    <span wizard-cancel>Decline</span>
+                    <span wizard-previous
+                          fxLayout="row"
+                          fxLayoutAlign="start center">
+                        <mat-icon svgIcon="previous-arrow"></mat-icon>
+                        {{wizardBackLabel}}
+                    </span>
+                </wizard-ui>
+            </ng-template>
+            <ng-template #noDiscountWizard>
+                <wizard-ui (next)="goToNextWhenPaymentAmountValid($event)"
+                           (previous)="showDiscount($event)">
+                    <span wizard-next>CONTINUE</span>
+                    <span wizard-cancel>Cancel</span>
+                    <span wizard-previous
+                          fxLayout="row"
+                          fxLayoutAlign="start center">
+                        <mat-icon svgIcon="previous-arrow"></mat-icon>
+                        {{noDiscountWizardBackLabel}}
+                    </span>
+                </wizard-ui>
+            </ng-template>
+        </div>
+    </ng-template>
+
+    <ng-template #paidInvoices>
+        <section *ngIf="prevPaidCmsData.HEADER"
+                 fxLayout="column"
+                 class="u-spacing--widthFill">
+            <header>
+                <h2>
+                    <cms-content [template]="cms.discountTop.invoiceHeader"
+                                 [data]="prevPaidCmsData.HEADER"></cms-content>
+                </h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+            <div [innerHTML]="prevPaidCmsData.LongDescription | safeHtml"></div>
+        </section>
+        <section fxLayout="column"
+                 fxLayoutAlign="start center"
+                 class="u-spacing--widthFill u-spacing__sectionToSection--marginTop">
+            <section fxLayout="row"
+                     fxLayoutAlign="start center"
+                     class="u-spacing--widthFill">
+                <aside id="records-found-text"
+                       [fxFlex]="cms.discountTop.data['itemsFound'] >= paginationLimit ? 'none' : 'grow'">
+                    0 Records found
+                </aside>
+                <mat-divider [vertical]="true"
+                             [fxShow]="cms.discountTop.data['itemsFound'] >= paginationLimit"
+                             fxHide.lt-md></mat-divider>
+            </section>
+        </section>
+        <section fxLayout="column"
+                 class="u-spacing--widthFill">
+            <violations-plate-row-refresh [plate]="plateContainer.plate"></violations-plate-row-refresh>
+            <!--image-->
+            <mat-icon svgIcon="no-invoices-found" fxFlexAlign="center"></mat-icon>
+
+            <span class="text-align-center">{{prevPaidCmsData.NO_INVOICES}}</span>
+
+            <a id="prevPaidInvoicesLink"
+               *ngIf="plateContainer.plate.previouslyPaidInvoices && plateContainer.plate.previouslyPaidInvoices.length > 0"
+               fxFlex.gt-sm="none"
+               class="smaller-font text-align-center"
+               (click)="openPrevPaidInvoices()">
+                View Previously Paid Invoices
+            </a>
+        </section>
+
+        <section fxLayout="column"
+                 class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+            <header>
+                <h2 [innerHTML]="prevPaidCmsData.SUMMARY_HEADER"></h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between start"
+                 fxLayout.lt-md="column">
+                <div [innerHTML]="prevPaidCmsData.ShortDescription | safeHtml"
+                     ngClass.gt-sm="max-width-half"></div>
+
+                <div ngClass.gt-sm="payment-summary-desktop"
+                     ngClass.lt-md="u-spacing--widthFill">
+                    <row-container [rowType]="'emphasis'"
+                                   [isInner]="true">
+                        <section col-start
+                                 fxFlex="grow">
+                            {{prevPaidCmsData.LABEL_TOTAL_PAYMENT}}
+                        </section>
+                        <section col-end
+                                 fxFlex="none">
+                            <currency [value]="0"></currency>
+                        </section>
+                    </row-container>
+                    <row-container [rowType]="'semi-emphasis'"
+                                   [isBottom]="true">
+                        <section col-start
+                                 fxFlex="grow">
+                            {{prevPaidCmsData.LABEL_REMAINING_BALANCE}}
+                        </section>
+                        <section col-end
+                                 fxFlex="none">
+                            <currency [value]="0"></currency>
+                        </section>
+                    </row-container>
+                </div>
+            </div>
+        </section>
+
+        <wizard-ui (previous)="goToPreviousState($event)">
+            <span wizard-previous
+                  fxLayout="row"
+                  fxLayoutAlign="start center"
+                  class="link-spacing">
+                <mat-icon svgIcon="previous-arrow"></mat-icon>
+                {{wizardBackLabel}}
+            </span>
+        </wizard-ui>
+    </ng-template>
+</page-filled-container>

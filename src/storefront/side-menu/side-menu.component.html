@@ -1,0 +1,15 @@
+<ul>
+    <li *ngFor="let workItem of workItems" [ngClass]="setClass(workItem)" (click)="skip(workItem)">
+        <img *ngIf="workItem.class === 'active'; else default" src={{workItem.cmsContent.unselectedIcon.image}} alt="{{workItem.cmsContent.unselectedIcon.alt}}" />
+        <ng-template #default>
+            <img src={{workItem.cmsContent.selectedIcon.image}} alt="{{workItem.cmsContent.selectedIcon.alt}}" />
+        </ng-template>
+        <label>{{workItem.cmsContent.displayName}}</label>
+        <div *ngIf="workItem.class === 'skipped'" class="icon-container">
+            <img src={{taskNotComplete.ItemMedialUrl}} alt={{taskNotComplete.Alt}} />
+        </div>
+        <div *ngIf="workItem.class === 'complete'" class="icon-container">
+            <img src={{taskComplete.ItemMedialUrl}} alt={{taskComplete.Alt}} />
+        </div>
+    </li>
+</ul>

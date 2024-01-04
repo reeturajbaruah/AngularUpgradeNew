@@ -1,0 +1,31 @@
+<page-centered-container class="refresh-2020">
+    <form fxLayout="column start" validation-focus novalidate #forgotUsernameForm="ngForm">
+        <div fxLayout="column">
+            <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+                <section fxLayout="column">
+                    <header>
+                        <h2>{{cmsData?.Title}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </header>
+                    <article>
+                        {{cmsData?.Subtitle}}
+                    </article>
+                    <section>
+                        <email-address name="primaryEmail" [(emailAddress)]="emailAddress" [header]="'&nbsp;'"
+                            [required]="true"></email-address>
+                    </section>
+                </section>
+            </card-container>
+        </div>
+        <ng-container *ngIf="moreInfoNeeded">
+            <div fxLayout="column">
+                <locate-your-account id="locateYourAccount" [additionalInfoCmsData]="additionalInfoCmsData"
+                    [helpLinkCmsData]="helpLinkCmsData" [(data)]="data" [agencies]="agencies"></locate-your-account>
+            </div>
+        </ng-container>
+        <wizard-ui [disabled]="forgotUsernameForm.pristine" (next)="submit($event)">
+            <span wizard-next>Continue</span>
+            <span wizard-cancel>Cancel</span>
+        </wizard-ui>
+    </form>
+</page-centered-container>

@@ -1,0 +1,32 @@
+<ng-container *ngIf="selectedDisplay">
+
+    <section class="display">
+        <picture-container image-collapse>
+            <picture>
+                <source [srcset]="selectedDisplay.mobileImage" mq-alias="lt-md" />
+                <img [src]="selectedDisplay.image" />
+            </picture>
+            <div content-container [style.height]="getHeightFromCMS()">                
+                <article [innerHTML]="selectedDisplay.DescriptionForImage | safeHtml"></article>
+                <article [innerHTML]="selectedDisplay.MobileDescriptionForImage | safeHtml"></article>                
+            </div>
+        </picture-container>
+    </section>
+    
+    <section class="selector">        
+        <ul>
+            <li *ngFor="let dynamicDisplay of dynamicDisplays"
+                (click)="setSelectedDisplay(dynamicDisplay)"
+                [class.selected]="selectedDisplay === dynamicDisplay">
+                <span aria-hidden>{{dynamicDisplay.tabTitle}}</span>
+                <mat-label>{{dynamicDisplay.tabTitle}}</mat-label>
+            </li>
+        </ul>
+
+        <article>
+            <h1>{{selectedDisplay.title}}</h1>
+            <p [innerHTML]="selectedDisplay.content | safeHtml"></p>
+        </article>
+    </section>
+
+</ng-container>

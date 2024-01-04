@@ -1,0 +1,40 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/custom/spacing/utility.less';
+@import (reference) '../../styles/custom/spacing/sections.less';
+
+:host {
+
+    form {
+        .refresh-2020.u-spacing--widthFill();
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    wizard-ui {
+        .refresh-2020.u-spacing__buttonToField--marginTop();
+    }
+
+    @media @breakpoint-lt-md {
+        payment-method-mui {
+            .refresh-2020.u-spacing__sectionToSection--marginTop();
+        }
+    }
+
+    h2 {
+        max-height: 70px;
+    }
+
+    input[type='checkbox'] {
+        width: 16px;
+        height: 16px;
+        border-radius: 2px;
+        display: inline;
+        margin: 0px 10px 3px 0px;
+    }
+
+    section[after-billing-entry] {
+        .refresh-2020.u-spacing__sectionToSection--marginTop();
+    }
+}

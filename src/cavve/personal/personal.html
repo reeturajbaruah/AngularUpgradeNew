@@ -1,0 +1,143 @@
+<page-centered-container>
+
+    <form #PersonalForm="ngForm" validation-focus name="cavvePersonalForm"
+          class="u-spacing--widthFill"
+          [ngStyle.lt-md]="{'margin-bottom':'30px'}">
+
+        <div fxLayout="column"
+             fxLayoutGap="32px">
+
+            <card-container alignment="start start">
+
+                <div fxLayout="row"
+                     fxLayoutAlign="space-between start"
+                     class="u-spacing--widthFill"
+                     style="padding-bottom:21px;">
+
+                    <header>
+                        <h2>{{personalPageInfo.mailingAddressHeader}}</h2>
+                        <mat-divider></mat-divider>
+                    </header>
+
+                    <a class="editButton" (click)="openMailingAddressModal()"
+                       fxFlex="none" aria-label="Edit">
+                        Edit
+                    </a>
+
+                </div>
+
+                <ng-container *ngIf="accountInfo">
+                    <div class="missingInfo" *ngIf="isMailingInfoIncomplete">
+                        <mat-icon svgIcon="alert"></mat-icon>
+                        <span>Missing Information</span>
+                    </div>
+
+                    <personal-info-display [personalInfo]="accountInfo">
+                    </personal-info-display>
+
+                    <address-display [address]="accountInfo"
+                                     [international]="accountInfo.internationalAddress">
+                    </address-display>
+                </ng-container>
+            </card-container>
+
+            <card-container alignment="start start">
+
+                <div fxLayout="row"
+                     fxLayoutAlign="space-between start"
+                     class="u-spacing--widthFill"
+                     style="padding-bottom: 21px;">
+
+                    <header>
+                        <h2>{{personalPageInfo.licenseHeader}}</h2>
+                        <mat-divider></mat-divider>
+                    </header>
+
+                    <a class="editButton" (click)="openLicensePlateModal()"
+                       fxFlex="none" aria-label="Edit">
+                        Edit
+                    </a>
+
+                </div>
+
+                <ng-container *ngIf="accountInfo">
+                    <div class="missingInfo" *ngIf="isVehicleInfoIncomplete">
+                        <mat-icon svgIcon="alert"></mat-icon>
+                        <span>Missing Information</span>
+                    </div>
+                    <div>
+                        <span translation-skip style="text-transform: uppercase">{{accountInfo.licState}}-{{accountInfo.licPlate}}</span>
+                    </div>
+                    <vehicle-display [vehicleInfo]="accountInfo" [exclude]="['licPlate', 'licState']" isCompactView="true"></vehicle-display>
+                </ng-container>
+
+                <div [error-check]="CompletedInfo" style="padding-top:32px;">
+                    <div fxLayout="row"
+                         fxLayoutAlign="start start"
+                         class="u-spacing--widthFill">
+                        <input type="checkbox" name="verifyInfoChecked" style="width:20px; height:20px;" #CompletedInfo="ngModel" [ngModel]="verifyInfoChecked" required />
+                        <label style="margin-top:6px;" [innerHtml]="personalPageInfo.verifyInfoCheckboxDescription" class="textOverlay"></label>
+                    </div>
+
+                    <div *ngFor="let error of CompletedInfo.errors | keyvalue" role="alert">
+                        <ng-container *ngIf="PersonalForm.submitted" [ngSwitch]="error.key">
+                            <p *ngSwitchCase="'required'" class="help-block" [innerHtml]="personalPageInfo.verifyInfoHelp"></p>
+                        </ng-container>
+                    </div>
+                </div>
+
+            </card-container>
+
+            <card-container>
+                <section fxLayout="column"
+                         fxLayoutAlign="start start"
+                         class="u-spacing--widthFill"
+                         style="padding-bottom:21px;">
+
+                    <div fxLayout="row"
+                         fxLayoutAlign="space-between start"
+                         class="u-spacing--widthFill">
+
+                        <header>
+                            <h2>{{personalPageInfo.securityInfoHeader}}</h2>
+                            <mat-divider></mat-divider>
+                        </header>
+
+                    </div>
+
+                </section>
+                <section>
+                    <create-account-form-entry [(hasInitialLoginInfo)]="hasInitialLoginInfo"
+                                               [(accLoginInfo)]="accountInfo"
+                                               [(sercurityInfo)]="loginInfo"
+                                               [securityQuestions]="securityQuestions"
+                                               [(securityQuestion)]="securityQuestion"
+                                               [(isShowPassword)]="isShowPassword"
+                                               [(isShowSecurityAnswer)]="isShowSecurityAnswer"
+                                               [statesList]="statesList"
+                                               [passwordValidationCMS]="pwCmsData"
+                                               [phoneALertsOptInCMS]="personalPageInfo.phoneAlertsOptInDesc">
+                    </create-account-form-entry>
+                </section>
+            </card-container>
+
+            <section fxFlexOffset="32px">
+                <wizard-ui (next)="submit($event)"
+                           (previous)="previous($event)"
+                           (cancel)="tryCancel($event)">
+                    <span wizard-next>CONTINUE</span>
+                    <span wizard-previous
+                          fxLayout="row"
+                          fxLayoutAlign="start center">
+                        <mat-icon svgIcon="previous-arrow"></mat-icon>
+                        Previous
+                    </span>
+                    <span wizard-cancel>Cancel</span>
+                </wizard-ui>
+            </section>
+
+        </div>
+
+    </form>
+
+</page-centered-container>

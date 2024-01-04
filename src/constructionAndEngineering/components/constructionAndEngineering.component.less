@@ -1,0 +1,72 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+// .banner-image {
+//     background-color: #522f8e;
+
+//     img {
+//         max-width: 100%;
+//     }
+// }
+
+::ng-deep menu-frame-component {
+    main {
+        sections {
+            background-color: #f6f6f6;
+        }
+    }
+}
+
+section.selector {
+    width: 100%;
+    background: #f6f6f6 0% 0% no-repeat padding-box;
+
+    .mat-select {
+        border-radius: 0px;
+        background-color: @valentino-purple;
+    }
+
+    .tabs-selector {
+        display: flex;
+    }
+
+    >ul {
+        flex-flow: row wrap;
+        max-height: 22%;
+        list-style-type: none;
+        padding: 16px 7% 18px 7%;
+        margin: 0px;
+        column-gap: 10px;
+
+        li {
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+
+            mat-label {
+                padding-bottom: 6.5px;
+                font-size: 16px;
+                color: @purple-heart-purple;
+                line-height: 36px;
+                border-bottom: 3px solid transparent;
+                font-weight: 700;
+            }
+        }
+
+        .seperator {
+            border-right: 2px solid @purple-heart-purple;
+            height: 25px;
+            margin-top: 5px;
+        }
+
+        li:hover {
+            cursor: pointer;
+        }
+
+        li.selected {
+            mat-label {
+                border-bottom: 3px solid @purple-heart-purple;
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+<storefront-utility #storefrontUtility></storefront-utility>
+<page-centered-container class="refresh-2020">
+    <form #Form="ngForm" validation-focus novalidate>
+        <div class="u-spacing__fieldToSection--marginTop">
+            <card-container>
+                <header>
+                    <h2>{{ pageCms.Title }}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    <article [innerHtml]="pageCms.ListLabel| safeHtml"></article>
+                </header>
+                <section *ngFor="let ezTag of ezTags; index as i" fxLayout="row" fxLayoutAlign="start start"
+                         class="u-spacing--widthFill">
+                    <vehicle-cart-row-component [ezTag]="ezTag" [canEdit]="false" [canRemove]="false">
+                    </vehicle-cart-row-component>
+                </section>
+                <div fxLayout="row" fxLayoutAlign="start start"
+                     class="u-spacing--widthFill u-spacing__fieldToSection--marginTop">
+                    <label>
+                        <input type="checkbox" id="activateEzTagConfirm" (change)="onConfirmChange($event)" />
+                        {{pageCms.CheckboxLabel}}
+                    </label>
+                </div>
+                <section class="u-spacing__gridToRecords--marginTop">
+                    <div class="confirm-agreement" [innerHTML]="pageCms.Agreement | safeHtml"></div>
+                </section>
+            </card-container>
+            <section class="u-spacing__buttonToField--marginTop" fxLayout="column">
+                <wizard-ui [disabled]="!isConfirm" (next)="nextStep($event)" (cancel)="cancel(storefrontUtility.isKioskView)" (previous)="prevStep($event)">
+                    <span wizard-next [innerHtml]="pageCms.ActivateLabel | safeHtml"></span>
+                    <span wizard-cancel>Cancel</span>
+                    <span wizard-previous fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon svgIcon="previous-arrow"></mat-icon>
+                        Previous
+                    </span>
+                </wizard-ui>
+            </section>
+        </div>
+    </form>
+</page-centered-container>

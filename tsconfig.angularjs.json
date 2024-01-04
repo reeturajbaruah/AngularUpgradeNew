@@ -1,0 +1,23 @@
+{    
+    "compilerOptions": {
+        "module": "None",
+        "target": "ES5",
+        "sourceMap": true,
+        "noEmitOnError": false,
+        "outFile": "../legacy/appBundle.js",
+        "noImplicitAny": false,
+        "allowJs": true,
+        "strictFunctionTypes": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "typeRoots": ["../typings", "../node_modules/@types"],
+        "types": ["@types/angular", "@types/angular-ui-router",
+                "@types/angular-ui-bootstrap",
+                "@types/angular-spinner",
+                "@types/angular-mocks", "@types/ng-file-upload", "@types/jquery", "bootstrap", "moment"],
+        "lib": ["DOM", "DOM.Iterable", "ES2015", "ES2015.Symbol", "ScriptHost"]
+        //    lib: ["lib.dom.d.ts", "lib.es2015.d.ts", "lib.es2015.symbol.d.ts", "lib.scripthost.d.ts"]]     
+    },
+    "files": [
+        "../app/{!(tests)/**/!(*.test|*.tests),*}.{ts,js}"
+    ]    
+}

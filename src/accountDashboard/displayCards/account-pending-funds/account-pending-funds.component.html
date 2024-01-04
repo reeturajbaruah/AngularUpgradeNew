@@ -1,0 +1,87 @@
+<div fxLayout="column" fxLayoutAlign="center center" ngClass.gt-md="hide">
+    <account-balance-header></account-balance-header>
+</div>
+
+<section fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="row"
+         fxLayout.lt-md="column"
+         fxLayoutAlign="start start"
+         class="title row-width">
+
+        <div fxFlex="grow" fxFlexOrder="1">
+            <div ngClass.gt-md="titleContainer" ngClass.lt-md="titleContainer-md-xs">
+                <titleSubTitle
+                    [titleDescription]="cmsContent.Title"
+                    [subtitleDescription]="cmsContent.SubTitleDescText"
+                    [showSubTitle]="true">
+                </titleSubTitle>
+            </div>
+        </div>
+
+        <div fxFlex="none" fxFlexOrder="2">
+            <div class="account-balance" ngClass.lt-lg="hide">
+                <account-balance-header></account-balance-header>
+            </div>
+        </div>
+    </div>
+
+    <div fxLayout="row"
+         fxLayout.lt-md="column"
+         fxLayoutAlign="start start"
+         class="row-width">
+
+        <card-dash-container [hasMargin]="false">
+            <section class="card-dash-container">
+                <!-- Pending Funds Section -->
+                <section>
+                    <header>
+                        <h2>{{cmsContent.PendingFundsText}}</h2>
+                    </header>
+                    <mat-divider></mat-divider>
+                    
+                    <shared-alert-box
+                        svgIcon="alert" svgIconClass="alert-icon-class"
+                        [desc]="cmsContent.ShortDescription"
+                        >
+                    </shared-alert-box>
+
+                    <h4 [innerHtml]="cmsContent.ProceedToStoreText"></h4>
+                    <span class="content" [innerHtml]="cmsContent.AddAdditionalNoteForTagCost"></span>
+                </section>
+                
+                <!-- Add Funds At Store Location Section -->
+                <section class="padding-top padding-bottom">
+                    <header>
+                        <h2>{{cmsContent.AddFundsAtStoreText}}</h2>
+                    </header>
+                    <mat-divider></mat-divider>
+
+                    <span class="content" [innerHtml]="cmsContent.LongDescription"></span>
+
+                    <div class="padding-top">
+                        <wizard-ui [reverseOrder]="true" [navigate]="true" [input]="cmsContent.EZTollPayRoute">
+                            <span wizard-next>{{cmsContent.WhereItWorksText}}</span>
+                        </wizard-ui>
+                    </div>
+                </section>
+
+                <!-- Add Funds Section -->
+                <section class="padding-top">
+                    <header>
+                        <h2>{{cmsContent.CantMakeItToStoreText}}</h2>
+                    </header>
+                    <mat-divider></mat-divider>
+
+                    <span class="content" [innerHtml]="cmsContent.CantMakeItToStoreDescText"></span>
+
+                    <div class="padding-top">
+                        <wizard-ui (next)="addFunds($event)"
+                                   [reverseOrder]="true">
+                            <span wizard-next>{{cmsContent.AddFundsText}}</span>
+                        </wizard-ui>
+                    </div>
+                </section>
+            </section>
+        </card-dash-container>
+    </div>
+</section>

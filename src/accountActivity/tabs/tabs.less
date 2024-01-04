@@ -1,0 +1,57 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/custom/spacing/dividers.less';
+
+:host {
+
+    mat-divider {
+        &.mat-divider.mat-divider-vertical {
+            border-color: @purple-heart-purple;
+            height: 20px;
+            border-width: 2px;
+            margin: 2px 0px;
+        }
+    }
+
+    .toolbar {
+        padding: 17px 0px 20px 20px;
+    }
+
+    @media @breakpoint-lt-md {
+        header,
+        .toolbar {
+            padding-top: 0px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        account-balance-header {
+            margin-bottom: 0px;
+        }
+
+        titleSubTitle {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .productSelection,
+    .productSelection:link,
+    .productSelection:visited,
+    .productSelection:hover,
+    .productSelection:active {
+        color: @purple-heart-purple !important;
+        text-transform: capitalize;
+        text-decoration: none;
+
+        &.selected {
+            border-bottom: 2px solid @purple-heart-purple;
+        }
+    }
+
+    a {
+        .t-header--fontFamily();
+        font-size: 16px;
+        line-height: 26px;
+    }
+}

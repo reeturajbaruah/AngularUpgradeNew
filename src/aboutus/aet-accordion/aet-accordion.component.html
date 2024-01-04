@@ -1,0 +1,17 @@
+<div class="accordian-main">
+    <mat-accordion *ngFor="let faq of faqSection;let i = index;let last = last" hideToggle>
+        <mat-expansion-panel [ngClass]="{'expansion-panel-custom' : !last}"
+                             [expanded]="panelOpenState === i" (opened)="setPanelState(i)">
+            <mat-expansion-panel-header [collapsedHeight]="'100%'" [expandedHeight]="'100%'">
+                <mat-panel-title>
+                    <p>
+                        <span class="faqTitle" [innerHtml]="faq.Title"></span>
+                    </p>
+                    <mat-icon  class="material-icons open" svgIcon="plus-icon"></mat-icon>
+                    <mat-icon  class="material-icons close" svgIcon="minus-icon"></mat-icon>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p class="faqDescription" [innerHtml]="faq.ShortDescription"></p>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

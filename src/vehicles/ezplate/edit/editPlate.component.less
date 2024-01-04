@@ -1,0 +1,26 @@
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/custom/spacing/sections.less';
+@import (reference) '../../../styles/custom/spacing/dividers.less';
+
+:host {
+    mat-divider {
+        .refresh-2020.u-spacing__divider--marginTopBottom();
+        width: @width-divider;
+    }
+
+    @media @breakpoint-lt-md {
+        header {
+            .refresh-2020.u-spacing__firstHeaderToTitle--marginTop();
+        }
+    }
+
+    action-buttons {
+        .refresh-2020.u-spacing__buttonToField--marginTop();
+        display: block;
+    }
+
+    .active {
+        color: @fun-green;
+    }
+}

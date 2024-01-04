@@ -1,0 +1,1 @@
+Only Reactivate Manager Service is exposed to the consumer

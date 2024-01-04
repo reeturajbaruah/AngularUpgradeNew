@@ -1,0 +1,10 @@
+<section fxLayout="row"
+        fxLayoutAlign="start right">
+    Acct: <span>{{currentUserData.acctId}} </span><mat-divider [vertical]="true"></mat-divider>
+    Bal: 
+    <currency
+        translation-skip
+        [ngClass]="{'negativeBalance': balance < 0, 'zeroBalance': balance === 0}" 
+        [value]="balance">
+    </currency>
+</section>

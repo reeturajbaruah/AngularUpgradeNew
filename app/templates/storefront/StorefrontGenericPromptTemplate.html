@@ -1,0 +1,12 @@
+﻿<div class="innerModalContent">
+    <div ng-if="showGoBack" storefront-modal-go-back="showGoBack" ng-click="call('back')"></div>
+
+    <h2 class="fillThreeQuarterWidth centerText" ng-if="header" ng-bind-html="header | trusted"></h2>
+    <h4 class="fillThreeQuarterWidth centerText" ng-if="body" ng-bind-html="body | trusted"></h4>
+    <br />   
+    <div ng-repeat="(key, value) in actions track by $index">
+        <button class="mediumBtn fillHalfWidth centerText" ng-if="$index === 0" ng-click="call(key)">{{actionText(key)}}</button>
+        <a class="altLink fillHalfWidth centerText" ng-if="$index !== 0" ng-click="call(key)">{{actionText(key)}}</a>
+    </div>
+</div>
+<a ng-if="showModalClose" ng-click="call('close')" class="storefrontModalClose" storefront-modal-close></a>

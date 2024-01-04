@@ -1,0 +1,126 @@
+<page-centered-container class="refresh-2020" hasAlternateBackgroundColor="true">
+    <div class="u-spacing__fieldToSection--marginTop">
+        <card-container>
+            <h2>{{flexPaycmsContent?.Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <article
+                [innerHtml]="isNoData?flexPaycmsContent.LongDescription:flexPaycmsContent.ShortDescription | safeHtml">
+            </article>
+
+            <section class="u-spacing--widthFill" fxFlex="100%" fxLayoutAlign="center center" style="margin-top: 10px;">
+                <mat-label fxFlex="60%" fxLayoutAlign="center center" class="fx-flex-auto-shrink-more limited-flex">
+                    PAYMENT METHOD</mat-label>
+                <mat-label fxFlex="20%" fxLayoutAlign="center center" class="fx-flex-auto-shrink-more limited-flex"
+                    [ngClass.lt-md]="{'hidden': true}">EXPIRES</mat-label>
+                <mat-label fxFlex="20%" fxLayoutAlign="center center" class="fx-flex-auto limited-flex-end">STATUS
+                </mat-label>
+            </section>
+            <ng-container *ngFor="let paymentMethod of paymentMethods; index as i">
+                <ng-container [ngSwitch]="paymentMethod.billingType">
+                    <section class="section-container">
+                        <div fxLayout="row" fxLayoutAlign="space-between center" class="payment-section">
+                            <div class="fx-flex-auto-shrink-more">
+                                <ng-container *ngSwitchCase="BillingType.Credit">
+                                    <div fxLayout="row" fxLayoutAlign="start start">
+                                        <img *ngIf="getCmsImage(paymentMethod)" [src]="getCmsImage(paymentMethod)" />
+                                        <div fxLayout="column" fxLayoutAlign="start start" class="account-section">
+                                            <div *ngIf="paymentMethod.credit.primary" class="isPrimary">
+                                                primary</div>
+                                            <div>
+                                                <span translation-skip class="itemFont">{{paymentMethod.credit.cardCode
+                                                    |
+                                                    cardType | uppercase}}&nbsp;</span>
+                                                <span fxShow fxHide.gt-xs>
+                                                    <br />
+                                                </span>
+                                                <span translation-skip class="itemFont">{{paymentMethod.credit.cardNbr |
+                                                    maskCreditCard:paymentMethod.credit.cardCode}}&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="BillingType.Eft">
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <img *ngIf="getCmsImage(paymentMethod)" [src]="getCmsImage(paymentMethod)" />
+                                        <div fxLayout="column" fxLayoutAlign="start start"
+                                            ngClass.gt-sm="bankAccountWidth" class="account-section">
+                                            <div *ngIf="paymentMethod.eft.primary" class="isPrimary">primary
+                                            </div>
+                                            <div>
+                                                <span>Bank Account&nbsp;</span>
+                                                <span fxShow fxHide.gt-xs>
+                                                    <br />
+                                                </span>
+                                                <span translation-skip
+                                                    class="itemFont">{{paymentMethod.eft.accountNumber |
+                                                    maskBankAccount}}&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <div>
+                                <div fxShow fxHide.lt-md *ngSwitchCase="BillingType.Credit">
+                                    <span style="padding-right:40px;">
+                                        <span translation-skip class="itemFont">{{paymentMethod.credit.expMonth}} /
+                                            {{paymentMethod.credit.expYear}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div fxFlex="20%" fxLayoutAlign="end center" class="fx-flex-auto limited-flex-end">
+                                <span *ngIf="checkActive(paymentMethod)" class="activeStatus">Active</span>
+                                <span *ngIf="checkExpired(paymentMethod)" class="expiredStatus">Expired</span>
+                                <span *ngIf="checkBlocked(paymentMethod)" class="blockedStatus">Blocked</span>
+                            </div>
+                        </div>
+                    </section>
+                </ng-container>
+            </ng-container>
+
+            <section fxLayout="row" fxLayoutAlign="center center" class="u-spacing--widthFill no-data-section"
+                *ngIf="isNoData">
+                <section col-start fxFlex="grow">
+                    <section fxLayout="column" fxLayoutAlign="center center" class="noDataContent">
+                        <mat-icon class="noDataIcon" svgIcon="cc-icon"></mat-icon>
+                        <span class="noDataCMS" style="text-align:center;">{{cmsContent.NO_DATA_TITLE}}</span>
+                    </section>
+                </section>
+            </section>
+
+            <section *ngIf="isNoData" class="u-spacing__fieldToSection--marginTop" fxLayout="row"
+                fxLayoutAlign="center center" (click)="openEditBillingModal()">
+                <mat-icon svgIcon="add-icon"></mat-icon>
+                <a fxFlexOffset="6px" class="add-text">{{addPayment}}</a>
+            </section>
+           
+        </card-container>
+    </div>
+
+    <section *ngIf="!isKiosk" class="u-spacing__buttonToField--marginTop">
+        <wizard-ui #Wizard [disabled]="isDisabled" (next)="proceed(wizardUi)" (cancel)="cancel(wizardUi)" (previous)="previous(wizardUi)">
+            <span wizard-next>PROCEED</span>
+            <span wizard-cancel>Cancel</span>
+            <span wizard-previous fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon svgIcon="previous-arrow"></mat-icon>
+                Previous
+            </span>
+        </wizard-ui>
+        <wizard-ui #wizardUi></wizard-ui>
+    </section>
+
+    <section *ngIf="isKiosk" class="u-spacing__buttonToField--marginTop">
+        <action-buttons *ngIf="isKiosk" [disabled]="isDisabled" (main)="proceed(wizardUi)"
+                        (alt)="cancel(wizardUi)">
+            <span action-main>PROCEED</span>
+            <span action-alt>Cancel</span>
+        </action-buttons>
+        <wizard-ui *ngIf="isKiosk" (previous)="previous(wizardUi)">
+            <span wizard-previous fxLayout="row" fxLayoutAlign="start center" style="margin-top: -36px">
+                <mat-icon svgIcon="previous-arrow"></mat-icon>
+                Previous
+            </span>
+        </wizard-ui>
+        <wizard-ui #wizardUi></wizard-ui>
+    </section>
+</page-centered-container>

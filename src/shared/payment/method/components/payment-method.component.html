@@ -1,0 +1,56 @@
+<card-container>
+    <section>
+        <h2 class="h1-mo">{{header}}</h2>
+        <mat-divider></mat-divider>
+    </section>
+    <section style="margin-top:21px">
+        <payment-method [(billingType)]="billingInfo.billingType" [paymentMethodDetails]="billingInfo.paymentMethodDetails" (billingTypeChange)="onBillingTypeSelection($event)">
+        </payment-method>
+    </section>
+    <section *ngIf="billingInfo.billingType !== BillingType.Cash" style="margin-top:32px">
+        <bank-account-entry *ngIf="billingInfo.billingType === BillingType.Eft"
+                            [bankDetails]="billingInfo.eft"
+                            [validate]="true"
+                            [showName]="false">
+        </bank-account-entry>
+        <credit-card-entry *ngIf="billingInfo.billingType === BillingType.Credit"
+                           [creditCard]="billingInfo.credit">
+        </credit-card-entry>
+    </section>
+
+    <div *ngIf="billingInfo.billingType===BillingType.Cash">
+        <shared-alert-box svgIcon="alert" svgIconClass="alert-icon-class"
+                          [desc]="paymentMethodContent?.ShortDescription">
+        </shared-alert-box>
+    </div>
+
+    <ng-container *ngIf="billingInfo.billingType!==BillingType.Cash && isAutoReplenishmentEnabled">
+        <section style="margin-top:32px">
+            <div fxLayoutAlign="start start" fxLayout="row">
+                <input type="checkbox" name="autoReplenishmentCheck" id="autoReplenishmentCheck" [(ngModel)]="this.billingInfo.autoReplenishmentStatus" (change)="onAutoReplenishmentSelection($event)"/>
+                <span [ngStyle]="{'margin-left': '5px'}">
+                    {{billingInfo?.cmsPaymentInfo?.autoRepText}}
+                </span>
+            </div>
+            <div *ngIf="!billingInfo.autoReplenishmentStatus">
+                <shared-alert-box svgIcon="alert" svgIconClass="alert-icon-class"
+                                  [desc]="billingInfo?.cmsPaymentInfo?.autoRepWarningMesg">
+                </shared-alert-box>
+            </div>
+        </section>
+
+        <section style="margin-top:32px">
+            <div fxLayoutAlign="start start" fxLayout="row">
+                <input type="checkbox" name="savePaymentMethodCheck" id="savePaymentMethodCheck" [disabled]="this.billingInfo.autoReplenishmentStatus" [(ngModel)]="this.billingInfo.savePaymentStatus" (change)="onSavePaymentMethodSelection($event)"/>
+                <span [ngStyle]="{'margin-left': '5px'}"> {{billingInfo?.cmsPaymentInfo?.savePaymentText}} </span>
+            </div>
+            <div *ngIf="!billingInfo.savePaymentStatus">
+                <shared-alert-box svgIcon="alert" svgIconClass="alert-icon-class"
+                                  [desc]="billingInfo?.cmsPaymentInfo?.savePaymentWarningMesg">
+                </shared-alert-box>
+            </div>
+        </section>
+    </ng-container>
+
+    <a *ngIf="billingInfo.billingType" style="padding-top: 32px;" (click)="onClickTagInfo()">{{billingInfo?.cmsPaymentInfo?.tagInfoText}}</a>
+</card-container>

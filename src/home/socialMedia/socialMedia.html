@@ -1,0 +1,80 @@
+<section class="socialMediaSection"
+         ngClass.lt-md="lt-md">
+    <div class="socialMediaLeftBox"
+         ngClass.lt-md="lt-md">
+        <div class="socialMediaLeftPadding"
+             ngClass.lt-md="lt-md">
+            <div class="socialMediaLeftContent"
+                 ngClass.lt-md="lt-md">
+                <mat-divider class="matDivider"></mat-divider>
+                <article [innerHTML]="cmsData.LeftDescription | safeHtml"></article>
+            </div>
+        </div>
+    </div>
+    <div class="socialMediaRight"
+         ngClass.lt-md="lt-md"
+         *ngIf="tweets.length > 0">
+        <div>
+            <mat-carousel [autoplay]="true"
+                          [interval]="50000000"
+                          maxWidth="auto"
+                          [hideArrows]="tweets?.length < 2"
+                          [matIconArrow]="imageSliderArrow"
+                          [hideIndicators]="true"
+                          [useKeyboard]="false"
+                          [maintainAspectRatio]="false"
+                          [height]="'600px'"
+                          orientation="ltr">
+                <mat-carousel-slide *ngFor="let tweet of tweets"
+                                    overlayColor="#ffffff"
+                                    [overrideTemplateRef]="gtMdTemplate"
+                                    [context]="tweet">
+                </mat-carousel-slide>
+            </mat-carousel>       
+        </div>
+        <ng-template #gtMdTemplate let-tweet>
+            <div class="background">
+                <div class="gtMdTemplate">
+                    <div class="tweetHeaderBox">
+                        <a href="https://twitter.com/{{cmsData.TwitterUserName}}"
+                           target="_blank">
+                            <img class="userLogo userLogoBorder"
+                                 [src]="userLogo" />
+                        </a>
+
+                        <p class="tweetTitle">
+                            <a class="userNameStyle"
+                               href="https://twitter.com/{{cmsData.TwitterUserName}}"
+                               target="_blank">{{cmsData.TwitterUserName}}</a>
+                            &#183; {{tweet.time}}
+                        </p>
+                        <img class="tweetLogo"
+                             [src]="tweetLogo" />
+                    </div>
+
+                    <article [innerHTML]="tweet.text | safeHtml"></article>
+
+                    <div class="imageLayout"
+                         *ngIf="tweet.media?.length > 0">
+                        <img *ngFor="let image of tweet.media; let i = index"
+                             [src]="image.httpMediaURL"
+                             [ngStyle]="styleImage(i, tweet.media.length)"
+                             class="media"/>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="socialMediaRightEmptyTweet"
+         ngClass.lt-md="lt-md"
+         *ngIf="tweets.length === 0">
+        
+        <div>
+            <div class="background"
+                 *ngIf="tweets.length === 0">
+                <div fxlayout="column" fxlayoutalign="space-between center" [innerHTML]="cmsData.RightDescription | safeHtml"></div>
+            </div>
+        </div>
+    </div>
+</section>

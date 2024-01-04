@@ -1,0 +1,112 @@
+<div *ngIf="legacy" class="group-paragraphs bottom-buffer-sm">
+    <p translation-skip class="h4 customer-account-data">{{address.address1 | titlecase}}</p>
+
+    <ng-container *ngIf="international">
+        <p translation-skip class="h4 customer-account-data">{{address.address2 | titlecase}}</p>
+        <p translation-skip class="h4 customer-account-data">{{address.address3 | titlecase}}</p>
+        <p translation-skip class="h4 customer-account-data">{{address.address4 | titlecase}}</p>
+        <p translation-skip class="h4 customer-account-data">{{displayCountry ? (address.displayCountry | titlecase) : (address.country | titlecase)}}</p>
+    </ng-container>
+    <ng-container *ngIf="!international">
+        <p translation-skip class="h4 customer-account-data" *ngIf="address.address2">{{address.address2 | titlecase}}</p>
+        <p translation-skip class="h4 customer-account-data">{{address.city + ", " | titlecase}}{{address.state + " " + address.zip + (address.plus4 ? "-" + address.plus4 : "") }}</p>
+    </ng-container>
+
+    <div *ngIf="showEdit" class="top-buffer-xs">
+        <a class="h5"
+           (click)="editAddressClicked()"
+           aria-label="Edit Address">Edit</a>
+    </div>
+</div>
+
+<div *ngIf="!legacy && address">
+
+    <div *ngIf="showLabels">
+
+        <section fxLayout="column"
+                 *ngIf="showAddress">
+
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between start"
+                 [ngStyle]="{'width' : '100%'}">
+
+                <div>
+
+                    <p>
+                        Address:
+                    </p>
+
+                </div>
+
+                <div style="text-align: right;"
+                     fxFlex="none"
+                     class="word-break-div">
+
+                    <p translation-skip>{{address.address1 | titlecase}}</p>
+
+                    <ng-container *ngIf="international">
+
+                        <p translation-skip>{{address.address2 | titlecase}}</p>
+
+                        <p translation-skip>{{address.address3 | titlecase}}</p>
+
+                        <p translation-skip>{{address.address4 | titlecase}}</p>
+
+                        <p translation-skip>{{displayCountry ? (address.displayCountry | titlecase) : (address.country | titlecase)}}</p>
+
+                        <p translation-skip>{{address.city + ", " | titlecase}}{{address.state + " " + address.zip}}</p>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="!international">
+
+                        <p translation-skip *ngIf="address.address2">{{address.address2 | titlecase}}</p>
+
+                        <p translation-skip>{{address.city + ", " | titlecase}}{{address.state + " " + address.zip + (address.plus4 ? "-" + address.plus4 : "") }}</p>
+
+                    </ng-container>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <div *ngIf="!showLabels">
+
+        <section fxLayout="column"
+                 fxLayoutAlign="start start"
+                 [ngStyle]="{'width' : '100%'}"
+                 *ngIf="showAddress">
+
+            <p translation-skip>{{address.address1 | titlecase}}</p>
+
+            <ng-container *ngIf="international">
+
+                <p translation-skip>{{address.address2 | titlecase}}</p>
+
+                <p translation-skip>{{address.address3 | titlecase}}</p>
+
+                <p translation-skip>{{address.address4 | titlecase}}</p>
+
+                <p translation-skip>{{displayCountry ? (address.displayCountry | titlecase) : (address.country | titlecase)}}</p>
+
+                <p translation-skip>{{address.city + ", " | titlecase}}{{address.state + " " + address.zip}}</p>
+
+            </ng-container>
+
+            <ng-container *ngIf="!international">
+
+                <p translation-skip *ngIf="address.address2">{{address.address2 | titlecase}}</p>
+
+                <p translation-skip>{{address.city + ", " | titlecase}}{{address.state + " " + address.zip + (address.plus4 ? "-" + address.plus4 : "") }}</p>
+
+            </ng-container>
+
+        </section>
+
+    </div>
+
+</div>

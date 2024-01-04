@@ -1,0 +1,22 @@
+<section fxLayout="column" >
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="u-spacing--widthFill">
+        <div>
+            <p>{{labels.routingNumber}}:</p>
+        </div>
+
+        <div style="text-align:right;">
+            <p translation-skip>{{bankDetails.routingNumber}}</p>
+        </div>
+    </div>
+
+    <div *ngIf="showAccountNumber" fxLayout="row" fxLayoutAlign="space-between start" class="u-spacing--widthFill">
+
+        <div>
+            <p>{{labels.accountNumber}}:</p>
+        </div>
+
+        <div style="text-align:right;">
+            <p translation-skip>{{maskedAccountNumber}}</p>
+        </div>
+    </div>
+</section>

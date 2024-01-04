@@ -1,0 +1,83 @@
+#toll-road-information {
+    padding: 1px 44px;
+    background-color: #ffffff;
+    color: #333000;
+    font-family: 'Avenir LT Std 45 Book Regular', Arial;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    max-width: 1200px;
+
+    .container {
+        width: 100%;
+    }
+
+    .border-without-footer {
+        border: 1px solid;
+        border-color: #cdcccb;
+        border-radius: 5px;
+        margin-top: 0px;
+    }
+
+    .top-tabs {
+        margin-bottom: 0px;
+        margin-top: 26px;
+        margin-left: -15px;
+    }
+
+    .top-tabs li:first-child {
+        border-radius: 5px 0px 0px;
+    }
+
+    .top-tabs li:last-child {
+        border-radius: 0px 5px 0px 0px;
+    }
+
+    .top-tabs li.unselectedtab {
+        background-color: #eff0f1;
+    }
+
+    .top-tabs li {
+        border: 1px solid;
+        border-color: #cdcccb;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 1.4em;
+        outline: none;
+        padding: 10px 21px 9px;
+    }
+
+    .refresh-hybrid-container {
+        padding: 1px 44px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 1px;
+        width: 100%;
+    }
+
+    .no-margin-top-do {
+        color: #381462;
+        font-size: 24px;
+    }
+
+    ::ng-deep {
+        .cms-picture-auto-scale {
+            table {
+                max-width: 100% !important;
+            }
+        }
+    }
+
+
+    @media screen and (min-width: 601px) { //copied from core.less
+        .border-without-footer {
+            padding: 40px 50px;
+        }
+    }
+
+    @media screen and (max-width: 600px) { //copied from core.less
+        .border-without-footer {
+            padding: 20px;
+        }
+    }
+}

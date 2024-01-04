@@ -1,0 +1,77 @@
+<page-centered-container class="refresh-2020">
+
+    <form *ngIf="billingInfo"
+    #BillingForm="ngForm" validation-focus name="CreateAccountPaymentForm" fxLayout="column"
+        class="u-spacing--widthFill" [ngStyle.lt-md]="{'margin-bottom':'48px'}">
+
+        <shared-payment-method
+            [header]="paymentMethodHeader"
+            [billingInfo]="billingInfo"
+            (autoReplenishmentSelection)="onAutoReplenishmentSelectionChange($event)"
+            [isAutoReplenishmentEnabled]="isAutoReplenishmentEnabled" >
+        </shared-payment-method>
+
+        <card-container *ngIf="billingInfo.billingType===billingType.Credit"
+         fxFlexOffset="20px" fxLayout="column">
+            <section>
+                <h2 class="h1-mo">{{billingAddressHeader}}</h2>
+                <mat-divider></mat-divider>
+            </section>
+
+        <select-billing-address *ngIf="defaultAddress.address1" [billingTitle]="billingTitle"
+                            [(defaultAddress)]="defaultAddress"
+                            [(newAddress)]="newAddress"
+                            [(checkBoxFlag)]="checkBoxFlag"
+                            [(newAddressFlag)]="newAddressFlag"
+                            [countriesList]="countryList"
+                            [statesList]="stateList">
+        </select-billing-address>
+
+        <ng-container *ngIf="!defaultAddress.address1">
+
+        <address-entry class="u-spacing--widthFill"
+                       [address]="billingAddress"
+                       [stateList]="stateList"
+                       [countryList]="countryList"
+                       [(international)]="billingAddress.internationalAddress"
+                       [validate]="true">
+        </address-entry>
+
+        <div fxLayoutAlign="start start" fxLayout="row">
+            <input type="checkbox" name="isMailingAddSameAsBilling" id="isMailingAddSameAsBilling" 
+            [(ngModel)]="isMailingAddSameAsBilling"/>
+    
+            <span [ngStyle]="{'margin-left': '5px'}">
+                {{isMailingAddSameAsBillingCms}}
+            </span>
+        </div>
+
+    </ng-container>
+               
+    </card-container>
+   
+        <section class="footerActionButtons u-spacing__buttonToField--marginTop">
+            <div class="action-buttons-container">
+                <div class="main-button">
+                    <action-buttons (main)="submit($event)" >
+                        <span action-main>{{submitBtnText}}</span>
+                    </action-buttons>
+                </div>
+
+                <div class="alternate-buttons">
+                    <action-buttons [mainBtnVisible]="false" (alt)="previous($event)">
+                        <span action-alt>Previous</span>
+                    </action-buttons>
+
+                    <action-buttons  [mainBtnVisible]="false" (alt)="cancel($event,wizardUi)">
+                        <span action-alt>Cancel</span>
+                    </action-buttons>
+                </div>
+            </div>
+            <wizard-ui #wizardUi></wizard-ui>
+        </section>
+
+    </form>
+
+</page-centered-container>
+

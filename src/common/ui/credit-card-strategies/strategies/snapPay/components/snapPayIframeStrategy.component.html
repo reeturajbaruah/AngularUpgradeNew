@@ -1,0 +1,13 @@
+<ng-container ngModelGroup="ccInput">
+    <mat-label>CREDIT CARD NUMBER</mat-label>
+
+    <section [ngClass]="{'has-error':(isValid$ | async) === false, 'loaded':(isReady$ | async) === true}">
+        <iframe frameBorder="0" scrolling="no" *ngIf="frameUrl" [id]="frameId" [src]="frameUrl"></iframe>
+        <img *ngIf="cmsImage" [src]="cmsImage" />
+    </section>
+
+    <div *ngIf="(isValid$ | async) === false">
+        <p class="help-block">Please enter a valid credit card number</p>
+    </div>
+
+</ng-container>

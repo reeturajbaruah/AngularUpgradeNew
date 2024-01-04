@@ -1,0 +1,96 @@
+<!-- [ngStyle.lt-md]="{'margin-bottom':'30px'}" -->
+
+<page-centered-container>
+    <form #createAcctAgreementForm="ngForm" validation-focus 
+    name="createAcctReviewForm" class="u-spacing--widthFill">
+
+        <!-- <storefront-utility #storefront></storefront-utility> -->
+        <div fxLayout="column">
+
+            <payment-billing *ngIf="billingContent"
+            (editBillingResult$)="editBilling($event)" [content]="billingContent" [cashDisplaytext]="pageCms.ShortDescription" [flexPayRebillToggle]="toggles?.IsAutoReplenishmentEnabled">
+            </payment-billing>
+
+        </div>
+
+        <card-container class="margin-top">
+            <vehicles-order-summary *ngIf="vehiclesOrder"
+                (event$)="onClickOperation($event)" [data]="vehiclesOrder">
+            </vehicles-order-summary>
+        </card-container>
+
+        <div class="margin-top">
+            <delivery-method-summary *ngIf="deliveryMethodSummary && deliveryMethodSummary.display"
+                [data]="deliveryMethodSummary"
+                (onClickOperation$)="onClickOperation($event)">
+            </delivery-method-summary>
+        </div>
+        
+        <div class="margin-top">
+            <payment-summary-review *ngIf="paymentSummary" [data]="paymentSummary"
+                [rebillStatus]="rebillStatus"
+                [cashPaymentSummaryModalCms]="cashPaymentSummaryModalCms"
+                [pendingCashPaymentAmt]="pendingCashPaymentAmt"
+                [billingType]="billingContent?.billingInfo?.billingType"
+                (addFundsEvent)="previous($event)">
+
+                <section id="ezTagAgreementSection" style="margin-top:4px;">
+                    <!--Text above checkbox-->
+                    <article *ngIf="cmsSectionConfirmOrderSummary.LongDescription"
+                            style="margin-top:18px;"
+                            [innerHtml]="cmsSectionConfirmOrderSummary.LongDescription"></article>
+        
+                    <!--Checkbox-->
+                    <div [error-check]="EzTagAgreementCheck" style="margin-top:18px;">
+                        <!--Checkbox and text-->
+                        <div fxLayout="row"
+                            fxLayoutAlign="start start"
+                            class="u-spacing--widthFill">
+                            
+                                <input type="checkbox" name="EzTagAgreementCheck" style="width:16px; height:16px;"
+                                #EzTagAgreementCheck="ngModel" [(ngModel)]="agreeCheckVal" required />
+
+                            <label style="margin-top:2px; margin-left:10px;"
+                                [innerHtml]="cmsSectionConfirmOrderSummary.ShortDescription"></label>
+                        </div>
+        
+                        <!--Validation Text-->
+                        <div *ngFor="let error of EzTagAgreementCheck.errors | keyvalue" role="alert">
+                            <ng-container *ngIf="createAcctAgreementForm.submitted" [ngSwitch]="error.key">
+                                <p *ngSwitchCase="'required'" class="help-block" [innerHtml]="cmsSectionConfirmOrderSummary.EzTagAgreementValidation"></p>
+                            </ng-container>
+                        </div>
+                    </div>
+                </section>
+            </payment-summary-review>
+        </div>
+      
+        <section class="footerActionButtons u-spacing__buttonToField--marginTop">
+
+            <div class="action-buttons-container">
+                <div class="main-button">
+                    <action-buttons [disabled]="createAcctAgreementForm.submitted && createAcctAgreementForm.invalid ||  !agreeCheckVal "
+                                    (main)="next($event)">
+                        <span action-main>CHECKOUT</span>
+                    </action-buttons>
+                </div>
+
+                <div class="alternate-buttons">
+                    <action-buttons [mainBtnVisible]="false"
+                                    (alt)="previous($event)">
+                        <span action-alt>Previous</span>
+                    </action-buttons>
+
+                    <action-buttons  [mainBtnVisible]="false" (alt)="cancel($event,wizardUi)">
+                        <span action-alt>Cancel</span>
+                    </action-buttons>
+                </div>
+            </div>
+
+            <wizard-ui #wizardUi></wizard-ui>
+
+        </section>
+
+    </form>
+
+</page-centered-container>

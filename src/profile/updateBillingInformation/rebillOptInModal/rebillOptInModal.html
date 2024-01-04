@@ -1,0 +1,53 @@
+<form #optInForm="ngForm" validation-focus name="optInForm">
+
+    <main id="modal-popup" class="refresh-2020" style="position:relative">
+
+        <section fxLayout="column"
+                 ngClass.lt-md="mobile-style"
+                 ngClass="desktop-style">
+
+            <div fxLayout="column"
+                 fxLayoutAlign="center center">
+
+                <header fxLayout="column"
+                        fxLayoutAlign="center center">
+
+                    <h2>{{cmsContent.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+
+                </header>
+
+            </div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="center center"
+                 class="u-spacing__divider--marginTopBottom">
+
+                <div [innerHtml]="cmsContent.success | safeHtml"></div>
+
+            </div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="center center">
+
+                <div [innerHtml]="cmsContent.MainContent | safeHtml"></div>
+
+            </div>
+            
+            <div fxLayout="row"
+                 fxLayoutAlign="center center"
+                 class="u-spacing__buttonToField--marginTop">
+
+                <action-buttons (main)="acceptButtonClick()"
+                                (alt)="cancelButtonClick()"
+                                [direction]="'column'"
+                                [directionLtMd]="'column'"
+                                [reverseOrder]="true">
+                    <span action-alt>{{cmsContent.CancelBtn}}</span>
+                    <span action-main>{{cmsContent.optInBtn}}</span>
+                </action-buttons>
+            </div>
+        </section>
+    </main>
+
+</form>

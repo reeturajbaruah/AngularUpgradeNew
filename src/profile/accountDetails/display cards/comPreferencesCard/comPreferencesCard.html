@@ -1,0 +1,100 @@
+<card-dash-container>
+    <div class="bottom-row-heights">
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+            <header fxLayout="column">
+                <h3 fxLayout="row"
+                    fxLayoutAlign="space-between start">
+                    {{comPrefTitle}}
+                </h3>
+            </header>
+        </div>
+
+        <ng-container *ngIf="initialPrefernces$ | async as _">
+            <div [ngClass]="{'context': !longText, 'context-long': longText }">{{comPrefMonthlyStatementsContext}}</div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill">
+                <input type="checkbox"
+                       id="monthlyStatementsEmail"
+                       [checked]="preferences.monthlyStatementsAreByEmail"
+                       (change)="updatePreferences($event.target.id)" />
+
+                <label class="context">
+                    Email monthly statements
+                </label>
+            </div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill">
+                <input type="checkbox"
+                       id="monthlyStatementsMail"
+                       [checked]="preferences.monthlyStatementsAreByMail"
+                       [disabled]="isHideByMail"
+                       (change)="updatePreferences($event.target.id)" />
+
+                <label class="context">
+                    Mail printed monthly statements
+                </label>
+
+                <span *ngIf="isHideByMail">
+                    <tool-tip class="toolTip" [stayOpenOnHover]="true">
+                        <span tool-tip-hover>
+                            <mat-icon class="infoIcon" svgIcon="information"></mat-icon>
+                        </span>
+                        <span tool-tip-message ngClass="hoverBoxAdjusment"
+                              [ngStyle]="{'right': '24px', 'bottom': '15px'}" [innerHTML]="comPrefNoMailingAddress | safeHtml">
+                        </span>
+                    </tool-tip>
+                </span>
+            </div>
+
+            <div [hidden]="longText" class="context">{{comPrefImportantUpdatesContext}}</div>
+            <div [hidden]="!longText" class="context-long">{{comPrefImportantUpdatesContext}}</div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill">
+                <input type="checkbox"
+                       id="importantUpdatesEmail"
+                       [checked]="preferences.importantUpdatesAreByEmail"
+                       (change)="updatePreferences($event.target.id)" />
+
+                <label class="context">
+                    By Email
+                </label>
+            </div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill">
+                <input type="checkbox"
+                       id="importantUpdatesMail"
+                       [checked]="preferences.importantUpdatesAreByMail"
+                       [disabled]="isHideByMail"
+                       (change)="updatePreferences($event.target.id)" />
+
+                <label class="context">
+                    By Mail
+                </label>
+
+                <span *ngIf="isHideByMail">
+                    <tool-tip class="toolTip" [stayOpenOnHover]="true">
+                        <span tool-tip-hover>
+                            <mat-icon class="infoIcon" svgIcon="information"></mat-icon>
+                        </span>
+                        <span tool-tip-message ngClass="hoverBoxAdjusment"
+                              [ngStyle]="{'left': '24px', 'bottom': '15px'}" [innerHTML]="comPrefNoMailingAddress | safeHtml">
+                        </span>
+                    </tool-tip>
+                </span>
+
+            </div>
+
+        </ng-container>
+    </div>
+</card-dash-container>

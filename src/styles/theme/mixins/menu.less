@@ -1,0 +1,9 @@
+@import (reference) '../../variables.less';
+
+
+@menu--color-light: @purple-heart-purple;
+
+.t-menu--color(@theme) {
+    @color: 'menu--color-@{theme}';
+    color: @@color !important;
+}

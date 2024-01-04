@@ -1,0 +1,71 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/variables.less';
+
+:host {
+
+    main {
+        .t-body--backgroundColor2(@theme-light);
+
+        .frameHeader {
+            display: flex;
+            flex-direction: column;
+
+            @media @breakpoint-lt-md {
+                flex-direction: column-reverse;
+            }
+        }
+
+        header {
+
+            h1 {
+                font-size: 24px;
+                line-height: 30px;
+                color: @torch-red;
+                margin-bottom: 10px;
+
+                @media @breakpoint-lt-md {
+                    margin-top: 15px;
+                }
+            }
+
+            padding: 24px 15px 0px 15px;
+            margin-left: 210px;
+            display: block;
+
+            @media @breakpoint-lt-md {
+                padding: 11px @page-bar-margin-static-lt-md 15px @page-bar-margin-static-lt-md;
+                margin: 0px;
+            }
+        }
+    }
+
+    stepper {
+        min-height: 32px;
+        display: block;
+
+        @media @breakpoint-lt-md {
+            min-height: unset;
+        }
+    }
+
+    page-filled-container {
+        display: block;
+
+        @media not @breakpoint-lt-md {
+            .t-body--backgroundColor2(@theme-light);
+        }
+
+        @media @breakpoint-lt-md {
+            .t-body--backgroundColor(@theme-light);
+        }
+    }
+
+    .campaign-banner {
+        margin-bottom: 15px;
+        @media @breakpoint-xs {
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

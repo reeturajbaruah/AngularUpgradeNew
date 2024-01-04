@@ -1,0 +1,20 @@
+<main class="refresh-2020 u-spacing--widthFill">
+
+    <title-banner>
+        {{cmsFrame.Title}}
+    </title-banner>
+
+    <div class="frameHeader" *ngIf="displayStepper">
+        <stepper [steps]="steps" [stepMap]="stepMap"></stepper>
+    </div>
+
+    <div *ngIf="campaignBanner.display" class="u-spacing--widthFill campaign-banner" fxLayout="row"
+        fxLayoutAlign="center center">
+        <img alt="Campaign Banner" src="{{campaignBanner.img}}" />
+    </div>
+
+    <page-filled-container>
+        <ui-view></ui-view>
+    </page-filled-container>
+
+</main>

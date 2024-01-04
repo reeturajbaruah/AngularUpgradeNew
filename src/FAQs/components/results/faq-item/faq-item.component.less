@@ -1,0 +1,55 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/variables.less';
+
+:host {
+
+    .category {
+        color: @purple-heart-purple;
+        text-transform: uppercase;
+        font-family: @font-jost;
+        font-size: 14px;
+    }
+
+    .title,
+    .sub-title,
+    .description span {
+        color: @tuna-gray;
+    }
+
+    .title {
+        font-family: @font-jost;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2em;
+    }
+
+    .sub-title {
+        font-family: @font-jost;
+        font-size: 16px;
+    }
+
+    ::ng-deep .description * {
+        line-height: 1.5em;
+    }
+
+    .read-more {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .publish-on {
+        color: @boulder-gray;
+        font-size: 14px;
+        padding-bottom: 1px;
+    }
+
+    ::ng-deep img {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+
+    mat-icon[svgicon='clock'] {
+        padding-right: 8px;
+        padding-top: 8px;
+    }
+}

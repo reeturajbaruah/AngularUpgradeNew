@@ -1,0 +1,109 @@
+<div [ngClass]="{'confirmBorder': isConfirmPage === true, 'border-height': !adjustments.isZero(), 'border-height-nondiscount': adjustments.isZero()}"
+    [ngStyle.lt-md]="{'width' : '100%'}">
+
+    <section fxLayout="row"
+             fxLayoutAlign="space-between center"
+             class="topRow"
+             [ngClass]="{'rowSelected': (isCreateAccount && choiceSelected === 'yes' || !isCreateAccount && choiceSelected === 'no'), 'topRowConfirm': isConfirmPage}"
+             [ngStyle.lt-md]="{'width' : '100%'}">
+        <div fxLayout="column"
+             fxLayoutAlign="center start">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="clickable" id="tollViolationsLabel" (click)="openTollViolationsModal()">Toll Transactions</span>
+                <div class="fx-flex-none glyphicon glyphicon-chevron-right" fxFlexOffset="5px"></div>
+            </div>
+        </div>
+        <div fxLayout="column"
+             fxLayoutAlign="center start">
+            <span class="values"><currency [value]="fees.totalViolationsDue"></currency></span>
+        </div>
+    </section>
+
+    <ng-container *ngIf="!adjustments.isZero()">
+        <section fxLayout="row" fxLayoutAlign="space-between center" class="rows"
+            [ngClass]="{'rowSelected': (isCreateAccount && choiceSelected === 'yes' || !isCreateAccount && choiceSelected === 'no'), 'rowsConfirm': isConfirmPage}"
+            [ngStyle.lt-md]="{'width' : '100%'}">
+            <div fxLayout="column" fxLayoutAlign="center start">
+                <span class="greenFields">Adjustments</span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center start">
+                <span class="greenValues">
+                    -<currency [value]="adjustments">
+                    </currency>
+                </span>
+            </div>
+        </section>
+    </ng-container>
+
+    <div *ngIf="isCreateAccount || isConfirmPage" [ngStyle.lt-md]="{'width' : '100%'}">
+        <section fxLayout="row"
+                 fxLayoutAlign="space-between center"
+                 class="rows"
+                 [ngClass]="{'rowSelected': (isCreateAccount && choiceSelected === 'yes' || !isCreateAccount && choiceSelected === 'no'), 'rowsConfirm': isConfirmPage}"
+                 [ngStyle.lt-md]="{'width' : '100%'}">
+            <div fxLayout="column"
+                 fxLayoutAlign="center start">
+                <span class="fields">Starting Balance</span>
+            </div>
+            <div fxLayout="column"
+                 fxLayoutAlign="center start">
+                <span class="values"><currency [value]="fees.createAccountStartingBalance"></currency></span>
+            </div>
+        </section>
+
+        <section fxLayout="row"
+                 fxLayoutAlign="space-between center"
+                 class="rows"
+                 [ngClass]="{'rowSelected': (isCreateAccount && choiceSelected === 'yes' || !isCreateAccount && choiceSelected === 'no'), 'rowsConfirm': isConfirmPage}"
+                 [ngStyle.lt-md]="{'width' : '100%'}">
+            <div fxLayout="column"
+                 fxLayoutAlign="center start">
+                <span class="greenFields">EZ TAG Fee</span>
+            </div>
+            <div fxLayout="column"
+                 fxLayoutAlign="center start">
+                <span class="greenValues"><currency [value]="fees.createAccountEZTagFee"></currency></span>
+            </div>
+        </section>
+    </div>
+
+    <section *ngIf="!isCreateAccount && isFrp3 && !isConfirmPage"
+             fxLayout="row"
+             fxLayoutAlign="space-between center"
+             class="rows"
+             [ngClass]="{'rowSelected': (isCreateAccount && choiceSelected === 'yes' || !isCreateAccount && choiceSelected === 'no'), 'rowsConfirm': isConfirmPage}"
+             [ngStyle.lt-md]="{'width' : '100%'}">
+        <div fxLayout="column"
+             fxLayoutAlign="center start">
+            <span class="fields">Admin Fee</span>
+        </div>
+        <div fxLayout="column"
+             fxLayoutAlign="center start">
+            <span class="values">
+                <currency
+                          [value]="fees.serviceFee">
+                </currency>                
+            </span>
+        </div>
+    </section>
+
+    <section fxLayout="row"
+             fxLayoutAlign="space-between center"
+             class="bottomRow"
+             [ngClass]="{'totalRowSelected': (isCreateAccount && choiceSelected === 'yes' || !isCreateAccount && choiceSelected === 'no'), 'bottomRowConfirm': isConfirmPage}"
+             [ngStyle.lt-md]="{'width' : '100%'}">
+        <div fxLayout="column"
+             fxLayoutAlign="center start">
+            <span class="fields" style="font-weight:bold;">Total Due Today</span>
+        </div>
+        <div fxLayout="column"
+             fxLayoutAlign="center start">
+            <span class="values" style="font-weight:bold;">
+                <currency
+                          [value]="isCreateAccount || isConfirmPage ? (fees.createAccountPlateTotal) : (fees.dontCreateAccountPlateTotal)">
+                </currency>                
+            </span>
+        </div>
+    </section>
+
+</div>

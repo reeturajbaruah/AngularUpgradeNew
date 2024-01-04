@@ -1,0 +1,133 @@
+@import (reference) '../../styles/custom/storefront.less';
+
+:host {
+    display: block;
+    height: 100%;
+    user-select: none;
+
+    label,
+    h2 {
+        font-family: @storefront-site-font-family;
+    }
+
+    .selection-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        action-buttons {
+            display: block;
+        }
+
+        ::ng-deep {
+            action-buttons button.disabled {
+                background-color: #3c4858 !important;
+                color: white !important;
+            }
+
+            button {
+                border: 1px solid white !important;
+                margin-right: 15px !important;
+                padding: 0px !important;
+            }
+
+            button:focus {
+                outline: none !important;
+            }
+        }
+
+        h2 {
+            width: 100%;
+            display: block;
+            text-align: center;
+            color: white;
+            margin-top: 0px;
+        }
+
+        a {
+            text-align: left;
+            color: white !important;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: help;
+            display: block;
+            height: 26px;
+            vertical-align: middle;
+            margin-top: 14px;
+        }
+
+        .work-item-container {
+            width: @storefront-select-width;
+            height: @storefront-select-height;
+
+            .work-item {
+                height: @storefront-select-item-height;
+                width: @storefront-select-item-width;
+                margin: 2px;
+                float: left;
+                padding: 16px 60px 0px;
+                background-color: #ffffff;
+                color: #381462;
+                transition: background-color 0.25s linear;
+
+                .icon-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: @storefront-select-icon-height;
+                }
+
+                label {
+                    height: @storefront-select-label-height;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 26px;
+                    line-height: 25px;
+                    font-weight: 700;
+                    margin: 0px;
+                    color: inherit;
+                    text-align: center;
+                }
+
+                img.icon {
+                    height: @storefront-select-icon-height;
+                    width: @storefront-select-icon-width;
+                    margin: 16px auto;
+                }
+            }
+
+            .work-item.hover {
+                background-color: #d8dada;
+                cursor: pointer;
+            }
+
+            .work-item.selected {
+                background-color: @storefront-purple;
+                color: white;
+            }
+
+            .work-item.disabled {
+                background-color: #343434;
+                opacity: initial;
+                pointer-events: initial;
+                color: white;
+                cursor: not-allowed;
+
+                label {
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        .select-footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 0px;
+            width: @storefront-select-width;
+        }
+    }
+}

@@ -1,0 +1,37 @@
+@import (reference) '../../../styles/custom/spacing/sections.less';
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/mixins.less';
+@import '../../../common/ui/containers/fxRow/details.less';
+
+.gridish-title {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gridish-title > * {
+    flex: 1 1 12em;
+}
+
+.title-margin {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-card-responsive {
+    background-color: white;
+    margin-bottom: 5px;
+}
+
+.fx-flex-80 {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 80%;
+}
+
+// Only here for performance reasons
+.show-desktop {
+    @media @breakpoint-lt-md {
+        display: none;
+        visibility: hidden;
+    }
+}

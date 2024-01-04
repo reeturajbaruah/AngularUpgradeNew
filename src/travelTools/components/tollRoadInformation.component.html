@@ -1,0 +1,14 @@
+<div id="toll-road-information" class="refresh-hybrid-container">
+    <div class="container">
+        <ul class="top-tabs hidden-print">
+            <li [class.unselectedtab]="currentTab !== 'TollRoadInformation'" (click)="goToTollRoadInformation()">Toll Road Information</li>
+            <li [class.unselectedtab]="currentTab !== 'LaneTypes'" (click)="goToLaneTypes()">Lane Types</li>
+        </ul>
+        <div class="border-without-footer">
+            <div ui-view>
+                <generic-header-body [itemId]="getCurrentCMSPage()"></generic-header-body>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,15 @@
+<mat-select *ngIf="showDropDown"
+            (selectionChange)="changeLanguage()"
+            (openedChange)="isOpen = $event"
+            panelClass="storefront-language-select-panel"
+            [ngClass]="{'is-open': isOpen, 'kioskView': true }"
+            [(ngModel)]="selectedLanguage">
+    <mat-select-trigger>
+        {{selectedLanguage && (selectedLanguage.nativeLabel || selectedLanguage.label)}}
+    </mat-select-trigger>
+    <mat-option translation-skip
+                *ngFor="let language of availableLanguages"
+                [value]="language">
+        {{language.label}} {{ language.nativeLabel ? '(' + language.nativeLabel + ')' : '' }}
+    </mat-option>
+</mat-select>

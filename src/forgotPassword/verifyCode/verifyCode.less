@@ -1,0 +1,23 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/custom/spacing/sections.less';
+@import (reference) '../../styles/custom/spacing/dividers.less';
+
+card-container {
+    display: block;
+    .refresh-2020.u-spacing__sectionToSection--marginTop();
+}
+
+wizard-ui {
+    display: block;
+    .refresh-2020.u-spacing__fieldToField--marginTop();
+
+    [wizard-next] {
+        text-transform: uppercase;
+    }
+
+    [wizard-cancel],
+    [wizard-previous] {
+        text-transform: capitalize;
+    }
+}

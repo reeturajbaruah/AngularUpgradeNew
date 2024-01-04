@@ -1,0 +1,53 @@
+﻿<div class="survey">
+    <div ng-hide="isSubmitted" ng-disabled="isSubmitting">
+        <div class="row">
+            <h1 class="col-md-12" ng-bind-html="surveyContent.Title | trusted"></h1>
+        </div>
+
+        <div class="row rating">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <label ng-repeat="option in options" class="col-md-4 margin-left-xs margin-right-xs">
+                    <input type="radio" ng-model="survey.selection" ng-value="option.value" name="surveySelection" />
+                    <img class="col-lg-8" ng-if="survey.selection == option.value" ng-src="{{option.selectedImageUrl}}" alt="selected" />
+                    <img class="col-lg-8" ng-if="survey.selection != option.value" ng-src="{{option.unSelectedImageUrl}}" alt="unselected" />
+                    <span class="optionLabel {{option.color}}">{{option.name}}</span>
+                </label>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2"></div>
+            <textarea name="comments" class="col-md-8 hide-horizontal-overflow"
+                      maxlength="{{maxCommentsChars}}"
+                      ng-model="survey.comments"
+                      ng-attr-placeholder={{surveyContent.defaultCommentText}}
+                      ng-class="{ 'invalid': maxCharsReached()}"></textarea>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div>
+                <p ng-if="!maxCharsReached()" class="col-md-8 text-right">{{charRemaining()}} characters remaining</p>
+                <p ng-if="maxCharsReached()" class="col-md-8 text-right text-danger">Must be no more than {{maxCommentsChars}} characters</p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4 no-padding-left padding-right-sm"><button class="col-md-12 skipBtn surveyBtn" ng-click="done()">Skip</button></div>
+            <div class="col-md-4 no-padding-right padding-left-sm"><button class="col-md-12 button surveyBtn exclude-global-disable" ng-disabled="!canSubmitt(survey.selection)" ng-click="submit()">Submit</button></div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div ng-show="isSubmitted" class="row">
+        <h1 class="col-md-12 centerText bottom-buffer-lg" ng-bind-html="thankYouMessage"></h1>
+        <br />
+        <div class="col-md-4"></div>
+        <button class="col-md-4 thankYouBtn largeBtn fillHalfWidth centerText bottom-buffer-lg" ng-click="done()">{{buttons["EXIT"]}}</button>
+        <div class="col-md-4"></div>
+
+    </div>
+</div>

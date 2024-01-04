@@ -1,0 +1,189 @@
+@MobileBenefitsSectionWidth: 375px;
+@MobileBenefitsEasierSectionHeight: 710px;
+@MobileBenefitsSaferSectionHeight: 710px;
+
+.about {
+    @media @breakpoint-xs {
+        width: 375px;
+        height: 618px;
+        position: relative;
+    }
+}
+
+.about-link-container {
+    @media @breakpoint-xs {
+        position: absolute;
+        height: 52px;
+        width: 100%;
+        z-index: 10;
+        .about-link {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+    }
+}
+
+.about-text1 {
+    @media @breakpoint-xs {
+        text-align: center;
+        height: 280px;
+        width: 300px;
+        margin-left: 40px;
+        margin-top: 20px;
+    }
+}
+
+.about-text2 {
+    @media @breakpoint-xs {
+        text-align: center;
+        margin-top: 140px;
+    }
+}
+
+.benefits-easier {
+    @media @breakpoint-xs {
+        width: 375px;
+        height: 710px;
+    }
+}
+
+.benefits-easier-content {
+    @media @breakpoint-xs {
+        width: @MobileBenefitsSectionWidth;
+        margin-top: 270px;
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+.benefits-safer {
+    @media @breakpoint-xs {
+        width: 375px;
+        height: 576px;
+    }
+}
+
+.benefits-safer-content {
+    @media @breakpoint-xs {
+        width: @MobileBenefitsSectionWidth;
+        height: (@MobileBenefitsSaferSectionHeight/2);
+        margin-top: 250px;
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+.gantry {
+    @media @breakpoint-xs {
+        width: 375px;
+        height: 634px;
+    }
+}
+
+.gantry-text1 {
+    @media @breakpoint-xs {
+        position: absolute;
+        text-align: center;
+        top: 30px;
+        width: 300px;
+        left: 35px;
+    }
+}
+
+.gantry-text2 {
+    @media @breakpoint-xs {
+        position: absolute;
+        text-align: center;
+        top: 480px;
+        width: 375px;
+    }
+}
+
+.gantry-text3 {
+    @media @breakpoint-xs {
+        position: absolute;
+        text-align: center;
+        top: 565px;
+        width: 375px;
+    }
+}
+
+.btn-open-close {
+    @media @breakpoint-xs {
+        width: 368px;
+    }
+}
+
+.signage {
+    @media @breakpoint-xs {
+
+        width: 375px;
+
+        .signage-container,
+        .signage-expanded-container {
+            padding: 3% 0%;
+            text-align: center;
+            background: #e5f2f5 0% 0% no-repeat padding-box;
+        }
+
+        .signage-container {
+
+            .signage-content-text1 {
+                margin: 30px auto;
+                width: 100%;
+            }
+
+            .signage-content-text2 {
+                margin: 40px auto;
+                width: 100%;
+            }
+        }
+
+        .signage-expanded-container {
+            background: #e5f2f5 0% 0% no-repeat padding-box;
+            padding: 1% 0%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+
+            .signage-content-text1 {
+                margin: 30px auto;
+                width: 100%;
+            }
+
+            .signage-content-text2 {
+                margin-top: 30px;
+                width: 100%;
+            }
+
+            .signage-content-text3 {
+                margin: 30px auto;
+            }
+
+            .signage-current-temp-row {
+                margin: 2%;
+
+                .current {
+                    width: 327px;
+                    height: 166px;
+                    position: relative;
+
+                    .signage-expanded-content-text {
+                        position: absolute;
+                        bottom: 4px;
+                        left: 50%;
+                        -webkit-transform: translate(-50%, 0%);
+                        -ms-transform: translate(-50%, 0%);
+                        transform: translate(-50%, 0%);
+                    }
+                }
+            }
+
+            .signage-image {
+                width: 100% !important;
+            }
+        }
+    }
+}

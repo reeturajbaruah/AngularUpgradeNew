@@ -1,0 +1,57 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+
+:host {
+    .accountName {
+        font-size: 18px;
+        font-family: @font-montserrat;
+    }
+
+    .accountNumberLabel {
+        font-size: 14px;
+        font-family: @font-montserrat;
+    }
+
+    .accountNumber {
+        font-size: 14px;
+        font-family: @font-montserrat;
+        font-weight: bold;
+        color: @purple-heart-purple;
+    }
+
+    .currentBalanceLabel {
+        font-size: 12px;
+        font-family: @font-jost;
+        color: @boulder-gray;
+    }
+
+    .currentBalance {
+        font-size: 60px;
+        font-family: @font-jost;
+        color: @purple-heart-purple;
+    }
+
+    .currentBalanceLarge {
+        font-size: 40px;
+        font-family: @font-jost;
+        color: @purple-heart-purple;
+    }
+
+    .negativeBalance {
+        color: @torch-red;
+    }
+
+    .negativeBalance svg > path {
+        fill: @torch-red;
+    }
+
+    .changeButton {
+        font-size: 14px;
+        font-family: @font-jost;
+        color: @azure-radiance-blue;
+    }
+
+    .buttonsContainer {
+        padding-top: 8px;
+    }
+}

@@ -1,0 +1,56 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+    .matDivider {
+        margin-bottom: 43px;
+        width: 50px;
+    }
+
+    .socialMediaAltSection {
+        display: flex;
+        min-height: 620px;
+
+        &.lt-md {
+            flex-direction: column;
+            height: unset;
+        }
+    }
+
+    .socialMediaAltLeftBox {
+        width: 50%;
+        display: flex;
+        align-items: center;
+
+        &.lt-md {
+            width: 100%;
+        }
+    }
+
+    .socialMediaAltLeftPadding {
+        padding: 50px 15%;
+        display: flex;
+        justify-content: center;
+        height: inherit;
+        align-items: center;
+    }
+
+    .socialMediaAltLeftContent {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .socialMediaAltRightBox {
+        width: 50%;
+        background-image: linear-gradient(@purple-heart-purple, @valentino-purple);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.lt-md {
+            width: 100%;
+        }
+    }
+}

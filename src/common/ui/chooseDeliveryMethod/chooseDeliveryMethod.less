@@ -1,0 +1,71 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+
+:host {
+    input[type='radio'] {
+        cursor: pointer;
+        height: 13px;
+        width: 13px;
+    }
+
+    .descriptions {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 33px;
+    }
+
+    .descriptionMailInfo {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .checkboxContainers {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .selected {
+        .t-table__emphasis--backgroundColor(@theme-light);
+        box-shadow: 0px 0px 0px 1px rgb(43, 144, 255);
+    }
+
+    .unSelected {
+        border-width: 2px;
+        border-style: solid;
+        border-color: rgb(209, 209, 213);
+        border-radius: 10px;
+    }
+
+    .context {
+        font-family: @font-montserrat;
+        font-size: 14px !important;
+        font-weight: 600;
+    }
+
+    .hoverBoxAdjusment {
+        padding: 15px;
+        min-width: 300px;
+        font-size: 12px;
+        line-height: 2;
+    }
+
+    .editMailingAddress {
+        padding-top: 55px;
+        padding-left: 50%;
+
+        @media @breakpoint-lt-md {
+            padding-left: 20%;
+        }
+    }
+
+    .editMailingAddressNoPickup {
+        padding-top: 55px;
+        padding-left: 60%;
+    }
+
+    .address-whenNoPickup {
+         min-width: 100%;
+    }
+}

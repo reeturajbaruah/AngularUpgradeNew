@@ -1,0 +1,53 @@
+<main [ngClass]="{'legacy-ui': legacy}">
+    <div id="default-wizard"
+         fxLayout="row"
+         flexLayoutAlign="start center"
+         [fxLayout.lt-md]="legacy ? 'row' : 'row wrap'">
+        <div fxFlex
+             [fxFlexOrder]="reverseOrderInternal ? '2' : '1'"
+             [fxFlexOrder.lt-md]="legacy ? '1' : '2'"
+             [ngStyle.lt-md]="!legacy && {'margin-top' : '36px'}"
+             fxLayout="row"
+             fxLayoutAlign="space-between center"
+             [fxLayoutAlign.lt-md]="!showPrevious || !showCancel ? 'center center' : 'space-between center'">
+            <a #prevBtn
+               [hidden]="!showPrevious"
+               class="prev-button"
+               aria-label="Previous"
+               (click)="gotoPreviousState()">
+                <ng-content select="[wizard-previous]"></ng-content>
+            </a>
+            <div *ngIf="!showPrevious" fxFlex fxHide.lt-md></div>
+            <a id="cancelLnk"
+               fxFlexAlign="center"
+               [ngStyle]="legacy ? {'margin-right' : '40px'} : {'margin-right' : '30px'}"
+               [ngStyle.lt-md]="legacy ? {'margin-right' : '20px'} : {'margin-right' : '0px'}"
+               #cancelBtn
+               [hidden]="!showCancel"
+               class="cancel-button"
+               aria-label="Cancel"
+               (click)="gotoCancelState()">
+                <ng-content select="[wizard-cancel]"></ng-content>
+            </a>
+        </div>
+        <div fxFlexAlign="center end"
+             fxFlex="nogrow"
+             [fxFlex.lt-md]="legacy ? 'nogrow' : 'grow'"
+             [fxFlexOrder]="reverseOrderInternal ? '1' : '2'"
+             [fxFlexOrder.lt-md]="legacy ? '2' : '1'"
+             [ngStyle]="(reverseOrderInternal && (showPrevious || showCancel)) ? {'padding-right' : '30px'} : {'padding-right' : 'initial'}">
+            <button id="submitBtn"
+                    [ngStyle.lt-md]="{'width' : '100%'}"
+                    #nextBtn
+                    [hidden]="!showNext"
+                    [fxHide]="!showNext"
+                    type="submit"
+                    [disabled]="disabled"
+                    class="btn"
+                    (click)="gotoNextState()">
+                <ng-content select="[wizard-next]"></ng-content>
+            </button>
+
+        </div>
+    </div>
+</main>

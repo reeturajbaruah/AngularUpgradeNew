@@ -1,0 +1,77 @@
+<div #carouselContainer
+     class="carousel"
+     tabindex="0"
+     [style.max-width]="maxWidth"
+     [style.min-height]="minHeight || 'unset'"
+     [style.height]="height">
+    <ul #carouselList
+        class="carousel-list"
+        role="listbox"
+        [style.flex-direction]="orientation === 'rtl' ? 'row-reverse' : 'row'"
+        [style.height]="'inherit'">
+        <li #carouselSlide
+            *ngFor="let slide of slidesList"
+            class="carousel-slide"
+            role="option"
+            [style.padding-bottom]="maintainAspectRatio && proportion ? proportion + '%': '0px'"
+            [style.height]="'inherit'"
+            (panleft)="onPan($event, carouselSlide)"
+            (panright)="onPan($event, carouselSlide)"
+            (panend)="onPanEnd($event, carouselSlide)"
+            (pancancel)="onPanEnd($event, carouselSlide)">
+            <ng-container [ngTemplateOutlet]="slide.templateRef"></ng-container>
+        </li>
+    </ul>
+
+  <button *ngIf="!hideArrows"
+            mat-icon-button
+            type="button"
+            tabindex="-1"
+            [color]="color"
+            [disabled]="!loop && currentIndex === 0"
+            [ngStyle.lt-md]="{'left' : '0px'}"
+            (click)="previous()">
+        <img class="arrowDimension"
+             *ngIf="arrow?.ItemMedialUrl; else: defaultArrowBack"
+             [src]="arrow.ItemMedialUrl" />
+        <ng-template #defaultArrowBack>
+            <mat-icon ngClass="arrowDimension" svgIcon="{{matIconArrow}}"></mat-icon>
+        </ng-template>
+    </button>
+
+       
+    <button *ngIf="!hideArrows"
+            mat-icon-button
+            type="button"
+            tabindex="-1"
+            [color]="color"
+            [disabled]="!loop && currentIndex === slidesList.length - 1"
+            [ngStyle.lt-md]="{'right' : '0px'}"
+            (click)="next()">
+        <img ngClass="rightArrowRotate arrowDimension"
+             *ngIf="arrow?.ItemMedialUrl; else: defaultArrowForward"
+             [src]="arrow.ItemMedialUrl" />
+        <ng-template #defaultArrowForward>
+            <mat-icon ngClass="rightArrowRotate arrowDimension" svgIcon="{{matIconArrow}}"></mat-icon>
+        </ng-template>
+    </button>
+
+    <div *ngIf="!hideIndicators"
+         class="carousel-indicators"
+         tabindex="-1"
+         [style.flex-direction]="orientation === 'rtl' ? 'row-reverse' : 'row'">
+        <button *ngFor="let slide of slidesList; let i = index"
+                type="button"
+                tabindex="-1"
+                mat-mini-fab
+                [color]="color"
+                [disabled]="i === currentIndex"
+                (click)="slideTo(i)"
+                (focus)="carouselContainer.focus()"
+                [@selectedImage]="{value: i === currentIndex, params: { secondValue: intervalInSecond }}"
+                [ngClass]="{'carouselButtonOverride': true,
+                            'selectedSlide': i === currentIndex}"
+                [ngStyle]="{'width': getWidthPercentage() + '%'}"></button>
+
+    </div>
+</div>

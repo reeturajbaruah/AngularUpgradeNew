@@ -1,0 +1,114 @@
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+    .container-display {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    section {
+        margin: 0px 5px;
+    }
+
+    .auto-replenishment-on {
+        color: green;
+    }
+
+    .auto-replenishment-off {
+        color: red;
+    }
+
+    .divCms {
+        min-height: 50px;
+        .t-body--color(@theme-light);
+        .t-body--fontFamily();
+        font-size: 16px;
+        font-weight: 600;
+        .t-table__body--backgroundColor(@theme-light);
+        border-radius: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-left: -20px;
+        margin-right: -20px;
+
+        @media @breakpoint-lt-md {
+            border-radius: 0px;
+        }
+
+        &.gray-purple-background {
+            background-color: @snuff-gray;
+        }
+
+        &.gray-background {
+            .t-table__header--backgroundColor(@theme-light);
+        }
+
+        &.white-background {
+            background-color: white;
+        }
+
+        &.transparent-background {
+            background-color: transparent;
+        }
+
+
+        &.is-value {
+            min-height: 50px;
+
+            @media @breakpoint-lt-md {
+                min-height: 26px;
+            }
+        }
+
+        &.is-label {
+            min-height: 26px;
+        }
+
+        &.is-subtitle {
+            min-height: 60px;
+
+            @media @breakpoint-lt-md {
+                min-height: 46px;
+            }
+        }
+
+        &.is-selected-top {
+            border-style: solid;
+            border-bottom-style: none;
+            border-width: 1px;
+            border-color: @azure-radiance-blue;
+        }
+
+        &.is-selected-bottom {
+            border-style: solid;
+            border-top-style: none;
+            border-width: 1px;
+            border-color: @azure-radiance-blue;
+        }
+
+        &.top {
+            border-radius: 10px 10px 0px 0px;
+
+            @media @breakpoint-lt-md {
+                border-radius: 0px;
+            }
+        }
+
+        &.inner {
+            border-radius: 0px;
+        }
+
+        &.bottom {
+            border-radius: 0px 0px 10px 10px;
+
+            @media @breakpoint-lt-md {
+                border-radius: 0px;
+            }
+        }
+    }
+
+    mat-icon {
+        padding-top: 5px;
+    }
+}

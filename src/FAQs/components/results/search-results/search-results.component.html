@@ -1,0 +1,19 @@
+
+
+<div *ngIf="searchResults">
+    <!-- Header -->
+    <section class="header-flex-container">
+        <h2>{{cmsContent.SearchResultsTitle}}</h2>
+
+        <div class="right-align-items">
+            <h2>{{searchResults.count}} items found</h2>
+            <h2>{{cmsContent.SortByTitle}}</h2>
+            <dropdown *ngIf="sortList.data" [list]="sortList" (onChange)="sort($event)"></dropdown>
+        </div>
+    </section>
+
+    <!-- Result -->
+    <section *ngIf="searchResults">
+        <shared-accordion [items]="searchContent"></shared-accordion>
+    </section>
+</div>

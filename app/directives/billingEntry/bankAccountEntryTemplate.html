@@ -1,0 +1,63 @@
+﻿<div>
+    <div class="form-group top-buffer-sm-half" ng-class="validation.getErrorStatusClass('bankAccountType')">
+        <label for="bankAccountType">Bank Account Type</label>
+
+        <select name="bankAccountType" id="bankAccountType" class="form-control form-entry-width" ng-change="clearReq('bankDetails', 'accountType', 'bankAccountType')" ng-model="bankDetails.accountTypeDisplay" ng-required="validate">
+            <option ng-show="bankDetails.accountTypeDisplay==''" value="">Select Bank Account Type</option>
+            <option value="Personal">Personal</option>
+            <option value="Business">Business</option>
+        </select>
+
+        <div ng-messages="validation.getErrorList('bankAccountType')" ng-if="validation.hasSubmitted(paymentsform)" role="alert">
+            <p ng-message="required" class="help-block">Please select the account type</p>
+        </div>
+    </div>
+    <div ng-if="showNameField" class="form-group top-buffer-sm-half" ng-class="validation.getErrorStatusClass('eftName')">
+        <!--<label for="eftName">{{bankDetails.accountTypeDisplay == 'Business' ? 'Company Name' : 'Name'}}</label>-->
+        <label for="eftName">Name on Bank Account</label>
+        <input type="text" id="eftName" class="form-control form-entry-width" ng-model="bankDetails.name" name="eftName" ng-pattern="nameOnBankAccountValidation" ng-required="validate" />
+        <div ng-messages="validation.getErrorList('eftName')" ng-if="validation.hasSubmitted()" role="alert">
+            <p ng-message="required" class="help-block">Please enter the bank account holder's name</p>
+            <p ng-message="pattern" class="help-block">Please enter a valid name</p>
+            <p ng-message="maxlength" class="help-block">Please enter a valid name</p>
+        </div>
+    </div>
+    <div class="form-group top-buffer-sm-half" ng-class="validation.getErrorStatusClass('routing')">
+        <label for="routing">Routing Number</label>
+        <input type="text" id="routing" class="form-control form-entry-width" ng-model="bankDetails.routingNumber" ng-change="clearReq('bankDetails', 'routingNumber', 'routing')" name="routing" ng-pattern="bankRoutingNumberValidation" ng-required="validate" />
+        <p class="top-buffer-xs no-margin-bottom">
+            <span class="h5"><a ng-click="clickedHelp()">Routing Number</a> - </span>
+            <span class="h6">first group of numbers of your check</span>
+        </p>
+        <div ng-messages="validation.getErrorList('routing')" ng-if="validation.hasSubmitted(paymentsform)" role="alert">
+            <p ng-message="required" class="help-block">Please enter a valid routing number</p>
+            <p ng-message="pattern" class="help-block">Please enter a valid routing number</p>
+        </div>
+    </div>
+    <div class="form-group top-buffer-sm-half" ng-class="validation.getErrorStatusClass('account')">
+        <label for="account">Account Number</label>
+        <input type="text" id="account" class="form-control form-entry-width" ng-model="bankDetails.accountNumber" name="account" ng-change="clearReq('bankDetails', 'accountNumber', 'account')" ng-pattern="bankAccountNumberValidation" ng-required="validate" />
+        <p class="top-buffer-xs no-margin-bottom">
+            <span class="h5"><a ng-click="clickedHelp()">Account Number</a> - </span>
+            <span class="h6">second group of numbers of your check</span>
+        </p>
+        <div ng-messages="validation.getErrorList('account')" ng-if="validation.hasSubmitted(paymentsform)" role="alert">
+            <p ng-message="required" class="help-block">Please enter a valid account number</p>
+            <p ng-message="maxlength" class="help-block">Please enter a valid account number</p>
+            <p ng-message="pattern" class="help-block">Please enter a valid account number</p>
+        </div>
+    </div>
+    <div class="form-group top-buffer-sm-half" ng-class="validation.isValid('account') ? validation.getErrorStatusClass('account2') : ''">
+        <!--<div class="form-group" ng-class="validation.getErrorStatusClass('account2')">-->
+        <label for="account2">Confirm Account Number</label>
+        <input type="text" id="account2" class="form-control form-entry-width" ng-model="bankDetails.account2" ng-change="clearReq('bankDetails', 'account2', 'account2')" compare-to="bankDetails.accountNumber" name="account2" ng-required="validate" />
+        <div ng-messages="validation.getErrorList('account2')" ng-if="validation.hasSubmitted(paymentsform) && validation.isValid('account')" role="alert">
+            <p ng-message="required" class="help-block">Please confirm the account number</p>
+            <p ng-message="compareTo" class="help-block">Account numbers do not match</p>
+        </div>
+    </div>
+
+    <!--EFT ACH DISCLAIMER-->
+    <eft-ach-disclaimer></eft-ach-disclaimer>
+
+</div>

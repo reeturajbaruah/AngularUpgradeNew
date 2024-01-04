@@ -1,0 +1,54 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+    main {
+        background-color: @white;
+        height: 100%;
+        width: 100%;
+        padding: 22px 10px;
+        overflow: hidden;
+
+        &.bottom {
+            border-top: 1px solid @silver-gray;
+            padding: 0px;
+
+            mat-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            a {
+                width: 60px;
+            }
+        }
+
+        mat-icon {
+            width: 24px;
+            height: 24px;
+            color: @boulder-gray;
+        }
+
+        a {
+            text-decoration: none;
+            display: block;
+
+            &.active > * {
+                color: @purple-heart-purple;
+            }
+
+            > * {
+                color: @boulder-gray;
+            }
+        }
+
+        span {
+            .t-header--fontFamily();
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 600;
+            font-size: 10px;
+            text-align: center;
+        }
+    }
+}

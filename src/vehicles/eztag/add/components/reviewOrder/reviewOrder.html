@@ -1,0 +1,14 @@
+<page-centered-container class="refresh-2020">
+
+    <review-order *ngIf="reviewData" [data]="reviewData" [ezTagMailingAddress]="mailingInfo" [isAddEzTag]="true"></review-order>
+    
+<wizard-ui (next)="addEzTagReceiptClick($event)" (cancel)="cancel($event)">
+    <span wizard-next>PLACE ORDER</span>
+    <span wizard-previous fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon svgIcon="previous-arrow"></mat-icon>
+        Previous
+    </span>
+    <span wizard-cancel>Cancel</span>
+</wizard-ui>
+
+</page-centered-container>

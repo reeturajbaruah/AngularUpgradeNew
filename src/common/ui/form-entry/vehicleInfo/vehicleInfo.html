@@ -1,0 +1,259 @@
+<main class="refresh-2020"
+      [ngModelGroup]="formElementName || 'vehicleInfoEntry'">
+
+    <section>
+        <ng-container *ngIf="plateIsReadOnly">
+            <mat-label [ngStyle]="{'margin-bottom': '10px'}" fxLayout="row">STATE &amp; LICENSE PLATE</mat-label>
+            <strong translation-skip>{{vehicleInfo.licState}} - {{vehicleInfo.licPlate}}</strong>
+        </ng-container>
+
+        <ng-container *ngIf="!plateIsReadOnly">
+            <div>
+                <mat-label>STATE</mat-label>
+                <mat-select translation-skip [(value)]="vehicleInfo.licState"
+                            [disableOptionCentering]="true">
+                    <mat-option *ngFor="let state of stateList" [value]="state.stateCode">{{state.stateCode}}</mat-option>
+                </mat-select>
+            </div>
+
+            <div
+                 [error-check]="licensePlateInput">
+                <mat-label>LICENSE PLATE</mat-label>
+                <input type="text"
+                       name="licensePlate"
+                       [ngModel]="vehicleInfo.licPlate"
+                       (ngModelChange)="licPlateChange($event)"
+                       #licensePlateInput="ngModel"
+                       required
+                       maxlength="{{licPlateMaxLength}}"
+                       pattern="^[a-zA-Z0-9]{0,15}$" />
+                <aside *ngFor="let error of licensePlateInput.errors | keyvalue">
+                    <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'maxlength'" class="help-block">License plate number is too long</p>
+                        <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid license plate number</p>
+                        <p *ngSwitchCase="'required'" class="help-block">Please enter a valid license plate number</p>                        
+                    </ng-container>
+                </aside>
+            </div>
+
+        </ng-container>
+    </section>
+
+    <section *ngIf="config && config.ezTagOptionConfig">
+        <div fxLayoutAlign="start start" fxLayout="row">
+    
+            <input type="checkbox" name="ezTagOrderOption" id="ezTagOrderOption" 
+            [(ngModel)]="config.ezTagOptionConfig.ezTagOrder.flag" (change)="toggleEzTagOption($event)"/>
+    
+            <span *ngIf="!vehicleInfo.motorcycle ; else withMotorcycle"
+             [ngStyle]="{'margin-left': '5px'}">
+                {{config.ezTagOptionConfig.ezTagOrder.msgWhenMotorcyleNotOpted}}
+            </span>
+
+            <ng-template #withMotorcycle>
+            <span [ngStyle]="{'margin-left': '5px'}">
+                {{config.ezTagOptionConfig.ezTagOrder.msgWhenMotorcyleOpted}}
+            </span>
+            </ng-template>
+
+        </div>
+
+        <shared-alert-box *ngIf="!config.ezTagOptionConfig.ezTagOrder.flag"
+            svgIcon="alert" svgIconClass="alert-icon-class"
+            [desc]="config.ezTagOptionConfig.ezTagOrder.warningDesc">
+        </shared-alert-box>
+    </section>
+
+    <section *ngIf="showTempPlate">
+        <strong>{{displayTemporaryPlateMsg}}</strong>
+       <div fxLayout="row" [error-check]="temporaryLicPlate">
+            <div fxLayout="row" [error-check]="temporaryLicPlate" [ngStyle]="{'margin-right': '40px'}">
+                <input type="radio" #temporaryLicPlate="ngModel"
+                       name="temporaryLicPlate"
+                       [(ngModel)]="vehicleInfo.temporaryLicPlate"
+                       [value]="true" 
+                       required/>
+                <span ngClass="radioTextAdjustment">Yes</span>
+            </div>
+
+            <div fxLayout="row" [error-check]="temporaryLicPlate">
+                <input type="radio" #temporaryLicPlate="ngModel"
+                       name="temporaryLicPlate"
+                       [(ngModel)]="vehicleInfo.temporaryLicPlate"
+                       [value]="false" 
+                       required/>
+                <span ngClass="radioTextAdjustment">No</span>
+            </div>
+         </div>
+        <div *ngIf="modalCms.tempPlateInfo && vehicleInfo.temporaryLicPlate">
+            <article [innerHtml]="modalCms.tempPlateInfo | safeHtml"></article>
+        </div>
+        <aside *ngFor="let error of temporaryLicPlate.errors | keyvalue">
+            <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                <p *ngSwitchCase="'required'" class="help-block">Please select whether this is for a temporary plate</p>
+            </ng-container>
+        </aside>
+    </section>
+
+     <section [error-check]="VehicleClassSelect">
+        <mat-label>SELECT VEHICLE CLASSIFICATION</mat-label>
+        <div fxLayout="row">
+            <div fxLayout="column" [ngStyle]="{'width': '50%', 'padding-right': '15px'}">
+                <mat-select #vehicleClass translation-skip #VehicleClassSelect="ngModel"
+                            [(ngModel)]="classCodeAsNumber"
+                            (selectionChange)="updateDescription($event.value)"
+                            name="vehicleClass"
+                            required
+                            ngClass="vehicleClassBoxAdjusment">
+
+                    <mat-option *ngFor="let klass of vehicleClasses"
+                                [value]="klass.value">
+                        {{klass.label}}
+                    </mat-option>
+
+                </mat-select>
+
+            </div>
+            <div fxLayout="column" [ngStyle]="{'width': 'auto', 'padding-right': '15px'}">
+                <img [alt]="this.vehicleInfo.vehicleClassCode + '-Axles'"
+                     src="{{vehicleIcon}}" />
+
+            </div>
+        </div>
+
+        <div>
+
+        <div *ngIf="classCodeAsNumber === 2" fxLayoutAlign="start start" fxLayout="row">
+            <div class="isMotorcycle">
+                <input [disabled]="motorcycleDisabled" ngClass="inputAdjustment" #VehicleIsMotorcycleInput="ngModel"
+                    [(ngModel)]="vehicleInfo.motorcycle" name="vehicleIsMotorcycle" type="checkbox" />
+                <span [ngStyle]="{'margin-top': '2px', 'margin-left': '5px'}">Motorcycle</span>
+                <tool-tip *ngIf="modalCms.vehicleToolTipText" [ngStyle]="{'width': '12.5px', 'margin-left': '5px'}">
+                    <span tool-tip-hover>
+                        <mat-icon svgIcon="information"></mat-icon>
+                    </span>
+                    <span tool-tip-message ngClass="hoverBoxAdjusment">
+                        {{modalCms.vehicleToolTipText}}
+                    </span>
+                </tool-tip>
+            </div>
+        </div>
+
+        <ng-container *ngIf="config && config.ezTagOptionConfig">
+            <shared-alert-box *ngIf="vehicleInfo.motorcycle && config.ezTagOptionConfig.ezTagOrder.flag && classCodeAsNumber === classCodeAsNumberForMotorCycle"
+                svgIcon="alert" svgIconClass="alert-icon-class"
+                [desc]="config.ezTagOptionConfig.motorcycle.message">
+            </shared-alert-box>
+        </ng-container>
+
+        </div>
+
+
+    </section>
+
+    <section>
+        <div fxLayout="row">
+            <div [error-check]="VehicleYearSelect" fxLayout="column" [ngStyle]="{'width': '50%', 'padding-right': '15px'}">
+                <mat-label>YEAR</mat-label>
+                <mat-select #VehicleYearSelect="ngModel"
+                            [(ngModel)]="vehicleInfo.vehicleYear"
+                            name="vehicleYear"
+                            required>
+
+                    <mat-option *ngFor="let year of years"
+                                [value]="year">
+                        {{year}}
+                    </mat-option>
+
+                </mat-select>
+
+                <div *ngFor="let error of VehicleYearSelect.errors | keyvalue">
+                    <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'required'" class="help-block">Vehicle year is required</p>
+                    </ng-container>
+                </div>
+            </div>
+            <div [error-check]="VehicleMakeSelect" fxLayout="column" [ngStyle]="{'width': '50%', 'padding-left': '15px'}">
+                <mat-label>MAKE</mat-label>
+                <mat-select translation-skip fxLayout="row"
+                            #VehicleMakeSelect="ngModel"
+                            [(ngModel)]="vehicleInfo.vehicleMake"
+                            name="vehicleMake"
+                            valueMustBeInSet
+                            required>
+
+                    <mat-option *ngFor="let make of vehicleMakes"
+                                [value]="make.code">
+                        {{make.label}}
+                    </mat-option>
+
+                </mat-select>
+
+                <aside *ngFor="let error of VehicleMakeSelect.errors | keyvalue">
+                    <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'required'" class="help-block">Vehicle make is required</p>
+                        <p *ngSwitchCase="'valueMustBeInSet'" class="help-block">Valid Vehicle make is required</p>
+                    </ng-container>
+                </aside>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div fxLayout="row">
+            <div [error-check]="VehicleModelInput" fxLayout="column" [ngStyle]="{'width': '50%', 'padding-right': '15px'}">
+                <mat-label>MODEL</mat-label>
+                <input #VehicleModelInput="ngModel"
+                       type="text"
+                       [(ngModel)]="vehicleInfo.vehicleModel"
+                       name="vehicleModel"
+                       pattern="^[0-9a-zA-Z\-\,\.\'\s]*$"
+                       maxlength="30"
+                       required />
+
+                <aside *ngFor="let error of VehicleModelInput.errors | keyvalue">
+                    <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'required'" class="help-block">Vehicle model is required</p>
+                        <p *ngSwitchCase="'pattern'" class="help-block">Vehicle model is not valid</p>
+                        <p *ngSwitchCase="'maxlength'" class="help-block">Model name is too long</p>
+                    </ng-container>
+                </aside>
+            </div>
+            <div [error-check]="VehicleColorInput" fxLayout="column" [ngStyle]="{'width': '50%', 'padding-left': '15px'}">
+                <mat-label>COLOR</mat-label>
+                <input #VehicleColorInput="ngModel"
+                       type="text"
+                       [(ngModel)]="vehicleInfo.vehicleColor"
+                       name="vehicleColor"
+                       pattern="^[a-zA-Z\s]*$"
+                       maxlength="20"
+                       required />
+
+                <aside *ngFor="let error of VehicleColorInput.errors | keyvalue">
+                    <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'required'" class="help-block">Vehicle color is required</p>
+                        <p *ngSwitchCase="'pattern'" class="help-block">Valid vehicle color is required</p>
+                        <p *ngSwitchCase="'maxlength'" class="help-block">Color is too long</p>
+                    </ng-container>
+                </aside>
+            </div>
+        </div>
+        
+        
+    </section>
+
+    <section>
+        <div fxLayout="column" [error-check]="VehicleNicknameInput">
+            <mat-label>VEHICLE NICKNAME (OPTIONAL)</mat-label>
+            <input #VehicleNicknameInput="ngModel" [(ngModel)]="vehicleInfo.nickname" type="text" name="vehicleNickname"
+                pattern="^[0-9a-zA-Z\-\,\.\'\s]*$" maxlength="30" placeholder="Ex. 'My Car' or 'Fleet Number 215'" />
+    
+            <aside *ngFor="let error of VehicleNicknameInput.errors | keyvalue">
+                <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid nickname</p>
+                    <p *ngSwitchCase="'maxlength'" class="help-block">Nickname is too long</p>
+                </ng-container>
+            </aside>
+        </div>
+    </section>
+
+</main>

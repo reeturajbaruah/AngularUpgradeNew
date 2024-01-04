@@ -1,0 +1,22 @@
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+    .spanPosition {
+        position: relative;
+    }
+
+    .disable-select {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .show-hide-btn {
+        position: absolute;
+        top: -35px;
+        right: 10px;
+        .t-link--color(@theme-light);
+        .t-header--fontFamily;
+    }
+}

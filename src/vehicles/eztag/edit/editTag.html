@@ -1,0 +1,32 @@
+<page-centered-container class="refresh-2020" hasAlternateBackgroundColor="true">
+
+    <form #Form="ngForm" validation-focus novalidate>
+
+        <card-container>
+            <header>
+                <h2 translation-skip>{{cmsModalContent.title}}: {{tag.fullTagId}}</h2>
+                <mat-divider></mat-divider>
+            </header>
+
+            <section>
+                <mat-label>STATUS</mat-label>
+                <strong [ngClass]="{'active': isActive }">{{tag.tagStatusDesc}}</strong>
+            </section>
+            
+            <vehicle-info-form-entry [modalCms]="editVehicleCmsContent"
+                                        [vehicleInfo]="tag"
+                                        [stateList]="usStates">
+            </vehicle-info-form-entry>
+
+        </card-container>
+
+        <action-buttons 
+            (main)="exitModal(true)"
+            (alt)="exitModal(false)">
+                <span action-main>Save</span>
+                <span action-alt>Cancel</span>
+        </action-buttons>
+
+    </form>
+
+</page-centered-container>

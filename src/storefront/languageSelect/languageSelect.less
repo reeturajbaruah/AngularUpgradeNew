@@ -1,0 +1,21 @@
+@import (reference) '../../styles/custom/storefront.less';
+
+:host {
+    width: 100px;
+
+    ::ng-deep {
+        .mat-select {
+            border: 0px;
+
+            .mat-select-value {
+                max-width: unset;
+            }
+
+            .mat-select-value,
+            .mat-select-arrow-wrapper:before {
+                color: white;
+                padding-left: 10px;
+            }
+        }
+    }
+}

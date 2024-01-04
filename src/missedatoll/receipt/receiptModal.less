@@ -1,0 +1,32 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/variables.less';
+
+:host {
+
+    h2 {
+        margin: 0px 0px;
+        max-height: 70px;
+        padding-bottom: 24px;
+    }
+
+    .mat-receipt-modal {
+        padding: 15px;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    #ViewReceipt {
+        .t-header--color(@theme-light);
+        .t-header--fontFamily;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    #closeModal {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+}

@@ -1,0 +1,50 @@
+@import (reference) '../../variables.less';
+@import (reference) '../../themes.less';
+
+
+.mat-select {
+    display: block !important;
+    height: 48px;
+    vertical-align: middle;
+    border: 1px solid @silver-gray;
+    border-radius: 10px;
+
+    .mat-select-value {
+        .t-body--color(@theme-light);
+        .t-body--fontFamily;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .mat-select-trigger {
+        padding: 14px 1px 14px 18px;
+    }
+
+    &.c--nopad .mat-select-trigger {
+        padding: 0px;
+    }
+
+    .mat-select-arrow-wrapper:before {
+        content: '\e114';
+        font-family: @font-glyphicons;
+        .t-select__arrow--color(@theme-light);
+        font-size: 10px;
+        padding-right: 10px;
+    }
+
+    .mat-select-arrow {
+        opacity: 0;
+    }
+
+    &.mat-select-disabled {
+        border: 1px solid #c4c4c4 !important;
+        background-color: rgba(239, 239, 239, 0.3) !important;
+    }
+}
+
+.mat-option {
+    .mat-option-text {
+        .t-body--fontFamily;
+        font-weight: 600;
+    }
+}

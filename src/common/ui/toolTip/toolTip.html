@@ -1,0 +1,29 @@
+<ng-container *ngIf="!useOverlay">
+    <a>
+        <ng-content select="[tool-tip-hover]"></ng-content>
+    </a>
+    <div [ngClass]="{ 'stayOpenOnHover': stayOpenOnHover }">
+        <ng-content select="[tool-tip-message]"></ng-content>
+    </div>
+</ng-container>
+<ng-container *ngIf="useOverlay">
+    <span
+        cdkOverlayOrigin
+        #info="cdkOverlayOrigin"
+        #infoElm
+        (mouseenter)="open()"
+        (click)="open()"
+    >
+        <ng-content select="[tool-tip-anchor]"></ng-content>
+    </span>
+    <ng-template cdkConnectedOverlay
+                [cdkConnectedOverlayOrigin]="info"
+                [cdkConnectedOverlayOpen]="panelOpen"
+                [cdkConnectedOverlayPanelClass]="overlayPanelClass"
+                (overlayOutsideClick)="isVisible && close()">
+        <div [@fade]="isVisible" (mouseleave)="close()">
+            <ng-content select="[tool-tip-content]"></ng-content>
+        </div>
+    </ng-template>
+</ng-container>
+

@@ -1,0 +1,35 @@
+@import (reference) '../../../../styles/themes.less';
+
+action-buttons {
+
+    a {
+        .t-link--color(@theme-light);
+        .t-header--fontFamily;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    button {
+        .t-button--backgroundColor(@theme-light);
+        border-radius: 20px 20px;
+        border: 0px;
+        .t-header--fontFamily;
+        font-size: 15px;
+        font-weight: 700;
+        height: 42px;
+        float: none;
+        padding-left: 40px;
+        padding-right: 40px;
+        white-space: nowrap;
+    }
+
+    button.disabled {
+        background-color: #c4c4c4 !important;
+        color: black !important;
+    }
+
+    button[disabled] {
+        background-color: #c4c4c4 !important;
+        color: black !important;
+    }
+}

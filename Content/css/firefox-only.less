@@ -1,0 +1,22 @@
+﻿@import '../bootstrap/variables';
+@import 'site-variables';
+
+
+@media screen and (max-width: @maximum-mobile-width) {
+    @-moz-document url-prefix() {
+    }
+}
+
+@media screen and (min-width: @minimum-desktop-width) {
+    @-moz-document url-prefix() {
+        #manage-ez-tags {
+            #june-redesign #searchbox {
+                .search {
+                    .fa-search {
+                        top: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

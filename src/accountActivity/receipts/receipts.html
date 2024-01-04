@@ -1,0 +1,136 @@
+<card-dash-container class="display" [hasMargin]="false">
+    <header fxLayout="column" style="margin-bottom:20px">
+        <h2>Receipts</h2>
+    </header>
+    <div fxLayout="row wrap" fxLayoutAlign="start end" fxLayoutGap="8px" style="margin-bottom: 20px;">
+
+        <section fxLayout="column"
+                 fxLayoutAlign="center start"
+                 ngClass.lt-md="u-spacing__fieldToField--marginTop"
+                 class="from-calendar-position calendar-width">
+            <mat-label>FROM</mat-label>
+            <section fxLayout="row"
+                     ngClass.lt-md="u-spacing--widthFill">
+                <input [min]="minDate"
+                       [max]="maxDate"
+                       [matDatepicker]="pickerFrom"
+                       name="pickerFrom"
+                       [ngModel]="dateFrom"
+                       (ngModelChange)="dateFrom=$event;autocorrectDateFrom()">
+                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFrom></mat-datepicker>
+            </section>
+
+            <mat-label [innerHtml]="cmsContent.ShortDescription | safeHtml"
+                       class="subtext-position"></mat-label>
+        </section>
+
+        <section fxLayout="column"
+                 fxLayoutAlign="center"
+                 ngClass.lt-md="u-spacing__fieldToField--marginTop"
+                 class="calendar-width">
+            <mat-label>TO</mat-label>
+            <section fxLayout="row">
+                <input [min]="minDate"
+                       [max]="maxDate"
+                       [matDatepicker]="pickerTo"
+                       name="pickerTo"
+                       [ngModel]="dateTo"
+                       (ngModelChange)="dateTo=$event;autocorrectDateTo()">
+                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #pickerTo></mat-datepicker>
+            </section>
+        </section>
+
+        <div fxFlex="none"
+             (click)="infoSearch(dateFrom,dateTo)"
+             ngClass.lt-md="u-spacing--widthFill u-spacing__buttonToField--marginTop"
+             ngClass.md="buttonStyle"
+             style="margin-bottom:4px">
+            <button ngClass.lt-md="u-spacing--widthFill">
+                SEARCH
+            </button>
+        </div>
+    </div>
+</card-dash-container>
+
+<card-dash-container class="display u-spacing__cardToCard--marginTop" [hasMargin]="false">
+    <main class="display" style="margin-bottom: -30px;">
+        <section class="u-spacing__sectionToSection--marginBottom">
+            <h3 style="padding-top:5px; margin-bottom:10px">
+                {{this.headersCounter}} Records Found
+            </h3>
+
+            <div *ngIf="receiptsHeaders?.length > 0;else noReceipts" class="tabble-padding">
+
+                <row-container [rowType]="'transparent'" [isLabel]="true">
+
+                    <section col-start
+                             class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <mat-label class="fx-flex-auto-shrink-more limited-flex date-label">DATE</mat-label>
+                        <mat-label class="fx-flex-auto-grow-more unlimited-flex">TRANSACTION</mat-label>
+                        <mat-label class="fx-flex-auto-grow-more unlimited-flex large-view">TYPE</mat-label>
+                    </section>
+
+                    <section col-end
+                             class="gridish-title fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <mat-label class="small-view" style="flex: 1 1 auto; margin-right:20px">AMOUNT</mat-label>
+                        <mat-label class="fx-flex-auto limited-flex-end large-view" style="margin-right:30px">AMOUNT</mat-label>
+                    </section>
+
+                </row-container>
+
+                <div *ngFor="let rHeader of receiptsHeaders; first as isFirst; last as isLast" style="width:97%; margin-left:1.5%">
+                    <div class="clickable extended-row"                        
+                         style="margin-top:2px;">
+                        <fx-row [isTop]="receiptsHeaders.length > 1 && isFirst"
+                                [isBottom]="receiptsHeaders.length > 1 && isLast"
+                                [isInner]="!isFirst && !isLast"
+                                (click)="openDetailsReceipt(rHeader.transaction)">
+
+
+                            <section col-start
+                                    class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <div class="fx-flex-auto-shrink-more limited-flex">{{rHeader.date | dateWithTimeZone: 'dateTime5'}}</div>
+
+                                <a class="fx-layout-row fx-layout-align-start-center u--noUnderline">
+                                    <div translation-skip class="fx-flex-none transaction--width">{{rHeader.transaction}}</div>
+                                </a>
+
+                                <div class="fx-flex-auto-grow-more unlimited-flex large-view">{{rHeader.type}}</div>
+                            </section>
+
+                            <section col-end
+                                    class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+
+                                <div translation-skip class="fx-flex-auto limited-flex-end large-view">{{rHeader.amount ? (rHeader.amount | currency: 'USD') : '$0.00'}}</div>
+                                <div translation-skip class="fx-flex-auto limited-flex-end small-view" style="flex: 1 1 4em">{{rHeader.amount ? (rHeader.amount | currency: 'USD') : '$0.00'}}</div>
+
+                                <div class="whiteSpace"></div>
+                                <a class="fx-layout-row fx-layout-align-start-center u--noUnderline">
+                                    <div class="fx-flex-none glyphicon glyphicon-chevron-right"></div>
+                                </a>
+                            </section>
+
+                        </fx-row>
+
+                    </div>
+                </div>
+
+            </div>
+            <ng-template #noReceipts>
+                <section *ngIf="showNoData === true" fxLayout="column"
+                         fxLayoutAlign="center center">
+
+                    <mat-icon class="noData" svgIcon="bar-chart-icon"></mat-icon>
+
+                    <span class="rowItem">{{cmsContent.NO_RECEIPTS}}</span>
+                </section>
+            </ng-template>
+
+        </section>
+    </main>
+
+</card-dash-container>
+
+

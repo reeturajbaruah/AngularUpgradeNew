@@ -1,0 +1,91 @@
+@import (reference) '../../../../styles/themes.less';
+
+.carousel-slide {
+
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(auto, 100vw);
+    grid-template-rows: auto;
+
+    overflow: hidden;
+
+
+    @media @breakpoint-lt-md {
+        width: 100%;
+        align-content: center;
+    }
+
+    &-overlay {
+        .frame();
+    }
+
+    &>img[enhanced] {
+
+        grid-row: 1 / 2;
+        grid-column: 1 / 2;
+
+        filter: brightness(0.5);
+
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100vw;
+
+        @media @breakpoint-lt-md {
+            width: 100%;
+        }
+    }
+
+    &-content {
+        .frame(1);
+
+        grid-row: 1 / 2;
+        grid-column: 1 / 2;
+
+    }
+
+    &-sliderContent {
+        height: 100%;
+        width: 100%;
+        padding: 50px 10%;
+
+        display: flex;
+        flex-direction: column;
+
+        @media @breakpoint-lt-md {
+            place-content: center space-between;
+            align-items: center;
+        }
+
+        >div:nth-child(1) {
+            display: flex;
+            flex-direction: row;
+        }
+
+        >div:nth-child(3) {
+            display: flex;
+            flex-direction: row;
+            place-content: center flex-start;
+            align-items: center;
+        }
+    }
+
+    mat-divider {
+        width: 70px;
+        padding-bottom: 50px;
+    }
+
+    &-sliderTitle {
+        padding-bottom: 50px;
+        width: 50%;
+        .t-header--fontFamily;
+
+        display: flex;
+        flex-direction: row;
+
+        @media @breakpoint-lt-md {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

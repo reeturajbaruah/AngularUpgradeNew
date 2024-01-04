@@ -1,0 +1,20 @@
+<div class="tab-container pt-20">
+    <div class="tab-content">
+        <div [innerHTML]="bannerHtml | safeHtml">
+        </div>
+        <section fxLayout="column" class="u-spacing__firstHeaderToTitle--marginTop u-spacing--widthFill">
+            <header fxLayout="column">
+                <h2>{{tabCms?.Title}}</h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                <article [innerHTML]="bannerSubText | safeHtml"></article>
+            </header>
+        </section>
+    </div>
+    <div class="tab-content content-spacing u-spacing__sectionToSection--marginBottom">
+        <bottomdrawer-container [config]="bdConfig" [enableHeader]="true"
+            [caretCmsImage]="caretCmsImage"></bottomdrawer-container>
+    </div>
+    <div *ngIf="footerText" class="u-spacing__sectionToSection--marginBottom">
+        <div [innerHTML]="footerText | safeHtml"></div>
+    </div>
+</div>

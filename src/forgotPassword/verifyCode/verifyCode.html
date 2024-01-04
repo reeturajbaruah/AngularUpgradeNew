@@ -1,0 +1,19 @@
+<page-centered-container class="refresh-2020">
+
+    <enter-verification-code (tryAnotherWayEmit)="tryAnotherWay()"
+                             (verifyEmit)="verify()"
+                             [cmsInfo]="cmsData"
+                             [contactInfo]="isEmail ? uiRouterGlobals.params.email : uiRouterGlobals.params.phoneNumber"
+                             [acctId]="uiRouterGlobals.params.acctId"
+                             [source]="parent.source"
+                             [channel]="uiRouterGlobals.params.channel"></enter-verification-code>
+
+    <card-container *ngIf="isEmail">
+        <article [innerHtml]="cmsData.LongDescription | safeHtml"></article>
+    </card-container>
+
+    <card-container *ngIf="!isEmail">
+        <article [innerHtml]="cmsData.ShortDescription | safeHtml"></article>
+    </card-container>
+
+</page-centered-container>

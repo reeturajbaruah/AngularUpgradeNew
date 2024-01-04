@@ -1,0 +1,97 @@
+@import (reference) '../../../../../styles/themes.less';
+
+:host {
+    .accordion-container {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .accordion {
+        cursor: pointer;
+        background-color: #e0e0ef;
+        width: 100%;
+        padding: 16px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h3 {
+            font-size: 18px;
+        }
+
+        mat-icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            min-height: 24px;
+            transition: transform 0.5s ease;
+        }
+    }
+
+    .accordion:hover {
+        background-color: #c9c9d7;
+    }
+
+    .accordion-open {
+        border-radius: 10px 10px 0px 0px;
+
+        mat-icon {
+            transform: rotate(180deg);
+            transition: transform 0.5s ease;
+        }
+    }
+
+    .panel {
+        padding: 0px 18px;
+        background-color: #f6f6f6;
+        overflow: hidden;
+        border-radius: 0px 0px 10px 10px;
+
+        h3 {
+            padding-top: 16px;
+            padding-bottom: 10px;
+            font-size: 14px;
+            color: #611eb8;
+        }
+
+        mat-divider {
+            width: @width-divider;
+            padding-bottom: 10px;
+        }
+    }
+
+    .missing-header {
+        padding-top: 18px;
+    }
+
+    .last-modified {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        mat-icon {
+            margin-top: -12px;
+            width: 12px;
+            height: 12px;
+            min-width: 12px;
+            min-height: 12px;
+        }
+
+        span {
+            font: 500 12px 'Montserrat', sans-serif;
+            color: #757575;
+        }
+    }
+
+    .panel-content {
+        padding-top: 24px;
+        padding-bottom: 16px;
+
+        span {
+            display: block;
+            font-weight: 450;
+            font-size: 15px;
+        }
+    }
+}

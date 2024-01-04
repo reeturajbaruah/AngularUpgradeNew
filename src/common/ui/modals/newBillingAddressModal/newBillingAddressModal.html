@@ -1,0 +1,40 @@
+<form #Form="ngForm" validation-focus
+      fxLayout="column"
+      class="u-spacing--widthFill">
+
+    <card-container *ngIf="isShowPersonalInfo">
+        <header>
+            <h2>Personal Information</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <personal-info-form-entry class="u-spacing--widthFill"
+                                  [personalInfo]="mailingInfo">
+        </personal-info-form-entry>
+    </card-container>
+
+    <card-container class="u-spacing__cardToCard--marginTop">
+        <header>
+            <h2>{{addressTitle}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <address-entry class="u-spacing--widthFill"
+                       [address]="mailingInfo"
+                       [stateList]="states"
+                       [countryList]="countryList"
+                       [international]="mailingInfo.internationalAddress"
+                       [validate]="true">
+        </address-entry>
+    </card-container>
+
+    <section class="u-spacing__buttonToField--marginTop">
+        <action-buttons (main)="submit()"
+                        (alt)="cancel()">
+            <span action-main>SAVE</span>
+            <span action-alt>Cancel</span>
+        </action-buttons>
+    </section>
+
+</form>
+

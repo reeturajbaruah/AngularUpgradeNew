@@ -1,0 +1,93 @@
+<page-centered-container class="refresh-2020">
+    <form #uploadForm="ngForm" class="form-inline" validation-focus novalidate>
+        <div class="u-spacing__fieldToSection--marginTop">
+            <card-container>
+                <header>
+                    <h2>{{pageCms.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <section fxLayout="row wrap">
+                    <div fxFlex="grow" fxLayout="row">
+                        <a aria-label="PDF Download Instructions" fxFlex="grow" target="_blank"
+                            [href]="mvuInstructions">
+                            <img class="document-pdf-icon" src="/Content/icons/pdf.gif"
+                                alt="Download multiple vehicle upload instructions pdf icon" /> {{downInstructCms.LongDescription}}
+                        </a>
+                    </div>
+                    <div fxFlex="grow" fxLayout="row" style="padding-left: 1.3rem;">
+                        {{downInstructCms.SearchTitle}}
+                        <a target="_blank" href="https://get.adobe.com/reader/">
+                            &nbsp;{{downInstructCms.SearchDescription}}
+                        </a>
+                    </div>
+                </section>
+                <section fxLayout="row wrap" class="u-spacing__sectionToSection--marginTop">
+                    <div fxFlex="grow" fxLayout="row">
+                        <div fxFlex="grow">
+                            <a aria-label="Template Download Instructions" target="_blank"
+                               [href]="mvuTemplate">
+                                <img class="document-pdf-icon" src="/Content/icons/excel.gif"
+                                     alt="Download multiple vehicle upload template excel icon" />
+                                {{downTemplCms.Title}}
+                            </a>
+                            <span class="r-brackets">
+                                ({{downTemplCms.SearchTitle}})
+                            </span>
+                        </div>
+                    </div>
+                    <div fxFlex="grow" fxLayout="row">
+                        <div class="note-text" style="padding-left: 1.3em; font-size: 14px;">{{downTemplCms.SearchDescription}}</div>
+                    </div>
+                </section>
+                <header class="u-spacing__headerToSection--marginTop">
+                    <h2>{{uploadVehicleCsvFileCms.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <section fxLayout="row wrap">
+                    <div fxFlex="grow" fxLayout="row">
+                        {{uploadVehicleCsvFileCms.LongDescription}}
+                    </div>
+                    <div fxFlex="grow" fxLayout="row" class="u-spacing__sectionToSection--marginBottom">
+                        <div class="note-text" style="padding-top: 0.5rem; font-size: 14px;">{{uploadVehicleCsvFileCms.SearchTitle}}</div>
+                    </div>
+                </section>
+                <mat-label>SELECT A FILE TO UPLOAD</mat-label>
+                <div fxLayout="row">
+                    <div fxFlex.gt-sm="25" fxFlex.lt-md="50" style="padding: 0px;">
+                        <button class="btn btn-file upload-btn" (click)="fileUpload.click()">SELECT FILE</button>
+                        <input #fileUpload type="file" accept=".csv" (change)="onFileSelected($event)"
+                            style="display: none;" required>
+                    </div>
+                    <div fxFlex.gt-sm="75" fxFlex.lt-md="50" style="padding: 0px;">
+                        <input type="text" class="form-control upload-element" placeholder="No file selected"
+                            [ngModel]="fileName" [ngModelOptions]="{standalone:true}" readonly>
+                    </div>
+                </div>
+                <div style="color: red;">{{fileInvalidMessage}}</div>
+                <ng-container *ngIf="isFileValid">
+                    <div fxLayout="row" class="u-spacing__fieldToSection--marginTop">
+                        <div fxFlex.gt-sm="25" fxFlex.lt-md="33" style="padding: 0px;">
+                            <button class="btn btn-file upload-btn" (click)="saveInformation(isFileValid)">UPLOAD</button>
+                        </div>
+                        <div fxFlex.gt-sm="83" fxFlex.lt-md="67" style="height: 48px; padding: 0px;">
+                            <div class="progress progress-bar-custom-corners upload-element">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0"
+                                    aria-valuemax="100" [ngStyle]="{'width': (fileUploadProgress + '%')}">
+                                    <span class="progress-text" *ngIf="fileUploadProgress > 0">{{fileUploadProgress}}%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </card-container>
+            <section class="u-spacing__buttonToField--marginTop">
+                <wizard-ui #Wizard (next)="nextStep($event)" (cancel)="cancel($event)"
+                    [disabled]="uploadForm.submitted && uploadForm.invalid">
+                    <span wizard-next>Next</span>
+                    <span wizard-cancel>Cancel</span>
+                </wizard-ui>
+            </section>
+        </div>
+    </form>
+</page-centered-container>

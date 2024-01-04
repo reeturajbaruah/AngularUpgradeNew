@@ -1,0 +1,42 @@
+<div>
+    <!-- Contact Us Header -->
+    <header>
+        <h2 [innerHtml]="contactUsCms.Title"></h2>
+        <mat-divider></mat-divider>
+        <span [innerHtml]="contactUsCms.ShortDescription"></span>
+    </header>
+
+    <!-- Email Us Section -->
+    <section>
+        <div>
+            <mat-icon svgIcon="email-us"></mat-icon>
+        </div>
+        <div>
+            <h3 [innerHtml]="contactUsCms.emailUsCms.Title"></h3>
+            <span [innerHtml]="contactUsCms.emailUsCms.ShortDescription | safeHtml"></span>
+        </div>
+    </section>
+
+    <!-- Customer Service Section -->
+    <section>
+        <div>
+            <mat-icon svgIcon="csr-phone"></mat-icon>
+        </div>
+        <div>
+            <h3 [innerHtml]="contactUsCms.customerServiceCms.Title"></h3>
+            <span [innerHtml]="contactUsCms.customerServiceCms.ShortDescription"></span>
+
+        </div>
+    </section>
+
+    <!-- Roadside Assistance Section -->
+    <section>
+        <div>
+            <mat-icon svgIcon="roadside-assistance"></mat-icon>
+        </div>
+        <div>
+            <h3 [innerHtml]="contactUsCms.roadsideAssistanceCms.Title"></h3>
+            <span [innerHtml]="contactUsCms.roadsideAssistanceCms.ShortDescription"></span>
+        </div>
+    </section>
+</div>

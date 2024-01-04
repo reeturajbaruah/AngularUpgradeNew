@@ -1,0 +1,18 @@
+<table class="mat-calendar-table" role="presentation">
+  <thead class="mat-calendar-table-header">
+    <tr><th class="mat-calendar-table-header-divider" colspan="4"></th></tr>
+  </thead>
+  <tbody hctra-mat-calendar-body
+         [label]="yearLabel"
+         [rows]="months"
+         [todayValue]="todayMonth!"
+         [startValue]="selectedMonth!"
+         [endValue]="selectedMonth!"
+         [labelMinRequiredCells]="2"
+         [numCols]="4"
+         [cellAspectRatio]="4 / 7"
+         [activeCell]="dateAdapter.getMonth(activeDate)"
+         (selectedValueChange)="internalMonthSelected($event)"
+         (keydown)="handleCalendarBodyKeydown($event)">
+  </tbody>
+</table>

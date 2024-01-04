@@ -1,0 +1,31 @@
+@import (reference) '../../styles/variables.less';
+
+:host {
+
+    h2 {
+        max-height: 70px;
+    }
+
+    .figure-negative-margin-top {
+        margin-top: -24px;
+    }
+
+
+    @select-state-width: 100px;
+
+    mat-select {
+        width: @select-state-width;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+
+    @input-max-width: 370px;
+
+    .plate-input-width {
+        max-width: @input-max-width;
+        min-width: 225px;
+    }
+}

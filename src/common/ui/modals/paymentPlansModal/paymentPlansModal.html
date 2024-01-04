@@ -1,0 +1,59 @@
+<main id="modal-popup" class="refresh-2020" style="position:relative">
+
+    <section fxLayout="column" ngClass.lt-md="mobile-style" ngClass="desktop-style">
+
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <header fxLayout="column" fxLayoutAlign="center center">
+                <h2>{{cmsContent.Title}}</h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div *ngIf="searchedWithInvoice" [innerHtml]="cmsContent.ShortDescription | safeHtml"></div>
+            <div *ngIf="!searchedWithInvoice" [innerHtml]="cmsContent.LongDescription | safeHtml"></div>
+        </div>
+
+        <div ngClass.gt-sm="padding-grid" *ngIf="searchedWithInvoice">
+            <!--Search without an invoice should not display plates-->
+            <fx-row [isLabel]="true" [backgroundColorClass]="'transparent-background'">
+                <section col-start class="fx-flex-auto fx-layout-row fx-layout-align-start-center padding-sides-sm">
+                    <mat-label class="fx-flex-auto-shrink-more limited-flex">PLATE</mat-label>
+                </section>
+            </fx-row>
+
+            <row-container *ngIf="searchPlate.hasPaymentPlan"
+                           [rowType]="'semi-emphasis'"
+                           [isTop]="paymentPlanAssociatedPlates.length !== 0">
+                <section translation-skip col-start fxFlex="grow">
+                    {{searchPlate.licensePlate}}
+                </section>
+                <section *ngIf="searchedWithInvoice && !storefrontUtilityService.isRunningAsKiosk" col-end fxFlex="none">
+                    <a class="viewAllButton" fxFlex="none" aria-label="View Details"
+                        (click)="goToPaymentPlansGrid()">
+                        View Details
+                    </a>
+                </section>
+            </row-container>
+
+            <div *ngFor="let plate of paymentPlanAssociatedPlates; let i = index">
+                <row-container [rowType]="'semi-emphasis'"
+                               [isTop]="!searchPlate.hasPaymentPlan && i===0"
+                               [isInner]="(i!==paymentPlanAssociatedPlates.length - 1 && i!==0) || (searchPlate.hasPaymentPlan && i===0)"
+                               [isBottom]="i===paymentPlanAssociatedPlates.length - 1">
+                    <section translation-skip col-start fxFlex="grow">
+                        {{plate.licenseState}} {{plate.licensePlate}}
+                    </section>
+                </row-container>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" class="u-spacing__buttonToField--marginTop">
+            <action-buttons (main)="acceptButtonClick()" (alt)="cancelButtonClick()" [direction]="'column'"
+                [directionLtMd]="'column'" [reverseOrder]="true">
+                <span action-alt *ngIf="cmsContent.CancelBtn">{{cmsContent.CancelBtn}}</span>
+                <span action-main>{{cmsContent.AcceptBtn}}</span>
+            </action-buttons>
+        </div>
+    </section>
+</main>

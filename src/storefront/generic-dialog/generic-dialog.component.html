@@ -1,0 +1,60 @@
+<div *ngIf="show" @modalSlideDown>
+    <div class="modal-container" [ngClass]="class + '-container'">
+        <div *ngIf="closeIcon" class="close-icon" (click)="call('close')">
+            <img src={{closeIcon.ItemMedialUrl}} alt={{closeIcon.Alt}} />
+        </div>
+
+        <ng-container *ngIf="['maintenance-mode'].includes(class)">
+            <div *ngIf="image" class="img-container" [ngClass]="class">
+                <img src={{image.ItemMedialUrl}} alt={{image.Alt}} />
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!['maintenance-mode'].includes(class)">
+            <div *ngIf="image" class="img-container" [ngClass]="class">
+                <img src={{image.image}} alt={{image.alt}} />
+            </div>
+        </ng-container>
+
+        <div [ngClass]="class">
+            <div *ngIf="backArrow">
+                <a class="go-back" (click)="call('back')">
+                    <img src={{backArrow.ItemMedialUrl}} alt={{backArrow.Alt}} />
+                    <span>Back</span>
+                </a>
+            </div>
+            <section>
+                <ng-container *ngIf="['post-payment'].includes(class)">
+                    <h1 *ngIf="header" [innerHTML]="header"></h1>
+                </ng-container>
+                <ng-container *ngIf="!['post-payment'].includes(class)">
+                    <h2 *ngIf="header" [innerHTML]="header"></h2>
+                </ng-container>
+                <div *ngIf="['inactivity'].includes(class)">
+                    <p>{{minutes}}:{{seconds}}</p>
+                </div>
+                <ng-container *ngIf="['inactivity'].includes(class)">
+                    <p *ngIf="body" [innerHTML]="body"></p>
+                </ng-container>
+                <ng-container *ngIf="!['inactivity'].includes(class)">
+                    <h4 *ngIf="body" [innerHTML]="body"></h4>
+                </ng-container>
+            </section>
+
+            <ng-container *ngIf="!['other-options', 'other-options-complete', 'post-payment'].includes(class)">
+                <br />
+            </ng-container>
+
+            <section>
+                <ng-container *ngFor="let action of actions; let last = last">
+                    <ng-container [ngSwitch]="action.type">
+                        <button class="mediumBtn" [class.last]="['other-options', 'other-options-complete'].includes(class) && last" *ngSwitchCase="'button'" (click)="call(action.key)">{{action.text}}</button>
+                        <a *ngSwitchCase="'link'" (click)="call(action.key)">{{action.text}}</a>
+                        <ng-container *ngIf="['other-options', 'other-options-complete'].includes(class) && !last">
+                            <br />
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </section>
+        </div>
+    </div>
+</div>

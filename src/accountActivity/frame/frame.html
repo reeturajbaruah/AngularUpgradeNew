@@ -1,0 +1,56 @@
+<page-centered-dash-container [hasGutter]="false">
+
+    <div fxLayout="column" fxLayoutAlign="center center" ngClass.gt-md="hide">
+        <account-balance-header></account-balance-header>
+    </div>
+
+    <section fxLayout="column"
+             fxLayoutAlign="center center">
+
+        <div fxLayout="row"
+             fxLayout.lt-md="column"
+             fxLayoutAlign="start start"
+             class="title row-width">
+
+            <div fxFlex="grow"
+                 fxFlexOrder="1">
+                <div ngClass.gt-md="titleContainer" ngClass.lt-md="titleContainer-md-xs">
+                    <titleSubTitle [titleDescription]="cmsContent.Title"
+                                   [subtitleDescription]="cmsContent.ShortDescription"
+                                   [showSubTitle]="true">
+                    </titleSubTitle>
+                </div>
+
+            </div>
+
+            <div fxFlex="none"
+                 fxFlexOrder="2">
+                <div style="margin-left:auto; margin-top: auto; padding-top: 63px;" ngClass.lt-lg="hide">
+                    <account-balance-header></account-balance-header>
+                </div>
+            </div>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayout.lt-md="column"
+             fxLayoutAlign="start start"
+             class="row-width">
+
+            <tabs [cms]="cmsContent" [selectedState]="selectedState"></tabs>
+
+        </div>
+
+        <div fxLayout="row wrap"
+             fxLayout.lt-md="column"
+             fxLayoutAlign="start start"
+             fxLayoutGap="12px"
+             fxLayoutGap.gt-sm="0px"
+             class="row-width">
+
+            <ui-view class="u-spacing--widthFill"></ui-view>
+
+        </div>
+
+    </section>
+</page-centered-dash-container>

@@ -1,0 +1,11 @@
+<input type="file" (change)="onFileSelected($event.target.files)" [attr.accept]="acceptedFileExtensions" #fileUpload>
+
+<div *ngFor="let file of files" fxLayout="row" fxLayoutAlign="space-between">
+    <label>{{file.name + file.extension}}</label>
+    <a *ngIf="file.data" (click)="deleteAttachment(file)">Delete</a>
+    <span *ngIf="!file.data">Attaching</span>
+</div>
+
+<br />
+
+<a *ngIf="files && files.length < maxUploads" (click)="fileUpload.click()">Attach file</a>

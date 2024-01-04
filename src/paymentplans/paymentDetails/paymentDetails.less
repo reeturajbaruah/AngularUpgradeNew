@@ -1,0 +1,152 @@
+@import (reference) '../../styles/themes.less';
+
+//TODO: This file needs to have the themes.less mixins applied to it instead of directly using colors and fonts
+:host {
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 600;
+    .t-body--fontFamily;
+    display: block;
+    height: 100%;
+
+    main {
+        height: 100%;
+    }
+
+    mat-label {
+        text-transform: uppercase;
+        font-size: 10px;
+        line-height: 12px;
+        font-weight: bold;
+        .t-header--fontFamily;
+        margin: 0px 0px 4px 0px;
+    }
+
+    section {
+        margin: 2px 0px;
+        padding: 15px @page-bar-margin-static-lt-md;
+        .t-body--backgroundColor2(@theme-light);
+        display: block;
+        min-height: 50px;
+        width: 100%;
+
+        h2,
+        h3 {
+            margin: 0px;
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: 600;
+            .t-header--fontFamily;
+        }
+    }
+
+
+    section:first-child {
+        margin-top: 0px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        .t-table__emphasis--backgroundColor(@theme-light);
+    }
+
+    section:last-of-type {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        margin-bottom: 24px;
+    }
+
+    progress-bar {
+        margin: 24px 0px 12px 0px;
+
+        .progressBarPaymentPastDue {
+            background-color: @torch-red !important;
+        }
+    }
+
+    wizard-ui {
+        width: 100%;
+        text-transform: uppercase;
+    }
+
+    wizard-ui .prev-button,
+    wizard-ui .cancel-button {
+        display: none !important;
+    }
+
+    section.paymentPastDue {
+        mat-label,
+        strong,
+        article {
+            .t-error--color(@theme-light) !important;
+        }
+
+        article {
+            margin: 24px 0px;
+        }
+    }
+
+    a,
+    a:hover {
+        text-decoration: none;
+        color: unset;
+    }
+
+    a + div {
+        position: relative;
+    }
+
+    a + div > aside {
+        position: absolute;
+        opacity: 0.0;
+        width: 270px;
+        height: 75px;
+        left: -135px;
+        top: -98px; //75 (box height) + 12 (mat-label line height) + 20 (padding top+bottom)
+        background-color: white;
+        transition: opacity 500ms;
+        text-align: left;
+        padding: 10px 8px;
+        font-size: 12px;
+        line-height: 15px;
+        .t-body--fontFamily;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.16);
+        text-transform: capitalize;
+
+        hr {
+            margin: 3px 0px 10px 0px;
+        }
+    }
+
+    a + div > aside > div > span:first-child {
+        min-width: 126px;
+    }
+
+
+    a:hover + div > aside {
+        opacity: 1.0;
+    }
+}
+
+
+:host .lt-md {
+    padding-bottom: 60px;
+
+    section {
+        background-color: white;
+    }
+
+    section:first-child {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        background-color: unset;
+    }
+
+    section:last-of-type {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    a + div > aside {
+        left: auto;
+        right: 0px;
+    }
+}

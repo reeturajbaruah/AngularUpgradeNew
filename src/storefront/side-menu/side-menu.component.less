@@ -1,0 +1,60 @@
+@import (reference) '../../styles/custom/storefront.less';
+
+:host {
+    user-select: none;
+    display: block;
+    float: left;
+    width: @storefront-side-menu-width;
+    height: @storefront-curtain-height;
+
+    ul {
+        margin: 0px;
+        list-style-type: none;
+        padding-inline-start: 0px;
+    }
+
+    li {
+
+        img {
+            padding-left: 8px;
+        }
+
+        label {
+            display: block;
+            color: white;
+            padding-left: 10px;
+            width: 60%;
+        }
+
+        display: flex;
+        align-items: center;
+        background-color: #625176;
+        padding-left: 4px;
+        width: @storefront-side-menu-width;
+        height: @storefront-side-menu-item-height;
+    }
+
+    li.completed {
+        background-color: #381462;
+    }
+
+    li.active {
+
+        label {
+            color: #381462;
+            font-size: 16px;
+            font-family: 'Avenir LT Std 45 Book Regular';
+        }
+
+        background-color: white;
+        border-left: 4px solid #381462;
+    }
+
+    .icon-container {
+        img {
+            padding-left: 8px;
+        }
+
+        height: 75%;
+    }
+}

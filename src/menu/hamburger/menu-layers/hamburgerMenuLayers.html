@@ -1,0 +1,30 @@
+<ng-container *ngFor="let link of links ; first as isFirst">
+    <a (click)="handleMenuClick(link, $event)" 
+    [ngStyle]="{'height' : getHeight(link) }"
+     [href]="link.url"
+        [target]="link.external ? '_blank' : ''" 
+        [clickPreventDefault]="{ enabled: link.hasChildren }"
+        [class.border-top]="isFirst" 
+        [class.call-to-action]="isCallToAction" 
+        fxLayout="row"
+        fxLayoutAlign="space-between center">
+
+        <span [ngStyle]="{'font-size' : getFontSize(link)}">{{link.label}}</span>
+
+        <mat-icon *ngIf="link.hasChildren" svgIcon="home-down-arrow"
+            [@rotatedState]="link.collapse? 'rotated' : 'default'"></mat-icon>
+
+    </a>
+
+    <section>
+
+        <hamburger-menu-layers style="margin-left: 20px;" 
+        
+        [@collapse]="link.collapse" *ngIf="link.hasChildren"
+        [links]="link.authorizedChildren">
+
+        </hamburger-menu-layers>
+
+    </section>
+
+</ng-container>

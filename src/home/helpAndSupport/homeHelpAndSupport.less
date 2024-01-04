@@ -1,0 +1,161 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+
+    main {
+
+        width: 100%;
+        color: white;
+        padding: 50px 0px;
+        text-align: center;
+        overflow-x: hidden;
+
+        @media @breakpoint-lt-md {
+            padding: 40px 10px 0px 10px;
+        }
+
+        >h1 {
+            text-transform: uppercase;
+            font-size: 40px;
+
+            @media @breakpoint-lt-md {
+                font-size: 28px;
+            }
+
+            line-height: 1.25;
+        }
+
+        >h2 {
+            .t-body--fontFamily();
+            font-size: 18px;
+            line-height: 24px;
+        }
+
+    }
+
+    .content {
+        @media @breakpoint-gt-sm {
+            display: grid;
+            grid-template-rows: 265px 235px;
+            grid-template-columns: repeat(auto-fit, minmax(325px, 350px));
+            grid-auto-flow: column;
+            column-gap: 10px;
+            max-width: calc(3 * 350px + 20px);
+            margin: 20px auto 0px auto;
+
+
+            >picture,
+            >div {
+                max-width: 350px;
+                min-width: 325px;
+            }
+
+            >picture {
+                display: block;
+                grid-row: 1 / 2;
+
+                >img {
+                    width: 100%;
+                    height: auto;
+
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: cover;
+                }
+            }
+
+            >div {
+                grid-row: 2 / 3;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-bottom: 28px;
+                justify-content: space-between;
+
+                mat-divider {
+                    width: 30px;
+                    margin-bottom: 10px;
+                    display: inline-block;
+                }
+
+                h3 {
+                    text-transform: uppercase;
+                    font-size: 18px;
+                    font-weight: 400;
+                    line-height: 29px;
+                    color: white;
+                }
+
+                article {
+                    font-weight: bold;
+                    font-size: 24px;
+                    line-height: 40px;
+                    color: white;
+                    flex-grow: 1;
+                    padding-top: 20px;
+                }
+
+                button {
+                    text-transform: uppercase;
+                }
+            }
+        }
+
+        @media @breakpoint-lt-md {
+            display: grid;
+            grid-template-columns: 0px auto;
+            grid-auto-flow: row;
+            row-gap: 10px;
+
+            >picture {
+                grid-column: 1 / 1;
+
+                img {
+                    width: calc(100vw - 20px);
+                    height: calc((450 / 315) * 100vw);
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: cover;
+                }
+            }
+
+            >div {
+                grid-column: 2 / 3;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+                margin-top: 80%;
+
+                mat-divider {
+                    width: 30px;
+                    margin-bottom: 10px;
+                    display: inline-block;
+                }
+
+                h3 {
+                    text-transform: uppercase;
+                    font-size: 18px;
+                    font-weight: 400;
+                    line-height: 29px;
+                    color: white;
+                }
+
+                article {
+                    font-weight: bold;
+                    font-size: 24px;
+                    line-height: 40px;
+                    color: white;
+                    padding-top: 20px;
+                }
+
+                button {
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}

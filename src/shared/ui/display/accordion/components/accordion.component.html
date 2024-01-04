@@ -1,0 +1,27 @@
+<div *ngFor="let item of items" class="accordion-container">
+    <!-- Accordion Title Banner -->
+    <section class="accordion" [ngClass]="{'accordion-open': item.isOpen}" (click)="toggleAccordion(item)">
+        <h3 [innerHtml]="item.Title"></h3>
+        <mat-icon svgIcon="caret-down"></mat-icon>
+    </section>
+
+    <!-- Accordion Panel Content -->
+    <section *ngIf="item.isOpen" class="panel">
+        <!-- Panel Content Header -->
+        <header *ngIf="item.Category">
+            <h3 [innerHtml]="item.Category"></h3>
+            <mat-divider></mat-divider>
+        </header>
+
+        <!-- Last Modification Section -->
+        <section *ngIf="item.LastUpdate" class="last-modified" [ngClass]="{'missing-header': !item.Category}">
+            <mat-icon svgIcon="clock"></mat-icon>
+            <span [innerHtml]="item.LastUpdate"></span>
+        </section>
+
+        <!-- Description Section -->
+        <section class="panel-content">
+            <span [innerHtml]="item.ShortDescription | safeHtml"></span>
+        </section>
+    </section>
+</div>

@@ -1,0 +1,352 @@
+<main fxLayout="column"
+      fxLayoutAlign="start start">
+    <app-toaster-container></app-toaster-container>
+    <header fxLayout="row"
+            fxLayoutAlign="start center">
+        <h3>Invoice: <span translation-skip>{{data.invoiced.invoiceNum}}</span></h3>
+        <ng-container *ngIf="showPdfBtn">
+            <figure class="right-caption clickable" [ngClass]="{ 'link-faded': isDownloadBusy }"
+                    (click)="getInvoicePdf()" fxFlexOffset="30px">
+                <img src="/Content/icons/pdf.gif" />
+                <figcaption>
+                    &nbsp;PDF
+                </figcaption>
+            </figure>
+        </ng-container>
+    </header>
+    <section fxLayout="row"
+             fxLayout.lt-md="row wrap"
+             [ngStyle]="{'margin-top': '16px', 'margin-bottom': '18px', 'width': '100%'}">
+
+        <section fxFlex="auto">
+            <div class="u-spacing--widthFill">
+                <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                    <fx-row [isLabel]="true"
+                            [backgroundColorClass]="'transparent-background'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>INVOICE DATE</mat-label>
+                        </section>
+                    </fx-row>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section col-start
+                             fxFlex="auto">
+                        {{data.invoiced.mailedDate | dateWithTimeZone : 'date1' | default : 'To be mailed'}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlex="auto"
+                 fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 ngStyle.lt-md="width: 100%">
+            <div class="u-spacing--widthFill">
+                <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                    <fx-row [isLabel]="true"
+                            [backgroundColorClass]="'transparent-background'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>DUE DATE</mat-label>
+                        </section>
+                    </fx-row>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section col-start
+                             fxFlex="auto">
+                        {{data.invoiced.dueDate | dateWithTimeZone : 'date1' | default : 'To be mailed'}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 class="hidden u-spacing--widthFill"
+                 [ngClass.lt-md]="{'hidden': false}"></section>
+
+        <section fxFlex="2 1 auto"
+                 fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 *ngIf="data.isPreviousPaid">
+            <div class="u-spacing--widthFill">
+                <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                    <fx-row [isLabel]="true"
+                            [backgroundColorClass]="'transparent-background'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>STATUS</mat-label>
+                        </section>
+                    </fx-row>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section col-start
+                             fxFlex="auto">
+                        <mat-icon svgIcon="checkmark" class="center-vertical"></mat-icon>
+                        <span class="green-text" style="margin-left: 8px">Closed</span>
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 class="hidden u-spacing--widthFill"
+                 [ngClass.lt-md]="{'hidden': false}"></section>
+
+        <section fxFlex="2 1 auto"
+                 fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1">
+            <div class="u-spacing--widthFill">
+                <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                    <fx-row [isLabel]="true"
+                            [backgroundColorClass]="'transparent-background'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>AGENCY</mat-label>
+                        </section>
+                    </fx-row>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section translation-skip
+                             col-start
+                             fxFlex="auto"
+                             fxShow
+                             fxHide.lt-md>
+                        <div>{{data.invoiced.agencyName}}</div>
+                    </section>
+                    <section translation-skip
+                             col-start
+                             fxFlex="auto"
+                             fxHide
+                             fxShow.lt-md>
+                        <div>{{data.invoiced.mobileAgencyName}}</div>
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlex="none">
+            <div class="u-spacing--widthFill">
+                <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                    <fx-row [isLabel]="true"
+                            [backgroundColorClass]="'transparent-background'">
+                        <section col-end
+                                 fxFlex="none"
+                                 class="u-spacing--widthFill c--textAlignEnd">
+                            <mat-label>AMOUNT DUE</mat-label>
+                        </section>
+                    </fx-row>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section col-end
+                             fxFlex="none"
+                             class="u-spacing--widthFill c--textAlignEnd">
+                        <div><currency [value]="data.invoiced.invoiceDueBeforeDiscount"></currency></div>
+                    </section>
+                </row-container>
+            </div>
+        </section>
+    </section>
+
+    <header fxHide.gt-sm
+            style="margin-top: 44px; margin-bottom: 11px;">
+        <h3>Toll Violation Summary</h3>
+    </header>
+
+    <section style="width:100%">
+        <div *ngFor="let violation of data.invoiced.violations; first as isFirst; last as isLast">
+            <section fxLayout="row"
+                     fxLayout.lt-md="row wrap"
+                     [ngStyle]="{'margin-top': '2px'}">
+
+                <section fxFlex="0 0 45%"
+                         fxFlex.lt-md="0 0 80%">
+                    <div class="u-spacing--widthFill">
+                        <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                            <fx-row [fxHide]="!isFirst"
+                                    fxHide.lt-md="false"
+                                    [isLabel]="true"
+                                    [backgroundColorClass]="'transparent-background'">
+                                <section col-start
+                                         fxFlex="auto">
+                                    <mat-label>TRANSACTION DATE</mat-label>
+                                </section>
+                            </fx-row>
+                        </div>
+                        <fx-row [backgroundColorClass]="'white-background'"
+                                [isTop]="data.invoiced.violations.length > 1 && isFirst"
+                                [isBottom]="data.invoiced.violations.length > 1 && isLast"
+                                [isInner]="!isFirst && !isLast">
+                            <section col-start
+                                     fxFlex="auto">
+                                {{violation.violationDate | dateWithTimeZone : 'dateTime3' | default : 'To be mailed'}}
+                            </section>
+                        </fx-row>
+                    </div>
+                </section>
+
+                <section fxFlex="0 0 40%"
+                         fxFlexOrder="0"
+                         fxFlexOrder.lt-md="1"
+                         fxFlex.lt-md="0 0 auto"
+                         ngStyle.lt-md="width: 100%">
+                    <div class="u-spacing--widthFill">
+                        <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                            <fx-row [fxHide]="!isFirst"
+                                    fxHide.lt-md="false"
+                                    [isLabel]="true"
+                                    [backgroundColorClass]="'transparent-background'">
+                                <section col-start
+                                         fxFlex="auto">
+                                    <mat-label>TRANSACTION LOCATION</mat-label>
+                                </section>
+                            </fx-row>
+                        </div>
+                        <fx-row [backgroundColorClass]="'white-background'"
+                                [isTop]="data.invoiced.violations.length > 1 && isFirst"
+                                [isBottom]="data.invoiced.violations.length > 1 && isLast"
+                                [isInner]="!isFirst && !isLast">
+                            <section translation-skip
+                                     col-start
+                                     fxFlex="auto">
+                                {{violation.location}}
+                            </section>
+                        </fx-row>
+                    </div>
+                </section>
+
+                <!--<section fxFlexOrder="0"
+                         fxFlexOrder.lt-md="1"
+                         class="hidden u-spacing--widthFill"
+                         [ngClass.lt-md]="{'hidden': false}"></section>-->
+
+
+                <section fxFlex="0 0 15%"
+                         fxFlex.lt-md="0 0 20%">
+                    <div class="u-spacing--widthFill">
+                        <div class="c-labelRowContainer" ngClass.lt-md="lt-md">
+                            <fx-row [fxHide]="!isFirst"
+                                    fxHide.lt-md="false"
+                                    [isLabel]="true"
+                                    [backgroundColorClass]="'transparent-background'">
+                                <section col-end
+                                         fxFlex="none"
+                                         class="u-spacing--widthFill c--textAlignEnd">
+                                    <mat-label>AMOUNT</mat-label>
+                                </section>
+                            </fx-row>
+                        </div>
+                        <fx-row [backgroundColorClass]="'white-background'"
+                                [isTop]="data.invoiced.violations.length > 1 && isFirst"
+                                [isBottom]="data.invoiced.violations.length > 1 && isLast"
+                                [isInner]="!isFirst && !isLast">
+                            <section col-end
+                                     fxFlex="none"
+                                     class="u-spacing--widthFill c--textAlignEnd">
+                                <div>
+                                    <currency [value]="data.invoiced.invoiceDueBeforeDiscount === 0 ? violation.originalTollAmount : violation.tollAmount">
+                                    </currency>
+                                </div>
+                            </section>
+                        </fx-row>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </section>
+    <section id="fee-summary"
+             style="width: 100%"
+             fxFlexOffset="8px">
+        <row-container [rowType]="'bodyInvert'"
+                       [isTop]="true">
+            <section col-start
+                     fxFlex="grow">
+                Administrative Fees
+            </section>
+            <section col-end
+                     fxFlex="none">
+                <currency [value]="data.invoiced.originalAdminFees"></currency>
+            </section>
+        </row-container>
+        <row-container [rowType]="'bodyInvert'"
+                       [isInner]="true">
+            <section col-start
+                     fxFlex="grow">
+                Collections Fees:
+            </section>
+            <section col-end
+                     fxFlex="none">
+                <currency [value]="data.invoiced.originalCollectionFees"></currency>
+            </section>
+        </row-container>
+        <row-container [rowType]="'bodyInvert'"
+                       [isBottom]="true">
+            <section col-start
+                     fxFlex="grow">
+                Other Fees:
+            </section>
+            <section col-end
+                     fxFlex="none">
+                <currency [value]="data.invoiced.originalOtherFees"></currency>
+            </section>
+        </row-container>
+    </section>
+    <section id="violation-summary"
+             style="width: 100%"
+             fxFlexOffset="8px">
+        <row-container [rowType]="'bodyInvert'"
+                       [isTop]="true">
+            <section col-start
+                     fxFlex="grow">
+                Sub-total Invoice Due:
+            </section>
+            <section col-end
+                     fxFlex="none">
+                <currency [value]="data.invoiced.originalInvoiceTotal"></currency>
+            </section>
+        </row-container>
+        <row-container [rowType]="'bodyInvert'"
+                       [isInner]="true"
+                       *ngIf="showAdjustments">
+            <section col-start
+                     fxFlex="grow"
+                     class="green-text">
+                Adjustments:
+            </section>
+            <section col-end
+                     fxFlex="none"
+                     class="green-text">
+                <currency [value]="adjustmentAmt"></currency>
+            </section>
+        </row-container>
+        <row-container [rowType]="'bodyInvert'"
+                       [isBottom]="true">
+            <section col-start
+                     fxFlex="grow"
+                     class="green-text">
+                Amount Already Paid:
+            </section>
+            <section col-end
+                     fxFlex="none"
+                     class="green-text">
+                <currency [value]="data.invoiced.previouslyPaid * -1"></currency>
+            </section>
+        </row-container>
+    </section>
+    <section id="total-amount"
+             style="width: 100%; margin-bottom: 40px"
+             fxFlexOffset="8px">
+        <row-container [rowType]="'bodyInvert'">
+            <section col-start
+                     fxFlex="grow">
+                <h3>Total Invoice Amount Due: </h3>
+            </section>
+            <section col-end
+                     fxFlex="none">
+                <h3><currency [value]="data.invoiced.invoiceDueBeforeDiscount"></currency></h3>
+            </section>
+        </row-container>
+    </section>
+</main>

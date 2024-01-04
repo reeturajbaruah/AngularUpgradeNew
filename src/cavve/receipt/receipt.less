@@ -1,0 +1,45 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/variables.less';
+
+[device-type] {
+    :host {
+        h2 {
+            margin: 0px 0px;
+            max-height: 70px;
+            padding-bottom: 16px;
+        }
+
+        mat-divider {
+            width: @width-divider;
+        }
+
+        .account-created-text {
+            color: @tropical-rain-forest-green;
+            margin-left: 16px;
+        }
+
+        #PrintButton {
+            .t-body--color(@theme-light);
+            .t-body--fontFamily;
+            font: normal normal normal 12px/15px;
+        }
+
+        mat-icon {
+            &[svgIcon='checkmark'] {
+                vertical-align: middle;
+                margin-top: -2px;
+            }
+        }
+
+        .acc-num-text {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-left: 37px;
+
+            .acc-num-val {
+                font-size: 20px;
+            }
+        }
+    }
+}

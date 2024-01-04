@@ -1,0 +1,54 @@
+<card-container id="billingInfoSection">
+    <section fxLayout="column"
+             fxLayoutAlign="start start">
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+            <header fxLayout="column">
+                <h2 id="billingInfoHdr">
+                    {{content.header}}
+                </h2>
+                <mat-divider></mat-divider>
+            </header>
+
+            <!-- todo: revist for dynamic links -->
+            <ng-container *ngIf="content.links.length>0">
+            <a class="editButton" (click)="openEditBillingModal()"
+               fxFlex="none" aria-label="Edit">
+                Edit
+            </a>
+          </ng-container>
+        </div>
+    </section>
+    <section fxLayout="column"
+             style="margin-top: 24px">
+
+        <payment-display *ngIf="billingInfo"
+                         [billingType]="billingInfo.billingType"
+                         [bankDetails]="billingInfo.eft"
+                         [creditCard]="billingInfo.credit"
+                         [hideTitle]="true"
+                         [showAccountNumber]="true"
+                         [showNameOnCard]="true"
+                         [showLabels]="true"
+                         [savePaymentStatus]="billingInfo.savePaymentStatus"
+                         [flexPayRebillToggle]="flexPayRebillToggle"
+                         >
+        </payment-display>
+        <address-display *ngIf="billingInfo && billingInfo.billingType"
+                         [address]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit : billingInfo.eft"
+                         [international]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit.international : billingInfo.eft.international"
+                         [showLabels]="true">
+        </address-display>
+
+        <shared-alert-box *ngIf="billingInfo.billingType === BillingType.Cash"
+            containerClass="extend-container-class"
+            svgIcon="alert" svgIconClass="alert-icon-class"
+            [desc]="cashDisplaytext">
+        </shared-alert-box>
+
+        <auto-replenishment-display *ngIf="flexPayRebillToggle"
+                                    [autoReplenishmentStatus]="billingInfo?.autoReplenishmentStatus"></auto-replenishment-display>
+    </section>
+</card-container>

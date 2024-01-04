@@ -1,0 +1,99 @@
+<main [ngModelGroup]="'creditCardEntry' + nameSuffix">
+
+    <div class="refresh-2020" fxLayout="column" fxLayoutAlign="start start">
+
+        <section fxLayout="column"
+                 fxLayoutAlign="center start"
+                 class="u-spacing--widthFill">
+
+            <div fxLayout="row">
+                <div [innerHtml]="creditReadOnlyDesc"></div>
+            </div>
+
+        </section>
+
+        <section fxLayout="column"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+
+            <div>
+                <mat-label>NAME ON CARD</mat-label>
+            </div>
+
+            <div style="text-align:right;">
+                <p translation-skip>
+                    {{creditCard.nameOnCard | titlecase}}
+                </p>
+            </div>
+
+        </section>
+
+        <section fxLayout="column"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+
+            <div>
+                <mat-label>CARD NUMBER</mat-label>
+            </div>
+
+            <div style="text-align:right;">
+                <p translation-skip>
+                    <img *ngIf="cmsImage" [src]="cmsImage" />
+                    {{creditCard.cardNbr | maskCreditCard:creditCard.cardCode}}
+                </p>
+            </div>
+        </section>
+
+        <section fxLayout="row"
+                 fxLayoutAlign="start start"
+                 class="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+            <div [error-check]="[ExpirationMonthSelect, ValidExpirationInput]"
+                 style="width:160px;">
+                <mat-label>EXP. MONTH</mat-label>
+
+                <mat-select translation-skip [name]="'expMonth'"
+                            #ExpirationMonthSelect="ngModel"
+                            [(ngModel)]="creditCard.expMonth"
+                            [id]="'expMonth'"
+                            placeholder="Month">
+                    <mat-option *ngFor="let month of monthsList; index as indexOfMonth;" [value]="indexOfMonth + 1">{{month}}</mat-option>
+                </mat-select>
+
+                <error-messages [errors]="ExpirationMonthSelect.errors">
+                    <error-message rule="required">Please enter a valid expiration month</error-message>
+                </error-messages>
+
+            </div>
+            <div [error-check]="[ExpirationYearSelect, ValidExpirationInput]"
+                 fxFlexOffset="30px"
+                 style="width:160px;">
+                <mat-label>EXP. YEAR</mat-label>
+                <mat-select [name]="'expYear'"
+                            #ExpirationYearSelect="ngModel"
+                            [id]="'expYear'"
+                            [(ngModel)]="creditCard.expYear"
+                            [required]="!disableValidation"
+                            placeholder="Year">
+                    <mat-option *ngIf="creditCard.expYear && creditCard.expYear < yearList[0]" [value]="creditCard.expYear">{{creditCard.expYear}}</mat-option>
+                    <mat-option *ngFor="let year of yearList" [value]="year">{{year}}</mat-option>
+                </mat-select>
+
+                <error-messages [errors]="ExpirationYearSelect.errors">
+                    <error-message rule="required">Please enter a valid expiration year</error-message>
+                </error-messages>
+
+                <error-messages [errors]="(ExpirationYearSelect.valid) && (ExpirationMonthSelect.valid) ? ValidExpirationInput.errors : []">
+                    <error-message rule="pattern">Please enter a valid expiration date</error-message>
+                </error-messages>
+
+            </div>
+
+
+            <input type="hidden"
+                   [name]="'validExpiration' + nameSuffix"
+                   [ngModel]="isValidExpirationDate"
+                   #ValidExpirationInput="ngModel"
+                   pattern="^true$" />
+        </section>
+    </div>
+</main>

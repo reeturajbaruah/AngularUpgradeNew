@@ -1,0 +1,90 @@
+@import (reference) '../../styles/custom/storefront.less';
+
+:host {
+    width: @storefront-modal-container-width;
+    padding-top: @storefront-modal-padding;
+    background-color: transparent;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+    .modal-container {
+        display: block;
+        background-color: #ffffff;
+        position: absolute;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 5px 15px #00000080;
+        padding: 40px;
+        z-index: 2;
+        border-radius: 5px;
+        width: @storefront-modal-container-width;
+    }
+
+    div.wait {
+        text-align: center;
+
+        h2 {
+            color: #6500b1;
+            margin-right: 5px;
+            font-size: 20px;
+            font-family: @storefront-site-font-family;
+            display: inline;
+        }
+    }
+
+    div.success {
+        text-align: center;
+
+        h1 {
+            text-align: center;
+            color: #00af2a;
+            font-family: @storefront-site-font-family;
+            font-size: 18pt;
+        }
+    }
+
+    div.failure {
+        text-align: center;
+
+        button {
+            display: block;
+            margin: 10px auto;
+            background-color: @storefront-button-background-color;
+            border-radius: @storefront-border-radius;
+            font-family: @storefront-site-font-family;
+            border-color: #34353a;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            user-select: none;
+
+            :hover {
+                cursor: pointer;
+            }
+        }
+
+        strong {
+            color: #333333;
+            font-family: @storefront-site-font-family;
+        }
+    }
+
+    .close-icon {
+        width: 42px;
+        height: 42px;
+        top: -20px;
+        right: -25px;
+        position: absolute;
+
+        :hover {
+            cursor: pointer;
+        }
+    }
+}
+

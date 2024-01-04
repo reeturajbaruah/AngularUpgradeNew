@@ -1,0 +1,228 @@
+<main>
+
+    <section *ngIf="transactionRecord.licenseStateAndPlate">
+        <h3>Plate: {{transactionRecord.licenseStateAndPlate}}</h3>
+    </section>
+
+    <section fxLayout="row"
+             fxLayout.lt-lg="row wrap"
+             class="u-spacing--widthFill table-padding section-spacing">
+
+        <section fxFlex="auto">
+            <div class="u-spacing--widthFill negate-row-negative-margin">
+                <div class="label-row-container">
+                    <row-container [isLabel]="true"
+                                   [rowType]="'transparent'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>TRANSACTION DATE</mat-label>
+                        </section>
+                    </row-container>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section col-start
+                             fxFlex="auto">
+                        {{transactionRecord.trxnDate | dateWithTimeZone: 'dateTime5'}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlex="auto"
+                 fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 ngClass.lt-md="u-spacing--widthFill">
+            <div class="u-spacing--widthFill negate-row-negative-margin">
+                <div class="label-row-container">
+                    <row-container [isLabel]="true"
+                                   [rowType]="'transparent'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>POSTED DATE</mat-label>
+                        </section>
+                    </row-container>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section col-start
+                             fxFlex="auto">
+                        {{transactionRecord.postedDate | dateWithTimeZone: 'dateTime5'}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 class="hidden u-spacing--widthFill"
+                 [ngClass.lt-md]="{'hidden': false}"></section>
+
+        <section fxFlex="2 1 auto"
+                 fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 ngClass.lt-md="u-spacing--widthFill">
+            <div class="u-spacing--widthFill negate-row-negative-margin">
+                <div class="label-row-container">
+                    <row-container [isLabel]="true"
+                                   [rowType]="'transparent'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>NICKNAME</mat-label>
+                        </section>
+                    </row-container>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section translation-skip
+                             col-start
+                             fxFlex="auto">
+                        {{transactionRecord.vehicleNickName}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlex="1 1 auto"
+                 fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 ngClass.lt-md="u-spacing--widthFill">
+            <div class="u-spacing--widthFill negate-row-negative-margin">
+                <div class="label-row-container">
+                    <row-container [isLabel]="true"
+                                   [rowType]="'transparent'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>AXLE COUNT</mat-label>
+                        </section>
+                    </row-container>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section translation-skip
+                             col-start
+                             fxFlex="auto">
+                        {{transactionRecord.vehicleClassCode}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlex="2 1 auto"
+                 fxFlexOrder="0"
+                 fxFlexOrder.lt-md="1"
+                 class="description-width"
+                 ngClass.lt-md="u-spacing--widthFill">
+            <div class="u-spacing--widthFill negate-row-negative-margin">
+                <div class="label-row-container">
+                    <row-container [isLabel]="true"
+                                   [rowType]="'transparent'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>DESCRIPTION</mat-label>
+                        </section>
+                    </row-container>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section translation-skip
+                             col-start
+                             fxFlex="auto">
+                        {{transactionRecord.transType}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+        <section fxFlex="none">
+            <div class="u-spacing--widthFill negate-row-negative-margin">
+                <div class="label-row-container">
+                    <row-container [isLabel]="true"
+                                   [rowType]="'transparent'">
+                        <section col-end
+                                 fxFlex="auto"
+                                 class="limited-flex-end-amount">
+                            <mat-label>AMOUNT</mat-label>
+                        </section>
+                    </row-container>
+                </div>
+                <row-container [rowType]="'bodyInvert'">
+                    <section col-end
+                             fxFlex="auto"
+                             class="limited-flex-end-amount">
+                        {{transactionRecord.amount | currency: 'USD'}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+
+    </section>
+
+    <section *ngIf="transactionRecord.agencyName"
+             fxLayout="row wrap"
+             class="u-spacing--widthFill table-padding section-spacing">
+        <section fxFlex="auto"
+                 ngClass.lt-md="u-spacing--widthFill">
+            <div class="u-spacing--widthFill negate-row-negative-margin">
+                <div class="label-row-container">
+                    <row-container [isLabel]="true"
+                                   [rowType]="'transparent'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>LOCATION</mat-label>
+                        </section>
+                    </row-container>
+                </div>
+                <row-container [rowType]="'bodyInvert'"
+                               [isTop]="true">
+                    <section col-start
+                             fxFlex="auto"
+                             ngClass.lt-lg="extra-row-padding">
+                        {{locationNameWithoutAgencyOrPhone | titlecase}}
+                    </section>
+                </row-container>
+            </div>
+        </section>
+        <section fxFlex="auto"
+                 ngClass.lt-md="u-spacing--widthFill">
+            <div class="u-spacing--widthFill negate-row-negative-margin">
+                <div class="label-row-container">
+                    <row-container [isLabel]="true"
+                                   [rowType]="'transparent'">
+                        <section col-start
+                                 fxFlex="auto">
+                            <mat-label>AGENCY</mat-label>
+                        </section>
+                    </row-container>
+                </div>
+                <row-container [rowType]="'bodyInvert'"
+                               [isTop]="true">
+                    <section col-start
+                             fxFlex="auto"
+                             ngClass.lt-lg="extra-row-padding">
+                        {{transactionRecord.agencyName}} -
+                        <a class="u--noUnderline"
+                           (click)="openAgencyDetailsModal()">
+                            {{transactionRecord.agencyFullName}}
+                        </a>
+                    </section>
+                </row-container>
+            </div>
+        </section>
+    </section>
+
+    <section *ngIf="transactionRecord.agencyName"
+             class="map-padding">
+        <div *ngIf="hasLocationCoordinates">
+            <iframe id="mapLocationWithCoordinates"
+                    class="map-dimensions"
+                    [src]="googleMapSrc"
+                    frameborder="0"></iframe>
+        </div>
+        <div *ngIf="!hasLocationCoordinates"
+             fxLayout="column"
+             fxLayoutAlign="center center"
+             id="mapLocationNotFoundElement"
+             class="no-map-spacing no-map-background-color">
+            <img id="mapLocationNotFoundIcon"
+                 src="/Content/icons/iconMapPin.png" />
+            <div id="mapLocationNotFoundText">Map not available</div>
+        </div>
+    </section>
+
+</main>

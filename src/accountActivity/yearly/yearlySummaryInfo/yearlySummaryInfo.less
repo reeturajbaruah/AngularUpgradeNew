@@ -1,0 +1,77 @@
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/mixins.less';
+@import '../../../common/ui/containers/fxRow/details.less';
+
+mat-divider {
+    width: @width-divider;
+}
+
+.extended-row {
+    .extended-row-mixin();
+
+    &.lt-md {
+        .extended-row-lt-md-mixin();
+    }
+}
+
+.mat-label {
+    font-size: 18px;
+}
+
+.gridish {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gridish > * {
+    flex: 1 1 10em;
+}
+
+.gridish-title {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gridish-title > * {
+    flex: 1 1 12em;
+}
+
+.gridish-title-small {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.gridish-title-small > * {
+    flex: 1 1 24em;
+}
+
+.display {
+    display: block;
+    margin: 0px 5px 0px 5px;
+}
+
+.download-icon {
+    margin-top: -5px;
+    padding-right: 8px;
+}
+
+.download-link {
+    .t-header--fontFamily();
+    font-size: 16px;
+    font-weight: 500;
+}
+
+a.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.table-padding {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @media @breakpoint-lt-md {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}

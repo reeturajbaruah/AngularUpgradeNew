@@ -1,0 +1,59 @@
+<main class="display">
+    <section>
+        <h3 class="u-spacing__sectionToSection" style="margin-bottom:16px">Invoice Summary</h3>
+        <div class="table-padding">
+            <row-container [rowType]="'transparent'" [isLabel]="true">
+                <section fxHide fxShow.lt-md col-start
+                         class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                    <mat-label>DESCRIPTION</mat-label>
+                </section>
+                <section fxHide fxShow.lt-md col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                    <mat-label fxFlex="1 1 10em">QTY</mat-label>
+                    <mat-label fxFlex="1 1 auto">AMOUNT</mat-label>
+                </section>
+
+                <section fxShow fxHide.lt-md col-start
+                         class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                    <mat-label fxFlex="66">DESCRIPTION</mat-label>
+                    <mat-label class="fx-flex-auto-shrink-more limited-flex">QUANTITY</mat-label>
+                </section>
+                <section fxShow fxHide.lt-md col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                    <mat-label class="fx-flex-auto limited-flex-end" >AMOUNT</mat-label>
+                </section>
+            </row-container>
+
+            <div class="u-spacing--widthFill" fxLayout="column" fxLayoutGap="2px">
+                <row-container *ngFor="let summary of summaries; first as isFirst; last as isLast;"
+                               [isTop]="summaries.length > 1 && isFirst" [isBottom]="summaries.length > 1 && isLast"
+                               [isInner]="!isFirst && !isLast" [rowType]="isLast ? 'emphasis' : 'body'"
+                               [ngClass.lt-md]="{ 'extended-row': false }">
+                    <section fxHide fxShow.lt-md col-start
+                             class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <div fxFlex="67">{{summary.description}}</div>
+                    </section>
+                    <section fxHide fxShow.lt-md col-end
+                             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <div fxFlex="1 1 5em" class="fx-flex-auto-shrink-more">
+                            {{summary.quantity ? summary.quantity : ''}}
+                        </div>
+                        <div fxFlex="1 1 4em" class="fx-flex-auto limited-flex-end">
+                            {{summary.amount | currency: 'USD'}}
+                        </div>
+                    </section>
+
+                    <section fxShow fxHide.lt-md col-start
+                             class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <div fxFlex="67">{{summary.description}}</div>
+                        <div class="fx-flex-auto-shrink-more limited-flex">
+                            {{summary.quantity ? summary.quantity : ''}}
+                        </div>
+                    </section>
+                    <section fxShow fxHide.lt-md col-end
+                             class="fx-flex-auto limited-flex-end">
+                        {{summary.amount | currency: 'USD'}}
+                    </section>
+                </row-container>
+            </div>
+        </div>
+    </section>
+</main>

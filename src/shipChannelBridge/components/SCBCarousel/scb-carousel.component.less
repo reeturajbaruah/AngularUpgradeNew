@@ -1,0 +1,29 @@
+::ng-deep .carousel-slide {
+
+    @media @breakpoint-lt-md {
+        .carousel-slide-sliderContent {
+            place-content: center space-around !important;
+            align-items: flex-start !important;
+        }
+    }
+
+    @media @breakpoint-xs {
+        .mat-divider {
+            padding-bottom: 5px !important;
+        }
+        .carousel-slide-sliderTitle {
+            padding-bottom: 0px !important;
+        }
+        .carousel-slide-sliderContent {
+            align-items: center !important;
+        }
+    }
+
+    .carousel-slide-sliderContent {
+        padding: 10px 10% !important;
+    }
+
+    .carousel-slide-sliderTitle {
+        width: 100% !important;
+    }
+}

@@ -1,0 +1,73 @@
+﻿<div class="bottom-buffer-lg" id="credit-card-info-directive">
+    <header ng-if="!isAccountInformation" class="header-spacing">
+        <a ng-if="!hideEdit" class="pull-right" ng-click="onEdit()" ng-show="showEdit" aria-label="Edit Billing Info">Edit</a>
+        <h2 ng-if="!hideTitle && noTransHeader" class="h1-mo title-color-mo no-margin-top-do">{{headerText}}</h2>
+        <ng-transclude></ng-transclude>
+        <hr ng-if="!hideTitle" />
+    </header>
+
+    <!--Duplicated below-->
+    <div ng-if="!isAccountInformation">
+        <div class="bottom-buffer-sm">
+            <p class="h4">{{creditCard.orderDisplay}} Payment Method: <span class="font-avenir-medium">Credit Card</span></p>
+        </div>
+
+        <div class="group-paragraphs">
+            <p translation-skip class="h4 customer-account-data" ng-show="showNameOnCard">{{creditCard.nameOnCard | capitalize}}</p>
+            <p translation-skip class="h4 customer-account-data"><span ng-if="!imageSrc">{{creditCard.cardTypeDisplay | charReplace: '_': ' ' | capitalize}}</span> {{creditCard.cardNbr | creditCardCode: creditCard.cardCode}} <img ng-if="imageSrc" src="{{imageSrc}}" class="credit-card-info-icon" /></p>
+            <p translation-skip class="h4">Exp: <span translation-skip class="customer-account-data">{{creditCard.cardExpires | expDate}}</span></p>
+            <div ng-class="{'top-buffer-xs': hideAddress}">
+                <a class="h5" ng-if="hideAddress" ng-show="showCardEdit" ng-click="onCreditCardEdit()" aria-label="Edit {{creditCard.orderDisplay}} Credit Card">Edit</a>
+            </div>
+        </div>
+
+        <div class="group-paragraphs">
+            <billing-address ng-if="!hideAddress" international="international" credit-card="creditCard"></billing-address>
+            <div ng-class="{'top-buffer-xs': !hideEdit && !hideAddress}">
+                <a class="h5" ng-if="!hideEdit && !hideAddress" ng-show="showCardEdit" ng-click="onCreditCardEdit()" aria-label="Edit {{creditCard.orderDisplay}} Credit Card">Edit</a>
+            </div>
+        </div>
+    </div>
+
+    <!--Duplicated above-->
+    <div ng-if="isAccountInformation">
+        <div class="row bottom-buffer-sm">
+            <div class="h4 col-xs-6 label-format">Payment Method:</div>
+            <div ng-if="numCards < 2" class="h4 customer-account-data col-xs-6 no-padding-left">Credit Card</div>
+            <div ng-if="numCards >= 2" class="h4 customer-account-data col-xs-6 no-padding-left">
+                <a ng-click="onCreditCardEdit()" aria-label="Edit {{creditCard.orderDisplay}} Credit Card">Credit Card</a>
+            </div>
+        </div>
+
+        <div class="group-paragraphs">
+            <div class="row bottom-buffer-sm">
+                <div class="h4 col-xs-6 label-format"></div>
+                <div translation-skip class="h4 customer-account-data col-xs-6 no-padding-left">{{creditCard.cardTypeDisplay | charReplace: '_': ' ' | capitalize}}</div>
+                <div translation-skip class="h4 col-xs-6 label-format"></div>
+                <div translation-skip class="h4 customer-account-data col-xs-6 no-padding-left">{{creditCard.cardNbr | creditCardCode: creditCard.cardCode}}</div>
+        </div>
+        <div class="row bottom-buffer-sm">
+            <div class="h4 col-xs-6 label-format">Expires:</div>
+            <div translation-skip class="h4 customer-account-data col-xs-6 no-padding-left">{{creditCard.cardExpires | expDate}}</div>
+        </div>
+        <!--<p class="h4">Exp: <span class="customer-account-data">{{creditCard.cardExpires | expDate}}</span></p>-->
+        <div ng-if="!isAccountInformation" ng-class="{'top-buffer-xs': hideAddress}">
+            "{
+
+            <a class="h5" ng-if="hideAddress" ng-show="showCardEdit" ng-click="onCreditCardEdit()" aria-label="Edit {{creditCard.orderDisplay}} Credit Card">Edit</a>
+        </div>
+    </div>
+
+    <div class="group-paragraphs">
+        <div ng-if="!hideAddress" class="row bottom-buffer-sm">
+            <div class="h4 col-xs-6 label-format">Address:</div>
+            <div class="col-xs-6 no-padding-left"><billing-address international="international" credit-card="creditCard"></billing-address></div>
+        </div>
+        <div ng-if="!isAccountInformation" ng-class="{'top-buffer-xs': !hideEdit && !hideAddress}">
+            <a class="h5" ng-if="!hideEdit && !hideAddress" ng-show="showCardEdit" ng-click="onCreditCardEdit()" aria-label="Edit {{creditCard.orderDisplay}} Credit Card">Edit</a>
+        </div>
+    </div>
+</div>
+
+<a ng-if="!hideEdit" ng-show="showAddSecondaryPayment" ng-click="addSecondaryPayment()" class="h5">Add Secondary Credit Card</a>
+</div>

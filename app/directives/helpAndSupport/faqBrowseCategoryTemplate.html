@@ -1,0 +1,11 @@
+﻿<div id="faq-browse-category" class="row">
+    <div class="col-sm-8">
+        <label for="faqCategorySearch">Browse by category</label>
+        <select id="faqCategorySearch" ng-model="faqCategory" class="form-control" ng-options="category as category.Purpose for category in categories">
+            <option value="" selected>Search by category</option>
+        </select>
+    </div>
+    <div class="col-sm-4">
+        <button id="faq-search-button" class="btn pull-left padding-sides-sm" ng-click="onSearch(faqCategory)">Search</button>
+    </div>
+</div>

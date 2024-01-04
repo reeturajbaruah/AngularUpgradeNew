@@ -1,0 +1,115 @@
+<page-centered-container hasAlternateBackgroundColor="true">
+    <div fxLayout="column">
+        <div fxFlexOffset="21px">
+
+            <form #ChangeReplenishmentAmountForm="ngForm"
+                  validation-focus novalidate
+                  fxLayout="column start"
+                  method="post">
+
+                <!-- This is double wrapped in 2 divs to apply the fxFlexOffset to replicate "padding-top: 21px" -->
+                <card-container>
+
+                    <!--Title-->
+                    <header>
+                        <h2>{{(isPendingClosure || isAccountInvoiced)?replenishmentAmtError.Title:cmsContent.Title}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </header>
+                <div *ngIf="currentUser?.isFlexPay" class="fx-layout-row fx-layout-align-end-center">
+                    <input type="checkbox" [checked]="currentUser?.rebillOptIn" (change)="authorizeChange($event)" />
+                    <span >
+                        Authorize HCTRA to <a (click)="onAuthorizationClick()" class="reflenish-link">replenish account automatically</a></span>
+                </div>
+
+                <section [ngClass]="{ 'opt-out': (!currentUser?.rebillOptIn && currentUser?.isFlexPay)}">
+                    <!--ShortDescription/Subtitle (above Input Box)-->
+                    <section *ngIf="!isPendingClosure && !isAccountInvoiced && content.ShortDescription || currentUser?.isFlexPay">
+                        <cms-content [template]="content.ShortDescription" [data]="shortDescriptionParams">
+                        </cms-content>
+
+                    </section>
+
+                    <section *ngIf="isPendingClosure || isAccountInvoiced">
+                        <div [innerHTML]="replenishmentAmtError.LongDescription | safeHtml"></div>
+                    </section>
+
+                    <!-- New Replenishment User Input Section -->
+                    <section *ngIf="!isPendingClosure && !isAccountInvoiced">
+                        <div fxLayout="column"
+                             class="u-spacing__fieldToField--marginTop"
+                             [error-check]="newReplenishmentAmountInput">
+
+                            <!-- New Replenishment input box LABEL -->
+                            <mat-label for="newReplenishmentAmount">NEW REPLENISHMENT AMOUNT</mat-label>
+
+                            <!-- New Replenishment input box IPUT BOX -->
+                            <!-- -->
+                            <!-- LOOK AT oneTimeEnterAmount.html (& updateRebillAmount.html) for pattern, etc. -->
+                            <div [class.disabled]="(!currentUser?.rebillOptIn && currentUser?.isFlexPay)">
+                                <input #newReplenishmentAmountTxtBox
+                                       type="text"
+                                       name="paymentAmountDisplay"
+                                       [ngStyle]="{ 'display': paymentAmountFocus ? 'none' : 'inherit' }"
+                                       [value]="paymentAmountWithCurrency"
+                                       (focus)="switchTo(paymentAmountElm)" />
+
+                                <input #newReplenishmentAmountInput="ngModel"
+                                       #paymentAmountElm
+                                       type="number"
+                                       step=".01"
+                                       tabindex="-1"
+                                       [ngStyle]="{ 'display': paymentAmountFocus ? 'inherit' : 'none' }"
+                                       name="newReplenishmentAmount"
+                                       [(ngModel)]="rebillObj.rebillAmount"
+                                       [min]="(!currentUser?.rebillOptIn && currentUser?.isFlexPay) ? 0 : minNeededDeposit"
+                                       [max]="4800"
+                                       pattern="^[0-9]*(\.[0-9]{0,2})?$"
+                                       required
+                                       (blur)="paymentAmountFocus = false" />
+                            </div>
+
+
+                            <!-- LOOK AT oneTimeEnterAmount.html (& updateRebillAmount.html) for error messages, etc. -->
+                            <error-messages [errors]="newReplenishmentAmountInput.errors">
+                                <error-message rule="required">Please enter a valid amount</error-message>
+                                <error-message rule="pattern">Please enter a valid amount</error-message>
+                                <error-message rule="min">Minimum amount must be more than <currency [value]="minNeededDeposit"></currency></error-message>
+                                <error-message rule="max">Maximum amount must be less than <currency [value]="4800"></currency></error-message>
+
+                                <!-- Can be included in pattern? -->
+                                <!--<error-message rule="NaN">    Please enter a valid payment amount</error-message>-->
+                                <!-- "tooLow" rule????  -->
+                                <!--<error-message rule="tooLow">      Please enter an amount equal to or greater than ****CHANGE THIS HERE**** </error-message>-->
+                            </error-messages>
+                        </div>
+
+                    </section>
+
+                    <!--Long Description (Under the Input Box)-->
+                    <section *ngIf="!isPendingClosure && !isAccountInvoiced && content.LongDescription || currentUser?.isFlexPay"
+                             class="u-spacing__fieldToField--marginTop">
+                        <cms-content [template]="content.LongDescription" [data]="longDescriptionParams">
+                        </cms-content>
+                    </section>
+                </section>
+                </card-container>
+
+                <!--Submit Button-->
+                <div class="u-spacing__buttonToField--marginTop">
+                    <action-buttons (main)="saveInformation(ChangeReplenishmentAmountForm, wizardUi)"
+                                    (alt)="cancel(wizardUi)">
+                        <span action-main 
+                              tabindex="2">{{saveButtonText}}</span>
+                        <span *ngIf="!this.isKiosk && !isPendingClosure && !isAccountInvoiced"
+                              action-alt
+                              tabindex="3">Cancel</span>
+                    </action-buttons>
+
+                    <wizard-ui #wizardUi></wizard-ui>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</page-centered-container>

@@ -1,0 +1,34 @@
+<div class="tweetsCarouselContainer" ngClass.lt-md="lt-md">
+    <button class="carouselLeftArrow" ngClass.lt-md="lt-md"
+            mat-icon-button
+            type="button"
+            [color]="color"
+            [ngStyle.lt-md]="{'left' : '0px'}"
+            (click)="previous()"
+            [disabled]="currentSlide === 0">
+        <mat-icon ngClass="arrowDimension"
+                  *ngIf="currentSlide > 0"
+                  svgIcon="{{imageSliderArrow}}">
+        </mat-icon>
+    </button>
+
+    <a [href]="TweetRetrievalService.accountUrl" target="_blank" class="tweets-overlay" #tweetsOverlayRef ngClass.lt-md="lt-md"></a>
+    <div class="tweetsContainer" ngClass.lt-md="lt-md"
+         (cdkObserveContent)="refreshSlides()"
+         #containerRef>
+        <ng-content></ng-content>
+    </div>
+
+    <button class="carouselRightArrow" ngClass.lt-md="lt-md"
+            mat-icon-button
+            type="button"
+            [color]="color"
+            [ngStyle.lt-md]="{'right' : '0px'}"
+            (click)="next()"
+            [disabled]="currentSlide === slides?.length - 1">
+        <mat-icon ngClass="arrowDimension"
+                  *ngIf="currentSlide < slides?.length - 1"
+                  svgIcon="{{imageSliderArrow}}">
+        </mat-icon>
+    </button>
+</div>

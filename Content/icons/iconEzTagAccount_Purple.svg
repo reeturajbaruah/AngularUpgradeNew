@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+				<title>EZ TAG Account</title>
+					<g>
+						<g>
+							<circle fill="none" stroke="#48286C" stroke-width="2" stroke-miterlimit="10" cx="16" cy="16" r="14" />
+						</g>
+						<polygon fill="#48286C" points="13.2,21.9 16.3,15.2 19.5,21.9 22.5,21.9 16.3,8.9 10.2,21.9 	" />
+					</g>
+			</svg>

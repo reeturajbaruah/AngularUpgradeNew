@@ -1,0 +1,29 @@
+<row-container [class.remove]="contactInfo.remove">
+    <section col-start
+             fxFlex="grow"
+             fxLayout="row"
+             fxLayoutAlign="start center">
+        <p class="clickable contact-name" (click)="openAuthContact()">{{contactInfo.firstName | titlecase}} {{contactInfo.lastName | titlecase}}</p>
+        <div class="fx-flex-none glyphicon glyphicon-chevron-right"></div>
+    </section>
+    <section col-end
+             fxLayout="row"
+             fxLayoutAlign="end center">        
+        <span *ngIf="contactInfo.accessCode===null;else withAccessCode" style="padding-left:8px;">
+            <tool-tip class="toolTip">
+                <span tool-tip-hover>
+                    <mat-icon class="emptyAccessCode" svgIcon="alert"></mat-icon><span class="emptyAccessCode" fxFlexOffset="6px">Missing</span>
+                </span>
+                <span tool-tip-message ngClass="hover-box-adjustment"
+                      [ngStyle]="{'left': '-80px'}">
+                    {{cmsContent.LongDescription}}
+                </span>
+            </tool-tip>
+        </span>
+        <ng-template #withAccessCode><p>{{contactInfo.accessCode}}</p></ng-template>
+        <mat-icon [svgIcon]="contactInfo.remove ? 'undo-icon' : 'trash-icon'"
+                  fxFlexOffset="16px"
+                  (click)="toggleRemoveContact()"
+                  class="clickable"></mat-icon>
+    </section>
+</row-container>

@@ -1,0 +1,11 @@
+    <ng-container ngModelGroup="ccInput">
+
+    <mat-label>CREDIT CARD NUMBER</mat-label>
+
+        <div [ngStyle]="{'width': '100%', 'height': '70px'}" class="vantivIframeWrapper">
+
+        <div [id]="frameId" #IframeContainer></div>
+        <div class="hideVantivError" *ngIf="useExistingCard"></div>
+    </div>
+
+</ng-container>

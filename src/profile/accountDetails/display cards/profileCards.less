@@ -1,0 +1,59 @@
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/variables.less';
+
+:host {
+    card-dash-container {
+        width: 100%;
+    }
+
+    h3 {
+        padding-bottom: 15px;
+    }
+
+    .context {
+        font-family: @font-montserrat;
+        font-size: 14px !important;
+        font-weight: 600;
+    }
+
+    .context-long {
+        font-family: @font-montserrat;
+        font-size: 12px !important;
+        font-weight: 600;
+    }
+
+    a {
+        .t-header--fontFamily();
+        margin-left: auto;
+    }
+
+    .top-row-heights {
+        height: 190px;
+
+        @media @breakpoint-lt-md {
+            height: 100%;
+        }
+
+        @media @breakpoint-gt-lg {
+            height: 190px;
+        }
+    }
+
+    .bottom-row-heights {
+        @media @breakpoint-lt-md {
+            height: 100%;
+        }
+
+        @media @breakpoint-md {
+            height: 300px;
+        }
+
+        @media @breakpoint-lg {
+            height: 350px;
+        }
+
+        @media @breakpoint-gt-lg {
+            height: 320px;
+        }
+    }
+}

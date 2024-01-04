@@ -1,0 +1,17 @@
+<div
+     fxLayout="row"
+     fxLayout.lt-md="column"
+     fxLayoutAlign="center center">
+
+    <iframe #iframe
+            frameborder="0"
+            [src]="mediaUrl"
+            [ngClass.lt-md]="'lt-md'">
+    </iframe>
+
+    <div fxLayout="column" fxLayoutAlign="start center">
+        <i (click)="close()" [innerHtml]="icon | safeHtml"></i>
+    </div>
+    
+</div>
+

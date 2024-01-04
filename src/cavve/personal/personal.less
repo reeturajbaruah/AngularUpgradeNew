@@ -1,0 +1,51 @@
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/variables.less';
+
+cavve-personal-component {
+
+    form {
+        margin-bottom: 100px;
+        max-width: @page-centered-max-width;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    h2 {
+        max-height: 70px;
+        padding-bottom: 24px;
+    }
+
+    .editButton {
+        font-weight: 500;
+        .t-header--fontFamily;
+        text-align: right;
+        padding-top: 5px;
+    }
+
+    input[type='checkbox'] {
+        margin-right: 4px;
+    }
+
+    .missingInfo mat-icon {
+        vertical-align: text-top;
+        margin-right: 9px;
+    }
+
+    .textOverlay {
+        .t-body--color(@theme-light);
+        .t-body--fontFamily;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .missingInfo {
+        color: @torch-red;
+        padding-bottom: 16px;
+    }
+
+    action-buttons {
+        width: 100%;
+    }
+}

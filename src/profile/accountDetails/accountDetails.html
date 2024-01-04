@@ -1,0 +1,120 @@
+<page-centered-dash-container [hasGutter]="false">
+
+    <div fxLayout="column" fxLayoutAlign="center center" ngClass.gt-md="hide">
+        <account-balance-header></account-balance-header>
+    </div>
+
+    <section fxLayout="column"
+             fxLayoutAlign="center center">
+
+        <div fxLayout="row"
+             fxLayout.lt-md="column"
+             fxLayoutAlign="start start"
+             class="title row-width">
+
+            <titleSubTitle [titleDescription]="cmsProfileContent.Title"
+                           [subtitleDescription]="cmsProfileContent.PROFILE_SUB"
+                           [showSubTitle]="true">
+            </titleSubTitle>
+
+            <div style="margin-left:auto; margin-top: auto;" ngClass.lt-lg="hide">
+                <account-balance-header></account-balance-header>
+            </div>
+
+        </div>
+
+        <div fxLayout="row wrap"
+             fxLayout.lt-md="column"
+             fxLayoutAlign="start start"
+             fxLayoutGap="12px"
+             fxLayoutGap.gt-sm="0px"
+             class="row-width">
+
+            <ng-container *ngIf="contactInfo$ | async as contactInfoAsync">
+                <update-contact-info-card fxLayout="column"
+                                          [contactInfoTitle]="cmsProfileContent.CONTACT_INFO_TITLE"
+                                          [contactInfo]="contactInfoAsync"
+                                          [cmsContent]="contactInfoCardCMSContent"
+                                          [isAccountClosed]="isAccountClosed">
+                </update-contact-info-card>
+
+                <update-mailing-address-card fxLayout="column"
+                                             [mailingInfoTitle]="cmsProfileContent.MAILING_ADDRESS_TITLE"
+                                             [mailingInfo]="contactInfoAsync"
+                                             [isAccountClosed]="isAccountClosed"
+                                             [noMailingAddress]="cmsProfileContent.NO_MAILING_ADDRESS"
+                                             [isMailingAddress]="!isHideByMail">
+                </update-mailing-address-card>
+            </ng-container>
+
+            <ng-container *ngIf="authContacts$ | async as authContactsAsync">
+                <auth-contacts-card fxLayout="column"
+                                    [authContactsTitle]="cmsProfileContent.AUTH_CONTACT_TITLE"
+                                    [authContactsNames]="authContactsAsync.contactNames"
+                                    [isAccountClosed]="isAccountClosed"
+                                    [noAuthContacts]="cmsProfileContent.NO_AUTH_CONTACTS"
+                                    [authContacts]="authContactsAsync.authorizedContactList"
+                                    [authContactLimit]="authContactsAsync.authContactLimit">
+                </auth-contacts-card>
+            </ng-container>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayout.lt-md="column"
+             fxLayoutAlign="start start"
+             class="title row-width">
+
+            <titleSubTitle [titleDescription]="cmsProfileContent.SETTINGS_TITLE"
+                           [subtitleDescription]="cmsProfileContent.SETTINGS_SUB"
+                           [showSubTitle]="true">
+            </titleSubTitle>
+
+        </div>
+
+        <div fxLayout="row wrap"
+             fxLayout.lt-md="column"
+             fxLayoutAlign="start start"
+             fxLayoutGap="12px"
+             fxLayoutGap.gt-sm="0px"
+             class="row-width">
+
+            <update-login-info-card fxLayout="column"
+                                    [loginSecurityTitle]="cmsProfileContent.UPDATE_LOGIN_TITLE"
+                                    [isAccountClosed]="isAccountClosed"
+                                    [closeAccountModalCms]="closeAccountModalCms">
+            </update-login-info-card>
+
+            <billing-card fxLayout="column"
+                          [billingTitle]="cmsProfileContent.BILLING_TITLE"
+                          [paymentMethodImages]="paymentMethodImages"
+                          [billingCMS]="billingCMS"
+                          [isAccountClosed]="isAccountClosed"
+                          [isAccountInvoiced]="isAccountInvoiced"
+                          [autoReplenishIndicatorCms]="autoReplenishCms">
+            </billing-card>
+
+            <ng-container *ngIf="accountData$ | async as accountDataAsync">
+                <rebill-amt-card fxLayout="column"
+                                 [rebillAmtTitle]="cmsProfileContent.REBILL_AMT_TITLE"
+                                 [rebillAmtContext]="cmsProfileContent.REBILL_AMT_CONTEXT"
+                                 [rebillAmt]="accountDataAsync.rebillAmount"
+                                 [isAccountClosed]="isAccountClosed"
+                                 [isAccountInvoiced]="isAccountInvoiced"
+                                 [accountData]="accountDataAsync"
+                                 [autoReplenishIndicatorCms]="autoReplenishCms">
+                </rebill-amt-card>
+            </ng-container>
+
+            <com-preferences-card fxLayout="column"
+                                  [comPrefTitle]="cmsProfileContent.COM_PREFERENCES_TITLE"
+                                  [comPrefMonthlyStatementsContext]="cmsProfileContent.STATEMENTS_PREFERENCES"
+                                  [comPrefImportantUpdatesContext]="cmsProfileContent.ACCOUNT_UPDATES_PREFENCES"
+                                  [comPrefUpdateToasterContext]="cmsProfileContent.COM_PREFERENCES_TOASTER"
+                                  [comPrefNoMailingAddress]="cmsProfileContent.COM_PREF_NO_MAILING"
+                                  [isAccountClosed]="isAccountClosed"
+                                  [isHideByMail]="isHideByMail">
+            </com-preferences-card>
+        </div>
+    </section>
+</page-centered-dash-container>

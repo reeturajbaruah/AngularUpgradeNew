@@ -1,0 +1,159 @@
+@BenefitsSectionWidth: 1202px;
+
+.desktop-section {
+    width: 1202px;
+}
+
+.about {
+    @media @breakpoint-gt-md {
+        width: 1202px;
+        height: 723px;
+        overflow: hidden;
+        position: relative;
+    }
+}
+
+.about-link-container {
+    @media @breakpoint-gt-md {
+        position: absolute;
+        height: 265px;
+        width: 265px;
+        right: 0px;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 50%);
+        z-index: 10;
+        .about-link {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+    }
+}
+
+.about-text1 {
+    @media @breakpoint-gt-md {
+        height: 450px;
+        margin-left: 112px;
+        margin-top: 80px;
+        margin-bottom: 80px;
+        margin-right: 0px;
+        text-align: left;
+    }
+}
+
+.about-text2 {
+    @media @breakpoint-gt-md {
+        text-align: center;
+        margin-top: 8px;
+    }
+}
+
+.benefits-easier,
+.benefits-safer {
+    @media @breakpoint-gt-md {
+        width: 1202px;
+        height: 434px;
+        overflow: hidden;
+    }
+}
+
+.benefits-easier-content {
+    @media @breakpoint-gt-md {
+        margin-left: (@BenefitsSectionWidth/2);
+        width: (@BenefitsSectionWidth/2);
+        height: 434px;
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+.benefits-safer-content {
+    @media @breakpoint-gt-md {
+        width: (@BenefitsSectionWidth/2);
+        height: 434px;
+        top: 48px;
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+.gantry {
+    @media @breakpoint-gt-md {
+        width: 1202px;
+        height: 995px;
+        overflow: hidden;
+    }
+}
+
+.gantry-text1 {
+    @media @breakpoint-gt-md {
+        text-align: center;
+        margin: 2.5% 0%;
+    }
+}
+
+.gantry-text2,
+.gantry-text3 {
+    @media @breakpoint-gt-md {
+        position: absolute;
+        top: 920px;
+        width: 50%;
+        text-align: center;
+    }
+}
+
+.gantry-text3 {
+    @media @breakpoint-gt-md {
+        right: 0%;
+    }
+}
+
+.signage {
+    @media @breakpoint-gt-md {
+
+        width: 1202px;
+
+        .signage-container,
+        .signage-expanded-container {
+            padding: 3% 0%;
+            text-align: center;
+            background: #e5f2f5 0% 0% no-repeat padding-box;
+        }
+
+        .signage-content-text,
+        .signage-content-text1 {
+            width: 100%;
+        }
+
+        .signage-image {
+            width: 100%;
+        }
+
+        .signage-expanded-container {
+            background: #e5f2f5 0% 0% no-repeat padding-box;
+            padding: 1% 0%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+
+            .signage-current-temp-row {
+                margin: 2%;
+
+                .current {
+                    width: 498px;
+                    height: 256px;
+                    position: relative;
+
+                    .signage-expanded-content-text {
+                        position: absolute;
+                        bottom: 10px;
+                        left: 50%;
+                        -webkit-transform: translate(-50%, 0%);
+                        -ms-transform: translate(-50%, 0%);
+                        transform: translate(-50%, 0%);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,8 @@
+<page-centered-container class="refresh-2020">
+    <enter-verification-code (verifyEmit)="verify()" [cmsInfo]="cmsData" [contactInfo]="uiRouterGlobals.params.email"
+        [acctId]="uiRouterGlobals.params.acctId" [source]="source" [channel]="uiRouterGlobals.params.channel"
+        [disableTryAnotherWay]="true"></enter-verification-code>
+    <card-container>
+        <article [innerHtml]="cmsData.LongDescription | safeHtml"></article>
+    </card-container>
+</page-centered-container>

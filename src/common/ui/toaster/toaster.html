@@ -1,0 +1,13 @@
+<div [ngClass]="{'toasterFadeInCheck' : showToaster,
+                 'toasterFadeOutCheck' : !showToaster}"
+     (click)="removeToaster()"
+     fxLayout="row"
+     fxLayoutAlign="center center"
+     class="toast toast-{{toast.type}}">
+    <div class="toast-heading"
+         fxLayout="row"
+         fxLayoutAlign="center center">
+        <div [innerHtml]="toast.description | safeHtml"></div>
+    </div>
+    <div class="toast-close">&times;</div>
+</div>

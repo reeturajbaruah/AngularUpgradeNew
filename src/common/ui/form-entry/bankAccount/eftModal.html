@@ -1,0 +1,58 @@
+<main id="modal-popup" class="refresh-2020">
+
+    <section fxLayout="column"
+             fxLayoutAlign="start center"
+             class="sectionContainer"
+             [ngStyle.lt-md]="{'width' : '100%', 'padding-top' : '45px'}"
+             [ngStyle]="{'padding-top' : '32px'}">
+
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             class="divContainer"
+             style="width:100%; text-align:center;">
+
+            <header fxLayout="column"
+                    fxLayoutAlign="center center"
+                    class="divContainer"
+                    [ngStyle.lt-md]="{'width' : '100%'}">
+
+                <h2>{{eftHeader.Title}}</h2>
+                <mat-divider></mat-divider>
+
+            </header>
+
+        </div>
+
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             style="padding-top:20.5px; text-align:center; ">
+
+            <article style="padding-top:24px"
+                     [innerHTML]="eftRouterNumber.Title"></article>
+
+            <figure *ngIf="routerImage.image">
+                <img [src]="routerImage.image"
+                     [attr.alt]="routerImage.alt"
+                     [attr.height]="routerImage.height"
+                     [attr.width]="routerImage.width" />
+            </figure>
+        </div>
+
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             style="padding-top:20.5px; text-align:center; ">
+
+            <article style="padding-top:24px"
+                     [innerHTML]="eftAccountNumber.Title"></article>
+
+            <figure *ngIf="accountImage.image">
+                <img [src]="accountImage.image"
+                     [attr.alt]="accountImage.alt"
+                     [attr.height]="accountImage.height"
+                     [attr.width]="accountImage.width" />
+            </figure>
+        </div>
+
+    </section>
+
+</main>

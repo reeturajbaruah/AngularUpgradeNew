@@ -1,0 +1,355 @@
+<page-filled-container>
+
+    <section *ngIf="hasOutstandingViolations"
+             fxLayout="column"
+             class="u-spacing--widthFill">
+        <header>
+            <h2>
+                <cms-content [template]="cmsData.PAGE_HEADER" [data]="cms.data"></cms-content>
+            </h2>
+            <mat-divider></mat-divider>
+        </header>
+        <ng-container>
+            <div *ngIf="!plateContainer.hasMultipleAccts" [innerHTML]="cmsData.ShortDescription | safeHtml"></div>
+            <div *ngIf="plateContainer.hasMultipleAccts" [innerHTML]="veriTransCmsData.ShortDescription | safeHtml"></div>
+        </ng-container>
+    </section>
+
+    <section *ngIf="prevPaidCmsData.HEADER && showPreviouslyPaidPlate && !hasOutstandingViolations"
+             fxLayout="column"
+             class="u-spacing--widthFill">
+        <header>
+            <h2>
+                <cms-content [template]="cmsData.IMPORTANT_REMINDER_HEADER"
+                             [data]="prevPaidCmsData.HEADER"></cms-content>
+            </h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+        <div [innerHTML]="prevPaidCmsData.LongDescription | safeHtml"></div>
+    </section>
+
+    <section *ngIf="hasOutstandingViolations"
+             fxLayout="column"
+             class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+        <header>
+            <h2 [innerHTML]="cmsData.IMPORTANT_REMINDER_HEADER"></h2>
+            <mat-divider></mat-divider>
+        </header>
+        <div [innerHTML]="cmsData.LongDescription"></div>
+    </section>
+
+    <section fxLayout="column"
+             fxLayoutAlign="start center"
+             class="u-spacing--widthFill u-spacing__sectionToSection--marginTop">
+        <section fxLayout="row"
+                 fxLayoutAlign="start center"
+                 class="u-spacing--widthFill">
+            <aside id="records-found-text"
+                   [fxFlex]="cms.data['itemsFound'] >= paginationLimit ? 'none' : 'grow'">
+                {{cms.data['itemsFound']}} Record{{cms.data['itemsFound'] > 1 ? 's' : ''}} found
+            </aside>
+            
+            <div *ngIf="cms.data['itemsFound'] >= paginationLimit"
+                 fxShow
+                 fxHide.lt-md
+                 fxFlex="auto"
+                 fxLayout="row"
+                 fxLayoutAlign="end center">
+                <mat-paginator-goto [length]="cms.data['itemsFound']"
+                                    [pageIndex]="0"
+                                    [pageSize]="defaultPageSize"
+                                    [hidePageSize]="true"
+                                    (page)="updateViolationsDetailsTable($event)">
+                </mat-paginator-goto>
+            </div>
+        </section>
+    </section>
+
+    <ng-template [ngIf]="hasOutstandingViolations">
+        <section fxLayout="column"
+                 class="u-spacing--widthFill ">
+            <violations-plate-row [plate]="searchPlate.plate"
+                                  fxShow
+                                  fxHide.lt-md
+                                  [noDiscount]="true"
+                                  [cmsData]="cmsContentPmntPlan"
+                                  id="ap-row-searchPlate"
+                                  [showCollapseUi]="true"
+                                  [(isCollapsed)]="searchPlate.collapsed"
+                                  (changeSelectionAll)="plateChangeSelectAll('ap-rows-searchPlate')"
+                                  [selectAllAsDefault]="true"
+                                  [isEditAllowed]="true">
+            </violations-plate-row>
+            <violations-plate-row [plate]="searchPlate.plate"
+                                  fxHide
+                                  fxShow.lt-md
+                                  [noDiscount]="true"
+                                  [cmsData]="cmsContentPmntPlan"
+                                  id="ap-row-searchPlate-mobile"
+                                  [showCollapseUi]="true"
+                                  [(isCollapsed)]="searchPlate.collapsed"
+                                  (changeSelectionAll)="plateChangeSelectAll('ap-rows-searchPlate-mobile')"
+                                  [selectAllAsDefault]="true"
+                                  [isEditAllowed]="true">
+            </violations-plate-row>
+            <div [@collapse]="searchPlate.collapsed">
+                <violations-details-rows *ngIf="cms.data['itemsFound'] < paginationLimit"
+                                         fxShow
+                                         fxHide.lt-md
+                                         id="ap-rows-searchPlate"
+                                         [isEditAllowed]="true"
+                                         [arePlatesExpanded]="true"
+                                         [hideFooter]="true"
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [cmsDataOverPmnt]="overpaymentModalCmsContent"
+                                         [plate]="searchPlate.plate"
+                                         [paginatedPlate]="searchPlate.plate"
+                                         [selectAllAsDefault]="true"
+                                         [disableSelectAll]="true"
+                                         (changeAllSelected)="detailsChangeSelectAll('ap-row-searchPlate')"
+                                         class="u-spacing__sectionToSection--marginTop"
+                                         (afterComputeTotals)="calSummaryValues()">
+                </violations-details-rows>
+                <violations-details-rows *ngIf="cms.data['itemsFound'] < paginationLimit"
+                                         fxHide
+                                         fxShow.lt-md
+                                         id="ap-rows-searchPlate-mobile"
+                                         [isEditAllowed]="true"
+                                         [arePlatesExpanded]="true"
+                                         [hideFooter]="true"
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [cmsDataOverPmnt]="overpaymentModalCmsContent"
+                                         [plate]="searchPlate.plate"
+                                         [paginatedPlate]="searchPlate.plate"
+                                         [selectAllAsDefault]="true"
+                                         [disableSelectAll]="true"
+                                         (changeAllSelected)="detailsChangeSelectAll('ap-row-searchPlate-mobile')"
+                                         class="u-spacing__sectionToSection--marginTop"
+                                         (afterComputeTotals)="calSummaryValues()">
+                </violations-details-rows>
+                <violations-details-rows *ngIf="cms.data['itemsFound'] >= paginationLimit"
+                                         id="ap-rows-searchPlate"
+                                         fxShow
+                                         fxHide.lt-md
+                                         [isEditAllowed]="true"
+                                         [arePlatesExpanded]="true"
+                                         [hideFooter]="true"
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [cmsDataOverPmnt]="overpaymentModalCmsContent"
+                                         [plate]="searchPlate.plate"
+                                         [paginatedPlate]="paginatedPlate"
+                                         [selectAllAsDefault]="true"
+                                         [disableSelectAll]="true"
+                                         (changeAllSelected)="detailsChangeSelectAll('ap-row-searchPlate')"
+                                         class="u-spacing__sectionToSection--marginTop"
+                                         (afterComputeTotals)="calSummaryValues()">
+                </violations-details-rows>
+                <violations-details-rows *ngIf="cms.data['itemsFound'] >= paginationLimit"
+                                         id="ap-rows-searchPlate-mobile"
+                                         fxHide
+                                         fxShow.lt-md
+                                         [isEditAllowed]="true"
+                                         [arePlatesExpanded]="true"
+                                         [hideFooter]="true"
+                                         [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                         [cmsDataOverPmnt]="overpaymentModalCmsContent"
+                                         [plate]="searchPlate.plate"
+                                         [paginatedPlate]="mobileLoadedPlate"
+                                         [selectAllAsDefault]="true"
+                                         [disableSelectAll]="true"
+                                         (changeAllSelected)="detailsChangeSelectAll('ap-row-searchPlate-mobile')"
+                                         class="u-spacing__sectionToSection--marginTop"
+                                         (afterComputeTotals)="calSummaryValues()">
+                    <div *ngIf="cms.data['itemsFound'] >= paginationLimit && mobileLoadedCombinedViolationsArrayLength < cms.data['itemsFound']"
+                         fxLayout="row"
+                         fxLayoutAlign="center"
+                         class="u-spacing--widthFill u-spacing__loadMore--margin">
+                        <a class="u--noUnderline"
+                           (click)="mobileLoadMore()">Load more</a>
+                    </div>
+                </violations-details-rows>
+            </div>
+            <a id="prevPaidInvoicesLink"
+               *ngIf="searchPlate.plate.previouslyPaidInvoices && searchPlate.plate.previouslyPaidInvoices.length > 0"
+               fxFlex.gt-sm="none"
+               class="smaller-font"
+               style="text-align:right;"
+               (click)="openPrevPaidInvoices()">
+                View Previously Paid Invoices
+            </a>
+        </section>
+        <ng-container *ngIf="associatedPlates.length > 0">
+            <section fxLayout="column"
+                     class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+                <header>
+                    <h2 [innerHTML]="cmsData.ASSOCIATED_PLATES_HEADER"></h2>
+                    <mat-divider></mat-divider>
+                </header>
+                <div [innerHTML]="cmsData.ASSOCIATED_PLATES_DESC"></div>
+                <ng-container *ngFor="let associatedPlate of associatedPlates; index as i">
+                    <div>
+                        <violations-plate-row [id]="'ap-row-' + i" [hideHeader]="i > 0" [plate]="associatedPlate.plate"
+                                              [showCollapseUi]="associatedPlate.plate?.invoicesAndViolations.length > 0" [(isCollapsed)]="associatedPlate.collapsed"
+                                              (changeSelectionAll)="plateChangeSelectAll('ap-rows-' + i)" [selectAllAsDefault]="true" [isEditAllowed]="true" [isRound]="true" [isAssociated]="true" [cmsData]="cmsContentPmntPlan">
+                        </violations-plate-row>
+                        <div class="u-spacing__firstHeaderToTitle--marginTop" [@collapse]="associatedPlate.collapsed">
+                            <violations-details-rows [id]="'ap-rows-' + i" [isEditAllowed]="true"
+                                                     [plate]="associatedPlate.plate"
+                                                     [paginatedPlate]="associatedPlate.plate" [hideFooter]="true" [caoToolTipCms]="cmsData.CAO_TOOL_TIP"
+                                                     [selectAllAsDefault]="true" [disableSelectAll]="true" (afterComputeTotals)="associatedPlateSelTot()"
+                                                     (changeAllSelected)="detailsChangeSelectAll('ap-row-' + i)" [cmsDataOverPmnt]="overpaymentModalCmsContent">
+                            </violations-details-rows>
+                        </div>
+                    </div>
+                </ng-container>
+            </section>
+        </ng-container>
+        <section fxLayout="column"
+                 class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+            <header>
+                <h2 [innerHTML]="summaryCmsData.SUMMARY_HEADER"></h2>
+                <mat-divider></mat-divider>
+            </header>
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between start"
+                 fxLayout.lt-md="column">
+                <div ngClass.gt-sm="max-width-half">
+                    <span *ngIf="hasDiscount" [innerHtml]="summaryCmsData.ShortDescription | safeHtml"></span>
+                    <span *ngIf="searchPlate.plate.hasCAOFineEstimates" [innerHtml]="cmsData.CAO_FEE_INFO | safeHtml"></span>
+                </div>
+            </div>
+            <section fxLayout="row"
+                     class="u-spacing--widthFill u-spacing__sectionToSection--marginTop">
+                <div ngClass.gt-sm="payment-summary-desktop"
+                     ngClass.lt-md="u-spacing--widthFill">
+                    <row-container [rowType]="'semi-emphasis'"
+                                   [isTop]="true">
+                        <section col-start
+                                 fxFlex="grow">
+                            {{summaryCmsData.LABEL_SELECTED}}
+                        </section>
+                        <section col-end
+                                 fxFlex="none">
+                            <currency [value]="totalSelected"></currency>
+                        </section>
+                    </row-container>
+                    <row-container [rowType]="'semi-emphasis'"
+                                   [isInner]="true"
+                                   *ngIf="!totalAdminFees.equals(0)">
+                        <section col-start
+                                 fxFlex="grow">
+                            {{summaryCmsData.LABEL_ADMIN_FEE}}
+                        </section>
+                        <section col-end
+                                 fxFlex="none">
+                            <currency [value]="totalAdminFees"></currency>
+                        </section>
+                    </row-container>
+                    <ng-container *ngIf="hasDiscount">
+                        <row-container [rowType]="'semi-emphasis'" [isInner]="true">
+                            <section col-start fxFlex="grow" class="green-text">
+                                {{summaryCmsData.LABEL_DISCOUNT}}
+                            </section>
+                            <section col-end fxFlex="none" class="green-text">
+                                -<currency [value]="totalFeesDiscounted"></currency>
+                            </section>
+                        </row-container>
+                    </ng-container>
+                    <row-container [rowType]="'emphasis'"
+                                   [isInner]="true">
+                        <section col-start
+                                 fxFlex="grow">
+                            {{summaryCmsData.LABEL_TOTAL}}
+                        </section>
+                        <section col-end
+                                 fxFlex="none">
+                            <currency [value]="totalPaymentAmount"></currency>
+                        </section>
+                    </row-container>
+                    <row-container [rowType]="'semi-emphasis'"
+                                   [isBottom]="true">
+                        <section col-start
+                                 fxFlex="grow">
+                            {{summaryCmsData.LABEL_REMAINING}}
+                        </section>
+                        <section col-end
+                                 fxFlex="none">
+                            <currency [value]="totalRemainingBalance"></currency>
+                        </section>
+                    </row-container>
+                </div>
+            </section>
+        </section>
+
+        <wizard-ui (previous)="goToPreviousState($event)" (next)="goToNextState($event)"
+                   [disabled]="searchPlate.plate.totalSelected === 0 && associatedPlatesSelectedTot.equals(0)">
+            <span wizard-next>CONTINUE</span>
+            <span wizard-cancel>Cancel</span>
+            <span wizard-previous
+                  fxLayout="row"
+                  fxLayoutAlign="start center">
+                <mat-icon svgIcon="previous-arrow"></mat-icon>
+                {{wizardBackLabel}}
+            </span>
+        </wizard-ui>
+    </ng-template>
+
+    <ng-template [ngIf]="showPreviouslyPaidPlate && !hasOutstandingViolations">
+        <section fxLayout="column"
+                 class="u-spacing--widthFill">
+            <violations-plate-row [plate]="searchPlate.plate"></violations-plate-row>
+            <!--image-->
+            <mat-icon svgIcon="no-invoices-found" fxFlexAlign="center"></mat-icon>
+
+            <span class="text-align-center">{{prevPaidCmsData.NO_INVOICES}}</span>
+
+            <a id="prevPaidInvoicesLink"
+               *ngIf="searchPlate.plate.previouslyPaidInvoices && searchPlate.plate.previouslyPaidInvoices.length > 0"
+               fxFlex.gt-sm="none"
+               class="smaller-font text-align-center"
+               (click)="openPrevPaidInvoices()">
+                View Previously Paid Invoices
+            </a>
+        </section>
+
+        <section fxLayout="column" class="u-spacing--widthFill u-spacing__headerToSection--marginTop">
+            <header>
+                <h2 [innerHTML]="prevPaidCmsData.SUMMARY_HEADER"></h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+            <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout.lt-md="column">
+                <div [innerHTML]="prevPaidCmsData.ShortDescription | safeHtml"></div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout.lt-md="column" class="u-spacing__firstHeaderToTitle--marginTop">
+                <div ngClass.gt-sm="payment-summary-desktop" ngClass.lt-md="u-spacing--widthFill">
+                    <row-container [rowType]="'emphasis'" [isTop]="true">
+                        <section col-start fxFlex="grow">
+                            {{prevPaidCmsData.LABEL_TOTAL_PAYMENT}}
+                        </section>
+                        <section col-end fxFlex="none">
+                            <currency [value]="0"></currency>
+                        </section>
+                    </row-container>
+                    <row-container [rowType]="'semi-emphasis'" [isBottom]="true">
+                        <section col-start fxFlex="grow">
+                            {{prevPaidCmsData.LABEL_REMAINING_BALANCE}}
+                        </section>
+                        <section col-end fxFlex="none">
+                            <currency [value]="0"></currency>
+                        </section>
+                    </row-container>
+                </div>
+            </div>
+        </section>
+
+        <wizard-ui (previous)="goToPreviousState($event)">
+            <span wizard-previous
+                  fxLayout="row"
+                  fxLayoutAlign="start center"
+                  class="link-spacing">
+                <mat-icon svgIcon="previous-arrow"></mat-icon>
+                {{wizardBackLabel}}
+            </span>
+        </wizard-ui>
+    </ng-template>
+</page-filled-container>

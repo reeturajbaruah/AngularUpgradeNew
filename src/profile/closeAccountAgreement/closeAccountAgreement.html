@@ -1,0 +1,23 @@
+<page-centered-container hasAlternateBackgroundColor="true">
+    <card-container>
+        <section>
+            <section *ngIf="cmsContent.TitlePretext"
+                     class="u-spacing__sectionToSection--marginBottom">
+                <p>{{cmsContent.TitlePretext}}</p>
+            </section>
+            <header>
+                <h2>{{cmsContent.TitleAgreement}}</h2>
+            </header>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <article [innerHtml]="cmsContent.accountClosureAgreement | safeHtml"></article>
+        </section>
+    </card-container>
+    <section class="u-spacing__buttonToField--marginTop">
+        <wizard-ui (next)="onAccept($event)"
+                   (cancel)="onDecline($event)">
+            <span wizard-next>{{cmsContent.BtnAccept}}</span>
+            <span wizard-cancel>{{cmsContent.BtnDecline}}</span>
+        </wizard-ui>
+    </section>
+    
+</page-centered-container>

@@ -1,0 +1,68 @@
+
+@import (reference) '../../styles/themes.less';
+@import (reference) '../../styles/variables.less';
+
+:host {
+
+    .title {
+        min-height: 50px;
+        padding-left: 15px;
+        padding-right: 15px;
+
+        @media @breakpoint-lt-sm {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        @media @breakpoint-sm {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+
+    .titleContainer {
+        width: 836px;
+    }
+
+    .titleContainer-md-xs {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .row-width {
+        padding-left: 15px;
+        padding-right: 15px;
+
+        @media @breakpoint-lt-sm {
+            width: 100%;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        @media @breakpoint-sm {
+            width: 500px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        @media @breakpoint-md1 {
+            width: 840px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        @media @breakpoint-md2 {
+            width: 928px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        @media @breakpoint-lg {
+            width: 1180px;
+        }
+
+        @media @breakpoint-gt-lg {
+            width: 1260px;
+        }
+    }
+}

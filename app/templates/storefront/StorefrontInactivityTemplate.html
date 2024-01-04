@@ -1,0 +1,9 @@
+﻿<div class="innerModalContent" style="padding:20px">
+    <h3 ng-bind-html="headerText | trusted"></h3>
+    <div>
+        <p>{{timeLeftTillResetInSeconds | secondsToDateTime | date:'mm:ss'}}</p>
+        <p ng-bind-html="bodyText | trusted"></p>
+        <button class="mediumBtn" ng-click="call('ok')">{{actionText('ok')}}</button>
+    </div>    
+</div>
+<a ng-click="call('ok')" class="storefrontModalClose" storefront-modal-close></a>

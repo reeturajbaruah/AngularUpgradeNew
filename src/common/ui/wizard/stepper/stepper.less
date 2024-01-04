@@ -1,0 +1,113 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/variables.less';
+
+:host {
+    #wizard-stepper-desktop {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        padding: 20px;
+        width: 100%;
+
+        .t-header--fontFamily;
+        font-weight: 500;
+
+        &.primary {
+            .t-body--backgroundColor(@theme-light);
+        }
+
+        &.secondary {
+            .t-body--backgroundColor2(@theme-light);
+        }
+
+        &.ternary {
+            .t-body--backgroundColor3(@theme-light);
+        }
+
+        figure {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+
+            &.stepOn {
+                div {
+                    .t-stepper__selected--backgroundColor(@theme-light);
+                }
+
+                figcaption {
+                    .t-stepper__selected--color(@theme-light);
+                }
+            }
+        }
+
+        div {
+            .t-stepper__unselected--backgroundColor(@theme-light);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+
+            font-size: 11px;
+            line-height: 1.6em;
+            text-align: center;
+            color: @white;
+
+            &.greyed {
+                background-color: @silver-gray;
+            }
+        }
+
+        figcaption {
+            color: #757575;
+
+            font-size: 16px;
+            line-height: 1.3em;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+
+            &.greyed {
+                color: @silver-gray;
+            }
+        }
+    }
+
+    #wizard-stepper-mobile {
+        .t-stepper--backgroundColor(@theme-light);
+        padding-left: 24px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        margin-bottom: 16px;
+        width: 100%;
+
+        #step-counter {
+            .t-stepper__selected--color(@theme-light);
+            .t-header--fontFamily;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        mat-divider {
+            &.mat-divider.mat-divider-vertical {
+                .t-stepper__divider--borderColor(@theme-light);
+                height: 36px;
+                border-width: 1px;
+            }
+        }
+
+        #step-current {
+            .t-stepper__selected--color(@theme-light);
+            .t-header--fontFamily;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        #step-next {
+            .t-header--color(@theme-light);
+            .t-header--fontFamily;
+            font-weight: 400;
+            font-size: 14px;
+        }
+    }
+}

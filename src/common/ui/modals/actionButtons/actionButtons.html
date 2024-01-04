@@ -1,0 +1,36 @@
+<main [fxLayout]="direction || 'row'"
+      [fxLayout.lt-md]="directionLtMd || 'column'"
+      [fxLayoutAlign]="alignment || 'end center'"
+      [fxLayoutAlign.lt-md]="alignmentLtMd || 'start center'"
+      class="refresh-2020">
+
+    <a #altLink
+       fxFlexAlign="center"
+       [fxFlexOrder]="reverseOrder ? '2' : '1'"
+       [fxFlexOrder.lt-md]="reverseOrderLtMd ? '1' : '2'"
+       [hidden]="!showAlt"
+       aria-label="Cancel"
+       [ngStyle]="{'margin-left' : ((direction === 'column') || !reverseOrder ? '0' : '30px'), 'margin': direction === 'column' ? '16px auto' : 'inherit'}"
+       [ngStyle.lt-md]="{'margin-top' : '36px'}"
+       (click)="handleAltAction()">
+        <ng-content select="[action-alt]"></ng-content>
+    </a>
+
+    <ng-container *ngIf="mainBtnVisible">
+    <button #mainBtn
+            [fxFlexOrder]="reverseOrder ? '1' : '2'"
+            [fxFlexOrder.lt-md]="reverseOrderLtMd ? '2' : '1'"
+            [hidden]="!showMain"
+            type="submit"
+            [disabled]="disabled"
+            [ngClass]="{'disabled': disabled}"
+            [ngStyle]="{'margin-left' : ((direction === 'column') || reverseOrder ? '0' : '30px')}"
+            [ngStyle.lt-md]="{'margin-left' : '0'}"
+            class="btn"
+            ngClass.lt-md="u-spacing--widthFill"
+            (click)="handleMainAction()">
+        <ng-content select="[action-main]"></ng-content>
+    </button>
+    </ng-container>
+
+</main>

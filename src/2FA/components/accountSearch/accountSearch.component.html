@@ -1,0 +1,59 @@
+<card-container [ngModelGroup]="name || 'accountSearch'">
+    
+    <h2>
+        <span>{{cmsData?.Title}}</span>
+        <tool-tip *ngIf="titlePopup" [useOverlay]="true">
+            <mat-icon tool-tip-anchor svgIcon="information"></mat-icon>                                
+            <div tool-tip-content class="titlePopup" [innerHtml]="titlePopup">                            
+            </div>
+        </tool-tip>
+    </h2>
+
+    <mat-divider></mat-divider>
+    <article>
+        {{cmsData?.Purpose}}
+    </article>
+
+
+    <section [error-check]="LoginResetOptionSelect">
+        <mat-label>{{cmsData?.selectResetOption}}</mat-label>
+        <mat-select name="loginResetOption"
+                    #LoginResetOptionSelect="ngModel"
+                    [ngModel]="data.loginResetOption"
+                    (ngModelChange)="data.loginResetOption = $event; reset(true)"                            
+                    required
+                    placeholder="Select option">
+            <mat-option [value]="LoginResetOptionEnum.Email">Email address</mat-option>
+            <mat-option [value]="LoginResetOptionEnum.Phone">Phone number</mat-option>
+        </mat-select>
+
+        <error-messages [errors]="LoginResetOptionSelect.errors">
+            <error-message rule="required">{{cmsData?.resetOptionRequired || 'Please select a reset option.'}}</error-message>
+        </error-messages>
+
+    </section>
+    
+    <ng-container [ngSwitch]="data.loginResetOption">
+
+        <section *ngSwitchCase="LoginResetOptionEnum.Email">
+            <email-address                        
+                [emailAddress]="data.to" (emailAddressChange)="data.to = $event; reset()"
+                [header]="cmsData.LongDescription">
+            </email-address>
+        </section>
+        
+        <section *ngSwitchCase="LoginResetOptionEnum.Phone">                    
+            <primary-phone                         
+                [primaryPhone]="data.to" (primaryPhoneChange)="data.to = $event; reset()"
+                [header]="cmsData.ShortDescription">
+            </primary-phone>
+        </section>
+
+    </ng-container>
+        
+</card-container>
+
+<ng-container *ngIf="showMoreInfoNeeded">
+    <locate-your-account [additionalInfoCmsData]="additionalInfoCmsData" [helpLinkCmsData]="helpLinkCmsData"
+        [data]="data" [agencies]="agencies"></locate-your-account>
+</ng-container>

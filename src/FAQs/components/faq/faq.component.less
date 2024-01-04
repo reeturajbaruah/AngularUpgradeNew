@@ -1,0 +1,28 @@
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/variables.less';
+
+:host {
+    main {
+        .t-body--backgroundColor2(@theme-light);
+
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    section {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .faq-main {
+        @media @breakpoint-gt-xs {
+            margin: 0px 2%;
+            card-dash-container {
+                border: 1px solid @silver-gray;
+                border-radius: 10px;
+            }
+        }
+    }
+}

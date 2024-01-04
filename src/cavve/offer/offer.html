@@ -1,0 +1,67 @@
+<page-filled-container>
+
+    <section fxLayout="column"
+             fxLayoutAlign="center start"
+             class="u-spacing--widthFill"
+             style="padding-top:21px;">
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+
+            <header>
+                <h2>
+                    <cms-content [template]="landingPageInfo.subHeader" [data]="subHeaderParams">
+                    </cms-content>
+                </h2>
+                <mat-divider></mat-divider>
+            </header>
+
+        </div>
+
+    </section>
+
+    <section fxLayout="column"
+             fxLayoutAlign="center start"
+             class="u-spacing--widthFill"
+             style="padding-top: 20.5px">
+
+        <div fxLayout="row">
+            <div [innerHtml]="landingPageInfo.LongDescription"></div>
+        </div>
+
+    </section>
+
+    <section fxLayout="column"
+             fxLayoutAlign="center start"
+             class="u-spacing--widthFill"
+             style="padding-top:8px; padding-bottom:32px;">
+
+        <div fxLayout="row">
+
+            <cavve-offer-button (choiceSelectedChange) = "onOfferButtonSelectionChanged($event)" >
+            </cavve-offer-button>
+
+        </div>
+
+    </section>
+
+    <section fxLayout="column"
+             class="u-spacing--widthFill"
+             style="padding-top:8px;">
+
+        <wizard-ui (next)="goToNextPage($event)"
+                   (previous)="previous($event)"
+                   [disabled]="choiceSelected === ''">
+            <span wizard-next>CONTINUE</span>
+            <span wizard-previous
+                  fxLayout="row"
+                  fxLayoutAlign="start center">
+                <mat-icon svgIcon="previous-arrow"></mat-icon>
+                Previous
+            </span>
+        </wizard-ui>
+
+    </section>
+
+</page-filled-container>

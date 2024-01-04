@@ -1,0 +1,20 @@
+<main class="refresh-2020" *ngIf="cmsData">
+    <div class="banner-image" >
+        <img  [src]="bannerImage">
+    </div>
+    <scb-carousel-component *ngIf="carousel && showCaurosel"
+                                [style.order]="carousel.order"
+                                [sliderImages]="carousel"
+                                [imageSliderArrow]="imageSliderArrow"
+                                (changeToInternalTab)="changeTab($event)">
+    </scb-carousel-component>
+
+    <scb-tabs-component *ngIf="tabs"
+                                #scbTabs
+                                [style.order]="tabs.order"
+                                [dynamicDisplays] = "dynamicDisplays"
+                                [contactUsSuccessMsg]="contactUsSuccessMsg"
+                                (hideCarousel)="disableCaurosel($event)">
+    </scb-tabs-component>
+
+</main>

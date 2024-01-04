@@ -1,0 +1,129 @@
+<page-centered-container class="refresh-2020">
+    <form #ContactInfoForm="ngForm" validation-focus name="contactInfoForm"
+          fxLayout="column"
+          class="u-spacing--widthFill">
+
+        <!--Email Address Container-->
+        <card-container class="u-spacing__fieldToSection--marginTop"
+                        *ngIf="fullContactInfo !== null">
+            <h2>{{cmsContent.EmailAddressTitle}}</h2>
+
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+
+            <span *ngIf="syncRiteToggles?.MasterToggle">{{cmsContent.EmailAddressDesc}}</span>
+
+            <!--Email Address-->
+            <section [class.u-spacing__fieldToSection--marginTop]="syncRiteToggles?.MasterToggle" class="u-spacing--widthFill">
+                <email-address [(emailAddress)]="fullContactInfo.contactInfo.emailAddress" [header]="cmsContent.EmailAddressHeader"></email-address>
+            </section>
+
+            <!--Alt Email Address-->
+            <section class="u-spacing--widthFill u-spacing__fieldToSection--marginTop">
+                <email-address id="altEmailAddress" name="altEmailAddress"
+                    [(emailAddress)]="fullContactInfo.contactInfo.altEmailAddress" [header]="cmsContent.AltEmailAddressHeader"
+                    placeholder="username@domain.com" [required]="false"></email-address>
+            </section>
+
+        </card-container>
+
+        <!--Phone Number Container-->
+        <card-container class="u-spacing__fieldToSection--marginTop"
+                        *ngIf="fullContactInfo !== null">
+            <h2>{{cmsContent.PhoneNumberTitle}}</h2>
+
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+
+            <span *ngIf="syncRiteToggles?.MasterToggle">{{cmsContent.PhoneNumberDesc}}</span>
+
+            <!--Primary Phone Number-->
+            <section [class.u-spacing__fieldToSection--marginTop]="syncRiteToggles?.MasterToggle" class="u-spacing--widthFil">
+                <shared-phone-number
+                    prefix="first"
+                    [showPhoneNumberExt]="syncRiteToggles?.SyncRitePhoneExt"
+                    [showTrashIcon]="syncRiteToggles?.MasterToggle"
+                    [disableTrashIcon]="syncRiteToggles?.MasterToggle"
+                    [phoneNumberHeader]="cmsContent.PhoneNumberHeader"
+                    [phoneNumberExtHeader]="cmsContent.PhoneNumberExtHeader"
+                    [(phoneNumber)]="fullContactInfo.contactInfo.phoneNumber"
+                    [(phoneNumberExt)]="fullContactInfo.contactInfo.phoneExt"
+                    >
+                </shared-phone-number>
+            </section>
+
+            <!--Phone Alerts Opt In-->
+            <section [class.u-spacing__fieldToSection--marginTop]="syncRiteToggles?.SyncRitePhoneOptIn">
+                <shared-checkbox
+                    *ngIf="syncRiteToggles?.SyncRitePhoneOptIn"
+                    [(checkbox)]="fullContactInfo.contactInfo.smsAlertsOptIn"
+                    [desc]="cmsContent.PhoneAlertsOptInDesc"
+                    >
+                </shared-checkbox>
+            </section>
+
+            <!--1st Alt Phone Number-->
+            <section *ngIf="!syncRiteToggles?.MasterToggle || firstAltPhoneState || fullContactInfo.contactInfo.altPhoneNumber" class="u-spacing--widthFill u-spacing__fieldToSection--marginTop">
+                <shared-phone-number
+                    prefix="second"
+                    [required]="false"
+                    [showPhoneNumberExt]="syncRiteToggles?.SyncRitePhoneExt"
+                    [showTrashIcon]="syncRiteToggles?.MasterToggle"
+                    [phoneNumberHeader]="cmsContent.AltPhoneNumberHeader"
+                    [phoneNumberExtHeader]="cmsContent.AltPhoneNumberExtHeader"
+                    [(phoneNumber)]="fullContactInfo.contactInfo.altPhoneNumber"
+                    [(phoneNumberExt)]="fullContactInfo.contactInfo.altPhoneNumberExt"
+                    (trashClicked)="deleteFirstAltPhone()"
+                    >
+                </shared-phone-number>
+            </section>
+
+            <!--2nd Alt Phone Number-->
+            <section *ngIf="syncRiteToggles?.MasterToggle && (secondAltPhoneState || fullContactInfo.contactInfo.mobilePhoNbr)" class="u-spacing--widthFill u-spacing__fieldToSection--marginTop">
+                <shared-phone-number
+                    prefix="third"
+                    [required]="false"
+                    [showPhoneNumberExt]="syncRiteToggles?.SyncRitePhoneExt"
+                    [showTrashIcon]="syncRiteToggles?.MasterToggle"
+                    [phoneNumberHeader]="cmsContent.AltPhoneNumber2Header"
+                    [phoneNumberExtHeader]="cmsContent.AltPhoneNumber2ExtHeader"
+                    [(phoneNumber)]="fullContactInfo.contactInfo.mobilePhoNbr"
+                    [(phoneNumberExt)]="fullContactInfo.contactInfo.mobilePhoExt"
+                    (trashClicked)="deleteSecondAltPhone()"
+                    >
+                </shared-phone-number>
+            </section>
+
+            <!--Add Alt Phone Number Button-->
+            <section *ngIf="showAddAltPhoneButton && (!fullContactInfo.contactInfo.altPhoneNumber || !fullContactInfo.contactInfo.mobilePhoNbr)" class="u-spacing__fieldToSection--marginTop add-alt-phone-number-section">
+                <mat-icon svgIcon="add-icon"></mat-icon>
+                <a (click)="onAddAltPhoneNumberClick()">{{cmsContent.AddAltPhoneNumberText}}</a>
+            </section>
+
+        </card-container>
+
+        <!--Mailing Address Container For KIOSK Only-->
+        <card-container class="u-spacing__fieldToSection--marginTop"
+                        *ngIf="fullContactInfo !== null && this.isKiosk">
+            <h2>{{mailingCmsContent.Title}}</h2>
+
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+
+            <div [innerHtml]="mailingCmsContent.LongDescription | safeHtml"></div>
+
+            <address-entry [stateList]="stateList"
+                           [address]="fullContactInfo.mailingAddress"
+                           [validate]="true"
+                           [countryList]="countryList"
+                           [(international)]="fullContactInfo.mailingAddress.international">
+            </address-entry>
+        </card-container>
+
+        <section>
+            <action-buttons (main)="submit(ContactInfoForm, wizardUi)"
+                            (alt)="cancel(wizardUi)">
+                <span action-main>{{saveButtonText}}</span>
+                <span action-alt>Cancel</span>
+            </action-buttons>
+            <wizard-ui #wizardUi></wizard-ui>
+        </section>
+    </form>
+</page-centered-container>

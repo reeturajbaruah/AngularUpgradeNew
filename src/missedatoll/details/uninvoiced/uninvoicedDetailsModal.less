@@ -1,0 +1,28 @@
+@import (reference) '../../../styles/variables.less';
+
+:host {
+    .c-date--widthRestrict,
+    .c-agency--widthRestrict {
+        min-width: 170px;
+        max-width: 530px;
+    }
+
+    .c-amount--widthRestrict {
+        min-width: 70px;
+        max-width: 80px;
+    }
+
+    .c--textAlignEnd {
+        text-align: end;
+    }
+
+    .c-labelRowContainer {
+        &.lt-md {
+            background-color: @white;
+            margin-left: -@page-bar-margin-static-lt-md;
+            margin-right: -@page-bar-margin-static-lt-md;
+            padding-left: @page-bar-margin-static-lt-md;
+            padding-right: @page-bar-margin-static-lt-md;
+        }
+    }
+}

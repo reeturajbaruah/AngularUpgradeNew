@@ -1,0 +1,110 @@
+<div id="header-row"
+     fxLayout="row"
+     fxLayoutAlign="space-between end"
+     fxLayoutAlign.lt-md="space-between center"
+     ngClass.lt-md="compact-menu">
+
+    <div id="header-left"
+         fxLayout="row"
+         fxLayoutAlign="space-between end"
+         fxLayoutAlign.lt-md="space-between center">
+
+        <a clickPreventDefault href="#menu" id="hamburger-button" (click)="showHamburgerMenu()">
+            <mat-icon *ngIf="showHamburgerIcon$ | async" svgIcon="hamburger-menu"></mat-icon>
+        </a>
+
+        <a id="hctra-logo" href="/Home">
+            <mat-icon *ngIf="showHctraLogo$ | async" svgIcon="hctra-logo"></mat-icon>
+        </a>
+
+        <a fxShow
+           fxHide.lt-lg
+           *ngFor="let link of currentCallToAction$ | async"
+           [href]="link.url"
+           [target]="link.external ? '_blank' : ''">
+            <span>{{link.label}}</span>
+        </a>
+    </div>
+
+
+    <div id="header-right"
+         fxLayout="column"
+         fxLayoutAlign="space-between end"
+         fxLayoutAlign.lt-md="space-around end">
+
+        <div fxShow
+             fxHide.lt-md
+             fxLayout="row"
+             fxLayoutAlign="space-between end">
+
+            <language-select fxShow fxHide.lt-md></language-select>
+
+            <a id="facebook-link" *ngIf="facebook$ | async as facebookLink" [href]="facebookLink" target="_blank">
+                <mat-icon svgIcon="facebook-icon"></mat-icon>
+            </a>
+
+            <a id="twitter-link" *ngIf="twitter$ | async as twitterLink" [href]="twitterLink" target="_blank">
+                <mat-icon svgIcon="twitter-icon"></mat-icon>
+            </a>
+
+            <a id="instagram-link" *ngIf="instagram$ | async as instagramLink" [href]="instagramLink" target="_blank">
+                <mat-icon svgIcon="instagram-icon"></mat-icon>
+            </a>
+
+            <a id="linkedin-link" *ngIf="linkedin$ | async as linkedinLink" [href]="linkedinLink" target="_blank">
+                <mat-icon svgIcon="linkedin-icon"></mat-icon>
+            </a>
+
+            <a id="youtube-link" *ngIf="youtube$ | async as youtubeLink" [href]="youtubeLink" target="_blank">
+                <mat-icon svgIcon="youtube-icon"></mat-icon>
+            </a>
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between end">
+
+            <a #SearchElement
+               href="#searchPoweredByGoogle"
+               clickPreventDefault
+               id="search-icon"
+               *ngIf="isNotSearchPage$ | async"
+               (click)="showSearch(SearchElement)">
+                <mat-icon *ngIf="showSearchIcon$ | async" svgIcon="search-icon"></mat-icon>
+            </a>
+
+            <div *ngIf="isNotLoginPage$ | async" id="login-link">
+
+                <a #LoggedInElement
+                   href="#accountDropdown"
+                   clickPreventDefault
+                   *ngIf="isAuthenticated$ | async; else notAuthorized"
+                   (click)="showAccountDropdown(LoggedInElement)"
+                   fxLayout="row"
+                   fxLayoutAlign="start center"
+                   fxLayoutGap="8px">
+                    <mat-icon fxShow fxHide.gt-sm *ngIf="showAccountIcon$ | async" id="accountIcon" svgIcon="account-icon"></mat-icon>
+                    <span fxShow
+                          fxHide.lt-md
+                          fxLayout="column"
+                          fxLayoutAlign="start end">
+                        <span>
+                            {{ greeting$ | async }}
+                            <span translation-skip class="name">{{ user$ | async }}</span>
+                        </span>
+                        <span>{{accountDropdownDescripion$ | async}}</span>
+                    </span>
+
+                    <mat-icon fxShow
+                              fxHide.lt-md
+                              *ngIf="showDownArrow$ | async"
+                              svgIcon="home-down-arrow"></mat-icon>
+                </a>
+                <ng-template #notAuthorized>
+                    <a href="/Login">
+                        <span>Login</span>
+                    </a>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

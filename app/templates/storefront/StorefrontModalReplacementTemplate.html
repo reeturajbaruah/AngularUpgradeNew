@@ -1,0 +1,10 @@
+﻿<div class="innerModalContent">
+    <h1 ng-if="header" ng-bind-html="header | trusted"></h1>
+    <h3 ng-if="body" ng-bind-html="body | trusted"></h3>
+    <p ng-bind-html="subText | trusted"></p>
+    <br />    
+    <button class="mediumBtn fillHalfWidth centerText" ng-if="action" ng-click="action()">{{actionButtonText}}</button>
+    <a class="altLink fillHalfWidth centerText" ng-if="dismiss" ng-click="dismiss()">{{closeButtonText}}</a>
+    <br />
+</div>
+<a ng-click="dismiss()" class="storefrontModalClose" storefront-modal-close></a>

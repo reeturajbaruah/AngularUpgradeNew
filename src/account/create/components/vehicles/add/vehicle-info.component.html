@@ -1,0 +1,36 @@
+
+<page-centered-container class="refresh-2020">
+
+    <ng-container *ngIf="!showCart && vehicle">
+        <form #Form="ngForm" validation-focus novalidate>
+
+            <div>
+                    
+            <add-vehicle [cmsContent]="addVehicleCmsContent" [vehicleInfo]="vehicle" 
+                [statesList]="statesList" [config]="config" >
+            </add-vehicle>
+
+        
+                <section class="u-spacing__buttonToField--marginTop">
+                    <action-buttons [disabled]="Form.submitted && Form.invalid"
+                     (main)="add($event)"
+                    (alt)="cancel($event,wizardUi)">
+                        <span action-main>{{addVehicleCmsContent.confirmBtn}}</span>
+                        <span action-alt>Cancel</span>
+                    </action-buttons>
+                    <wizard-ui #wizardUi></wizard-ui>
+                </section>
+
+            </div>
+
+        </form>
+    </ng-container>
+
+    <ng-container *ngIf="showCart && cartListData" >
+        <cart [cartListData]="cartListData"
+         [cms]="cartCms">
+        </cart>
+    </ng-container>
+
+</page-centered-container>
+

@@ -1,0 +1,93 @@
+<page-centered-dash-container [hasGutter]="false">
+    <ng-container *ngIf="!isPendingFunds; else accountPendingTemplate">
+        <section fxLayout="column"
+                    fxLayoutAlign="center center">
+            <div fxLayout="row"
+                    fxLayout.xs="column"
+                    fxLayout.sm="column"
+                    fxLayoutAlign="start start"
+                    class="titleContainer">
+
+                <titleSubTitle [titleDescription]="cmsBaseContent.ShortDescription"
+                                [subtitleDescription]="isPendingClosure ? cmsBaseContent.PendingClosureSubtitle : cmsBaseContent.LongDescription"
+                                [showSubTitle]="true">
+                </titleSubTitle>
+            </div>
+
+            <div fxLayout="row wrap"
+                    fxLayout.xs="column"
+                    fxLayout.sm="column"
+                    fxLayoutAlign="start start"
+                    class="cardsContainer"
+                    fxLayoutGap="12px"
+                    fxLayoutGap.gt-sm="0px">
+
+                <div fxLayout="column"
+                        class="currentBalanceContainer">
+                    <card-dash-container class="topRowCard">
+                        <account-dashboard-current-balance-component [isPendingClosure]="isPendingClosure"
+                                                                        [currentBalanceCMS]="currentBalanceCMS"
+                                                                        [isAccountInvoiced]="isAccountInvoiced">
+                        </account-dashboard-current-balance-component>
+                    </card-dash-container>
+                </div>
+
+                <div fxLayout="column"
+                        class="vehiclesContainer">
+                    <card-dash-container class="topRowCard">
+                        <account-dashboard-vehicles-component [vehiclesTitle]="cmsBaseContent.VehiclesTitle"
+                                                                [ezTagsNoDataTitle]="vehiclesCMS.NoDataEZTag"
+                                                                [ezPlatesNoDataTitle]="vehiclesCMS.NoDataEZPlate"
+                                                                [pendingActivationCMS]="vehiclesCMS.PendingActivation"
+                                                                [isPendingClosure]="isPendingClosure">
+                        </account-dashboard-vehicles-component>
+                    </card-dash-container>
+                </div>
+
+                <div fxLayout="column"
+                        class="billingContainer">
+                    <card-dash-container class="topRowCard">
+                        <billing-card-display [billingTitle]="cmsBaseContent.BillingTitle"
+                                                [paymentMethodImages]="paymentMethodImages"
+                                                [noDataTitle]="billingCMS.NoData"
+                                                [expiringTooltip]="billingCMS.ExpiringTooltip"
+                                                [expiredTooltip]="billingCMS.ExpiredTooltip"
+                                                [blockedTooltip]="billingCMS.LongDescription"
+                                                [isPendingClosure]="isPendingClosure"
+                                                [isAccountInvoiced]="isAccountInvoiced"
+                                                [showAutoReplenishmentIndicator]="true"
+                                                [replenishmentIndicatorCMS]="autoReplenishIndicatorCMS"
+                                                callingComponent="frame">
+                        </billing-card-display>
+                    </card-dash-container>
+                </div>
+
+                <div fxLayout="column"
+                        class="recentTransactionsContainer">
+                    <card-dash-container class="bottomRowCard">
+                        <account-dashboard-recent-transactions-component [recentTransactionsTitle]="cmsBaseContent.RecentTransactionsTitle"
+                                                                            [noDataTitle]="transactionsCMS.ShortDescription"
+                                                                            [largeAccountCMS]="transactionsCMS.LongDescription">
+                        </account-dashboard-recent-transactions-component>
+                    </card-dash-container>
+                </div>
+
+                <div fxLayout="column"
+                        class="tollUsageHistoryContainer">
+                    <card-dash-container class="bottomRowCard">
+                        <account-dashboard-toll-usage-history-component [tollUsageHistoryTitle]="cmsBaseContent.TollUsageHistoryTitle"
+                                                                        [noDataTitle]="tollUsageHistoryNoData.ShortDescription">
+                        </account-dashboard-toll-usage-history-component>
+                    </card-dash-container>
+                </div>
+            </div>
+        </section>
+    </ng-container>
+
+    <ng-template #accountPendingTemplate>
+        <account-pending-funds
+            [cmsContent]="accountPendingFundsContent"
+            [northAreaContent]="accountPendingFundsNorthAreaContent">
+        </account-pending-funds>
+    </ng-template>
+</page-centered-dash-container>

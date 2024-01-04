@@ -1,0 +1,86 @@
+@import (reference) '../../../../../styles/themes.less';
+
+:host {
+    section {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .field-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 48px;
+        border-radius: 10px;
+        border: 1px solid #c4c4c4;
+    }
+
+    .error {
+        border-color: #fc2125;
+
+        label {
+        background-color: #fd9092;
+        }
+    }
+
+    .file-input {
+        opacity: 0;
+        position: absolute;
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+        background-color: #ffdd09;
+        height: 100%;
+        padding: 0px 20px;
+        border-radius: 9px 0px 0px 9px;
+        border-right: 1px solid #c4c4c4;
+        cursor: pointer;
+        margin: 0px;
+    }
+
+    span {
+        flex-grow: 1;
+        font-size: 14px;
+        line-height: 16px;
+        max-height: 100%;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .file-name-placeholder {
+        color: #c4c4c4;
+        font-style: italic;
+    }
+
+    .trash-icon {
+        margin-right: 10px;
+        max-width: 25px;
+        max-height: 25px;
+        min-width: 25px;
+        min-height: 25px;
+    }
+
+    .add-additional-file {
+        padding-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    a {
+        &.disable {
+            color: #c4c4c4 !important;
+            pointer-events: none;
+        }
+    }
+}

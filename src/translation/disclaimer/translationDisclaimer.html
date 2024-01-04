@@ -1,0 +1,27 @@
+<main class="refresh-2020">
+    <title-banner>
+        {{cmsData.Title}}
+    </title-banner>
+
+    <page-filled-container>
+        <section fxLayout="column"
+                 class="u-spacing__firstHeaderToTitle--marginTop u-spacing--widthFill">
+            <header fxLayout="column">
+                <h2>{{cmsData.SectionTitle}}</h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="start start"
+                 fxLayoutGap="80px"
+                 class="u-spacing--widthFill">
+
+                <article>
+                    <cms-content [template]="cmsData.LongDescription"></cms-content>
+                </article>
+
+            </div>
+        </section>
+
+    </page-filled-container>
+</main>

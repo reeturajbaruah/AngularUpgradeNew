@@ -1,0 +1,13 @@
+<div class="autoReplenishmentIndicator flex-box"
+     *ngIf="isFlexPay">
+    <section>
+        <mat-icon *ngIf="indicatorIcon === IndicatorState.On" class="autoReplenishmentIndicatorIcon" svgIcon="auto-replenishment-on"></mat-icon>
+        <mat-icon *ngIf="indicatorIcon === IndicatorState.Off" class="autoReplenishmentIndicatorIcon" svgIcon="auto-replenishment-off"></mat-icon>
+    </section>
+    <section>
+        <span class="autoReplenishmentIndicatorLabel">Auto-replenishment:</span>
+    </section>
+    <section>
+        <span class="autoReplenishmentIndicatorLabel" [style.color]="indicatorColor">{{OffOn === "Indicator-On" ? "On" : "Off"}}</span>
+    </section>
+</div>

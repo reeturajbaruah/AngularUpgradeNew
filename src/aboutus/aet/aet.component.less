@@ -1,0 +1,43 @@
+@import (reference) '../../styles/variables.less';
+
+:host {
+
+    @import './styles/aet.breakpoints.less';
+    @import './styles//aet.faq.less';
+
+    .main {
+        background: #f6f6f6 0% 0% no-repeat padding-box;
+        padding-bottom: 20px;
+    }
+
+    .content-Section {
+        display: flex;
+        align-items: center;
+        flex-flow: column;
+    }
+
+
+    .btn-open-close {
+        height: 70px;
+        background: #00466b 0% 0% no-repeat padding-box;
+        color: #ffffff;
+        font-size: 22px;
+        font-family: @font-saira;
+        font-weight: 500;
+        margin: 20px auto;
+        text-transform: uppercase;
+        border: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 18px 42px;
+
+        mat-icon {
+            margin-left: 20px;
+        }
+
+        ::ng-deep polygon {
+            fill: #ffffff !important;
+        }
+    }
+}

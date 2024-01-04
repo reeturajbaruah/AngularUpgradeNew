@@ -1,0 +1,50 @@
+<ng-container *ngIf="cmsContent">
+    <header>
+        <h3 mat-dialog-title>{{cmsContent.Title}}</h3>
+    </header>
+
+    <section class="sectionMargin">
+        <label [ngClass]="{ 'selected':  savePaymentMethodRadio === PaymentRadioStatus.Yes,
+                            'disabled': autoReplenishmentStatus === PaymentRadioStatus.Yes}"
+               fxLayout="row"
+               fxLayoutAlign="start center">
+            <input type="radio"
+                   name="savePaymentMethodRadio"
+                   [(ngModel)]="savePaymentMethodRadio"
+                   [value]="PaymentRadioStatus.Yes"
+                   [required]="required"
+                   (change)="onSavePaymentChange()"
+                   [disabled]="autoReplenishmentStatus === PaymentRadioStatus.Yes"/>
+            <span fxLayout="row"
+                  class="context">{{cmsContent.Yes}}
+            </span>
+        </label>
+
+        <label [ngClass]="{ 'selected':  savePaymentMethodRadio === PaymentRadioStatus.No,
+                            'disabled': autoReplenishmentStatus === PaymentRadioStatus.Yes}"
+               fxLayout="row"
+               fxLayoutAlign="start center">
+            <input type="radio"
+                   name="savePaymentMethodRadio"
+                   [(ngModel)]="savePaymentMethodRadio"
+                   [value]="PaymentRadioStatus.No"
+                   [required]="required"
+                   (change)="onSavePaymentChange()"
+                   [disabled]="autoReplenishmentStatus === PaymentRadioStatus.Yes"/>
+            <span fxLayout="row"
+                  class="context">{{cmsContent.No}}
+            </span>
+        </label>
+    </section>
+    
+    <div class="DoNotSavePaymentMethodCMSTextPadding" *ngIf="savePaymentMethodRadio === PaymentRadioStatus.No">
+        <div class="divCms">
+            <section col-start fxFlex="grow" fxLayout="row" fxLayoutAlign="start start">
+                <mat-icon class="alert-icon" svgIcon="alert"></mat-icon>
+                <span class="fx-flex-auto-shrink-more limited-flex" isCompactView="true">
+                    {{cmsContent.ShortDescription}}</span>
+            </section>
+        </div>
+    </div>
+    
+</ng-container>

@@ -1,0 +1,62 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../../../Content/css/site-variables.less';
+
+::ng-deep #toll-road-map {
+    .embed-container {
+        height: 0px;
+        max-width: 100%;
+        padding-bottom: 80%;
+        position: relative;
+    }
+
+    .embed-container iframe,
+    .embed-container object,
+    .embed-container iframe {
+        height: 100%;
+        left: 0px;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    small {
+        bottom: 0px;
+        margin-bottom: -15px;
+        position: absolute;
+        z-index: 40;
+    }
+
+    #embed-wrapper {
+        border: 1px solid @border-gray;
+        padding: 1px;
+    }
+
+    .map-footer {
+        display: unset;
+        flex-direction: unset;
+        flex-wrap: unset;
+        width: 66.67%;
+    }
+
+    @media @breakpoint-lt-lg {
+        .col-8 {
+            flex-basis: 66.67% !important;
+        }
+    }
+
+    @media @breakpoint-lt-md {
+        .col-8 {
+            flex-basis: 75% !important;
+        }
+    }
+
+    @media @breakpoint-lt-sm {
+        .col-8 {
+            flex-basis: 100% !important;
+        }
+
+        .map-footer {
+            width: 100%;
+        }
+    }
+}

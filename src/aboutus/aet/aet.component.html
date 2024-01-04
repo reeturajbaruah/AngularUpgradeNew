@@ -1,0 +1,222 @@
+<main class="main">
+    <div class="content-Section">
+
+        <ng-container *ngIf="header">
+
+            <section *ngIf="header.about" class="about">
+
+                <ng-container *ngIf="header.about.texts[2]">
+                    <div class="about-link-container">
+                        <a class="about-link" href={{header.about.texts[2]}} target="_blank"></a>
+                    </div>
+                </ng-container>
+
+                <picture-container>
+
+                    <picture>
+                        <img enhanced [src]="header.about.image" style="background-size: cover; background-repeat: no-repeat;" />
+                    </picture>
+
+                    <div content-container fxShow fxHide.lt-md>
+                        <div fxLayout="column" fxLayoutAlign="center start" class="about-text1" [innerHTML]="header.about.texts[0] | safeHtml"></div>
+                        <div fxLayout="column" fxLayoutAlign="center center" class="about-text2" [innerHTML]="header.about.texts[1] | safeHtml"></div>
+                    </div>
+
+                    <div content-container fxHide fxShow.lt-md>
+                        <ng-container *ngFor="let text of header.about.texts ; let i=index">
+                            <div fxLayout="column" fxLayoutAlign="center center" class="about-text{{i+1}}" [innerHTML]="text | safeHtml"></div>
+
+                        </ng-container>
+                    </div>
+                </picture-container>
+
+            </section>
+
+            <ng-container *ngIf="header.benefits">
+
+                <section class="benefits-easier">
+
+                    <picture-container>
+                        <picture>
+                            <img enhanced [src]="header.benefits.easier.image" style="background-size: cover; background-repeat: no-repeat;" />
+                        </picture>
+
+                        <div content-container class="benefits-easier-content" fxLayout="column" fxLayoutGap="25px"
+                                fxLayoutAlign="center center">
+
+                            <ng-container *ngFor="let text of header.benefits.easier.texts ; let i=index">
+                                <div [innerHTML]="text | safeHtml"></div>
+                            </ng-container>
+
+                        </div>
+
+                    </picture-container>
+
+                    
+
+                </section>
+
+                <section class="benefits-safer">
+
+                    <picture-container>
+
+                        <picture>
+                            <img enhanced [src]="header.benefits.safer.image" style="background-size: cover; background-repeat: no-repeat;" />
+                        </picture>
+
+                        <div content-container class="benefits-safer-content" fxLayout="column" 
+                            fxLayoutGap.lt-sm="10px" fxLayoutGap="20px" fxLayoutGap.gt-sm="25px" fxLayoutAlign="center center">
+    
+                            <ng-container *ngFor="let text of header.benefits.safer.texts ; let i=index">
+                                <div [innerHTML]="text | safeHtml"></div>
+                            </ng-container>
+    
+                        </div>
+
+                    </picture-container>
+
+                </section>
+
+            </ng-container>
+
+            <section *ngIf="header.gantry" class="gantry">
+
+                <picture-container>
+
+                    <picture>
+                        <img enhanced [src]="header.gantry.image" style="background-size: cover; background-repeat: no-repeat;" />
+                    </picture>
+
+                    <div content-container style="position:relative" *ngFor="let text of header.gantry.texts ; let i=index">
+                        <div class="gantry-text{{i+1}}" [innerHTML]="text | safeHtml"></div>
+                    </div>
+
+                </picture-container>
+
+                
+            </section>
+
+        </ng-container>
+
+        <ng-container *ngIf="tollPolicyRoadWay">
+
+            <button class="btn-open-close" (click)="isOpenTollPolicyRoadWay = !isOpenTollPolicyRoadWay">
+                {{isOpenTollPolicyRoadWay?aetComplexCMS.CloseText:aetComplexCMS.TollPolicyRoadWayText}}
+                <mat-icon *ngIf="!isOpenTollPolicyRoadWay" svgIcon="white-down-arrow"></mat-icon>
+                <mat-icon class="mat-close-icon" *ngIf="isOpenTollPolicyRoadWay" svgIcon="close-x"></mat-icon>
+            </button>
+
+            <section class="signage" *ngIf="isOpenTollPolicyRoadWay">
+                <div class="signage-container">
+
+                    <ng-container *ngFor="let text of tollPolicyRoadWay.texts ; let i=index">
+                        <div class="signage-content-text{{i+1}}" [innerHtml]="text | safeHtml"></div>
+                    </ng-container>
+
+                    <ng-container *ngFor="let image of tollPolicyRoadWay.image ; let i=index">
+                        
+                        <img class="signage-image" enhanced [src]="image" style="background-size: auto; background-repeat: no-repeat; background-position: center;" />
+
+                    </ng-container>
+
+
+                </div>
+            </section>
+
+        </ng-container>
+        <ng-container *ngIf="signage">
+
+            <button class="btn-open-close" (click)="isOpenTempSignage = !isOpenTempSignage">
+                {{isOpenTempSignage?aetComplexCMS.CloseText:aetComplexCMS.TempSignageText}}
+                <mat-icon *ngIf="!isOpenTempSignage" svgIcon="white-down-arrow"></mat-icon>
+                <mat-icon class="mat-close-icon" *ngIf="isOpenTempSignage" svgIcon="close-x"></mat-icon>
+            </button>
+
+            <section class="signage" *ngIf="isOpenTempSignage">
+                <div class="signage-expanded-container">
+
+                    <ng-container *ngFor="let text of signage.expanded.content.texts ; let i=index">
+
+                        <div class="signage-content-text{{i+1}}" [innerHtml]="text | safeHtml"></div>
+
+                        <ng-container *ngIf="i===0">
+
+                            <div class="signage-current-temp-row current-temp-row{{i}}" *ngFor="let child of signage.expanded.children">
+                                <picture-container class="current">
+                                    <picture>
+                                        <img enhanced [src]="child.image" style="background-size: auto; background-repeat: no-repeat" />
+                                    </picture>
+
+                                    <div content-container class="signage-expanded-content-text" [innerHtml]="child.texts[0] | safeHtml"></div>
+
+                                </picture-container>                               
+                            </div>
+
+                        </ng-container>
+
+
+                    </ng-container>
+                </div>
+            </section>
+        </ng-container>
+        <ng-container *ngIf="signage">
+
+            <button class="btn-open-close" (click)="isOpenSignageChange = !isOpenSignageChange">
+                {{isOpenSignageChange?aetComplexCMS.CloseText:aetComplexCMS.Phase1SignageChangesText}}
+                <mat-icon *ngIf="!isOpenSignageChange" svgIcon="white-down-arrow"></mat-icon>
+                <mat-icon class="mat-close-icon" *ngIf="isOpenSignageChange" svgIcon="close-x"></mat-icon>
+            </button>
+
+            <section class="signage" *ngIf="isOpenSignageChange">
+                <div class="signage-container">
+
+                    <ng-container *ngFor="let text of signage.content.texts ; let i=index">
+                        <div class="signage-content-text{{i+1}}" [innerHtml]="text | safeHtml"></div>
+                    </ng-container>
+
+                    <ng-container *ngFor="let image of signage.content.image ; let i=index">
+                        
+                        <img class="signage-image" enhanced [src]="image" style="background-size: auto; background-repeat: no-repeat; background-position: center;" />
+
+                    </ng-container>
+
+
+                </div>
+            </section>
+
+        </ng-container>
+
+        <ng-container *ngIf="faq">
+            <div class="faq-title-text" [innerHTML]="faq.title | safeHtml"></div>
+        </ng-container>
+
+
+        <div class="faq-title">
+            <div [innerHTML]="faqSectionOverview.ShortDescription | safeHtml"></div>
+        </div>
+        <section id="faq_overview" class="faq-items-width">
+            <aet-accordion [faqSection]="faqOverviewItems"></aet-accordion>
+        </section>
+
+        <div class="faq-title">
+            <div [innerHTML]="faqSectionChanges.ShortDescription | safeHtml"></div>
+        </div>
+        <section id="faq_changes" class="faq-items-width">
+            <aet-accordion [faqSection]="faqChangesItems"></aet-accordion>
+        </section>
+
+        <div class="faq-title">
+            <div [innerHTML]="faqSectionBenefits.ShortDescription | safeHtml"></div>
+        </div>
+        <section id="faq_benefits" class="faq-items-width">
+            <aet-accordion [faqSection]="faqBenefitsItems"></aet-accordion>
+        </section>
+
+        <section ngClass.gt-md="desktop-section"
+                 ngClass.md="tablet-large-section"
+                 ngClass.sm="tablet-small-section"
+                 ngClass.lt-sm="faq-not-found-container-lt-sm">
+            <div class="faq-not-found" [innerHtml]="aetComplexCMS.ShortDescription"></div>
+        </section>
+    </div>
+</main>

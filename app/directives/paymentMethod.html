@@ -1,0 +1,19 @@
+﻿<div class="bottom-buffer-sm" ng-if="lockType">
+    <p class="h4">
+        Payment Method:
+        <span class="font-avenir-medium" ng-show="billingtypeParent.billingType === 'CREDIT'">Credit Card</span>
+        <span class="font-avenir-medium" ng-show="billingtypeParent.billingType === 'EFT'">Bank Account</span>
+    </p>
+</div>
+
+<div class="form-group" ng-class="getErrorStatusClass(paymentsform, 'paymentmethod')" ng-if="!lockType">
+    <label for="paymentmethod">Select Payment Method</label>
+    <select class="form-control payment-method-select" ng-class="isItalic()" id="paymentmethod" name="paymentmethod" ng-model="billingtypeParent.billingType" ng-change="changeType()">
+        <option ng-show="billingtypeParent.billingType === ''" value="" disabled selected>Select Payment Method</option>
+        <option value="CREDIT">Credit Card</option>
+        <option value="EFT">Bank Account</option>
+    </select>
+    <div ng-messages="getErrorList(paymentsform, 'paymentmethod')" ng-if="hasSubmitted(paymentsform)" role="alert">
+        <p ng-message="required" class="help-block">Please select a payment type</p>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     viewBox="0 0 32 32" enable-background="new 0 0 128 128" xml:space="preserve">
+    <title>Pay Violations</title>
+    <switch>
+        <g>
+            <g>
+                <path fill="#FFFFFF" d="M17,8.1c1.6,0,3.2,0.5,4.4,1.7l-1.6,1.5C19.1,10.5,18.1,10,17,10v5.2l0,0c2.6,0.7,4.8,1.5,4.8,4.5
+		c0,2.7-2.2,4.4-4.8,4.5v1.6h-1.2v-1.6c-1.9,0-3.7-0.6-4.9-2.1l1.7-1.5c0.7,1.1,1.9,1.7,3.2,1.8V17c-2.4-0.6-4.5-1.7-4.5-4.5
+		c0-2.5,2.1-4.1,4.5-4.3V6.6H17V8.1z M15.8,10c-1.4,0.2-2.4,1.1-2.4,2.5s1.1,2,2.4,2.4V10z M17,22.3c1.5-0.2,2.6-1.1,2.6-2.6
+		c0-1.5-1.3-2.1-2.6-2.5V22.3z" />
+            </g>
+            <g><ellipse fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" cx="16" cy="16" rx="14" ry="13.9" /></g>
+        </g>
+            <foreignObject height="42px" width="42px"><i class="payViolationsIcon"></i></foreignObject>
+    </switch>        
+</svg>

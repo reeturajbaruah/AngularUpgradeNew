@@ -1,0 +1,49 @@
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/variables.less';
+
+//todo: when ready, create refresh styles!
+:host[legacy] {
+
+    input[type='file'] {
+        display: none;
+    }
+
+    div {
+        border: 1px solid @french-gray;
+        border-radius: 4px;
+        padding: 8px 12px 2px 12px;
+        margin: 4px 0px;
+
+        label {
+            width: 75%;
+            margin-left: 5px;
+            word-wrap: break-word;
+        }
+
+        &::before {
+            content: '📎';
+            font-family: emoji;
+            transform: rotate(45deg);
+            display: inline-block;
+            max-height: 25px;
+        }
+
+        a,
+        span {
+            margin-left: 5px;
+        }
+
+        span::after {
+            content: '...';
+        }
+    }
+
+
+    & > a {
+        margin: 16px 10px;
+
+        &::before {
+            content: '+ ';
+        }
+    }
+}

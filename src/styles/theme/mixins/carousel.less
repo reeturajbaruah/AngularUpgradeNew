@@ -1,0 +1,21 @@
+@import (reference) '../../variables.less';
+.centerX() {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.centerY() {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.frame(@z-index: auto) {
+    .size();
+    position: absolute;
+    z-index: @z-index;
+}
+
+.size(@width: 100%, @height: @width) {
+    width: @width;
+    height: @height;
+}

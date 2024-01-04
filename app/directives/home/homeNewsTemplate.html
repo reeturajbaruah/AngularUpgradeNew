@@ -1,0 +1,18 @@
+﻿<header>
+    <rss on-rss-click="goToRssFeedNews()" class="rssNewsIconHomePage pull-right"></rss>
+    <h1 class="title-color">News</h1>
+</header>
+
+<div id="homeNews" ng-repeat="news in shownNews" class="news-container">
+    <a ng-click="goToNewsArticle(news.ItemID)">
+        <span class="bold">{{news.Title}}</span>
+        <span ng-if="news.Subtitle" class="bold">{{news.Subtitle}}</span>
+        <span ng-if="news.ShortDescription" ng-bind-html="news.ShortDescription"></span>
+    </a>
+</div>
+
+<div id="newsMarketingImages" ng-repeat="marketingImage in shownMarketingImages" class="news-container">
+    <img ng-src="{{marketingImage.Image}}" ng-click="goToUrl(marketingImage.ImageURL)" alt="{{marketingImage.ImageAltText}}" class="clickable" />
+</div>
+
+<ng-transclude ng-if="shownNews.length == 0"></ng-transclude>

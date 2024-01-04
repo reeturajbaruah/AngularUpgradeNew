@@ -1,0 +1,140 @@
+<form #RemovePaymentForm="ngForm" validation-focus name="removePaymentForm">
+
+    <main id="modal-popup" class="refresh-2020" style="position:relative" [ngModelGroup]="'otherMethods'" #group="ngModelGroup">
+
+        <section fxLayout="column"
+                 ngClass.lt-md="mobile-style"
+                 ngClass="desktop-style">
+
+            <div fxLayout="column"
+                 fxLayoutAlign="center center">
+
+                <header fxLayout="column"
+                        fxLayoutAlign="center center">
+
+                    <h2>{{cmsContent.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+
+                </header>
+
+            </div>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="center center">
+                <div *ngIf="!cmsContent.isOnlyPayment" [innerHtml]="cmsContent.MainContent | safeHtml"></div>
+                <div *ngIf="cmsContent.isOnlyPayment && !cmsContent.isOptIn && cmsContent.isFlexPay" [innerHtml]="cmsContent.MainContent | safeHtml"></div>
+                <div *ngIf="cmsContent.isOnlyPayment && cmsContent.isFlexPay && cmsContent.isOptIn" [innerHtml]="cmsContent.removeFlexPay | safeHtml"></div>
+
+            </div>
+
+            <div *ngIf="isPrimaryMethod && !cmsContent.isOnlyPayment" fxLayout="column"
+                 fxLayoutAlign="center center">
+
+                <div style="padding-top:25px;" *ngIf="!cmsContent.isOnlyPayment" [innerHtml]="cmsContent.NewPrimaryContent | safeHtml"></div>
+
+                <div style="padding-top:10px;">
+
+                    <error-messages [errors]="group.invalid ? { 'required': true } : {}">
+                        <error-message rule="required">* Required</error-message>
+                    </error-messages>
+
+                    <label *ngFor="let paymentMethod of otherMethods; index as i"
+                           for="{{('otherMethods_id') + i}}" [ngSwitch]="paymentMethod.billingType"
+                           [ngClass]="{ 'selected':  selectedPaymentMethod === paymentMethod}"
+                           fxLayout="row"
+                           fxLayoutAlign="start center">
+
+                        <error-messages [errors]="group.invalid ? { 'required': true } : {}">
+                            <error-message rule="required">*</error-message>
+                        </error-messages>
+
+                        <input type="radio"
+                               id="{{('otherMethods_id') + i}}"
+                               [ngModel]="selectedPaymentMethod"
+                               (ngModelChange)="paymentMethodChanged(paymentMethod)"
+                               name="selectedPaymentMethod"
+                               [value]="paymentMethod"
+                               [required]="true" />
+
+                        <span *ngSwitchCase="BillingType.Credit"
+                              fxFlex
+                              fxLayout="row">
+                            <span><img [src]="getIconImage(paymentMethod)" />&nbsp;</span>
+                            <span translation-skip>{{paymentMethod.credit.cardCode | cardType | uppercase}}&nbsp;</span>
+                            <span translation-skip>{{paymentMethod.credit.cardNbr | maskCreditCard:paymentMethod.credit.cardCode}}&nbsp;</span>
+                            <span *ngIf="paymentMethod.credit.primary" class="isPrimary">primary</span>
+                        </span>
+                        <span *ngSwitchCase="BillingType.Eft"
+                              fxFlex
+                              fxLayout="row">
+                            <span><img [src]="getIconImage(paymentMethod)" />&nbsp;</span>
+                            <span>Bank Account&nbsp;</span>
+                            <span translation-skip>{{paymentMethod.eft.accountNumber | maskBankAccount}}&nbsp;</span>
+                            <span *ngIf="paymentMethod.eft.primary" class="isPrimary">primary</span>
+                        </span>
+                    </label>
+                </div>
+
+            </div>
+
+            <div *ngIf="!isPrimaryMethod && !cmsContent.isOnlyPayment" fxLayout="row"
+                 fxLayoutAlign="center center"
+                 class="u-spacing__buttonToField--marginTop">
+
+                <action-buttons (main)="acceptButtonClick()"
+                                (alt)="cancelButtonClick()"
+                                [direction]="'column'"
+                                [directionLtMd]="'column'"
+                                [reverseOrder]="true">
+                    <span action-alt *ngIf="cmsContent.CancelBtn">{{cmsContent.CancelBtn}}</span>
+                    <span action-main>{{cmsContent.NonPrimaryAcceptBtn}}</span>
+                </action-buttons>
+            </div>
+
+            <div *ngIf="isPrimaryMethod && !cmsContent.isOnlyPayment" fxLayout="row"
+                 fxLayoutAlign="center center"
+                 class="u-spacing__buttonToField--marginTop">
+
+                <action-buttons (main)="acceptButtonClick()"
+                                (alt)="cancelButtonClick()"
+                                [direction]="'column'"
+                                [directionLtMd]="'column'"
+                                [reverseOrder]="true">
+                    <span action-alt *ngIf="cmsContent.CancelBtn">{{cmsContent.CancelBtn}}</span>
+                    <span action-main>{{cmsContent.PrimaryAcceptBtn}}</span>
+                </action-buttons>
+            </div>
+
+            <div *ngIf="cmsContent.isOnlyPayment && cmsContent.isFlexPay && cmsContent.isOptIn" fxLayout="row"
+                 fxLayoutAlign="center center"
+                 class="u-spacing__buttonToField--marginTop">
+
+                <action-buttons (main)="acceptButtonClick()"
+                                (alt)="cancelButtonClick()"
+                                [direction]="'column'"
+                                [directionLtMd]="'column'"
+                                [reverseOrder]="true">
+                    <span action-alt *ngIf="cmsContent.CancelBtn">{{cmsContent.CancelBtn}}</span>
+                    <span action-main>{{cmsContent.ConfirmBtn}}</span>
+                </action-buttons>
+            </div>
+
+            <div *ngIf="cmsContent.isOnlyPayment && cmsContent.isFlexPay && !cmsContent.isOptIn" fxLayout="row"
+                 fxLayoutAlign="center center"
+                 class="u-spacing__buttonToField--marginTop">
+
+                <action-buttons (main)="acceptButtonClick()"
+                                (alt)="cancelButtonClick()"
+                                [direction]="'column'"
+                                [directionLtMd]="'column'"
+                                [reverseOrder]="true">
+                    <span action-alt *ngIf="cmsContent.CancelBtn">{{cmsContent.CancelBtn}}</span>
+                    <span action-main>{{cmsContent.NonPrimaryAcceptBtn}}</span>
+                </action-buttons>
+            </div>
+
+        </section>
+
+    </main>
+
+</form>

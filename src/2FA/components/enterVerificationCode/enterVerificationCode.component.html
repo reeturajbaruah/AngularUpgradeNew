@@ -1,0 +1,76 @@
+<card-container>
+    <h2>{{cmsInfo.Title}}</h2>
+    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+    <article *ngIf="isEmail" [innerHtml]="cmsInfo.EMAIL_DESC | safeHtml"></article>
+    <article *ngIf="!isEmail" [innerHtml]="cmsInfo.PHONE_DESC | safeHtml"></article>
+
+    <form #VerifyCodeForm="ngForm"
+          validation-focus novalidate
+          method="post">
+
+        <div ngClass="spanPosition"
+             [error-check]="codeInput">
+
+            <mat-label for="password">VERIFICATION CODE</mat-label>
+
+            <input type="text"
+                   id="codeTxtBox"
+                   placeholder="Enter Code"
+                   [(ngModel)]="verificationCode"
+                   #codeInput="ngModel"
+                   name="code"
+                   tabindex="2"
+                   pattern="^[0-9]{6}$"
+                   required />
+
+            <error-messages [errors]="codeInput.errors">
+                <error-message rule="pattern">Invalid code entered. Please try entering again.</error-message>
+                <error-message rule="required">Please enter your verification code</error-message>
+            </error-messages>
+        </div>
+       <ng-container *ngIf="isRememberDevice">
+        <div fxLayout="row" fxLayoutAlign="start baseline" class="u-spacing--widthFill u-spacing__fieldToSection--marginTop">
+            <input type="checkbox" id="isRememebrDevice" [checked]="saveDevice" (change)="toggleSaveDevice()"/>
+            <label class="remember-chk-label">{{cmsInfo.REMEMBER_CHECHBOX_LABEL}}</label>
+        </div>
+        <div class="remember-chk-desc">{{cmsInfo.REMEMBER_CHECHBOX_DESC}}</div>
+       </ng-container>
+        <section fxHide.lt-md
+                 fxLayout="row"
+                 fxLayoutAlign="start center"
+                 class="u-spacing__buttonToField--marginTop linksSection">
+
+            <a fxFlex="nogrow" (click)="resendCode()">Resend Code</a>
+            <ng-container *ngIf="!disableTryAnotherWay">
+                <mat-divider [vertical]="true" fxFlex="nogrow"></mat-divider>
+                <a fxFlex="nogrow" (click)="tryAnotherWay()">Try Another Way</a>
+            </ng-container>
+
+            <!-- Submit Button -->
+            <action-buttons (main)="verify()">
+                <span action-main>Verify</span>
+            </action-buttons>
+        </section>
+
+        <section fxHide
+                 fxShow.lt-md
+                 class="u-spacing__buttonToField--marginTop linksSection">
+
+            <action-buttons (main)="verify()">
+                <span action-main>Verify</span>
+            </action-buttons>
+
+            <section fxLayout="row"
+                     fxLayoutAlign="center center"
+                     class=" u-spacing__buttonToField--marginTop">
+
+                <a fxFlex="nogrow" (click)="resendCode()">Resend Code</a>
+                <ng-container *ngIf="!disableTryAnotherWay">
+                    <mat-divider [vertical]="true" fxFlex="nogrow"></mat-divider>
+                    <a fxFlex="nogrow" (click)="tryAnotherWay()">Try Another Way</a>
+                </ng-container>
+            </section>
+
+        </section>
+    </form>
+</card-container>

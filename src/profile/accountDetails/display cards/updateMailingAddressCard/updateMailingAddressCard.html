@@ -1,0 +1,25 @@
+<card-dash-container>
+    <div class="top-row-heights">
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+            <header fxLayout="column">
+                <h3 fxLayout="row"
+                    fxLayoutAlign="space-between start">
+                    {{mailingInfoTitle}}
+                </h3>
+            </header>
+            <a [fxHide]="isAccountClosed" (click)="updateMailingInfo()">Update</a>
+        </div>
+
+        <div translation-skip class="context">{{mailingInfo.personalInfo.firstName | titlecase}} {{mailingInfo.personalInfo.lastName | titlecase}}</div>
+        <address-display *ngIf="isMailingAddress"
+                         class="context"
+                         [address]="mailingInfo.mailingAddress"
+                         [international]="mailingInfo.mailingAddress.country !== 'USA'"
+                         [showLabels]="false">
+        </address-display>
+        <span class="context" *ngIf="!isMailingAddress">{{noMailingAddress}}</span>
+    </div>
+</card-dash-container>

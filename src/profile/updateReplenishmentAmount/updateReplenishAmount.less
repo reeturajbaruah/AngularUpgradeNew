@@ -1,0 +1,17 @@
+@import (reference) '../../styles/themes.less';
+
+:host {
+    mat-divider {
+        width: @width-divider;
+    }
+
+    .reflenish-link {
+        cursor: pointer;
+    }
+
+    .opt-out {
+        ::ng-deep .agree-tag {
+            display: none;
+        }
+    }
+}

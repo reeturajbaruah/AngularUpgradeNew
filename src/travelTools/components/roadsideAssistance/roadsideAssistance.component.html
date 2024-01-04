@@ -1,0 +1,46 @@
+<div id="june-redesign">
+    <header class="header-spacing">
+        <h1 class="title-color">{{topTitle}}</h1>
+    </header>
+    <div class="border-without-footer">
+        <div class="bottom-buffer-lg">
+            <header class="header-spacing">
+                <h2 [id]="header?.ItemName" class="no-margin-top-do" style="font-weight: 500;">{{header?.Title}}</h2>
+                <hr />
+            </header>
+            <img class="full-width bottom-buffer-sm" [src]="overviewImageSrc" [alt]="overviewImageAltText" />
+            <read-more-or-less [longContent]="header?.LongDescription" [shortContent]="header?.ShortDescription"
+                [defaultToMore]="false" [titleName]="header?.Title"></read-more-or-less>
+        </div>
+        <div id="ContactRoadsideAssistance" class="bottom-buffer-lg">
+            <header class="header-spacing">
+                <h2 [id]="contact?.ItemName" style="font-weight: 500;">{{contact?.Title}}</h2>
+                <hr />
+            </header>
+            <read-more-or-less [longContent]="contact?.LongDescription" [shortContent]="contact?.ShortDescription"
+                [defaultToMore]="false" [titleName]="contact?.Title"></read-more-or-less>
+        </div>
+        <div class="bottom-buffer-lg">
+            <header class="header-spacing">
+                <h2 [id]="about?.ItemName" style="font-weight: 500;">{{about?.Title}}</h2>
+                <hr />
+            </header>
+            <read-more-or-less [longContent]="about?.LongDescription" [shortContent]="about?.ShortDescription"
+                [defaultToMore]="false" [titleName]="about?.Title"></read-more-or-less>
+        </div>
+        <div class="mobile-bottom-buffer">
+            <header class="header-spacing">
+                <h2 [id]="testimonialsHeader?.ItemName" style="font-weight: 500;">{{testimonialsHeader?.Title}}</h2>
+                <hr />
+            </header>
+            <ng-container *ngFor="let testimonial of testimonialsList">
+                <div>
+                    <div [innerHTML]="testimonial.ShortDescription | safeHtml"></div>
+                    <p class="top-buffer-sm">{{testimonial.FullName}}{{(testimonial.FullName && testimonial.Location) ?
+                        ', '
+                        : ''}}{{testimonial.Location}}</p>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

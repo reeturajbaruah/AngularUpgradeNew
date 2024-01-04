@@ -1,0 +1,142 @@
+<main class="refresh-2020" ngClass.lt-md="lt-md">
+    <section fxLayout="row"
+             fxLayoutAlign="center center">
+        <h2 fxFlex fxShow fxHide.lt-md>
+            Plan: <span translation-skip>{{details.paymentPlanId}}</span>
+        </h2>
+        <h2 fxFlex fxHide fxShow.lt-md>
+            Payment Plan Number: <span translation-skip>{{details.paymentPlanId}}</span>
+        </h2>
+        <div fxShow fxHide.lt-md style="text-align: right">
+            Agency: <span translation-skip>{{details.agency}}</span>
+        </div>
+    </section>
+
+    <ng-container *ngIf="details.status !== 'Defaulted' else defaulted">
+
+        <section>
+            <h3>Plan Summary</h3>
+        </section>
+
+        <section fxHide fxShow.lt-md>
+            Agency: <span translation-skip>{{details.mobileAgency}}</span>
+        </section>
+
+        <section fxLayout="column"
+                 [ngClass]="{'paymentPastDue' : isPastDue}">
+            <div fxLayout="row"
+                 fxLayoutGap="14px"
+                 fxLayout.lt-md="row wrap"
+                 fxLayoutGap.lt-md="0px">
+
+                <div fxFlex="0 0 160px"
+                     fxFlex.lt-md="0 0 50%"
+                     fxLayout="column">
+                    <mat-label>Next installment:</mat-label>
+                    <strong>{{formattedDueDate}}</strong>
+                </div>
+                <div fxFlex="1 1 160px"
+                     fxFlex.lt-md="0 0 50%"
+                     fxLayout="column"
+                     [ngStyle.lt-md]="{'text-align': 'right'}">
+                    <mat-label>Installment amount:</mat-label>
+                    <strong><currency [value]="details.nextInstallmentAmount"></currency></strong>
+                </div>
+                <div *ngIf="autoPayInfo.autoPayFlag"
+                     fxFlex="1 1 100%"
+                     fxFlex.lt-md="2 0 100%"
+                     fxLayout="column"
+                     [ngStyle]="{'text-align': 'right'}"
+                     [ngStyle.lt-md]="{'text-align': 'left', 'padding-top': '16px'}">
+                    <mat-label>AutoPay:</mat-label>
+                    <strong>{{autoPayInfo.autoPayData}}</strong>
+                </div>
+
+
+            </div>
+            <div *ngIf="isPastDue">
+                <article [innerHTML]="cmsContent.data.paymentLateText"></article>
+            </div>
+        </section>
+
+        <section fxLayout="column">
+            <h3 style="padding-bottom: 17px;">Payment Progress</h3>
+            <div fxLayout="row"
+                 fxLayoutAlign="end">
+                <div fxFlex fxLayout="column">
+                    <mat-label>
+                        <span [innerHTML]="cmsContent.data.settlementAmmountText "></span>
+                    </mat-label>
+                    <strong><currency [value]="details.settlementAmount"></currency></strong>
+                </div>
+                <div fxLayout="column">
+                    <a>
+                        <mat-icon svgIcon="information"></mat-icon>
+                        <mat-label [innerHTML]="cmsContent.data.balanceDueText " style="padding-left: 4px; text-align: right"></mat-label>
+                    </a>
+                    <div>
+                        <aside fxLayout="column">
+                            <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                                <span [innerHTML]="cmsContent.data.settlementAmmountText "></span>
+                                <span style="text-align: right"><currency [value]="details.settlementAmount"></currency></span>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                                <span [innerHTML]="cmsContent.data.paidAmmountText "></span>
+                                <span style="text-align: right">- <currency [value]="details.paidAmount"></currency></span>
+                            </div>
+                            <hr />
+                            <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                                <strong [innerHTML]="cmsContent.data.balanceDueText "></strong>
+                                <strong style="text-align: right"><currency [value]="details.balanceAmount"></currency></strong>
+                            </div>
+                        </aside>
+                    </div>
+                    <strong style="text-align: right"><currency [value]="details.balanceAmount"></currency></strong>
+                </div>
+            </div>
+            <progress-bar [color]="isPastDue && '#FC2125'" [progress]="progress"></progress-bar>
+        </section>
+
+        <div style="padding: 0 16px;"
+             fxLayout="row"
+             fxLayout.lt-md="column"
+             fxLayoutAlign.gt-md="center center">
+            <a fxFlex="grow" [ngClass]="{ 'media-buttons-faded':pdfProcessing}"
+               (click)="downloadPdf()">
+                <img src="/Content/icons/pdf.gif" style="vertical-align: text-top; padding-right: 8px;" />{{cmsContent.pdf.pdfDownloadText}}
+            </a>
+
+            <div fxFlex="294px"
+                 fxFlex.lt-md
+                 fxFlexOffset.lt-md="52px">
+                <wizard-ui *ngIf="details.status === 'Open'"
+                           (next)="continueWithPayment($event)">
+                    <span wizard-next>MAKE A PAYMENT</span>
+                </wizard-ui>
+            </div>
+
+        </div>
+
+    </ng-container>
+</main>
+
+<ng-template #defaulted>
+
+    <section>
+        <h3 [innerHTML]="cmsContent.data.defaultedTitle"></h3>
+    </section>
+
+    <section>
+        <cms-content [template]="cmsContent.data.defaultedBody" [data]="details"></cms-content>        
+    </section>
+
+    <div style="padding: 0 16px;"
+         fxLayout="row"
+         fxLayoutAlign="center center">
+        <a fxFlex="grow" [ngClass]="{ 'media-buttons-faded':pdfProcessing}"
+           (click)="downloadPdf()">
+            <img src="/Content/icons/pdf.gif" style="vertical-align: text-top; padding-right: 8px;" />{{cmsContent.pdf.pdfDownloadText}}
+        </a>
+    </div>
+
+</ng-template>

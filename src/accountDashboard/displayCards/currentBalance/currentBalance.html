@@ -1,0 +1,82 @@
+<div fxLayout="row"
+     fxLayoutAlign="start start"
+     class="cardWidth"
+     style="height:232px;">
+
+    <div fxLayout="column"
+         fxLayoutAlign="center center"
+         class="cardWidth"
+         style="height:232px;">
+
+        <div style="height:25px;">
+            <span class="accountName" translation-skip>{{ fullName() | truncate:24 | titlecase }}</span>
+
+            <span *ngIf="isNegativeBalance" style="padding-left:8px;">
+                <tool-tip class="toolTip">
+                    <span tool-tip-hover>
+                        <mat-icon class="negativeBalance" svgIcon="alert"></mat-icon>
+                    </span>
+                    <span tool-tip-message ngClass="hoverBoxAdjusment"
+                          [ngStyle]="{'left': '-40px'}">
+                        {{currentBalanceCMS.NegativeBalance}}
+                    </span>
+                </tool-tip>
+            </span>
+
+        </div>
+
+        <div style="padding: 0px 0px 0px 0px; height:20px;">
+            <span class="accountNumberLabel">Acct: </span>
+            <span class="accountNumber">{{acctId()}}</span>
+            <span class="accountNumber"> | </span>
+            <span class="accountNumber" translation-skip>
+                <a aria-label="username" (click)="openUsernameModal()">
+                    {{username}}
+                </a>
+            </span>
+        </div>
+
+        <div style="height:20px;">
+            <span class="currentBalanceLabel" style="vertical-align:top;">CURRENT BALANCE:</span>
+        </div>
+
+        <span
+            [ngClass]="{ 'negativeBalance': isNegativeBalance, 'currentBalanceLarge': isLargeNumber, 'currentBalance': !isLargeNumber }"
+            style="height: 90px; padding-top:30px;" translation-skip>
+            {{currentBalance | currency:'USD'}}
+        </span>
+
+        <span>
+            <action-buttons [direction]="'column'"
+                            [directionLtMd]="'column'"
+                            style="width:177px; height:38px;"
+                            (click)="makePaymentClick()">
+                <span action-main>Make a Payment</span>
+            </action-buttons>
+        </span>
+
+        <div *ngIf="!isAccountInvoiced">
+            <span *ngIf="notPaymentPlan && !isPendingClosure" class="buttonsContainer">
+                <a class="changeButton"
+                   fxFlex="none" aria-label="Change replenishment amount"
+                   (click)="changeReplenishAmtClick()">
+                    Change replenishment amount
+                </a>
+            </span>
+            <span *ngIf="!notPaymentPlan && !isPendingClosure" class="buttonsContainer">
+                <a class="changeButton"
+                   fxFlex="none" aria-label="Replenishment Amount"
+                   (click)="changeReplenishAmtClick()">
+                    Replenishment Amount
+                </a>
+                <span style="padding-left:5px; padding-right:5px;">|</span>
+                <a class="changeButton"
+                   fxFlex="none" aria-label="My Payment Plan"
+                   (click)="paymentPlanClick()">
+                    My Payment Plan
+                </a>
+            </span>
+        </div>
+
+    </div>
+</div>

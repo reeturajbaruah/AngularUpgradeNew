@@ -1,0 +1,16 @@
+<section *ngIf="item" fxLayout="column" fxLayoutGap="10px">
+
+    <p class="title">{{item.title}}</p>
+
+    <p class="category">{{item.categoryName}}</p>
+
+    <div>
+        <span><mat-icon svgIcon="clock"></mat-icon></span>
+        <!-- <span class="publish-on">{{getVal('publishedOn')}} {{item.publishedOn | date: 'longDate' }}</span> -->
+        <span class="publish-on">Last Published {{item.lastModifiedDate | date: 'longDate' }}</span>
+
+    </div>
+
+    <article class="description" [innerHTML]="item.shortDesc | safeHtml"></article>
+
+</section>

@@ -1,0 +1,80 @@
+<page-centered-container>
+
+    <card-container>
+
+        <header fxLayout="row"
+                fxLayoutAlign="space-between end">
+            <h2>
+                {{cmsContent.thankyou}}
+            </h2>
+            <print-link></print-link>
+        </header>
+
+        <mat-divider></mat-divider>
+
+        <section>
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between end"
+                 class="summary paymentAmount">
+                <span>{{cmsContent.paymentAmount}}:</span>
+                <currency [value]="paymentAmount"></currency>
+            </div>
+            <div class="summary">
+                <span>{{cmsContent.paymentReceivedDate}} </span>
+                <span translation-skip>{{paymentDate | dateWithTimeZone: 'dateTime4'}}</span>
+            </div>
+        </section>
+
+        <p>{{cmsContent.replenishment}}</p>
+
+        <header>
+            <h3 [innerHtml]="cmsContent.accountInfo | safeHtml">
+            </h3>
+        </header>
+
+        <mat-divider></mat-divider>
+
+
+        <section fxLayout="column">
+            <span>{{cmsContent.accountNumber}}: {{accountNumber}}</span>
+            <span>{{cmsContent.paymentDate}}: </span>
+            <span translation-skip>{{paymentDate | dateWithTimeZone: 'dateTime4'}}</span>
+        </section>
+
+        <header>
+            <h3>
+                {{cmsContent.billingInfo}}
+            </h3>
+        </header>
+
+        <mat-divider></mat-divider>
+
+        <section *ngIf="billingInfo">
+
+            <payment-display [billingType]="billingInfo.billingType"
+                             [bankDetails]="billingInfo.eft"
+                             [creditCard]="billingInfo.credit"
+                             [hideTitle]="true"
+                             [showAccountNumber]="true"
+                             [showNameOnCard]="true"
+                             [showLabels]="false">
+            </payment-display>
+
+        </section>
+
+        <storefront-utility #storefront></storefront-utility>
+
+        <section fxLayout="row" fxLayout.lt-md="column">
+
+            <wizard-ui #Wizard reverseOrder="true"
+                       (next)="nextStep($event)">
+                <span wizard-next>{{cmsContent.accountDashboard}}</span>
+            </wizard-ui>
+
+            <a *ngIf="!storefront.isKioskView" (click)="viewPaymentMethods()">{{cmsContent.viewPaymentMethods}}</a>
+
+        </section>
+
+    </card-container>
+
+</page-centered-container>

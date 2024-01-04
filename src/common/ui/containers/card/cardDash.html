@@ -1,0 +1,18 @@
+
+<div fxLayout="row"
+     fxLayoutAlign="start center"
+     class="card extended"
+     [style.height]="height || ''"
+     [ngClass]="{'has-margin': hasMargin, 'hasNoExtented': hasNoExtented}"
+     [ngClass.lt-sm]="{'lt-sm': true}"
+     [ngStyle.lt-sm]="{'height': '100%'}">
+
+    <div fxLayout="column"
+         class="u-spacing--widthFill"
+         [fxLayoutAlign]="alignment || ''"
+         [ngStyle.lt-md]="{'padding-left': '10px', 'padding-right': '10px'}"
+         [ngStyle.lt-sm]="{'padding-left': '14px', 'padding-right': '14px'}">
+        <ng-content></ng-content>
+    </div>
+
+</div>

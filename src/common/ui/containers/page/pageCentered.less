@@ -1,0 +1,56 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/variables.less';
+
+:host {
+    width: 100%;
+
+    main {
+        .t-body--backgroundColor2(@theme-light);
+        max-width: 100vw;
+        padding-top: 0px;
+        padding-bottom: 60px;
+
+        &.has-alternateBackgroundColor {
+            background-color: @athens-gray;
+        }
+
+        &.lt-md {
+            .t-body--backgroundColor(@theme-light);
+            padding-left: 0px;
+            padding-right: 0px;
+
+            &.has-gutter {
+                padding-left: @page-bar-margin-static-lt-md;
+                padding-right: @page-bar-margin-static-lt-md;
+            }
+        }
+
+        div {
+            max-width: @page-centered-max-width;
+        }
+    }
+}
+
+:host.lg {
+    main {
+        div {
+            max-width: 45%;
+        }
+    }
+
+    @media screen and (max-width: 900px) {
+        main {
+            div {
+                max-width: @page-centered-max-width;
+            }
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        main {
+            div {
+                max-width: @page-centered-max-width;
+            }
+        }
+    }
+}

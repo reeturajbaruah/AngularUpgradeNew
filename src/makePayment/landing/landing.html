@@ -1,0 +1,75 @@
+<page-centered-container hasAlternateBackgroundColor="true">
+    <form #Form="ngForm" validation-focus novalidate>
+
+        <card-container>
+
+            <h2>{{cmsContent.Title}}</h2>
+
+            <mat-divider></mat-divider>
+
+            <p [innerHTML]="cmsContent.ShortDescription | safeHtml"></p>
+
+            <h3>{{cmsContent.entryTitle}}</h3>
+
+            <section [error-check]="paymentAmountInput">
+                <mat-label>{{cmsContent.amountLabel}}</mat-label>
+                <div>
+                    <input #paymentAmountInputDisplay
+                           type="text"
+                           name="paymentAmountDisplay"
+                           [ngStyle]="{ 'display': paymentAmountFocus ? 'none' : 'inherit' }"
+                           [value]="paymentAmountWithCurrency"
+                           (focus)="switchTo(paymentAmountElm)"
+                           />
+
+                    <input #paymentAmountInput="ngModel"
+                           #paymentAmountElm
+                           type="number"
+                           step=".01"
+                           tabindex="-1"
+                           [ngStyle]="{ 'display': paymentAmountFocus ? 'inherit' : 'none' }"
+                           name="paymentAmount"
+                           [(ngModel)]="paymentAmount"
+                           [min]="minimumPaymentAmount"
+                           pattern="^[0-9]*(\.[0-9]{0,2})?$"
+                           required
+                           (blur)="paymentAmountFocus = false"/>
+                </div>
+                
+
+                <error-messages [errors]="paymentAmountInput.errors">
+                    <error-message rule="required">Please enter a valid payment amount</error-message>
+                    <error-message rule="pattern">Please enter a valid payment amount</error-message>
+                    <error-message rule="min">Please enter an amount equal to or greater than <currency [value]="minimumPaymentAmount"></currency></error-message>
+                </error-messages>
+            </section>
+
+            <h3>
+                {{cmsContent.selectionTitle}}
+            </h3>
+
+            <section>
+                <payment-selection-component #PaymentSelection
+                                             [paymentMethods]="paymentMethods"
+                                             [(selectedPaymentMethod)]="selectedMethod"
+                                             [stateList]="parent.stateList"
+                                             [countryList]="parent.countryList"
+                                             [required]="true"
+                                             (otherPaymentMethodSelected)="PaymentSelection.addNewPaymentMethod(openEftSlots, openCardSlots, showMakePrimary, acctActivity)">
+                </payment-selection-component>
+
+            </section>
+
+            <eft-ach-disclaimer></eft-ach-disclaimer>
+
+
+        </card-container>
+        <wizard-ui #Wizard
+                   (next)="nextStep($event)"
+                   [disabled]="Form.submitted && Form.invalid">
+            <span wizard-next>continue</span>
+            <span wizard-cancel>cancel</span>
+        </wizard-ui>
+
+    </form>
+</page-centered-container>

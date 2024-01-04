@@ -1,0 +1,22 @@
+<!--Show Location as a plain text if coordinates are not available and if Agency is not available-->
+<div *ngIf="showPlainLocationName(record)" translation-skip>
+    {{record.locationName | truncate}}
+</div>
+
+<!--Should Agency as a Link if Agency is available-->
+<div *ngIf="!showLocationLink && isAgencyInLocationName(record)" translation-skip>
+    {{agencyLinkLeftPart}}
+    <a translation-skip
+       class="location-popup u--noUnderline">
+        {{agencyLinkMatchedString}}
+    </a>
+    {{agencyLinkRightPart}}
+</div>
+
+<!--Show Location as a Link if coordinates are available and if Agency is not available-->
+<div *ngIf="showLocationLink && hasLaneNameOrCoordinates(record)">
+    <a translation-skip
+       class="location-map-popup u--noUnderline">
+        {{accountActivityService.getLocationNameWithoutAgencyOrPhone(record) | truncate:25}}
+    </a>
+</div>

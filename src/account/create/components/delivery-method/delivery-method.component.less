@@ -1,0 +1,79 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/variables.less';
+@import (reference) '../../../../styles/custom/spacing/sections.less';
+
+section {
+    width: 100%;
+}
+
+mat-divider {
+    width: @width-divider;
+}
+
+.footerActionButtons {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    place-content: center;
+
+    @media @breakpoint-lt-md {
+        flex-direction: column-reverse;
+    }
+}
+
+.addMargin {
+    @media @breakpoint-gt-md {
+        margin-left: 160px;
+    }
+
+    width: 100%;
+}
+
+//Styles to fix alignment issues of Previous, Cancel and Submit buttons
+:host {
+    .action-buttons-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @media @breakpoint-lt-md {
+            flex-direction: column;
+        }
+    }
+
+    .main-button {
+        order: 3;
+
+        @media @breakpoint-lt-md {
+            order: 1;
+            margin-top: -90px;
+            width: 360px;
+        }
+    }
+
+    .alternate-buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 167px;
+
+        @media @breakpoint-lt-md {
+            align-items: flex-start;
+            gap: 228px;
+        }
+    }
+
+    .alternate-buttons action-buttons:first-child {
+        order: 1; // previous
+        @media @breakpoint-lt-md {
+            order: 2;
+        }
+    }
+
+    .alternate-buttons action-buttons:last-child {
+        order: 2; // cancel
+        @media @breakpoint-lt-md {
+            order: 3;
+        }
+    }
+}

@@ -1,0 +1,84 @@
+<p style="margin-bottom: 30px;">{{header}}</p>
+
+<header fxLayout="row" fxLayoutAlign="space-between end">
+    <h2>
+        {{paymentDetailsHeader}}
+    </h2>
+    <a *ngIf="isEdit" (click)="editable()">
+        Edit
+    </a>
+</header>
+
+<mat-divider></mat-divider>
+
+<section *ngIf="billingInfo">
+
+    <div class="refresh-2020" fxLayout="column">
+
+        <div>
+            <section fxLayout="column" style="margin-bottom: 10px;">
+
+                <div fxLayout="row" fxLayoutAlign="space-between start" class="u-spacing--widthFill">
+
+                    <div>
+                        <p>{{labels.name}}:</p>
+                    </div>
+
+                    <div style="text-align:right;" class="word-break-div">
+                        <p translation-skip>
+                            {{name | titlecase}}
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+            <section fxLayout="column" style="margin-bottom: 10px;">
+                <div fxLayout="row" fxLayoutAlign="space-between start" class="u-spacing--widthFill">
+
+                    <div>
+                        <p>{{labels.paymentMethod}}:</p>
+                    </div>
+
+                    <div style="text-align:right;">
+                        <p>
+                            <ng-container *ngIf="billingInfo.billingType === BillingType.Credit">
+                                Credit Card
+                            </ng-container>
+                            <ng-container *ngIf="billingInfo.billingType === BillingType.Eft">
+                                {{bankDetails.accountType | titlecase}} Bank Account
+                            </ng-container>
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+            <ng-container *ngIf="billingInfo.billingType === BillingType.Credit">
+                <creditcard-details [creditCardDetails]="creditCardDetails"></creditcard-details>
+            </ng-container>
+
+            <ng-container *ngIf="billingInfo.billingType === BillingType.Eft">
+                <bank-details [showAccountNumber]="showAccountNumber" [bankDetails]="bankDetails"></bank-details>
+            </ng-container>
+        </div>
+    </div>
+
+    <address-display *ngIf="address" [address]="address" [international]="address.international" [showLabels]="true">
+    </address-display>
+</section>
+
+<section>
+    <div fxLayout="row"
+         fxLayoutAlign="space-between end"
+         class="summary paymentAmount">
+        <span>{{labels.totalPaymentAmt}}:</span>
+        <currency [value]="totalPaymentAmount"></currency>
+    </div>
+    <div fxLayout="row"
+         fxLayoutAlign="space-between end"
+         class="summary">
+        <span>{{labels.paymentDate}}:</span>
+        <span>{{getDate() | dateWithTimeZone: 'date4'}}</span>
+    </div>
+</section>

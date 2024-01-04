@@ -1,0 +1,85 @@
+﻿@import (reference) '../../../styles/variables.less';
+
+@keyframes opacity-custom {
+    0% {
+        opacity: 0.9375749999999999;
+    }
+
+    91.67666666666666% {
+        opacity: 0.25;
+    }
+
+    91.68666666666667% {
+        opacity: 1;
+    }
+
+    91.67666666666668% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 0.9375749999999999;
+    }
+}
+
+.purple-dot() {
+    background-color: @purple-heart-purple;
+    width: 20px;
+}
+
+.custom-spinner-dot-factory(@angle) {
+    .purple-dot();
+    position: absolute;
+    height: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+    transform-origin: left center 0px;
+    border-radius: 3px;
+    transform: rotate(@angle) translate(12px, 0);
+}
+
+.custom-spinner {
+    .custom-spinner-dot-with-angle-generator(1, 6);
+}
+
+.custom-spinner-dot-container-factory(@delay) {
+    top: -3px;
+    position: absolute;
+    opacity: 0.25;
+    animation: opacity-custom 1s linear infinite;
+    -webkit-animation-delay: @delay;
+    animation-delay: @delay;
+}
+
+.custom-spinner-dot-with-angle-generator(@index, @last) when (@index < @last + 1) {
+    .custom-spinner-dot-with-angle-generator(@index + 1, @last);
+
+    @dot-spacing: (360deg / @last);
+    @angle-for-this-index: @index * @dot-spacing - (@dot-spacing / 2);
+    @delay-for-this-index: unit(((@index - @last) / @last), s);
+    & > .custom-spinner-dot-container:nth-child(@{index}) {
+        .custom-spinner-dot {
+            .custom-spinner-dot-factory(@angle-for-this-index);
+        }
+
+        .custom-spinner-dot-container-factory(@delay-for-this-index);
+    }
+}
+
+:host {
+    &.global-grid-spinner-position .custom-spinner {
+        position: fixed;
+        width: 0px;
+        z-index: 2000000000;
+        left: 50%;
+        top: 50%;
+    }
+
+    &.spinner-centered .custom-spinner {
+        position: relative;
+        margin-bottom: 5em;
+        margin-top: 4em;
+        left: 50%;
+        width: 0px;
+    }
+}
+

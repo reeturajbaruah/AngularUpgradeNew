@@ -1,0 +1,10 @@
+<!--
+not having src here was causing (load) to be trigger with href=about:blank
+including src="blank.html" so (load) is triggered with href="bla/bla/blank.html"
+about:blank would have been fine too. However, not sure if the behavior is different across browsers.
+    -->
+<iframe #Iframe
+        id="katyManagedLanePages"
+        frameborder="0"
+        src="/Content/hctra3rdPartyPages/katymanagedlanes/blank.html"
+        (load)="onContentLoad(Iframe)"></iframe>

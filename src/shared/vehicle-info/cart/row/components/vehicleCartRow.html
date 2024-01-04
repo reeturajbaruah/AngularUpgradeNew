@@ -1,0 +1,37 @@
+<main fxLayout="column">
+
+    <div style="padding-top:4px; padding-bottom:4px;">
+        <fx-row>
+            <section col-start fxFlex="grow">
+                <div fxLayout="row"
+                     fxLayoutAlign="start start">
+                    <vehicle-display class="fx-flex-auto-shrink-more limited-flex" style="min-width:169px; padding:16px 0px;" [vehicleInfo]="ezTag" isCompactView="true"></vehicle-display>
+                </div>
+
+                <div *ngIf="isPlate" style="padding-bottom: 16px;">
+                    <p translation-skip class="itemFont">Start Date: {{pbpStartDate}}</p>
+                    <p translation-skip class="itemFont">
+                        End Date: {{pbpEndDate}}
+                        <span style="padding-left: 10px;">{{numberOfDays}} days</span>
+                    </p>
+                </div>
+            </section>
+
+             <section *ngIf="canRemove || canEdit" col-end
+                     fxFlex="none"
+                     style="margin-top: auto; padding-bottom: 16px;">
+
+                <span *ngIf="canRemove">
+                    <a (click)="remove()">Remove</a>
+                </span>
+
+                <span *ngIf="canRemove && canEdit" style="padding:0px 5px;">|</span>
+
+                <span *ngIf="canEdit">
+                    <a (click)="edit()">Edit</a>
+                </span>
+            </section>
+
+        </fx-row>
+    </div>
+</main>

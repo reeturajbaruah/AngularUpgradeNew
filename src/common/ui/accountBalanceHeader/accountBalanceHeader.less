@@ -1,0 +1,33 @@
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/variables.less';
+
+:host {
+    .t-body--fontFamily();
+    font-weight: 600;
+    font-size: 14px;
+    margin: 10px 0px;
+
+    span,
+    currency {
+        color: @purple-heart-purple;
+        font-weight: bold;
+        margin-left: 5px;
+    }
+
+    .negativeBalance {
+        .t-error--color(@theme-light);
+    }
+
+    .zeroBalance {
+        color: red;
+    }
+
+    mat-divider {
+        &.mat-divider.mat-divider-vertical {
+            border-color: @purple-heart-purple;
+            height: 20px;
+            border-width: 2px;
+            margin: 2px 10px;
+        }
+    }
+}

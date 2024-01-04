@@ -1,0 +1,236 @@
+
+<div style="padding-left:10px; padding-right:10px;">
+    <div *ngIf="noData === false">
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+            <header fxLayout="column">
+                <h3>{{vehiclesTitle}}</h3>
+            </header>
+
+            <a class="viewAllButton"
+               fxFlex="none" aria-label="Manage Vehicles" (click)="viewVehiclesClick()">
+                Manage Vehicles
+            </a>
+        </div>
+
+        <div fxLayout="column"
+             fxLayoutAlign="start start" class="cardWidth" style="height: 165px;">
+
+            <div *ngIf="ezTagsSelected"
+                 fxLayout="column"
+                 fxLayoutAlign="start start" class="cardWidth">
+
+                <fx-row [isLabel]="true"
+                                       [backgroundColorClass]="'transparent-background'"
+                                       class="gridLabelRow">
+                    <section col-start
+                             class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <span><mat-label class="fx-flex-auto-shrink-more limited-flex" translation-skip>EZ TAG{{totalEzTags > 1 ? 'S' : ''}}</mat-label></span>
+                    </section>
+                    <section col-end
+                             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <span style="padding-top:2px;"><mat-label class="fx-flex-auto limited-flex-end">STATUS</mat-label></span>
+                    </section>
+
+                </fx-row>
+
+                <div *ngFor="let ezTag of ezTags | slice:0:3; let i = index" class="cardWidth">
+                    <div ngClass="extended-row"
+                         [ngClass.lt-md]="{'extended-row': false}"
+                         style="margin-top:2px;">
+                        <fx-row [isTop]="i === 0 && ezTags.length > 1 ? true : false"
+                                               [isInner]="i > 0 && i+1 < ezTags.length && i+1 < 3 ? true : false"
+                                               [isBottom]="i > 0 && (i+1 === ezTags.length || i+1 === 3) ? true : false">
+
+                            <section col-start
+                                     class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <div translation-skip
+                                     class="fx-flex-auto-shrink-more limited-flex">
+                                    <span *ngIf="ezTag.vehicleInfo.nickname !== null" class="rowItem">{{ezTag.vehicleInfo.nickname}} - </span>
+                                    <span class="rowItem">{{ezTag.vehicleInfo.plateState}} - {{ezTag.vehicleInfo.plateNumber}}</span>
+                                </div>
+                            </section>
+
+                            <section col-end
+                                     class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                <div class="fx-flex-auto larger-limited-flex-end"
+                                     style="text-align:right;">
+                                    <span *ngIf="ezTag.vehicleInfo.status === 'ACTIVE'" class="activeStatus">{{ezTag.vehicleInfo.status | titlecase}}</span>
+                                    <div *ngIf="ezTag.vehicleInfo.status === 'PENDING'"
+                                         fxLayout="row"
+                                         fxLayoutAlign="end start">
+                                        <span class="rowItem">{{ezTag.vehicleInfo.status | titlecase}}</span>
+                                        <span>
+                                            <tool-tip class="toolTip">
+                                                <span tool-tip-hover>
+                                                    <mat-icon class="infoIcon" svgIcon="information"></mat-icon>
+                                                </span>
+                                                <span tool-tip-message ngClass="hoverBoxAdjusment"
+                                                      [ngStyle]="{'left': '-325px'}">
+                                                    {{pendingActivationCMS}}
+                                                </span>
+                                            </tool-tip>
+                                        </span>
+                                    </div>
+                                    <span *ngIf="ezTag.vehicleInfo.status === 'PENDING ACTIVATION'" class="pendingActivationStatus">
+                                        <a (click)="pendingActivationClick()" class="rowItem">{{ezTag.vehicleInfo.status | titlecase}}</a>
+                                    </span>
+                                    <span *ngIf="ezTag.vehicleInfo.status === 'INACTIVE'" class="rowItem">{{ezTag.vehicleInfo.status | titlecase}}</span>
+                                </div>
+                            </section>
+
+                        </fx-row>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="ezPlatesSelected"
+                 fxLayout="column"
+                 fxLayoutAlign="start start" class="cardWidth">
+
+                <fx-row [isLabel]="true"
+                                       [backgroundColorClass]="'transparent-background'"
+                                       class="gridLabelRow">
+
+                    <section col-start
+                             class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <div class="fx-flex-auto-shrink-more limited-flex">
+                            <mat-label translation-skip>EZ PLATE{{totalEzPlates > 1 ? 'S' : ''}}</mat-label>
+                        </div>
+                        <div fxShow
+                             fxHide.lt-sm
+                             class="fx-flex-auto-grow-more unlimited-flex">
+                            <mat-label [ngClass.lt-sm]="{'hidden': true}">START DATE</mat-label>
+                        </div>
+                        <div fxShow
+                             fxHide.lt-sm
+                             class="fx-flex-auto-grow-more unlimited-flex">
+                            <mat-label [ngClass.lt-sm]="{'hidden': true}">END DATE</mat-label>
+                        </div>
+                    </section>
+
+                    <section col-end
+                             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <div class="fx-flex-auto limited-flex-end">
+                            <mat-label class="fx-flex-auto limited-flex-end" style="text-align:left;">STATUS</mat-label>
+                        </div>
+                    </section>
+                </fx-row>
+
+                <div *ngFor="let ezPlate of ezPlates | slice:0:3; let i = index" class="cardWidth">
+
+                    <div ngClass="extended-row"
+                         [ngClass.lt-md]="{'extended-row': false}"
+                         style="margin-top:2px;">
+
+                        <fx-row [isTop]="i === 0 && ezPlates.length > 1 ? true : false"
+                                               [isInner]="i > 0 && i+1 < ezPlates.length && i+1 < 3 ? true : false"
+                                               [isBottom]="i > 0 && (i+1 === ezPlates.length || i+1 === 3) ? true : false">
+
+                            <section col-start
+                                     class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <div class="fx-flex-auto-shrink-more limited-flex">
+                                    <span class="rowItem">{{ezPlate.vehicleInfo.plateState}} - {{ezPlate.vehicleInfo.plateNumber}}</span>
+                                </div>
+                                <div fxShow
+                                     fxHide.lt-sm
+                                     class="fx-flex-auto-grow-more unlimited-flex">
+
+                                    <span class="rowItem">{{ezPlate.startDate | date:'MM/dd/yyyy'}}</span>
+
+                                </div>
+                                <div fxShow
+                                     fxHide.lt-sm
+                                     class="fx-flex-auto-grow-more unlimited-flex">
+                                    <span class="rowItem">
+                                        {{ezPlate.endDate | date:'MM/dd/yyyy'}}
+                                    </span>
+                                </div>
+                            </section>
+
+                            <section col-end
+                                     class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                <div class="fx-flex-auto limited-flex-end">
+                                    <div class="rowItem" style="text-align:right;">
+                                        <span class="activeStatus">Active</span>
+                                    </div>
+                                </div>
+                            </section>
+                        </fx-row>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="noData === true"
+         class="cardWidth"
+         style="height:191px;">
+
+        <div>
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between start"
+                 class="u-spacing--widthFill">
+                <header fxLayout="column">
+                    <h3>{{vehiclesTitle}}</h3>
+                </header>
+
+                <span *ngIf="!this.isPendingClosure">
+                    <a class="viewAllButton"
+                       fxFlex="none" aria-label="Manage Vehicles" (click)="viewVehiclesClick()">
+                        Manage Vehicles
+                    </a>
+                </span>
+
+            </div>
+
+            <div style="height:60px;">
+
+            </div>
+
+            <section fxLayout="column"
+                     fxLayoutAlign="center center">
+
+                <mat-icon class="noData" svgIcon="vehicles-icon"></mat-icon>
+
+                <span *ngIf="ezTagsSelected" class="rowItem">{{ezTagsNoDataTitle}}</span>
+                <span *ngIf="ezPlatesSelected" class="rowItem">{{ezPlatesNoDataTitle}}</span>
+            </section>
+
+        </div>
+
+    </div>
+
+    <div fxLayout="row"
+         fxLayoutAlign="space-between start"
+         class="u-spacing--widthFill" style="margin-top:14px;">
+        <div fxLayoutGap="8px">
+            <mat-label>VIEW:</mat-label>
+            <button [ngClass]="{'buttonSelected': ezTagsSelected, 'buttonUnSelected': !ezTagsSelected}"
+                    style="width:68px;" (click)="tagClick()" translation-skip>
+                EZ TAGS
+            </button>
+            <button [ngClass]="{'buttonSelected': ezPlatesSelected, 'buttonUnSelected': !ezPlatesSelected}"
+                    style="width:72px;" (click)="plateClick()" translation-skip>
+                EZ PLATES
+            </button>
+        </div>
+
+        <aside fxFlex="none" fxLayoutGap="8px">
+            <span *ngIf="ezTagsSelected && totalEzTags > 0 && displayedEzTags > 0" class="asideLabels">
+                {{displayedEzTags}} of {{totalEzTags}}
+                <span translation-skip>EZ TAGS</span>
+            </span>
+            <span *ngIf="ezPlatesSelected && totalEzPlates > 0 && displayedEzPlates > 0" class="asideLabels">
+                {{displayedEzPlates}} of {{totalEzPlates}}
+                <span translation-skip>EZ PLATES</span>
+            </span>
+        </aside>
+    </div>
+</div>

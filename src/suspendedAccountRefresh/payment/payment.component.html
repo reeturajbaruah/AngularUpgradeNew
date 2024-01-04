@@ -1,0 +1,43 @@
+<page-centered-container>
+    <form 
+        #BillingForm="ngForm" 
+        validation-focus 
+        name="violationsForm" 
+        fxLayout="column">
+
+        <card-container>
+            <payment-entry [header]="cmsContent.paymentMethodHeader" [billingInfo]="billingInfo">
+                <section after-billing-entry>
+                    <input 
+                        type="checkbox"
+                        name="makePrimary"
+                        [(ngModel)]="makePrimary" />
+                    <span>{{cmsContent.makePrimary}}</span>
+                </section>
+            </payment-entry>
+        </card-container>
+
+        <card-container *ngIf="billingInfo.billingType" class="u-spacing__cardToCard--marginTop">
+
+            <billing-address 
+                [billingInfo]="billingInfo" 
+                [stateList]="stateList" 
+                [validate]="true"
+                [countryList]="countryList">
+            </billing-address>
+
+        </card-container>
+
+        <wizard-ui [input]="hasViolations" (next)="nextStep($event)" >
+            <span wizard-next>CONTINUE</span>
+            <span wizard-previous fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon svgIcon="previous-arrow"></mat-icon>
+                Previous
+            </span>
+            <span wizard-cancel>Cancel</span>
+        </wizard-ui>
+
+    </form>
+</page-centered-container>
+
+

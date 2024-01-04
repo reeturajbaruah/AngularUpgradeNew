@@ -1,0 +1,24 @@
+<page-centered-container>
+    <form #BillingForm="ngForm" validation-focus name="violationsForm" fxLayout="column" class="u-spacing--widthFill">
+        <card-container>
+            <payment-entry [header]="cmsContent.PaymentMethodHeader" [billingInfo]="billingInfo">
+            </payment-entry>
+        </card-container>
+        <card-container *ngIf="billingInfo.billingType" class="u-spacing__cardToCard--marginTop">
+            <billing-address [billingInfo]="billingInfo" [stateList]="stateList" [validate]="true"
+                [countryList]="countryList" [header]="cmsContent.BillingAddressHeader">
+            </billing-address>
+        </card-container>
+
+        <section class="u-spacing__buttonToField--marginTop">
+            <wizard-ui (next)="nextStep($event)" (previous)="goToPreviousState($event)">
+                <span wizard-next>CONTINUE</span>
+                <span wizard-previous fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon svgIcon="previous-arrow"></mat-icon>
+                    Previous
+                </span>
+                <span wizard-cancel>Cancel</span>
+            </wizard-ui>
+        </section>
+    </form>
+</page-centered-container>

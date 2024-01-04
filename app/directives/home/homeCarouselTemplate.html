@@ -1,0 +1,25 @@
+﻿<div id="homepage-main-slider" class="row" style="margin-bottom:4px;">
+	<div class="col-sm-3 homepage-col-md-side-left">
+		<div id="left-slider-container" class="carousel-background-image-container" ng-click="leftClick(); cancelRotate()" style="background-position:right;">
+			<img id="left-slider-image" ng-src="{{leftSlide.image}}" alt="{{leftSlide.alt}}" align="right" class="carousel-background-images" />
+			<div class="carousel-arrow-container">
+				<img id="left-arrow" src="/Content/icons/leftCarouselArrow.png" class="carousel-arrows" />
+			</div>
+		</div>
+	</div>
+	<div id="homepage-main-slider" class="col-sm-6 homepage-col-md-middle" style="border: 1px solid #47286c;">
+		<div id="center-slider-image" class="hctra-slider" style="overflow:hidden;">
+			<a href="{{activeSlide.SlideURL}}" target="{{activeSlide.targetFrame}}">
+				<img style="display:block;height:auto;" ng-src="{{activeSlide.image}}" alt="{{activeSlide.alt}}" />
+			</a>
+		</div>
+	</div>
+	<div class="col-sm-3 homepage-col-md-side-right">
+		<div id="right-slider-container" class="carousel-background-image-container" ng-click="rightClick(); cancelRotate()">
+			<img id="right-slider-image" ng-src="{{rightSlide.image}}" alt="{{rightSlide.alt}}" align="left" class="carousel-background-images" />
+			<div class="carousel-arrow-container">
+				<img id="right-arrow" src="/Content/icons/rightCarouselArrow.png" class="carousel-arrows" />
+			</div>
+		</div>
+	</div>
+</div>

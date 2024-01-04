@@ -1,0 +1,51 @@
+@import (reference) '../../../../styles/themes.less';
+
+
+:host {
+    .labelMargin {
+        margin-bottom: 5px;
+    }
+
+    .disable-select {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .labelMarginInternal {
+        margin-top: 25px;
+    }
+
+    .stateLayoutAdjusment {
+        width: 160px;
+        margin-right: 30px;
+    }
+
+    .show-hide-btn {
+        position: absolute;
+        margin-top: -35px;
+        margin-right: 5px;
+        outline: none;
+        right: 5px;
+        .t-link--color(@theme-light);
+        .t-header--fontFamily;
+        font-size: medium;
+    }
+
+    .spanPosition {
+        position: relative;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+    aside[role='note'] {
+        .t-body--fontFamily();
+        display: block;
+        font-size: 12px;
+        line-height: 15px;
+        margin-left: 18px;
+        margin-top: 6px;
+    }
+}

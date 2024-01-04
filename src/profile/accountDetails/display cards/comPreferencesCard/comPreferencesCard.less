@@ -1,0 +1,32 @@
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+    input[type='checkbox'] {
+        width: 16px;
+        height: 16px;
+    }
+
+    label {
+        margin-top: 2px;
+        margin-left: 10px;
+    }
+
+    input:disabled {
+        background: #dddddd;
+    }
+
+    input:disabled + label {
+        color: #cccccc;
+    }
+
+    .hoverBoxAdjusment {
+        padding: 2px;
+        min-width: 150px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .toolTip {
+        padding-left: 4px;
+    }
+}

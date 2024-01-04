@@ -1,0 +1,47 @@
+@import (reference) '../../../../styles/themes.less';
+@import (reference) '../../../../styles/custom/spacing/sections.less';
+@import (reference) '../../../../styles/custom/spacing/dividers.less';
+@import (reference) '../../../../styles/variables.less';
+@import '../../../../common/ui/containers/fxRow/details.less';
+
+:host {
+    h2 {
+        @media @breakpoint-lt-md {
+            margin-top: 16px;
+        }
+    }
+
+    p,
+    section {
+        .refresh-2020.u-spacing__sectionToSection--marginBottom();
+        display: flex;
+        flex-direction: column;
+    }
+
+    mat-divider {
+        width: 64px;
+        .refresh-2020.u-spacing__divider--marginTopBottom();
+    }
+
+    .paymentAmountFlex {
+        display: flex;
+        flex-direction: row;
+        place-content: flex-end space-between;
+        align-items: flex-end;
+    }
+
+    .summary {
+        height: 50px;
+        padding: 16px;
+        padding-bottom: 11px;
+        font-size: 16px;
+        line-height: 26px;
+        margin: 0px -16px;
+    }
+
+    .paymentAmount {
+        border-radius: 10px;
+        background-color: @snuff-gray;
+        font-weight: bold;
+    }
+}

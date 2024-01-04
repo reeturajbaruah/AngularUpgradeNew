@@ -1,0 +1,29 @@
+
+export const deliveryMethodLocalStorage = 'createAcctDeliveryMethod';
+export const campaignEnableLocalStorage = 'createAcctCampaignEnable';
+
+export const CmsIds = {
+    Frame: 'F5131FA3-38FF-45E9-AE5C-C1C9435D7F20',
+    PersonalInfoPage: 'CCD95450-B85E-43D3-BB63-9D25D026FC39',
+    DeliveryMethodInfoPage: '23EBA25A-CD80-48D7-95E8-1F72E9B7612F',
+    ReceiptInfoPage: '1B389966-5A60-42DA-AEC9-F0E37C1AF058',
+    AddTagVehicleInfo: 'A4592E64-9635-4146-9E2D-60161AA5CEE8',
+    EzTagCart: '98DDCD73-6E00-44EB-A558-73A7B050BB29',
+    AddAdditionalEzTag: '0C158C68-000D-4874-B270-4ACA820F15F7',
+    DeleteTagCart: '9304B091-4359-4A4C-ABD1-BAA6FE7CF054',
+    EditTagCart: '34134FE9-B23E-4F27-B00E-1308E0FF0D8F',
+    CancellationModal: 'EECE7179-3E6E-485F-916C-48FA1CCFC2C6',
+    ReplenishmentAmtModal: '581A38C3-EB0A-4788-BD64-8120EC640CA5',
+    ReviewTagOrder: 'B4A3FB90-ADAA-4448-B93C-E8968AEFE365',
+    TagInfoModal: 'AA25CA53-C01F-4108-BDCC-1CA57F41DDE9',
+    CashPaymentSummaryModalCms: '62DA2319-CE43-4B66-91D1-936CEC9C622C',
+    ConfirmPage: 'F5A019BB-7E22-4D0A-AA50-F643158453E6',
+    ConfirmOrderSummarySection: '7366305F-13C4-465F-A099-D679C22D3E13',
+    cmsPaymentInfo: 'F6B75DFD-BAC6-4FD7-8156-EE3074496FB7',
+    ValidateByPhone: '3D61470B-E82F-432B-B818-4028C172528A',
+    VerifyCode: '3768A7DD-DA38-418D-AC5A-15EC8D21E3F7',
+    TwoFactorAuthCancellation: '92FD1CB1-FE3E-48E9-B80F-7F9FD6C1F049'
+
+};
+
+

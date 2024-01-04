@@ -1,0 +1,31 @@
+<card-container>
+    <h2>{{cmsInfo.Title}}</h2>
+    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+    <article [innerHtml]="cmsInfo.LongDescription | safeHtml"></article>
+
+    <label [ngClass]="{ 'selected':  selectedClass === 'text'}"
+           for="text">
+        <input type="radio"
+               id="text"
+               [ngModel]="selectedClass"
+               (ngModelChange)="selectionChange('text')"
+               value="text"
+               name="contactSelection"
+               checked />
+
+        <span class="inputLabelTitle">{{cmsInfo.TextRadio}}</span>
+        <span class="subtext">{{cmsInfo.TextRadioSubtext}}</span>
+    </label>
+
+    <label [ngClass]="{ 'selected':  selectedClass === 'call'}"
+           for="call">
+        <input type="radio"
+               id="call"
+               [ngModel]="selectedClass"
+               (ngModelChange)="selectionChange('call')"
+               value="call"
+               name="contactSelection" />
+
+        <span class="inputLabelTitle">{{cmsInfo.CallRadio}}</span>
+    </label>
+</card-container>

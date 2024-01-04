@@ -1,0 +1,14 @@
+<ng-container>
+    <card-container>
+    <order-summary (event$)="onClickOperation($event)" [data]="order"> </order-summary>
+    </card-container>
+</ng-container>
+
+<ng-container *ngIf="data.deliveryMethod.display && isAddEzTag">
+    <delivery-method (onClickOperation$)="onClickOperation($event)" [data]="data.deliveryMethod" [ezTagMailingAddress]="ezTagMailingAddress" [isAddEzTag]="true"> </delivery-method>
+</ng-container>
+<ng-container *ngIf="data.deliveryMethod.display && !isAddEzTag">
+    <delivery-method (onClickOperation$)="onClickOperation($event)" [data]="data.deliveryMethod"> </delivery-method>
+</ng-container>
+
+<payment-summary [data]="data.paymentSummary"> </payment-summary>

@@ -1,0 +1,46 @@
+﻿<div class="innerModalContent triposModal">
+    <div ng-switch="creditCardPromptStates[readerState]">
+        <div ng-switch-when="Wait">
+            <h1 cms-text-id="{{promptId}}" cms-text-field="Title"></h1>
+            <section>
+                <img cms-image-id="{{promptId}}"/>
+            </section>
+            <div>
+                <h2 cms-text-id="{{promptId}}" cms-text-field="Message"></h2>
+                <img cms-image-id="{{promptAltId}}" />
+            </div> 
+        </div>
+        <div ng-switch-when="Success">
+            <img cms-image-id="{{successId}}" />
+            <h1 cms-text-id="{{successId}}" cms-text-field="Title"></h1>
+        </div>
+        <div ng-switch-when="Failure">
+            <img cms-image-id="{{failureId}}" />
+
+            <h1 cms-text-id="{{failureId}}" cms-text-field="Title"></h1>
+
+            <button type="button" class="btn" ng-click="tryAgain()">
+                <span cms-text-id="{{failureId}}" cms-text-field="Subtitle"></span>
+            </button>
+
+            <strong cms-text-id="{{failureId}}" cms-text-field="Message"></strong>
+            
+        </div>
+        
+    </div>
+    <div ng-if="readerState !== creditCardPromptStates.Wait">
+        <div storefront-hide-if-enabled>
+            <button type="button" class="btn" ng-click="close()">Close</button>
+        </div>
+    </div>
+</div>
+<span ng-if="readerState !== creditCardPromptStates.Wait">
+    <span storefront-show-if-enabled>
+        <a ng-click="close()" class="storefrontModalClose" storefront-modal-close></a>
+    </span>
+</span>
+
+
+
+
+

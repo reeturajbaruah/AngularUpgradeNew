@@ -1,0 +1,182 @@
+<page-centered-container>
+    <form #Form="ngForm" name="selectPaymentPlanPaymentMethod" validation-focus novalidate>
+        
+        <card-container>
+            <section>
+                <header>
+                    <h2>{{cms.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+            </section>
+
+            <section>
+                <header>
+                    <h3>{{cms.selectPaymentMethod}}</h3>
+                </header>
+            </section>
+
+            <section class="selection-to-header-spacing"
+                     style="justify-content: flex-start;">
+                <section fxLayout="row"
+                         fxLayoutAlign="start center"
+                         class="stack-layout"
+                         id="paymentMethodsLst"
+                         *ngFor="let paymentMethod of paymentInfo; index as i">
+                    <input type="radio"
+                           id="paymentPlanPaymentMethod_{{i}}"
+                           [(ngModel)]="selectedPaymentMethod"
+                           name="paymentMethodSelection"
+                           [value]="paymentMethod"
+                           class="inputPosition" />
+                    <label for="paymentPlanPaymentMethod_{{i}}"
+                           class="u-spacing--widthFill">
+                        <span class="spanReadjust">{{paymentMethod.label}}</span>
+                        <span class="spanReadjust" *ngIf="paymentMethod.data.autoPay"> (AutoPay)</span>
+                    </label>
+                </section>
+
+                <section fxLayout="row"
+                         fxLayoutAlign="start center"
+                         class="stack-layout">
+                    <input type="radio"
+                           id="newPaymentRadioBtn"
+                           name="paymentMethodSelection"
+                           [(ngModel)]="selectedPaymentMethod"
+                           value=""
+                           (click)="promptNewPaymentMethod()"
+                           class="inputPosition" />
+                    <label for="newPaymentRadioBtn"
+                           class="u-spacing--widthFill">
+                        <span class="spanReadjust">New payment method</span>
+                    </label>
+                </section>
+            </section>
+
+            <section *ngIf="selectedPaymentMethod"
+                     class="u-spacing__sectionToSection--marginTop">
+                <header>
+                    <h3>{{cms.selectPaymentAmount}}</h3>
+                </header>
+            </section>
+
+            <section *ngIf="selectedPaymentMethod"
+                     class="selection-to-header-spacing"
+                     style="justify-content: flex-start;"
+                     [ngStyle.lt-md]="{'margin-bottom':'20px'}">
+                <section fxLayout="row"
+                         fxLayoutAlign="start center"
+                         class="stack-layout"
+                         id="installmentAmountRdo"
+                         *ngIf="selectedPaymentMethod">
+                    <input type="radio"
+                           id="paymentPlanInstallationAmount"
+                           name="paymentAmountSelection"
+                           [(ngModel)]="selectedPaymentAmount"
+                           [value]="PaymentOptions.NextInstallmentAmount"
+                           (change)="updateAmount()"
+                           class="inputPosition" />
+                    <label class="boxSpread u-spacing--widthFill"
+                           for="paymentPlanInstallationAmount">
+                        <span class="spanReadjust">Installment Amount</span>
+                        <strong class="spanReadjust"><currency [value]="planData.selectedPaymentPlan.nextInstallmentAmount"></currency></strong>
+                    </label>
+                </section>
+
+                <section fxLayout="row"
+                         fxLayoutAlign="start center"
+                         class="stack-layout"
+                         *ngIf="selectedPaymentMethod">
+                    <input type="radio"
+                           id="paymentPlanRemainingAmount"
+                           name="paymentAmountSelection"
+                           [(ngModel)]="selectedPaymentAmount"
+                           [value]="PaymentOptions.BalanceAmount"
+                           (change)="updateAmount()"
+                           class="inputPosition" />
+                    <label class="boxSpread u-spacing--widthFill" for="paymentPlanRemainingAmount">
+                        <span class="spanReadjust">Remaining Amount</span>
+                        <strong class="spanReadjust"><currency [value]="planData.selectedPaymentPlan.balanceAmount"></currency></strong>
+                    </label>
+                </section>
+
+                <ng-container *ngIf="selectedPaymentMethod">
+
+                    <section fxLayout="row"
+                             fxLayoutAlign="start center"
+                             class="stack-layout">
+                        <input type="radio"
+                               id="paymentPlanOtherAmount"
+                               name="paymentAmountSelection"
+                               [(ngModel)]="selectedPaymentAmount"
+                               [value]="PaymentOptions.OtherPaymentAmount"
+                               (change)="updateAmount(true)"
+                               class="inputPosition" />
+                        <label fxLayout="row"
+                               fxLayoutAlign="start center"
+                               class="boxSpread staticOtherAmountPadding u-spacing--widthFill"
+                               for="paymentPlanOtherAmount"
+                               [error-check]="OtherInputAmount">
+                            <span class="spanReadjust" fxFlex="grow">Other amount</span>
+                            <span class="form-text spanReadjust otherAmountMargin" fxFlex="none"
+                                  [ngStyle.lt-md]="{ 'margin-left': '0%' }">
+                                <input #OtherInputAmount="ngModel"
+                                       inputCurrency
+                                       type="text"
+                                       id="otherAmountTxt"
+                                       step="0.01"
+                                       [min]="minPaymentAmount"
+                                       [max]="planData.selectedPaymentPlan.balanceAmount"
+                                       name="otherAmount"
+                                       [value]="otherPaymentAmount | number: '1.2-2'"
+                                       [ngModel]="otherPaymentAmount | number: '1.2-2'"
+                                       (change)="updateDisplayText($event)"
+                                       pattern="^\d+(,\d{3})*(\.\d{0,2})?$"
+                                       [required]="selectedPaymentAmount === PaymentOptions.OtherPaymentAmount"
+                                       class="otherAmountPadding" />
+                            </span>
+                        </label>
+
+                    </section>
+                    <error-messages *ngIf="selectedPaymentAmount === PaymentOptions.OtherPaymentAmount"
+                                    [errors]="OtherInputAmount.errors"
+                                    [activeBeforeSubmit]="true">
+                        <error-message rule="min">Minimum payment amount must be more than <currency [value]="minPaymentAmount"></currency></error-message>                        
+                        <error-message rule="max">Amount may not exceed your balance amount of <currency [value]="planData.selectedPaymentPlan.balanceAmount"></currency></error-message>
+                    </error-messages>
+                    
+                </ng-container>
+                
+
+            </section>
+
+            <section class="noteBoxLayout u-spacing__sectionToSection--marginTop"
+                     [@collapse]="!hasOverage"
+                     *ngIf="showNoteForOtherAmmount">
+                <article fxLayout="column">
+                    <cms-content id="otherNoteTxt" [template]="cms.amountSelectionNoteTemplate" [data]="{otherPaymentAmount  : otherPaymentAmount,  nextUpcomingInstallmentDateFormatted: nextUpcomingInstallmentDateFormatted}"></cms-content>
+                </article>
+            </section>
+
+            <!--EFT ACH DISCLAIMER-->
+            <section *ngIf="selectedPaymentMethod && selectedPaymentMethod.data.billingType === BillingType.Eft">
+                <eft-ach-disclaimer></eft-ach-disclaimer>
+            </section>
+        </card-container>
+
+        <section class="u-spacing__buttonToField--marginTop">
+            <wizard-ui #Wizard
+                       (next)="nextStep($event)"
+                       [disabled]="isWizardDisabled(Form.invalid)">
+                <span wizard-next>CONTINUE</span>
+                <span wizard-cancel>Cancel</span>
+                <span wizard-previous
+                      fxLayout="row"
+                      fxLayoutAlign="start center">
+                    <mat-icon svgIcon="previous-arrow"></mat-icon>
+                    Previous
+                </span>
+            </wizard-ui>
+        </section>
+
+    </form>
+</page-centered-container>

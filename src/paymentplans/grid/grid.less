@@ -1,0 +1,36 @@
+@import (reference) '../../styles/fonts.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+
+    section {
+        min-height: 600px;
+    }
+
+    section:first-child {
+        overflow-y: scroll;
+        padding-right: 13px;
+    }
+
+    h3 {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 30px;
+        .t-header--fontFamily();
+    }
+
+    .plate-spacing {
+        margin-top: 16px;
+    }
+
+    .lt-md {
+
+        section:first-child {
+            padding-right: 0px;
+        }
+
+        h3 {
+            margin-left: @page-bar-margin-static-lt-md;
+        }
+    }
+}

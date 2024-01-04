@@ -1,0 +1,26 @@
+<page-centered-container class="refresh-2020">
+    <div fxLayout="column">
+        <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+            <section fxLayout="column">
+                <header>
+                    <h2>{{cmsData?.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <article>
+                    {{cmsData?.Subtitle}}
+                </article>
+                <article translation-skip>
+                    {{username}}
+                </article>
+            </section>
+            <section>
+                <div class="linkSpacing">
+                    <a id="forgotPasswordLnk" (click)="goToForgetPassword()">Forgot password?</a>
+                </div>
+            </section>
+        </card-container>
+    </div>
+    <wizard-ui>
+        <span wizard-next>Login</span>
+    </wizard-ui>
+</page-centered-container>

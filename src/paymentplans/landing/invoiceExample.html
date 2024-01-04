@@ -1,0 +1,8 @@
+
+<h2>{{header}}</h2>
+<mat-divider></mat-divider>
+
+<section *ngFor="let section of sections">    
+    <h3>{{section.message}}</h3>
+    <img [src]="section.url" />
+</section>

@@ -1,0 +1,65 @@
+@import (reference) '../../../../styles/variables.less';
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+    form {
+        padding-bottom: 60px;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    h2 {
+        max-height: 70px;
+    }
+
+    input[type='checkbox'] {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+        margin-top: 3px;
+    }
+
+    input[type='checkbox']+span {
+        .t-body--fontFamily();
+        font-size: 16px;
+        line-height: 26px;
+        font-weight: 600;
+        vertical-align: text-top;
+    }
+
+    tool-tip {
+        margin-left: 4px;
+    }
+
+    tool-tip [tool-tip-message] {
+        width: 277px;
+        padding: 16px;
+        .t-body--fontFamily();
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: 600;
+        height: 92px;
+        left: 277px;
+        top: -125px;
+
+        @media @breakpoint-lt-md {
+            left: calc(50vw - (277px / 2));
+            top: -92px;
+        }
+    }
+
+    tool-tip [tool-tip-message] a {
+        .t-body--fontFamily() !important;
+        font-size: 12px !important;
+        line-height: 15px !important;
+        font-weight: 600 !important;
+    }
+
+    .mailingAddSameAsBilling {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,30 @@
+<main>
+    <title-banner>
+        {{cmsContent.FaqTitleBanner}}
+    </title-banner>
+
+    <page-filled-container [hasGutter]="false">
+        <main class="faq-main">
+            <section>
+                <h2> {{cmsContent.SearchSection}}</h2>
+                <card-dash-container [hasMargin]="false" class="u-spacing__firstHeaderToTitle--marginTop">
+                    <faq-search *ngIf="categories" [cats]="categories" [cmsContent]="cmsContent"></faq-search>
+                </card-dash-container>
+            </section>
+
+            <section>
+                <h2>{{cmsContent.FaqSection}}</h2>
+                <card-dash-container [hasMargin]="false" class="u-spacing__firstHeaderToTitle--marginTop">
+                    <faq-results *ngIf="topSearchResults && searchResults"
+                                  [topSearchResults]="topSearchResults"
+                                  [searchResults]="searchResults"
+                                  [cmsContent]="cmsContent">
+                    </faq-results>
+                </card-dash-container>
+            </section>
+            
+            <pagination [itemsPerPageList]="itemsPerPageList"></pagination>
+
+        </main>
+    </page-filled-container>
+</main>

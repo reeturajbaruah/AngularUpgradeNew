@@ -1,0 +1,15 @@
+<page-centered-dash-container [hasGutter]="false">
+
+    <title-banner>{{frameCms.Title}}</title-banner>
+
+    <section>
+        <tabs [frameCms]="frameCms"></tabs>
+
+        <div class="help-and-support-container">
+            <card-dash-container>
+                <ui-view></ui-view>
+            </card-dash-container>
+        </div>
+    </section>
+
+</page-centered-dash-container>

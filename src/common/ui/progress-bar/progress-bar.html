@@ -1,0 +1,4 @@
+ <div><!-- outer wrap. this is the gray background -->
+    <div id="progressPrg" [ngClass]="statusClasses" [ngStyle]="{'width': (this.progress + '%'), 'background-color': this.color || undefined}"></div> <!-- the actual progress bar-->
+    <i [ngStyle]="{'left': 'calc('+progress+'% - 2em)'}"><span>{{progress}}%</span></i><!-- the carrot and label are here-->
+</div>

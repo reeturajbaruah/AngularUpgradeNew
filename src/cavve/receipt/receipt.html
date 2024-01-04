@@ -1,0 +1,160 @@
+<page-centered-container>
+    <storefront-utility #storefront></storefront-utility>
+
+    <div fxLayout="column">
+        <div fxFlexOffset="21px">
+
+            <!-- This is double wrapped in 2 divs to apply the fxFlexOffset to replicate "padding-top: 21px" -->
+            <card-container>
+
+                <!-- Thank You Section-->
+                <section fxLayout="row" fxLayout.lt-md="column" style="padding-top:24px">
+                    <article fxLayout="column" fxFlex="grow"
+                             fxFlexOrder="1"
+                             fxFlexOrder.lt-md="2"
+                             ngClass.lt-md="u-spacing--widthFill"
+                             [ngStyle.lt-md]="{'padding-top' : '24px'}">
+                        <header>
+                            <h2>
+                                {{cmsSectionThankYou.Title}}
+                            </h2>
+                        </header>
+                        <mat-divider></mat-divider>
+                    </article>
+                    <article fxFlexOrder="2"
+                             fxFlexOrder.lt-md="1"
+                             [ngStyle]="{'padding-top' : '16px', 'padding-right' : '15px'}"
+                             [ngStyle.lt-md]="{'padding-top' : '16px', 'padding-left' : '26px'}">
+
+                        <print-link id="PrintButton"></print-link>
+                    </article>
+                </section>
+
+                <section style="padding-top:24px">
+                    <row-container [rowType]="'emphasis'">
+
+                        <section col-start
+                                 fxFlex="grow"
+                                 style="font-weight: bold">
+                            Payment Amount:
+                        </section>
+
+                        <section col-end
+                                 fxFlex="none"
+                                 style="font-weight: bold">
+                            <currency [value]="totalPaid"></currency>
+                        </section>
+
+                    </row-container>
+                </section>
+
+                <section fxLayout="column"
+                         fxLayoutAlign="center start" style="padding-top:24px">
+                    <article fxLayout="column">
+                        <cms-content id="thankYouSection" [template]="cmsSectionThankYou.paymentDetails" [data]="paymentDetailsParams"></cms-content>
+                    </article>
+                </section>
+                <section style="padding-top:24px"
+                         fxLayout="row"
+                         fxLayoutAlign="center start">
+                    <row-container [rowType]="'semi-emphasis'">
+                        <section col-start fxFlex="auto" style="padding-top: 15px; padding-bottom: 15px;">
+                            <mat-icon svgIcon="checkmark"></mat-icon>
+                            <span class="account-created-text">{{cmsSectionThankYou.accountCreatedText}}</span>
+                            <span class="acc-num-text">{{cmsSectionThankYou.accountNumText}} <span class="acc-num-val">{{currentUser.acctId}}</span></span>
+                        </section>
+                    </row-container>
+                </section>
+                <section fxLayout="column"
+                         fxLayoutAlign="center start" style="padding-top:24px">
+                    <article fxLayout="column">
+                        {{cmsSectionThankYou.paymentDisclaimer}}
+                    </article>
+                </section>
+
+                <!-- Billing Information Section -->
+                <section fxLayout="column"
+                         fxLayoutAlign="center start" style="padding-top:24px">
+                    <header fxLayout="column">
+                        <h2>
+                            {{cmsContent.billingInfoHeader}}
+                        </h2>
+                        <mat-divider></mat-divider>
+                    </header>
+                </section>
+                <section fxLayout="column"
+                         fxLayoutAlign="center start" style="padding-top:24px">
+                    <article>
+                        <payment-display *ngIf="billingInfo"
+                                         [billingType]="billingInfo.billingType"
+                                         [bankDetails]="billingInfo.eft"
+                                         [creditCard]="billingInfo.credit"
+                                         [hideTitle]="true"
+                                         [hideEdit]="true"
+                                         [showAccountNumber]="true"
+                                         [showNameOnCard]="true">
+                        </payment-display>
+                    </article>
+
+                    <article class="u-spacing__addressToPaymentDisplay--marginTop">
+                        <address-display *ngIf="billingInfo && billingInfo.billingType"
+                                         [address]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit : billingInfo.eft"
+                                         [international]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit.international : billingInfo.eft.international"
+                                         [showLabels]="false"
+                                         [showEdit]="false">
+                        </address-display>
+                    </article>
+                </section>
+
+                <!-- EZ Tag Information Section -->
+                <section fxLayout="row" fxLayout.lt-md="column" style="padding-top:24px">
+                    <article fxLayout="column" fxFlex="grow"
+                             fxFlexOrder="1"
+                             fxFlexOrder.lt-md="2"
+                             ngClass.lt-md="u-spacing--widthFill"
+                             [ngStyle.lt-md]="{'padding-top' : '24px'}">
+                        <header>
+                            <h2>
+                                {{cmsContent.ezTagRequestedHeader}}
+                            </h2>
+                        </header>
+                        <mat-divider></mat-divider>
+                    </article>
+                    <article fxLayout="column"
+                             fxFlex="none"
+                             fxLayoutAlign="start end"
+                             fxLayoutAlign.lt-md="start start"
+                             style="font-weight: bold"
+                             fxFlexOrder="2"
+                             fxFlexOrder.lt-md="1"
+                             ngClass.lt-md="u-spacing--widthFill">
+                    </article>
+                </section>
+                <section fxLayout="column"
+                         fxLayoutAlign="center start" style="padding-top:24px">
+
+                    <vehicle-display *ngIf="vehicleInfo"
+                                     [vehicleInfo]="vehicleInfo" isCompactView="true">
+                    </vehicle-display>
+                </section>
+
+                <!-- Buttons/Links for 'next' & 'cancel' states -->
+                <section style="padding-top:24px;">
+                    <section *ngIf="!storefront.isKioskView">
+                        <action-buttons reverseOrder="true"
+                                        (main)="goToAccountOverviewOrLoginPage()">
+                            <span action-main>ACCOUNT OVERVIEW</span>
+                        </action-buttons>
+                    </section>
+                </section>
+
+                <section *ngIf="storefront.isKioskView">
+                    <wizard-ui (next)="nextTask($event)">
+                        <span wizard-next>PROCEED</span>
+                    </wizard-ui>
+                </section>
+
+            </card-container>
+        </div>
+    </div>
+</page-centered-container>

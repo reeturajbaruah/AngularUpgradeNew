@@ -1,0 +1,30 @@
+<storefront-utility #storefrontUtility></storefront-utility>
+<page-centered-container class="refresh-2020">
+    <form #Form="ngForm" validation-focus novalidate>
+        <div class="u-spacing__fieldToSection--marginTop">
+            <card-container>
+                <header>
+                    <h2>{{ pageCms.CompletionTitle }}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    <article [innerHtml]="pageCms.EzTagList | safeHtml"></article>
+                    <h2 class="u-spacing__divider--marginTopBottom">{{ pageCms.VehicleInfoTitle }}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+                <section fxLayout="row" fxLayoutAlign="start start" class="u-spacing--widthFill"
+                    *ngFor="let ezTag of ezTags; index as i">
+                    <vehicle-cart-row-component [ezTag]="ezTag" [canEdit]="false" [canRemove]="false">
+                    </vehicle-cart-row-component>
+                </section>
+                <section class="u-spacing__gridToRecords--marginTop">
+                    <div class="confirm-agreement" [innerHTML]="pageCms.Agreement | safeHtml"></div>
+                </section>
+            </card-container>
+            <section class="u-spacing__buttonToField--marginTop" fxLayout="column">
+                <wizard-ui (next)="nextStep($event)" (cancel)="cancel($event)" [input]="{isAuthenticated, isKioskView: storefrontUtility.isKioskView}">
+                    <span wizard-next>{{ storefrontUtility.isKioskView ? pageCms.NextKiosk : (isAuthenticated ? pageCms.NextLoggedIn : pageCms.NextNotLoggedIn) }}</span>
+                    <span *ngIf="!storefrontUtility.isKioskView" wizard-cancel>{{ isAuthenticated ? pageCms.CancelLoggedIn : pageCms.CancelNotLoggedIn }}</span>
+                </wizard-ui>
+            </section>
+        </div>
+    </form>
+</page-centered-container>

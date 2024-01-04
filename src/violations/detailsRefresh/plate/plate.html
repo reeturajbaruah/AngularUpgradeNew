@@ -1,0 +1,25 @@
+<fx-row [isLabel]="true"
+                       [backgroundColorClass]="'transparent-background'">
+    <section col-start
+             class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+        <mat-label class="fx-flex-auto-shrink-more limited-flex">PLATE</mat-label>
+    </section>
+    <section col-end
+             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+        <mat-label class="fx-flex-auto limited-flex-end">AMOUNT</mat-label>
+    </section>
+</fx-row>
+<row-container [rowType]="'semi-emphasis'"
+               [isTop]="true"
+               [isBig]="true">
+    <section translation-skip col-start
+             fxFlex="grow">
+        {{plate.licenseState}} {{plate.licensePlate}}
+    </section>
+    <section *ngIf="plate.totalPaymentAmount !== 0"
+             col-end
+             fxFlex="none"
+             class="totalAmountValue">
+        <currency [value]="plate.plateDueBeforeDiscount"></currency>
+    </section>
+</row-container>

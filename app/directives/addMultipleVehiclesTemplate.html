@@ -1,0 +1,27 @@
+<div ng-show="vehicleList.length > 0">
+    <header class="header-spacing">
+        <h2 class="h1-mo no-margin-top-do">{{title}}</h2>
+        <hr />
+    </header>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-8">
+
+            <ul class="vehicle-list">
+                <li ng-repeat="vehicle in vehicleList">
+                    <div class="group-paragraphs" ng-class="{'bottom-buffer-lg-do': $last}">
+
+                        <p class="h3-mo h3-half-do">
+                            <span class="font-avenir-medium"><span translation-skip class="customer-account-data">{{vehicle.nickname ? vehicle.nickname + " - " : ""}}</span> License Plate: <span translation-skip class="customer-account-data">{{vehicle.licState}}-{{vehicle.licPlate}}</span></span>
+                        </p>
+
+                        <p translation-skip class="h5"><span class="customer-account-data">{{vehicle.vehicleYear}} {{vehicle.vehicleMake | capitalize}} {{vehicle.vehicleModel | capitalize}} {{vehicle.vehicleColor | capitalize}} - <span class="nobr customer-account-data">{{classIdToLabel(vehicle.vehicleClassCode)}}</span></span></p>
+                        <a class="h5" ng-click="onEdit($index)">Edit</a>
+                        &nbsp;
+                        <a class="h5"  ng-show="!hideDelete" ng-click="onDelete($index)">Remove</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

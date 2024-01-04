@@ -1,0 +1,44 @@
+<div fxLayout="row-reverse"
+     fxLayout.lt-md="column"
+     fxLayoutAlign="center center"
+     fxLayoutAlign.lt-md="center center">
+    <div>
+        <mat-select *ngIf="showDropDown"
+                    (selectionChange)="changeLanguage()"
+                    (openedChange)="isOpen = $event"
+                    panelClass="menu-language-select-panel"
+                    [class.is-open]="isOpen"
+                    [(ngModel)]="selectedLanguage">
+            <mat-select-trigger>
+                {{(selectedLanguage || '').toUpperCase()}}
+            </mat-select-trigger>
+            <mat-option translation-skip
+                        *ngFor="let language of availableLanguages"
+                        [value]="language.label">
+                {{language.label}} {{ language.nativeLabel ? '(' + language.nativeLabel + ')' : '' }}
+            </mat-option>
+        </mat-select>
+    </div>
+
+    <div *ngIf="cmsData && showDropDown"
+         fxLayout="row"
+         class="logoImgAndToolTip">
+
+        <!--Powered By Google Logo Image-->
+        <a href="{{cmsData.imageHREFLink}}"><img *ngIf="cmsData.Image" [src]="cmsData.ImageSrc" /></a>
+
+        <!--Tool Tip-->
+        <div id="tooltip"
+             *ngIf="cmsData.ShortDescription">
+            <a>
+                <mat-icon svgIcon="information"></mat-icon>
+            </a>
+            <div>
+                <cms-content class="hoverBoxAdjusment"
+                             [ngStyle.lt-sm]="{'right' : '0'}"
+                             [template]="cmsData.ShortDescription">
+                </cms-content>
+            </div>
+        </div>
+    </div>
+</div>

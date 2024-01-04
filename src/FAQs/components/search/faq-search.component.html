@@ -1,0 +1,12 @@
+<section class="filter-section" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px">
+
+    <div class="filter-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <!-- <span class="filter-category-title">{{getVal('filterByCategories')}}</span> -->
+        <span class="filter-category-title">{{cmsContent.FilterCategoryTitle}}</span>
+
+        <div fxLayout="column" fxLayoutAlign="start start">            
+            <dropdown *ngIf="list.data" [list]="list" (onChange)="handleCategoryChange($event)"></dropdown>
+        </div>
+    </div>
+
+</section>

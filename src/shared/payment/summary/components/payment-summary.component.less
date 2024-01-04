@@ -1,0 +1,43 @@
+@import '../../../../common/ui/containers/fxRow/details.less';
+@import (reference) '../../../../styles/variables.less';
+@import (reference) '../../../../styles/custom/spacing/dividers.less';
+@import (reference) '../../../../styles/custom/spacing/sections.less';
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+    tool-tip [tool-tip-message] {
+        width: 277px;
+        padding: 16px;
+        .t-body--fontFamily();
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: 600;
+
+        @media @breakpoint-lt-md {
+            left: calc(50vw - (277px / 2));
+            top: -92px;
+        }
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    card-container {
+        display: block;
+    }
+
+    .cash-summary-desc {
+        display: inline-block;
+        padding-top: 6px;
+        padding-bottom: 16px;
+    }
+
+    .cash-alert-box {
+        margin-top: -10px;
+    }
+
+    .tagInfo-display {
+        margin-top: 10px;
+    }
+}

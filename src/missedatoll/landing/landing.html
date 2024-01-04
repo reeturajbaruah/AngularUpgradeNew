@@ -1,0 +1,97 @@
+<page-filled-container>
+    <section class="u-spacing__firstHeaderToTitle--marginTop">
+        <header>
+            <h2>{{cmsSection1.Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <div fxLayout="row"
+             fxLayoutAlign="start start"
+             fxLayoutGap="40px">
+
+            <div fxLayout="column">
+                <article [innerHTML]="cmsSection1.ShortDescription"></article>
+
+                <form #LandingForm="ngForm" validation-focus novalidate
+                      fxLayout="column start"
+                      class="u-spacing__fieldToSection--marginTop">
+
+                    <div fxLayout="row"
+                         fxLayoutAlign="start start"
+                         fxLayoutGap="20px">
+                        <div fxFlex="none">
+                            <mat-label>STATE</mat-label>
+                            <mat-select translation-skip [(value)]="violations.selectedState"
+                                        [disableOptionCentering]="true">
+                                <mat-option *ngFor="let state of states.stateList" [value]="state">{{state.stateCode}}</mat-option>
+                            </mat-select>
+                        </div>
+
+                        <div fxFlex="auto"
+                             fxFlex.lt-md="calc(100% - 587px)"
+                             ngClass.gt-sm="plate-input-width"
+                             [error-check]="licensePlateInput">
+                            <mat-label>LICENSE PLATE NUMBER</mat-label>
+                            <input type="text"
+                                   name="licensePlate"
+                                   [(ngModel)]="licensePlateNumber" #licensePlateInput="ngModel"
+                                   required
+                                   id="licensePlate"
+                                   tabindex="2"
+                                   pattern="^[a-zA-Z0-9]{1,10}$"
+                                   maxlength="10" />
+                            <aside *ngFor="let error of licensePlateInput.errors | keyvalue">
+                                <ng-container *ngIf="LandingForm.submitted" [ngSwitch]="error.key">
+                                    <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid license plate number</p>
+                                    <p *ngSwitchCase="'required'" class="help-block">Please enter a valid license plate number</p>
+                                    <p *ngSwitchCase="'maxlength'" class="help-block">Please enter a valid license plate number</p>
+                                </ng-container>
+                            </aside>
+                        </div>
+                    </div>
+
+                    <div class="u-spacing__buttonToField--marginTop">
+                        <storefront-utility #storefront></storefront-utility>
+                        <wizard-ui (next)="submit($event)"
+                                   [reverseOrder]="true">
+                            <span wizard-next>SUBMIT</span>
+                            <span *ngIf="storefront.isKioskView" wizard-cancel>CANCEL</span>
+                        </wizard-ui>
+                    </div>
+                </form>
+            </div>
+
+            <figure *ngIf="cmsImage1.image"
+                    fxShow
+                    fxHide.lt-md
+                    class="figure-negative-margin-top">
+                <img [src]="cmsImage1.image"
+                     [attr.alt]="cmsImage1.alt"
+                     [attr.height]="cmsImage1.height"
+                     [attr.width]="cmsImage1.width" />
+            </figure>
+        </div>
+    </section>
+
+    <section class="u-spacing__headerToSection--marginTop">
+        <header>
+            <h2>{{cmsSection2.Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <div fxLayout="row"
+             fxLayoutAlign="start start"
+             fxLayoutGap="40px">
+            <article [innerHTML]="cmsSection2.ShortDescription | safeHtml"></article>
+            <figure *ngIf="cmsImage2.image"
+                    fxShow
+                    fxHide.lt-md>
+                <img [src]="cmsImage2.image"
+                     [attr.alt]="cmsImage2.alt"
+                     [attr.height]="cmsImage2.height"
+                     [attr.width]="cmsImage2.width" />
+            </figure>
+        </div>
+    </section>
+
+</page-filled-container>

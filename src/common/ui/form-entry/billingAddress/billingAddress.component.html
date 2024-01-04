@@ -1,0 +1,10 @@
+<header>
+    <h2>{{header}}</h2>
+    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+</header>
+<address-entry [stateList]="stateList"
+    [address]="billingInfo.billingType === BillingType.Credit ?  billingInfo.credit : billingInfo.eft"
+    [billingType]="billingInfo.billingType" [validate]="validate"
+    [countryList]="countryList"
+    [(international)]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit.international : billingInfo.eft.international">
+</address-entry>

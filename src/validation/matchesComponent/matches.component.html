@@ -1,0 +1,10 @@
+﻿<input #Validation="ngModel" type="hidden" [name]="'match_hidden_' + name" [ngModel]="itMatches$ | async" pattern="^true$" />
+<p class="matches" *ngIf="(itMatches$ | async) === true">
+    <ng-content select="[itMatches]"></ng-content>   
+</p>
+<p class="help-block" *ngIf="(itMatches$ | async) === false">   
+    <ng-content select="[notAMatch]"></ng-content>   
+</p>
+
+
+

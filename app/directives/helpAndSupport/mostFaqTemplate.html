@@ -1,0 +1,5 @@
+﻿<div id="most-faq" class="row" ng-repeat="faq in mostFaq">
+    <div class="col-sm-12" ng-class="{'bottom-buffer-sm': !$last, 'no-margin-bottom': $last}">
+        <a ng-click="searchMostFaq(faq)">{{faq.Title}}</a>
+    </div>
+</div>

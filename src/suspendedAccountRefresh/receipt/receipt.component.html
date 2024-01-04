@@ -1,0 +1,72 @@
+<page-centered-container>
+   
+    <card-container>
+        
+        <header fxLayout="row"
+        fxLayoutAlign="space-between end">
+            <h2>
+                {{cmsContent.Title}}
+            </h2>
+            <print-link></print-link>
+        </header>
+
+        <mat-divider></mat-divider>
+
+        <section>
+            <div fxLayout="row"
+                fxLayoutAlign="space-between end"
+                class="summary paymentAmount">
+                <span>{{cmsContent.paymentAmount}}:</span>
+                <currency [value]="paymentAmount"></currency>
+            </div>
+            <div class="summary">
+                <span>{{cmsContent.paymentReceivedDate}} </span>
+                <span translation-skip>{{paymentDate | dateWithTimeZone: 'date4'}}</span>
+            </div>
+        </section>
+
+        <p>{{cmsContent.LongDescription}}</p>
+
+        <header>
+            <h3>{{cmsContent.accountInfo}}</h3>
+        </header>
+
+        <mat-divider></mat-divider>
+
+
+        <section fxLayout="column">
+            <span>{{cmsContent.accountNumber}}: {{accountNumber}}</span>
+            <span>{{cmsContent.paymentDate}}: {{paymentDate | dateWithTimeZone: 'dateTime4'}}</span>
+        </section>
+
+        <header>
+            <h3>
+                {{cmsContent.billingInfo}}
+            </h3>
+        </header>
+
+        <mat-divider></mat-divider>
+
+        <section *ngIf="billingInfo">
+
+            <payment-display [billingType]="billingInfo.billingType"
+                            [bankDetails]="billingInfo.eft"
+                            [creditCard]="billingInfo.credit"
+                            [hideTitle]="true"
+                            [showAccountNumber]="true"
+                            [showNameOnCard]="true"
+                            [showLabels]="false">
+            </payment-display>
+
+        </section>
+
+        <wizard-ui 
+        [reverseOrder]="true"
+        (next)="nextStep($event)">
+            <span wizard-next>ACCOUNT DASHBOARD</span>
+        </wizard-ui>
+
+    </card-container>
+
+       
+</page-centered-container>

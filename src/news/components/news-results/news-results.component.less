@@ -1,0 +1,26 @@
+@import (reference) '../../../styles/variables.less';
+:host {
+    .results-title-section {
+        padding: 0px 10px;
+        gap: 20px;
+        font-family: @font-jost;
+        .results-for-container {
+            font-size: 24px;
+            .results-for {
+                margin-right: 5px;
+            }
+        }
+        .result-count {
+            font-size: 16px;
+        }
+    }
+    .news-results-card {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+
+        @media @breakpoint-gt-xs {
+            border: 1px solid @silver-gray;
+            border-radius: 10px;
+        }
+    }
+}

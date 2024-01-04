@@ -1,0 +1,118 @@
+
+
+@import (reference) '../../styles/themes.less';
+@import 'common/ui/containers/fxRow/details.less';
+
+.noDataContent {
+    padding: 20px 0px;
+}
+
+:host {
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    .isPrimary {
+        display: inline-block;
+        border-radius: 5px;
+        width: 64px;
+        height: 18px;
+        font-size: 8px;
+        line-height: 18px;
+        text-align: center;
+        background-color: @school-bus-yellow;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .itemFont {
+        font-size: 16px;
+        font-family: @font-montserrat;
+    }
+
+    .nameFormat {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        text-transform: capitalize;
+    }
+
+    .activeStatus {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        color: @tropical-rain-forest-green;
+    }
+
+    .expiredStatus {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        color: @torch-red;
+    }
+
+    .blockedStatus {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        color: @torch-red;
+        padding-left: -20px;
+    }
+
+    .expiring {
+        color: @pizazz-gold;
+    }
+
+    .expiring svg > path {
+        fill: @pizazz-gold;
+    }
+
+    .expired {
+        color: @torch-red;
+    }
+
+    .expired svg > path {
+        fill: @torch-red;
+    }
+
+    .bankAccountWidth {
+        width: 365px;
+    }
+
+    span[tool-tip-hover] {
+        color: @boulder-gray;
+    }
+
+    .previous-link {
+        margin-right: 20px;
+    }
+
+    tool-tip {
+        display: inline-block;
+    }
+
+    .no-data-section {
+        background: @wild-sand-gray 0% 0% no-repeat padding-box;
+        border: 1px solid @azure-radiance-blue;
+        border-radius: 10px;
+    }
+
+    .section-container {
+        height: 100px;
+        background: @wild-sand-gray 0% 0% no-repeat padding-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid @silver-gray;
+        border-radius: 10px;
+        margin: 4px 0px;
+    }
+
+    .account-section {
+        padding-left: 12px;
+        vertical-align: bottom;
+    }
+
+    .payment-section {
+        padding: 15px 20px 15px 15px;
+        width: 100%;
+    }
+
+}

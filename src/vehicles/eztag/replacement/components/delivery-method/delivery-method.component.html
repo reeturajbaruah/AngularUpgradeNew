@@ -1,0 +1,42 @@
+<page-centered-container class="refresh-2020">
+
+        <form #Form="ngForm" validation-focus novalidate>
+
+        <ng-container *ngIf="data">
+        
+        <card-container>
+
+        <order-summary  [data]="data"></order-summary>
+
+        <section class="u-spacing__fieldToSection--marginTop">
+
+                <header>
+                    <h2>{{cmsContent.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <ng-container>
+                    <choose-delivery-method  [mailingInfo]="mailingInfo"
+                                             [(deliveryMethod)]="selectedDeliveryMethod"
+                                             (onEdit)="onMailingAddressEdit($event)"
+                                             [isAddEzTag]="true">
+                    </choose-delivery-method>
+                </ng-container>
+            </section>
+            
+            </card-container>
+
+    </ng-container>
+    
+    <section class="u-spacing__buttonToField--marginTop">
+        <wizard-ui #Wizard
+                   (next)="nextStep($event)" (cancel)="cancel($event)"
+                   [disabled]="disable()">
+            <span wizard-next>CONTINUE</span>
+            <span wizard-cancel>Cancel</span>
+        </wizard-ui>
+    </section>
+
+    </form>
+
+</page-centered-container>

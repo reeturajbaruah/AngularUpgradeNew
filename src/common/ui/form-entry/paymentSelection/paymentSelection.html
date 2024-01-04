@@ -1,0 +1,53 @@
+<main [ngModelGroup]="groupName" #group="ngModelGroup"
+      fxLayout="column" [ngClass]="{ 'has-error': submitted && group.invalid}">
+
+    <label *ngFor="let paymentMethod of paymentMethods; index as i"
+           for="{{(groupName + '_id') + i}}" [ngSwitch]="paymentMethod.billingType"
+           [ngClass]="{ 'selected':  selectedPaymentMethod === paymentMethod}"
+           fxLayout="row"
+           fxLayoutAlign="start center">
+
+        <input type="radio"
+               id="{{(groupName + '_id') + i}}"
+               [ngModel]="selectedPaymentMethod"
+               (ngModelChange)="paymentMethodChanged(paymentMethod)"
+               name="selectedPaymentMethod"
+               [value]="paymentMethod"
+               [required]="required" />
+
+        <span *ngSwitchCase="BillingType.Credit"
+              fxFlex
+              fxLayout="row">
+            <span translation-skip>{{paymentMethod.credit.cardCode | cardType | uppercase}}&nbsp;</span>
+            <span translation-skip>{{paymentMethod.credit.cardNbr | maskCreditCard:paymentMethod.credit.cardCode}}&nbsp;</span>
+            <span *ngIf="paymentMethod.credit.primary" class="isPrimary">primary</span>
+        </span>
+        <span *ngSwitchCase="BillingType.Eft"
+              fxFlex
+              fxLayout="row">
+            <span>Bank Account&nbsp;</span>
+            <span translation-skip>{{paymentMethod.eft.accountNumber | maskBankAccount}}&nbsp;</span>
+            <span *ngIf="paymentMethod.eft.primary" class="isPrimary">primary</span>
+        </span>
+    </label>
+
+    <label *ngIf="!hideOtherPaymentMethod" for="{{groupName + '_id_other'}}"
+           [ngClass]="{ 'selected':  selectedPaymentMethod === otherMethod}"
+           fxLayout="row"
+           fxLayoutAlign="start center">
+        <input type="radio"
+               id="{{groupName + '_id_other'}}"
+               [ngModel]="selectedPaymentMethod"
+               (ngModelChange)="paymentMethodChanged(otherMethod)"
+               name="selectedPaymentMethod"
+               [value]="otherMethod"
+               [required]="required" />
+        <span fxFlex>Other Payment Method</span>
+    </label>
+
+</main>
+
+<error-messages [errors]="group.invalid ? { 'required': true } : {}">
+    <error-message rule="required">Please select a payment method</error-message>
+</error-messages>
+

@@ -1,0 +1,56 @@
+﻿<div ng-if="!isReadyToUse()" class="initializing">
+    <img ng-if="backgroundImage" class="storefrontBackground" src={{backgroundImage.image}} alt={{backgroundImage.alt}} />
+    <h1>Storefront Initializing...
+        <br/>
+        <strong>Machine name: <span ng-bind="machineName"></span> </strong>
+        <br />
+        <strong>Host: <span ng-bind="host"></span></strong>
+    </h1>
+
+</div>
+<div ng-if="isReadyToUse()">
+    <app-toaster-container ng-if="!isFullSiteViewActive()" class="refresh-2020"></app-toaster-container>
+
+    <img ng-if="backgroundImage && !isFullSiteViewActive()" class="storefrontBackground" ng-class="{'transition': !showBackgroundImage && transitioningState}" src={{backgroundImage.image}} alt={{backgroundImage.alt}} />
+
+    <div class="storefrontWorkflowFunctions">
+        <button ng-if="showWorkflowFunctions()" class="exit-button storefrontSmallButton exclude-global-disable" ng-click="finish()">Exit</button>
+        <kiosk-language-select-component ng-if="showTranslationSelect()"></kiosk-language-select-component>
+    </div>
+
+    <div ng-if="!isFullSiteViewActive()" ng-class="{'transition': isFullSiteViewActive() && transitioningState}">
+        <div ng-show="showMenu()">
+            <div id="globalSpinner" us-spinner="{scale: 1.2}" spinner-key="globalSpinner"></div>
+        </div>
+        <div>
+            <div class="workItemActivityHeader">
+                <img class="storefrontLogo" src={{storefrontLogo.Url}} alt={{storefrontLogo.Alt}} ng-click="hardReset()">
+            </div>
+            <div ng-class="{'transitionScale': !transitionSubView && transitioningState}" tsv="{{transitionSubView}}">
+                <storefront-menu ng-show="showMenu()" class="workMenuitems"></storefront-menu>
+                <div ng-class="{'workitemActivity':showMenu()}">
+                    <div ng-if="showMainView() && !isCmsContentView()" ng-class="{'transition': (transitionSubView && transitioningState) || externalModalOpen()}">
+
+                        <div ng-if="templateToUse() == ''">
+                            <div storefront-link-stripper ui-view></div>
+                        </div>
+                        <div ng-if="templateToUse() != ''">
+                            <div storefront-link-stripper ui-view="{{templateToUse()}}"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <kiosk-google-translated-icon-component></kiosk-google-translated-icon-component>
+    </div>
+
+    <div ng-if="isFullSiteViewActive()">
+        <desktop-ui id="d-ui" force-fullscreen class="storefrontFullSite"></desktop-ui>
+    </div>
+
+</div>
+
+
+
+

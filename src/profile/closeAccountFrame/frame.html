@@ -1,0 +1,8 @@
+<main class="refresh-2020">
+    <stepper [steps]="steps"
+             [currentStepNum]="stepNum"></stepper>
+
+    <div [@hide]="isHidden" *ngIf="closeAccountRefund.mailingInfo">
+        <ui-view></ui-view>
+    </div>
+</main>

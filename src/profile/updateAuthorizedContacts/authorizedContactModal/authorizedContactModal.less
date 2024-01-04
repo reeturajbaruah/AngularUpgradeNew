@@ -1,0 +1,26 @@
+@import (reference) '../../../styles/themes.less';
+
+:host {
+    mat-divider {
+        width: @width-divider;
+    }
+
+    #duplicate-error-message {
+        .t-error--color(@theme-light);
+        .t-body--fontFamily();
+        font-size: 12px;
+        margin-top: 6px;
+    }
+
+    .hover-box-adjustment {
+        padding: 15px;
+        font-size: 12px;
+        line-height: 1.5;
+        bottom: 2em;
+        width: 270px;
+    }
+
+    .accesCode {
+        padding-right: 0.5em;
+    }
+}

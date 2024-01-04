@@ -1,0 +1,17 @@
+@import (reference) '../../../../styles/themes.less';
+
+:host {
+    a {
+        display: block;
+        font-size: 15px;
+        padding-bottom: 15px;
+        margin-left: 0px !important;
+    }
+
+    .disable a {
+        opacity: 1;
+        color: @boulder-gray !important;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}

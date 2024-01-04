@@ -1,0 +1,23 @@
+@import '../../../common/ui/containers/fxRow/details.less';
+@import (reference) '../../../styles/themes.less';
+
+:host {
+    input[type='checkbox'] {
+        margin-left: 10px;
+        height: auto;
+        width: auto;
+    }
+
+    .pay-label {
+        position: relative;
+        height: 0px;
+        top: -10px;
+        left: 7px;
+        .t-link--color(@theme-light);
+    }
+
+    .pay-label-disabled {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}

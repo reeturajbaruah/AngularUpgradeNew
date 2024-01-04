@@ -1,0 +1,165 @@
+<main class="display">
+    <section class="u-spacing__sectionToSection--marginBottom">
+        <h2 style="padding-top:10px;">
+            {{year}} Summary
+        </h2>
+        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        <section fxLayout="row wrap" fxLayoutGap="8px">
+            <div [innerHtml]="cmsContent.LongDescription"></div>
+            <a *ngIf="!environmentConfig.hidePdfAccountActivity"
+               fxFlex="none"
+               (click)="getYearlySummaryPdf()"
+               class="download-link"
+               [ngClass]="{'disabled': reportDownloading}">
+                <img src="/Content/icons/pdf.gif" class="download-icon" />PDF Statement
+            </a>
+            <a *ngIf="!environmentConfig.hideExcelAccountActivity"
+               fxFlex="none"
+               (click)="getYearlySummaryExcel()"
+               class="download-link"
+               [ngClass]="{'disabled': reportDownloading}">
+                <img src="/Content/icons/excel.gif" class="download-icon" />Excel Statement
+            </a>
+
+        </section>
+        <h3 *ngIf="eztagSummary" class="u-spacing__sectionToSection" style="padding-top:30px; margin-bottom:16px">EZ TAG Summary</h3>
+
+        <div *ngIf="eztagSummary" class="tabble-padding">
+            <row-container [rowType]="'transparent'" [isLabel]="true">
+
+                <section fxHide fxShow.lt-md col-start
+                         class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                    <mat-label class="fx-flex-auto-shrink-more limited-flex">TAG ID/</mat-label>
+                    <mat-label class="fx-flex-auto-shrink-more limited-flex">DESCRIPTION</mat-label>
+
+                </section>
+
+                <section fxHide fxShow.lt-md col-end
+                         class="gridish-title fx-flex-none fx-layout-row fx-layout-align-end-center">
+                    <mat-label fxFlex="1 1 10em">QTY</mat-label>
+                    <mat-label fxFlex="1 1 auto">AMOUNT</mat-label>
+                </section>
+
+                <section fxShow fxHide.lt-md col-start
+                         class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                    <mat-label class="fx-flex-auto-shrink-more limited-flex">TAG ID</mat-label>
+                    <mat-label class="fx-flex-auto-grow-more unlimited-flex">DESCRIPTION</mat-label>
+                    <mat-label class="fx-flex-auto-grow-more unlimited-flex">QUANTITY</mat-label>
+                </section>
+                <section fxShow fxHide.lt-md col-end
+                         class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                    <mat-label class="fx-flex-auto limited-flex-end">AMOUNT</mat-label>
+                </section>
+            </row-container>
+
+            <div *ngFor="let eztagS of eztagSummary; first as isFirst; last as isLast" style="width:100%;">
+                <div ngClass="extended-row"
+                     [ngClass.lt-md]="{'extended-row': false}"
+                     style="margin-top:2px;">
+                    <fx-row [isTop]="eztagSummary.length > 1 && isFirst"
+                            [isBottom]="eztagSummary.length > 1 && isLast"
+                            [isInner]="!isFirst && !isLast">
+
+
+                        <section fxHide fxShow.lt-md col-start
+                                 class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                            <div *ngIf="eztagS.tagId" class="fx-flex-auto-shrink-more limited-flex">{{eztagS.tagId}}</div>
+                            <div *ngIf="!eztagS.tagId" class="fx-flex-auto-shrink-more limited-flex"><div style="margin:20px;"></div></div>
+                            <div class="fx-flex-auto-grow-more unlimited-flex">{{eztagS.description}}</div>
+                        </section>
+
+                        <section fxHide fxShow.lt-md col-end
+                                 class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                            <div fxFlex="1 1 5em" class="fx-flex-auto-grow-more unlimited-flex">{{eztagS.quantity ? eztagS.quantity : ''}}</div>
+                            <div fxFlex="1 1 4em" class="fx-flex-auto limited-flex-end">{{eztagS.amount ? (eztagS.amount | currency) : ''}}</div>
+                        </section>
+
+                        <section fxShow fxHide.lt-md col-start
+                                 class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                            <div *ngIf="eztagS.tagId" class="fx-flex-auto-shrink-more limited-flex">{{eztagS.tagId}}</div>
+                            <div *ngIf="!eztagS.tagId" class="fx-flex-auto-shrink-more limited-flex"><div style="margin:20px;"></div></div>
+                            <div class="fx-flex-auto-grow-more unlimited-flex">{{eztagS.description}}</div>
+                            <div class="fx-flex-auto-grow-more unlimited-flex">{{eztagS.quantity ? eztagS.quantity : ''}}</div>
+                        </section>
+                        <section fxShow fxHide.lt-md col-end
+                                 class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                            <div translation-skip class="fx-flex-auto limited-flex-end">{{eztagS.amount ? (eztagS.amount | currency) : ''}}</div>
+                        </section>
+
+                    </fx-row>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+
+
+    <section>
+        <h3 *ngIf="accountSummary" class="u-spacing__sectionToSection" style= "margin-bottom:16px">Account Summary</h3>
+        <div *ngIf="accountSummary" class="tabble-padding">
+            <row-container [rowType]="'transparent'" [isLabel]="true">
+                <section fxHide fxShow.lt-md col-start
+                         class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                    <mat-label fxFlex="fx-flex-auto-shrink-more limited-flex" fxShow.lt-md>DESCRIPTION</mat-label>
+
+                </section>
+                <section fxHide fxShow.lt-md col-end
+                         class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                    <mat-label fxFlex="1 1 10em">QTY</mat-label>
+                    <mat-label fxFlex="1 1 auto" fxShow.lt-md>AMOUNT</mat-label>
+                </section>
+
+                <section fxShow fxHide.lt-md col-start
+                         class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                    <mat-label fxFlex="67" fxShow.lt-md>DESCRIPTION</mat-label>
+                    <mat-label class="fx-flex-auto-shrink-more limited-flex">QUANTITY</mat-label>
+                </section>
+                <section fxShow fxHide.lt-md col-end
+                         class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                    <mat-label class="fx-flex-auto limited-flex-end" fxShow.lt-md>AMOUNT</mat-label>
+                </section>
+            </row-container>
+
+            <div class="u-spacing--widthFill" fxLayout="column" fxLayoutGap="2px">
+
+                <row-container *ngFor="let accountS of accountSummary; first as isFirst; last as isLast "
+                               [isTop]="accountSummary.length > 1 && isFirst"
+                               [isBottom]="accountSummary.length > 1 && isLast"
+                               [isInner]="!isFirst && !isLast"
+                               [rowType]="isLast ? 'emphasis' : 'body'" [ngClass.lt-md]="{'extended-row': false}">
+
+                    <section fxHide fxShow.lt-md col-start
+                             class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <div fxFlex="67" fxShow.lt-md>{{accountS.description}}</div>
+
+                    </section>
+                    <section fxHide fxShow.lt-md col-end
+                             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <div fxFlex="1 1 5em" class="fx-flex-auto-shrink-more">{{accountS.quantity ? accountS.quantity : ''}}</div>
+                        <div fxFlex="1 1 4em" class="fx-flex-auto limited-flex-end" fxShow.lt-md>{{accountS.amount ? (accountS.amount | currency) : ''}}</div>
+                    </section>
+
+                    <section fxShow fxHide.lt-md col-start
+                             class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <div fxFlex="67" fxShow.lt-md>{{accountS.description}}</div>
+                        <div class="fx-flex-auto-shrink-more limited-flex">{{accountS.quantity ? accountS.quantity : ''}}</div>
+                    </section>
+                    <section fxShow fxHide.lt-md col-end
+                             class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <div translation-skip class="fx-flex-auto limited-flex-end" fxShow.lt-md>{{accountS.amount ? (accountS.amount | currency) : ''}}</div>
+                    </section>
+                </row-container>
+
+            </div>
+
+        </div>
+
+
+
+    </section>
+
+</main>
+

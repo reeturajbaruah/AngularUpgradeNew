@@ -1,0 +1,11 @@
+<div class="cms-picture-auto-scale">
+    <div [innerHTML]="vm?.content | safeHtml"></div>
+</div>
+<div class="top-buffer-md">
+    <ng-container *ngIf="vm?.displayReadMoreOrLessLink">
+        <a style="width: 70px;" (click)="expanderClicked()">{{vm.expanderText}}</a>
+    </ng-container>
+    <ng-container *ngIf="vm?.displayBreakoutPageLink">
+        <a style="width: 70px;" (click)="goToBreakoutPage(vm.articleUrl)">Read More</a>
+    </ng-container>
+</div>

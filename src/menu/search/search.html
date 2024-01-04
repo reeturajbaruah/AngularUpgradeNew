@@ -1,0 +1,8 @@
+<div fxLayout="row"
+     ngClass.lt-md="compact-menu"
+     id="global-search-parent"
+     [@showTrigger]="show$ | async"
+     [ngStyle]="{top: (90-scrollY) + 'px', right: right + 'px' }"
+     [ngStyle.lt-md]="{top: (60-scrollY) + 'px', right: '0px' }"
+     #SearchParent>
+</div>

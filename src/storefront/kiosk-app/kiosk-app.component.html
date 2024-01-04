@@ -1,0 +1,43 @@
+<ng-container *ngIf="!fragmentView">
+    <ng-container *ngIf="desktopMode">
+        <storefront-banner [desktopMode]="true"></storefront-banner>
+        <div class="desktopView">
+            <app-spinner class="global-grid-spinner-position"></app-spinner>
+            <menu-frame-component>
+                <ui-view></ui-view>
+                <!-- only ui-view=ng-upgrade shows -->
+            </menu-frame-component>
+        </div>
+    </ng-container>
+
+    <div style="height: 100%" class="kioskView" *ngIf="!desktopMode && show">
+        <app-toaster-container *ngIf="showCurtain"></app-toaster-container>
+        <div *ngIf="showBackgroundImage(); else showPurpleBackground">
+            <img class="background" src={{backgroundImage.image}} alt={{backgroundImage.alt}} />
+        </div>
+        <ng-template #showPurpleBackground>
+            <div class="background"></div>
+        </ng-template>
+        <storefront-banner [desktopMode]="false"></storefront-banner>
+        <div *ngIf="!showCurtain && transitionSuccess" [class.full-height]="isStartPage" #core>
+            <div style="height: inherit">
+                <ui-view *ngIf="showRouterView" style="height: inherit"></ui-view>
+            </div>
+        </div>
+        <div *ngIf="showCurtain" @simpleFadeAnimation>
+            <side-menu-component></side-menu-component>
+            <div class="curtain" #core>
+                <div #taskView>
+                    <ui-view [@fadeAnimation]="showRouterView ? 'on' : 'off'"></ui-view>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="showTranslateIcon && translateIcon">
+            <div [ngStyle]="{'top': translateIconPosition}" class="translate-icon-container">
+                <img [src]="translateIcon.ItemMedialUrl" [alt]="translateIcon.Alt" />
+            </div>
+        </ng-container>
+    </div>
+</ng-container>
+
+<ui-view class="fragment-view" *ngIf="fragmentView"></ui-view>

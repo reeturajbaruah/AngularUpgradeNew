@@ -1,0 +1,12 @@
+<main class="refresh-2020">
+    <title-banner>
+        {{cms.Title}}
+    </title-banner>
+
+    <stepper [steps]="steps"
+             [currentStepNum]="stepNum"></stepper>
+
+    <div [@hide]="isHidden">
+        <ui-view></ui-view>
+    </div>
+</main>

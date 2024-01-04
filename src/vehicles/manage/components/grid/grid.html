@@ -1,0 +1,33 @@
+<fx-row 
+    *ngIf="vehicles && vehicles.length > 0"
+    [isLabel]="true"
+    [backgroundColorClass]="'transparent-background'">
+    <div
+        col-start
+        class="vehicle-header">
+
+        <ng-container              
+            *ngTemplateOutlet="headerTemplate">
+        </ng-container>
+
+    </div>
+    <div col-end class="vehicle-header-end">
+        <mat-icon svgIcon="previous-arrow"></mat-icon>  
+    </div> 
+
+</fx-row>
+
+<fx-row translation-skip
+    *ngFor="let vehicle of vehicles">
+    <div col-start class="vehicle-row">
+        <ng-container 
+            *ngTemplateOutlet="rowTemplate; context: { $implicit: vehicle }">
+        </ng-container>
+    </div>
+  <div  col-end [ngStyle]="{ 'visibility': (showArrow(vehicle) ? 'visible' : 'hidden') }">
+        <button class="btn-edit" (click)="handleArrowClick(vehicle)">{{editButtonText}}</button> 
+    </div>
+    
+</fx-row>
+
+<ng-container *ngTemplateOutlet="(!vehicles || vehicles.length === 0) ? emptyTemplate : null"></ng-container>

@@ -1,0 +1,16 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+    > div {
+        position: fixed !important;
+        width: 376px;
+        height: 60px;
+        opacity: 1;
+        overflow-y: hidden;
+
+        &.compact-menu {
+            width: 100vw;
+        }
+    }
+}

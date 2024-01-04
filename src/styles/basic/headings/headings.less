@@ -1,0 +1,41 @@
+@import (reference) '../../themes.less';
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: 1.1;
+}
+
+.refresh-2020 {
+    h1 {
+        .t-titleBanner--color(@theme-light);
+        .t-header--fontFamily;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0px;
+
+        &.lt-md {
+            font-size: 24px;
+        }
+    }
+
+    h2 {
+        .t-header--color(@theme-light);
+        .t-header--fontFamily;
+        font-size: 24px;
+        line-height: 30px;
+        font-weight: 600;
+        margin: 0px;
+    }
+
+    h3 {
+        .t-header--color(@theme-light);
+        .t-header--fontFamily;
+        margin: 0px 0px;
+        font-weight: 600;
+        font-size: 20px;
+    }
+}

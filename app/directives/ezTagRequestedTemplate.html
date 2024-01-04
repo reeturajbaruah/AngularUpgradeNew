@@ -1,0 +1,22 @@
+﻿<div class="bottom-buffer-lg">
+    <header class="header-spacing">
+        <a href="" class="pull-right" ng-click="onEdit()" ng-show="showEdit" aria-label="Edit Requested EZ TAGs">Edit</a>
+        <ng-transclude></ng-transclude>
+        <hr />
+    </header>
+
+    <ul class="vehicle-list">
+        <li ng-repeat="vehicle in vehicleList">
+            <div class="group-paragraphs">
+                <p class="h3-mo h3-half-do font-avenir-medium">{{vehicle.nickname ? vehicle.nickname + " - " : ""}} License Plate: <span translation-skip class="customer-account-data" id="ez-tag-requested-license-plate">{{vehicle.licState}}-{{vehicle.licPlate}}</span></p>
+                <p translation-skip class="h5"><span class="customer-account-data" id="ez-tag-requested-vehicle-details">{{vehicle.vehicleYear
+}} {{vehicle.vehicleMake | capitalize}} {{vehicle.vehicleModel | capitalize}} {{vehicle.vehicleColor | capitalize}} <span class="nobr" ng-hide="hideClassCode">- {{classIdToLabel(vehicle.vehicleClassCode)}}</span></span></p>
+            </div>
+        </li>
+        <li ng-if="vehicleList.length === 0">
+            <div class="group-paragraphs">
+                <p class="h3-mo h3-half-do font-avenir-medium">None</p>
+            </div>
+        </li>
+    </ul>
+</div>

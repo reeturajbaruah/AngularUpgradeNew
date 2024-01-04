@@ -1,0 +1,20 @@
+<header>
+    <h2>{{header}}</h2>
+    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+</header>
+<section>
+    <ng-content select="[before-payment-method]"></ng-content>
+    <payment-method [(billingType)]="billingInfo.billingType">
+    </payment-method>
+    <ng-content select="[after-payment-method]"></ng-content>
+</section>
+<section *ngIf="billingInfo.billingType" class="u-spacing__fieldToField--marginTop">
+    <ng-content select="[before-billing-entry]"></ng-content>
+    <bank-account-entry *ngIf="billingInfo.billingType === BillingType.Eft" [bankDetails]="billingInfo.eft"
+        [validate]="true" [showName]="true">
+    </bank-account-entry>
+    <credit-card-entry *ngIf="billingInfo.billingType === BillingType.Credit"
+    [creditCard]="billingInfo.credit">
+    </credit-card-entry>
+    <ng-content select="[after-billing-entry]"></ng-content>
+</section>

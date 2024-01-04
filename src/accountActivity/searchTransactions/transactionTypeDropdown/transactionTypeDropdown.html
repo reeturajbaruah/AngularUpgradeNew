@@ -1,0 +1,13 @@
+<main>
+    <mat-select id="searchTransactionType"
+                name="searchTransactionType"
+                [(ngModel)]='selectedTransaction'
+                (selectionChange)="updateValue()"
+                [disableOptionCentering]="true"
+                style="width:100%;">
+        <mat-option *ngFor="let transactionType of searchTransactionData"
+                    [value]="transactionType">
+            {{'&nbsp;'.repeat(4 * transactionType.hierarchy)}}{{transactionType.text}}
+        </mat-option>
+    </mat-select>
+</main>

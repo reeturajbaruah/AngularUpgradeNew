@@ -1,0 +1,11 @@
+﻿<div class="innerModalContent">
+    <h1 class="centerText" ng-if="header">{{header}}</h1>
+    <p ng-if="body">{{body}}</p>
+
+    <button class="largeBtn altBtn fillThreeQuarterWidth" ng-click="call('talkToCsr')">{{actionText('talkToCsr')}}</button>
+    <br/>
+    <button class="largeBtn altBtn fillThreeQuarterWidth" ng-click="call('fullSite')">{{actionText('fullSite')}}</button>
+    <br/>
+    <button class="largeBtn fillThreeQuarterWidth" ng-click="call('goback')">{{actionText('goback')}}</button>
+</div>
+<a ng-hide="showBackButton" ng-click="call('goback')" class="storefrontModalClose" storefront-modal-close></a>

@@ -1,0 +1,28 @@
+﻿<div id="modal-popup">
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-xs-9 pull-left">
+                <h4>{{modalOptions.headerText}}</h4>
+            </div>
+            <div class="col-xs-1 pull-right">
+                <button type="button" data-ng-click="modalOptions.close()" class="close">&times;</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <p class="h2 bottom-buffer-xs" ng-bind-html="modalOptions.bodyText | trusted"></p>
+        <p class="h5" ng-bind-html="modalOptions.subText | trusted"></p>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn"
+                data-ng-click="modalOptions.close()">
+            {{modalOptions.closeButtonText}}
+        </button>
+        <button type="button" class="btn"
+                data-ng-click="modalOptions.ok('ok');">
+            {{modalOptions.actionButtonText}}
+        </button>
+    </div>
+</div>

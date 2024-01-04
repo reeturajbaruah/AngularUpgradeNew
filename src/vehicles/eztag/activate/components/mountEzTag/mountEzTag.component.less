@@ -1,0 +1,32 @@
+@import (reference) '../../../../../styles/variables.less';
+
+:host {
+
+    .mount-tag-main {
+        width: 60%;
+        margin: auto;
+        @media @breakpoint-md {
+            width: 90%;
+        }
+        @media @breakpoint-lt-sm {
+            width: 100%;
+        }
+    }
+
+    @media screen and (min-width: 960px) {
+        ::ng-deep .desktopOnly {
+            display: block !important;
+        }
+        ::ng-deep .mobileOnly {
+            display: none !important;
+        }
+    }
+    @media screen and (max-width: 959px) {
+        ::ng-deep .desktopOnly {
+            display: none !important;
+        }
+        ::ng-deep .mobileOnly {
+            display: block !important;
+        }
+    }
+}

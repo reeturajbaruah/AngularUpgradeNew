@@ -1,0 +1,56 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+
+    h2 {
+        max-height: 70px;
+    }
+
+    mat-divider {
+        width: @width-divider;
+    }
+
+    .spanPosition {
+        position: relative;
+    }
+
+    .linkSpacing {
+        margin-top: 16px;
+    }
+
+    a {
+        .t-header--fontFamily
+    }
+
+    #linksSection {
+        margin-left: 60px;
+        margin-right: 60px;
+        text-align: center;
+
+        &.lt-md {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        mat-divider {
+            height: 15px;
+            width: 2px;
+            border-width: 2px;
+            border-color: @tuna-gray;
+            margin-left: 10px;
+            margin-right: 10px;
+
+            &.lt-md {
+                margin-left: 0px;
+                margin-right: 0px;
+            }
+        }
+
+        a {
+            &.lt-md {
+                max-width: 150px;
+            }
+        }
+    }
+}

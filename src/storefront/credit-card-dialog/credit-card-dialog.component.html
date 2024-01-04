@@ -1,0 +1,25 @@
+<div *ngIf="show" @modalSlideDownSmall>
+    <div class="modal-container">
+        <div *ngIf="closeIcon && state !== 'wait'" class="close-icon" (click)="call('close')">
+            <img src={{closeIcon.ItemMedialUrl}} alt={{closeIcon.Alt}} />
+        </div>
+
+        <ng-container [ngSwitch]="state">
+            <div *ngSwitchCase="'wait'" class="wait">
+                <h2>{{promptMessage}}</h2>
+                <ng-container *ngIf="promptImage">
+                    <img src={{promptImage.image}} alt={{promptImage.alt}} />
+                </ng-container>
+            </div>
+            <div *ngSwitchCase="'success'" class="success">
+                <h1>{{successText}}</h1>
+            </div>
+            <div *ngSwitchCase="'failure'" class="failure">
+                <ng-container *ngIf="failureCms">
+                    <button (click)="call('tryAgain')">{{failureCms.Subtitle}}</button>
+                    <strong>{{failureCms.Message}}</strong>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+</div>

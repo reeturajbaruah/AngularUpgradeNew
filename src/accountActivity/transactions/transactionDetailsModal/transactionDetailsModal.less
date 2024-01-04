@@ -1,0 +1,79 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.section-spacing {
+    margin-top: 16px;
+}
+
+.table-padding {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @media @breakpoint-lt-md {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+.label-row-container {
+    @media @breakpoint-lt-md {
+        background-color: @white;
+        margin-left: -@page-bar-margin-static-lt-md;
+        margin-right: -@page-bar-margin-static-lt-md;
+        padding-left: @page-bar-margin-static-lt-md;
+        padding-right: @page-bar-margin-static-lt-md;
+    }
+}
+
+.description-width {
+    @media @breakpoint-md1 {
+        min-width: 350px;
+    }
+}
+
+.limited-flex-end-amount {
+    min-width: 70px;
+    max-width: 80px;
+    width: 100%;
+    text-align: end;
+}
+
+.extra-row-padding {
+    padding-bottom: 10px;
+
+    @media @breakpoint-md {
+        padding-top: 10px;
+    }
+}
+
+.negate-row-negative-margin {
+    @media @breakpoint-gt-sm {
+        margin-right: 20px;
+    }
+}
+
+.map-padding {
+    @media @breakpoint-lt-md {
+        margin-left: -@page-bar-margin-static-lt-md;
+        margin-right: -@page-bar-margin-static-lt-md;
+    }
+}
+
+.map-dimensions {
+    width: 100%;
+    height: 500px;
+}
+
+.no-map-spacing {
+    padding-top: 20px;
+    padding-bottom: 12px;
+}
+
+.no-map-background-color {
+    background-color: white;
+}

@@ -1,0 +1,133 @@
+<div class="refresh-2020 search-transactions-modal-size">
+    <card-dash-container>
+        <div fxLayout="column">
+
+            <section fxFlex="auto"
+                     fxLayout="column"
+                     fxLayoutAlign="center">
+                <section fxFlex="none"
+                         fxLayout="row"
+                         fxLayoutAlign="space-between start">
+                    <article class="search-transactions-info-text">Filter by any of these transaction details.</article>
+                    <mat-icon fxHide
+                              fxShow.lt-sm
+                              fxFlex="none"
+                              class="clickable"
+                              (click)="close()"
+                              svgIcon="close-x"></mat-icon>
+                </section>
+
+                <section fxFlex="none"
+                         fxLayout="column"
+                         fxLayoutAlign="center"
+                         class="u-spacing--widthFill">
+                    <mat-label>
+                        TRANSACTION TYPES
+                    </mat-label>
+                    <transaction-type-dropdown translation-skip [searchTransactionData]="searchTransactionDropdownData"
+                                               (searchTransitionChange)="onSelectionChanged($event)">
+                    </transaction-type-dropdown>
+                </section>
+
+                <section fxFlex="none"
+                         fxLayout="column"
+                         fxLayoutAlign="center"
+                         class="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+                    <mat-label>LICENSE PLATE</mat-label>
+                    <input #LicensePlateInput
+                           [(ngModel)]="licensePlate"
+                           type="text"
+                           name="licensePlate"
+                           pattern="^[0-9a-zA-Z\-\,\.\'\s]*$"
+                           maxlength="30"
+                           placeholder="ex. TX-ABCD12345"
+                           [formControl]="control"
+                           [matAutocomplete]="auto" />
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let vehicle of filteredSearchVehicleDropdownData | async" [value]="vehicle.text">
+                            {{vehicle.text}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </section>
+            </section>
+
+            <section fxFlex="auto"
+                     fxLayout="row"
+                     fxLayout.lt-sm="row wrap"
+                     fxLayoutAlign="space-between start"
+                     fxLayoutGap="10px"
+                     class="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+                <div fxLayout="column"
+                     fxLayoutAlign="center"
+                     ngClass.lt-sm="u-spacing--widthFill">
+                    <mat-label>FROM</mat-label>
+                    <section fxLayout="row">
+                        <input [min]="minDate"
+                               [max]="maxDate"
+                               [matDatepicker]="pickerFrom"
+                               name="pickerFrom"
+                               [ngModel]="dateFrom"
+                               (ngModelChange)="dateFrom=$event;autocorrectDateFrom()">
+                        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFrom></mat-datepicker>
+                    </section>
+
+                    <mat-label [innerHtml]="cmsShortDescription | safeHtml"
+                               class="subtext-position"></mat-label>
+                </div>
+
+                <div fxLayout="column"
+                     fxLayoutAlign="center"
+                     ngClass.lt-sm="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+                    <mat-label>TO</mat-label>
+                    <section fxLayout="row">
+                        <input [min]="minDate"
+                               [max]="maxDate"
+                               [matDatepicker]="pickerTo"
+                               name="pickerTo"
+                               [ngModel]="dateTo"
+                               (ngModelChange)="dateTo=$event;autocorrectDateTo()">
+                        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerTo></mat-datepicker>
+                    </section>
+                </div>
+            </section>
+
+            <section fxFlex="none"
+                     fxLayout="column"
+                     fxLayoutAlign="center">
+                <div fxFlex="none"
+                     fxLayout="column"
+                     fxLayoutAlign="center"
+                     class="u-spacing--widthFill u-spacing__fieldToField--marginTop">
+                    <mat-label>DATE RANGE TYPE</mat-label>
+
+                    <mat-select translation-skip
+                                [disableOptionCentering]="true"
+                                [(value)]="currentDateRangeType"
+                                required>
+                        <mat-option *ngFor="let dateType of dateRangeType" [value]="dateType">
+                            {{dateType | titlecase}} Date
+                        </mat-option>
+                    </mat-select>
+                </div>
+
+                <div fxFlex="none"
+                     fxLayout="row"
+                     fxLayoutAlign="end center"
+                     fxLayoutGap="32px"
+                     class="u-spacing--widthFill u-spacing__buttonToField--marginTop">
+                    <div fxFlex="none" (click)="clearAll()">
+                        <a class="u--noUnderline">Clear all  </a>
+                    </div>
+                    <div fxFlex="none" (click)="infoSearch()">
+                        <button ngClass.lt-md="u-spacing--widthFill">
+                            APPLY
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </card-dash-container>
+</div>

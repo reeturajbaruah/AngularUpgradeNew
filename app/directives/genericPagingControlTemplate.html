@@ -1,0 +1,55 @@
+﻿<div class="generic-paging-control col-xs-12 row no-padding-right no-padding ">
+
+    <span ng-if="vm.suspendedFlow" class="col-md-9 col-xs-12 pull-right">
+        <span class="generic-paging-control-page-selection-wrapper">
+            <span class="viol-button-border generic-page-button" ng-click="vm.onBackAll()"><span class="generic-full-back-button"></span></span>
+            <span class="viol-button-border generic-page-button" ng-click="vm.onBack()"><span class="generic-back-button"></span></span>
+            <span class="generic-paging-control-page-input-wrapper">
+                page
+                <input type="number" id="currentVisiblePageNumber" name="currentVisiblePageNumber" aria-label="Current Page Number" required
+                       class="form-control viol-current-page-box" ng-change="vm.onPageNumberEntered(); $event.stopPropagation();" ng-model-options="{ debounce: 500 }"
+                       ng-model="vm.visiblePageNumber" ng-disabled="vm.numberOfPages === 1" ng-pattern="/^([0-9]+)$/" />
+                of {{vm.numberOfPages}}
+            </span>
+            <span class="viol-button-border generic-page-button" ng-click="vm.onForward()"><span class="generic-forward-button"></span></span>
+            <span class="viol-button-border generic-page-button" ng-click="vm.onForwardAll()"><span class="generic-full-forward-button"></span></span>
+        </span>
+        <span ng-if="vm.showItemCount" class="generic-paging-control-item-count">{{vm.lowerItemIndex()}} - {{vm.upperItemIndex()}} of {{vm.totalItems}} {{vm.itemCountLabel}}</span>
+        <span ng-if="!vm.hideSelector" class="generic-paging-control-dropdown-wrapper">
+            <select id="pagingControlPageSize" aria-label="Items per Page" name="pagingControlPageSize" class="form-control generic-paging-control-dropdown" ng-model="vm.pageSize" ng-change="vm.onPageSizeChange()" convert-to-number>
+                <option value="" class="invisible">Items per page</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+        </span>
+    </span>
+
+    <span ng-if="!vm.suspendedFlow" class="col-md-9 col-xs-12">
+        <span class="generic-paging-control-page-selection-wrapper">
+            <span class="viol-button-border generic-page-button" ng-click="vm.onBackAll()"><span class="generic-full-back-button"></span></span>
+            <span class="viol-button-border generic-page-button" ng-click="vm.onBack()"><span class="generic-back-button"></span></span>
+            <span class="generic-paging-control-page-input-wrapper">
+                page
+                <input type="number" id="currentVisiblePageNumber" name="currentVisiblePageNumber" aria-label="Current Page Number" required
+                       class="form-control viol-current-page-box" ng-change="vm.onPageNumberEntered(); $event.stopPropagation();" ng-model-options="{ debounce: 500 }"
+                       ng-model="vm.visiblePageNumber" ng-disabled="vm.numberOfPages === 1" ng-pattern="/^([0-9]+)$/" />
+                of {{vm.numberOfPages}}
+            </span>
+            <span class="viol-button-border generic-page-button" ng-click="vm.onForward()"><span class="generic-forward-button"></span></span>
+            <span class="viol-button-border generic-page-button" ng-click="vm.onForwardAll()"><span class="generic-full-forward-button"></span></span>
+        </span>
+        <span ng-if="vm.showItemCount" class="generic-paging-control-item-count">{{vm.lowerItemIndex()}} - {{vm.upperItemIndex()}} of {{vm.totalItems}} {{vm.itemCountLabel}}</span>
+        <span ng-if="!vm.hideSelector" class="generic-paging-control-dropdown-wrapper">
+            <select id="pagingControlPageSize" aria-label="Items per Page" name="pagingControlPageSize" class="form-control generic-paging-control-dropdown" ng-model="vm.pageSize" ng-change="vm.onPageSizeChange()" convert-to-number>
+                <option value="" class="invisible">Items per page</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+        </span>
+    </span>
+    <span ng-if="vm.showRecordCount && vm.invoiceCount > 0" class="col-md-3 align-right padding-right-25 padding-top-10 desktopOnly"> {{vm.invoiceCount}} record{{vm.invoiceCount > 1 ? 's' : ''}} found</span>
+</div>

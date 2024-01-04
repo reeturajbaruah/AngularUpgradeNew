@@ -1,0 +1,128 @@
+<div>
+    <section fxLayout.lt-md="column" class="u-spacing--widthFill bottomPadding">
+        <div>
+            <div><mat-label ngClass="labelMargin">COMPANY NAME (OPTIONAL)</mat-label></div>
+            <div [error-check]="CompanyName">
+                <input #CompanyName="ngModel"
+                       placeholder="CompanyName"
+                       fxLayout="row"
+                       type="text"
+                       id="companyName"
+                       name="companyName"
+                       [(value)]="contactInfoData.companyName"
+                       [(ngModel)]="contactInfoData.companyName"
+                       pattern="^[0-9a-zA-Z\.\'\-\,\s]*$"
+                       maxLength="100" />
+
+                <div *ngFor="let error of CompanyName.errors | keyvalue">
+                    <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid Company Name</p>
+                        <p *ngSwitchCase="'maxlength'" class="help-block">Company Name is too long</p>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section fxLayout.lt-md="column" class="u-spacing--widthFill bottomPadding">
+        <div class="bottomPadding">
+            <mat-label ngClass="labelMargin">FIRST NAME</mat-label>
+            <div [error-check]="FirstName">
+                <input #FirstName="ngModel"
+                       placeholder="FirstName"
+                       fxLayout="row"
+                       type="text"
+                       id="firstName"
+                       name="firstName"
+                       [(value)]="contactInfoData.firstName"
+                       [(ngModel)]="contactInfoData.firstName"
+                       pattern="^[a-zA-Z\-\'\.,\s]*$"
+                       required
+                       maxLength="100" />
+
+                <div *ngFor="let error of FirstName.errors | keyvalue">
+                    <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'maxlength'" class="help-block">First Name is too long</p>
+                        <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid First Name</p>
+                        <p *ngSwitchCase="'required'" class="help-block">First Name is Missing</p>
+                    </ng-container>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div>
+            <div [error-check]="LastName">
+                <mat-label ngClass="labelMargin">LAST NAME</mat-label>
+                <div>
+                    <input #LastName="ngModel"
+                           placeholder="LastName"
+                           fxLayout="row"
+                           type="text"
+                           id="lastName"
+                           name="lastName"
+                           [(value)]="contactInfoData.lastName"
+                           [(ngModel)]="contactInfoData.lastName"
+                           pattern="^[a-zA-Z\-\'\.,\s]*$"
+                           required
+                           maxLength="100" />
+
+                    <div *ngFor="let error of LastName.errors | keyvalue">
+                        <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+                            <p *ngSwitchCase="'maxlength'" class="help-block">Last Name is too long</p>
+                            <p *ngSwitchCase="'pattern'" class="help-block">Please enter a valid Last Name</p>
+                            <p *ngSwitchCase="'required'" class="help-block">Last Name is Missing</p>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="u-spacing--widthFill bottomPadding">
+        <shared-phone-number
+            [showPhoneNumberExt]="syncRiteToggles.SyncRitePhoneExt"
+            [(phoneNumber)]="contactInfoData.primaryPhone"
+            [(phoneNumberExt)]="contactInfoData.primaryPhoneExt"
+            >
+        </shared-phone-number>
+    </section>
+
+    <section class="u-spacing--widthFill bottomPadding">
+        <shared-checkbox
+            *ngIf="syncRiteToggles.SyncRitePhoneOptIn"
+            [(checkbox)]="contactInfoData.smsAlertsOptIn"
+            [desc]="contactInfoData.phoneAlertsOptInDesc"
+            >
+        </shared-checkbox>
+    </section>
+
+    <section class="u-spacing--widthFill bottomPadding">
+        <div>
+            <email-address style="margin-left:0px" [(emailAddress)]="contactInfoData.emailAddressContact"></email-address>
+        </div>
+    </section>
+
+    <section *ngIf="contactInfoData.isShowSaveMailingAddressCheck">
+        <div class="fx-flex-auto fx-layout-row fx-layout-align-start-center u-spacing--widthFill">
+            <input type="checkbox"
+                   name="SaveMailingAddressCheck"
+                   id="SaveMailingAddressCheck"
+                   class="checkbox-style"
+                   #SaveMailingAddressCheck="ngModel"
+                   [(ngModel)]="contactInfoData.isSaveMailingAddressChecked" />
+            <label class="checkbox-label" [innerHtml]="contactInfoData.saveMailingAddressDescription"></label>
+        </div>
+    </section>
+
+    <section class="bottomPadding" *ngIf="contactInfoData.isSaveMailingAddressChecked">
+        <address-entry class="u-spacing--widthFill"
+                       [(address)]="contactInfoData"
+                       [stateList]="contactInfoData.stateList"
+                       [countryList]="contactInfoData.countryList"
+                       [(international)]="contactInfoData.internationalAddress"
+                       [validate]="contactInfoData.isSaveMailingAddressChecked">
+        </address-entry>
+    </section>
+</div>

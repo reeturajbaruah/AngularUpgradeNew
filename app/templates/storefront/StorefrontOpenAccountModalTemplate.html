@@ -1,0 +1,8 @@
+﻿<div class="innerModalContent">
+    <h1 class="centerText" ng-bind-html="header | trusted"></h1>
+    <p class="fillHalfWidth centerText">
+        {{body}}
+    </p>
+    <button ng-click="call('finish')" class="mediumBtn fillHalfWidth">{{actionText('finish')}}</button>
+    <a ng-click="call('notFinished')" class="altLink fillHalfWidth centerText">{{actionText('notFinished')}}</a>
+</div>

@@ -1,0 +1,57 @@
+<main id="modal-popup" class="refresh-2020" style="position:relative">
+
+    <section fxLayout="column"
+             class="cancel-modal"
+             ngClass.gt-md="gt-md"
+             ngClass.lt-md="lt-md">
+
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             ngClass="title">
+
+            <header fxLayout="column"
+                    fxLayoutAlign="center center"
+                    ngClass.lt-md="lt-md">
+
+                <h2>{{cmsContent.Title}}</h2>
+                <mat-divider></mat-divider>
+
+            </header>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             ngClass="content">
+
+            <div [innerHtml]="cmsContent.PrimaryContent | safeHtml"></div>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             ngClass="continue-button">
+
+            <button ngClass.lt-md="lt-md"
+                    type="button"
+                    (click)="continueButtonClick();">
+                {{cmsContent.ContinueButton}}
+            </button>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             ngClass="reject-button">
+
+            <a fxFlexAlign="center"
+               aria-label="Close"
+               (click)="close()">
+                {{cmsContent.RejectButton}}
+            </a>
+
+        </div>
+
+    </section>
+
+</main>

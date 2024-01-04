@@ -1,0 +1,20 @@
+<div *ngIf="show" @simpleFadeAnimation [class.legacy]="legacyStartPage" style="height: 100%">
+    <main *ngIf="translationAvailable">
+        <h1 [innerHTML]="cmsContent.Title"></h1>
+
+        <h2 [innerHTML]="cmsTranslationContent.ShortDescription"></h2>
+
+        <section>
+            <button *ngFor="let language of languages" (click)="start(language)">{{language.nativeLabel || language.label}}</button>
+        </section>
+
+    </main>
+    <main *ngIf="!translationAvailable">
+
+        <h1 [innerHTML]="cmsContent.Title"></h1>
+
+        <button (click)="start()" class="mediumBtn startBtn exclude-global-disable">Start</button>
+
+        <section style="display: block; height: 300px">&nbsp;</section>
+    </main>
+</div>

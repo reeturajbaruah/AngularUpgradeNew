@@ -1,0 +1,73 @@
+
+<fx-row *ngIf="!hideHeader" [isLabel]="true"
+                       [backgroundColorClass]="'transparent-background'">
+    <section col-start
+             class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+        <mat-label class="fx-flex-auto-shrink-more limited-flex">PLATE</mat-label>
+    </section>
+    <section col-end
+                 class="fx-flex-none fx-layout-row fx-layout-align-end-center"
+                 [ngClass]="{'w-160': isEditAllowed}">
+            <mat-label class="fx-flex-auto limited-flex-end">AMOUNT</mat-label>
+            <div *ngIf="isEditAllowed" class="fx-layout-column fx-layout-align-end-start unlimited-flex-end"
+                style="margin-left: 10px;">
+                <mat-label class="pay-label">PAY</mat-label>
+            </div>
+        </section>
+</fx-row>
+<storefront-utility #storefront></storefront-utility>
+<row-container [rowType]="'semi-emphasis'"
+               [isTop]="showCollapseUi || isRound ? false : true"
+               [isBig]="true">
+    <section col-start
+             fxFlex="auto"
+             fxLayout="row"
+             fxLayoutAlign="start center"
+             fxLayoutGap="10px"
+             (click)="changeSelection()">
+        <div fxFlex="none">
+            <mat-icon *ngIf="showCollapseUi"
+                svgIcon="previous-arrow"
+                class="iconUnselected"
+                [@rotatedState]="isCollapsed ? 'rotated' : 'default'"></mat-icon>
+            <span translation-skip>{{plate.licenseState}} {{plate.licensePlate}}</span>
+            <ng-container *ngIf="(plate?.hasPaymentPlan && plate?.invoicesAndViolations.length > 0 && !hidePmntPlan) || (plate?.hasPaymentPlan && isAssociated && !hidePmntPlan)">
+                <span>
+                    <tool-tip class="toolTip" [stayOpenOnHover]="true" style="padding-left:0.5em;">
+                        <span tool-tip-hover>
+                            <mat-icon class="openVioPayPlans" svgIcon="alert"></mat-icon>
+                        </span>
+                        <span tool-tip-message *ngIf="!storefront.isKioskView; else ppKioskTooltip" class="hoverBoxAdjusment">
+                            <cms-content [template]="cmsData?.PAY_PLAN_TOOLTIP_TEXT" [data]="{ paymentPlanBalance : plate?.paymentPlanBalance }"></cms-content>
+                            <a class="payment-plan-link" (click)="goToPaymentPlans(plate)">{{cmsData?.PAY_PLAN_TOOLTIP_LINK ?? ''}}</a>
+                        </span>
+                        <ng-template #ppKioskTooltip>
+                            <span tool-tip-message class="hoverBoxAdjusment">
+                                <cms-content [template]="cmsData?.PAY_PLAN_TOOLTIP_KIOSK_TEXT" [data]="{ paymentPlanBalance : plate?.paymentPlanBalance }"></cms-content>
+                            </span>
+                        </ng-template>
+                    </tool-tip>
+                </span>
+            </ng-container>
+        </div>
+    </section>
+    <section *ngIf="plate?.totalPaymentAmount !== 0 || (plate?.totalPaymentAmount === 0 && plate?.hasPaymentPlan && isAssociated)"
+             col-end
+             fxFlex="none"
+             fxLayout="row"
+             fxLayoutAlign="end center"
+             class="totalAmountValue"
+             [ngClass]="{'w-160': isEditAllowed}">
+        <currency *ngIf="!isEditAllowed else editAllowed" [value]="plate.plateDueBeforeDiscount"></currency>
+        <ng-template #editAllowed>
+            <div fxFlex="auto" class="limited-flex-end">
+                <currency [value]="plate?.plateDueBeforeDiscount"></currency>
+            </div>
+            <div flexFlex fxLayout="row" fxLayoutAlign="end center" class="unlimited-flex-end">
+                <div *ngIf="plate?.totalPaymentAmount === 0" style="padding-left:25px;"></div>
+                <input *ngIf="plate?.totalPaymentAmount !== 0" style="margin-top: 0px; margin-left: 10px; margin-right: 0px;" type="checkbox"
+                       [(ngModel)]="areAllSelected" (change)="toggleSelectAll()" />
+            </div>
+        </ng-template>
+    </section>
+</row-container>

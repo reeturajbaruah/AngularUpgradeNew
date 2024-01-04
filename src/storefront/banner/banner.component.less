@@ -1,0 +1,47 @@
+@import (reference) '../../styles/custom/storefront.less';
+
+:host {
+    user-select: none;
+
+    .logo-container {
+        height: 70px;
+        display: flex;
+        justify-content: center;
+
+        img {
+            width: 333px;
+            height: 31.99px;
+        }
+    }
+
+    button {
+        font-family: @storefront-site-font-family;
+    }
+
+    button.desktop {
+        margin-left: unset !important;
+        float: unset !important;
+        border: 0px;
+        background-color: #611eb8 !important;
+    }
+
+    button.exitBtn {
+        background-color: transparent;
+        color: white !important;
+        border: 1px solid white;
+    }
+
+    .workflow-functions > * {
+        display: block;
+        float: right;
+        margin-left: 50px;
+    }
+
+    .workflow-functions {
+        position: fixed;
+        right: 50px;
+        width: 566px;
+        z-index: 10;
+        top: 0px;
+    }
+}

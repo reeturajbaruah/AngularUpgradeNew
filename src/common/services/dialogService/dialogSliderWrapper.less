@@ -1,0 +1,32 @@
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/variables.less';
+
+.side-drawer {
+    :host {
+        .c--widthFill {
+            width: 100%;
+        }
+
+        .c--textAlignCenter {
+            text-align: center;
+        }
+
+        .c-h2--fontSizeShrink {
+            &.lt-md {
+                font-size: 20px;
+            }
+        }
+
+        .c-titleBar {
+            min-height: 70px;
+
+            &.lt-md {
+                min-height: 50px;
+            }
+        }
+
+        .titleBar--backgroundColor {
+            .t-body--backgroundColor(@theme-light);
+        }
+    }
+}

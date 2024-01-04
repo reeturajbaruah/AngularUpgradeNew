@@ -1,0 +1,11 @@
+<div id="modal-popup">
+    <div class="modal-header">
+        <div class="header-text">{{cmsContent.ModalHeader}}</div>
+        <span (click)="close()" class="close"> &times; </span>
+    </div>
+    <div fxLayout="column" class="unsupported-browser-modal">
+        <div [innerHtml]="cmsContent.ModalBodyText"></div>
+    </div>
+</div>
+
+

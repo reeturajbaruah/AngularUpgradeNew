@@ -1,0 +1,48 @@
+<div fxLayout="column" fxLayoutAlign="start start" class="refresh-2020">
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+        (click)="isOpen = !isOpen" class="criteria-shape criteria-color criteria-size criteria-text criteria-hover">
+
+        <span style="color: #007aff; font-size: 14px;">
+            {{selectedVehicle}}
+        </span>
+
+        <ng-container *ngTemplateOutlet="icon"></ng-container>
+
+    </div>
+
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+        [cdkConnectedOverlayPanelClass]="'overlayPanelClass'">
+        <div class="vehicle-panel">
+
+            <section fxLayout="column">
+                <div fxLayoutAlign="end">
+                    <mat-icon id="closeIcon" fxFlex="none" class="clickable" (click)="close()"
+                        svgIcon="close-x"></mat-icon>
+                </div>
+
+                <mat-label>LICENSE PLATE</mat-label>
+            </section>
+            <section fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
+                <div fxLayout="column">
+                    <input class="vehicleInput" type="text" name="licensePlate" [(ngModel)]="licensePlate"
+                        autocomplete="off" [formControl]="control" placeholder="ex. TX-ABCD12345">
+                    <div  role="listbox" class="mat-autocomplete-panel mat-autocomplete-visible vehicle-Filter" >
+                        <li *ngFor="let vehicle of filteredSearchVehicleDropdownList()" (click)="selectOption(vehicle)"
+                            class="mat-option mat-focus-indicator">
+                            <span class="mat-option-text"> {{vehicle.text}} </span>
+                        </li>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </ng-template>
+
+    <ng-template #icon>
+        <div class="glyphicon glyphicon-chevron-down chevron-color chevron-adjustment">
+
+        </div>
+    </ng-template>
+
+</div>

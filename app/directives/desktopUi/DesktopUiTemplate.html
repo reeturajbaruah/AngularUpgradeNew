@@ -1,0 +1,45 @@
+﻿<!-- Mobile Top Nav & Menu Begin -->
+<div ng-controller="HamburgerMenuController">
+    <div ng-include="'app/templates/menu/hamburgerMenu.html'"></div>
+</div>
+<!-- Mobile Top Nav & Menu End -->
+
+<div id="special-redesign-background">
+    <div id="special-redesign">
+        <!--<div id="globalSpinner" us-spinner="{scale: 1.2}" spinner-key="globalSpinner"></div>-->
+        <trigger-modal-unsupported-browser></trigger-modal-unsupported-browser>
+        <app-spinner class="global-grid-spinner-position"></app-spinner>
+        <div>
+            <!-- Desktop Top Nav & Menu Begin -->
+            <div id="top-menu-container">
+                <div ng-controller="MegaMenuController">
+                    <div ng-include="'app/templates/menu/megaMenu.html'"></div>
+                </div>
+            </div>
+            <!-- Desktop Top Nav & Menu End -->
+
+            <div id="page-content-container">
+                <div id="desktopUiViewRoot">
+                    <div ui-view></div>
+                </div>
+            </div>
+
+            <!-- Footer Begin -->
+            <div id="footer-content-container">
+                <div ng-controller="FooterController" class="desktopOnly">
+                    <div ng-include="'app/templates/menu/footer.html'"></div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+    </div>
+</div>
+
+<div class="footerCopyright desktopOnly">
+    <div ng-include="'/SitecoreViewRequestInterceptor_footerCopyright'"></div>
+</div>
+
+<!-- Footer Begin -->
+<div ng-controller="FooterController" class="mobileOnly">
+    <div ng-include="'app/templates/menu/footer.html'"></div>
+</div>

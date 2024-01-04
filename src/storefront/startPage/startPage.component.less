@@ -1,0 +1,86 @@
+@import (reference) '../../styles/custom/storefront.less';
+
+:host {
+    display: block;
+    height: 100%;
+    user-select: none;
+
+    .legacy {
+        height: 100vh !important;
+    }
+
+    h1,
+    h2,
+    button {
+        font-family: @storefront-site-font-family;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+
+        h1,
+        h2,
+        section {
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        section {
+            width: 40%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+
+            button {
+                font-size: 18px;
+                flex-basis: calc(33% - 40px);
+                margin: 20px;
+                display: block;
+                text-align: center;
+                background-color: rgba(0, 0, 0, 0.5);
+                color: white;
+                border: 1px solid white;
+                padding: 10px;
+            }
+
+            button:hover,
+            button:active,
+            button:focus {
+                background-color: @hctragold;
+                border: 1px solid @hctragold;
+                color: black;
+                opacity: 1.0;
+            }
+        }
+
+        h1,
+        button,
+        button[disabled] {
+            display: block;
+            text-align: center;
+        }
+
+        button,
+        button[disabled] {
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: white;
+            cursor: default;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: white;
+            cursor: default;
+        }
+    }
+}

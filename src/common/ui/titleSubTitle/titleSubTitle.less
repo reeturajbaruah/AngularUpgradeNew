@@ -1,0 +1,35 @@
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../../../Content/css/site-variables.less';
+
+:host {
+
+    .titleClass {
+        font-size: 24px;
+        font-weight: bold;
+        font-family: @font-jost;
+        color: @dark-gray-base;
+
+        @media @breakpoint-lt-sm {
+            font-size: 22px;
+        }
+
+        @media @breakpoint-sm {
+            font-size: 22px;
+        }
+    }
+
+    .subTitleClass {
+        font-size: 16px;
+        font-family: @font-montserrat;
+        color: @dark-gray-base;
+
+        @media @breakpoint-lt-sm {
+            font-size: 12px;
+        }
+
+        @media @breakpoint-sm {
+            font-size: 12px;
+        }
+    }
+}

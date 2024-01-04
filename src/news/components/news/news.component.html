@@ -1,0 +1,29 @@
+<main class="refresh-2020 u-spacing--widthFill">
+    <title-banner>
+        {{newsCms.bannerTitle}}
+    </title-banner>
+
+    <page-filled-container [hasGutter]="false">
+
+
+        <main fxLayout="column" fxLayoutGap="20px" class="news-main">
+
+            <card-dash-container fxFlex="auto" [hasMargin]="false"
+                class="u-spacing__firstHeaderToTitle--marginTop">
+
+                <news-filters *ngIf="categories" [categories]="categories"></news-filters>
+
+            </card-dash-container>
+
+            <news-results *ngIf="newsResults" [results]="newsResults"></news-results>
+
+            <pagination [itemsPerPageList]="itemsPerPageList" 
+            *ngIf="newsResults && newsResults.count>0 && getView()===viewType.Archive"></pagination>
+
+
+        </main>
+
+    </page-filled-container>
+
+
+</main>

@@ -1,0 +1,127 @@
+﻿@import 'site-variables';
+
+.footer {
+    text-align: center;
+    width: 100%;
+}
+
+.footerCopyright div {
+    padding-top: 10px;
+    text-align: center;
+
+    p {
+        color: #333333;
+    }
+}
+
+@media screen and (min-width: @minimum-desktop-width) {
+    .footer {
+        font-size: x-small;
+        padding-top: @footer-desktop-padding;
+
+        span {
+            //padding-left: 50px;
+            padding-right: 5px;
+
+            a {
+                /*text-decoration: none;*/
+                font-size: 11px;
+            }
+        }
+
+        div {
+            div {
+                p {
+                    color: @hctra-gold !important;
+                    font-size: 11px;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        #footer-link-list {
+            display: flex;
+            justify-content: space-between;
+            padding: 0vw 4vw;
+        }
+    }
+}
+
+// TODO: Removeable since this is behavior over all desktop sizes?
+@media screen and (min-width: @screen-md) {
+    .footer {
+        span {
+            padding-right: calc(~'(1200px - @{container-lg-padding} - @{container-lg-padding} - 480px) / 10');
+        }
+
+        .no-padding-left {
+            padding-left: 0px;
+        }
+
+        .no-padding-right {
+            padding-right: 0px;
+        }
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .footer {
+        span {
+            padding-right: calc(~'(1200px - @{container-lg-padding} - @{container-lg-padding} - 480px) / 10');
+        }
+
+        .no-padding-left {
+            padding-left: 0px;
+        }
+
+        .no-padding-right {
+            padding-right: 0px;
+        }
+    }
+}
+
+// Specifically made for when zooming out of website
+@media screen and (min-width: 4900px) {
+    .footer {
+        span {
+            padding-right: calc(~'(1200px - @{container-lg-padding} - @{container-lg-padding} - 810px) / 10');
+        }
+
+        .no-padding-left {
+            padding-left: 0px;
+        }
+
+        .no-padding-right {
+            padding-right: 0px;
+        }
+    }
+}
+
+@media screen and (max-width: @maximum-mobile-width) {
+    .footer {
+        font-size: xx-small;
+        position: absolute;
+        bottom: 0px;
+
+        > div:last-child {
+            padding: @footer-desktop-padding;
+            background-color: @gray-base;
+        }
+
+        span {
+
+            a {
+                font-size: x-small;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+/* Expaned menu pushes footer up, this pushes it back down */
+/* 4/14/2016 - This functionality has been reported as a bug. Removing */
+/*.nav-expanded {
+	.footer {
+		bottom: -60px;
+	}
+}*/

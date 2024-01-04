@@ -1,0 +1,75 @@
+<div id="travel-tools-rates" class="desktopOnly">
+    <header id="june-redesign" class="header-spacing">
+        <h1 class="title-color">{{pageTitle}}</h1>
+    </header>
+    <div class="border-without-footer">
+        <div class="row bottom-buffer-lg">
+            <div class="col-xs-12">
+                <header class="header-spacing">
+                    <p [innerHTML]="cmsPage?.planRouteText | safeHtml"></p>
+                    <h2 class="no-margin-top" [innerHTML]="cmsPage.selectLocationTitle | safeHtml"></h2>
+                    <hr />
+                </header>
+                <div id="toll-rates-select" class="row">
+                    <div class="col-xs-4">
+                        <label for="toll-road-select">{{cmsPage?.selectTollRoadFilterLabel}}</label>
+                        <select [(ngModel)]="selectedTollRoad" (change)="onSelectChange()" class="form-control" id="toll-road-select">
+                            <option *ngFor="let tollRoad of tollRoads" [ngValue]="tollRoad">{{tollRoad.Title}}</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-4" *ngIf="selectedTollRoad?.Directions?.length > 0" id="direction-dropdown">
+                        <label for="direction-select">{{cmsPage?.selectDirOfTravelFilterLabel}}</label>
+                        <select [(ngModel)]="selectedDirection" class="form-control" id="direction-select">
+                            <option [ngValue]="direction" *ngFor="let direction of selectedTollRoad.Directions">{{direction.Direction}}</option>
+                        </select>
+
+                    </div>
+                    <div class="col-xs-3" *ngIf="selectedTollRoad?.Directions?.length > 0">
+                        <label for="vehicle-class-select" class="nobr">{{cmsPage?.selectVehicleClassFilterLabel}}</label>
+                        <select [(ngModel)]="selectedClass" class="form-control" id="vehicle-class-select">
+                            <option [ngValue]="class" *ngFor="let class of classes">{{class.Label}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" [ngClass]="{'no-margin-bottom': selectedTollRoad?.HideSelect, 'bottom-buffer-lg': !selectedTollRoad?.HideSelect && selectedTollRoad?.LongDescription}">
+            <div class="col-xs-12">
+                <div [innerHTML]="selectedTollRoad?.LongDescription | safeHtml"></div>
+            </div>
+        </div>
+        <div class="row" *ngIf="selectedTollRoad?.Directions.length > 0">
+            <div class="col-xs-12">
+                <header class="header-spacing">
+                    <h2 class="no-margin-top">{{selectedTollRoad.Title}} - Traveling {{selectedDirection.Direction}}</h2>
+                    <hr />
+                </header>
+                <div class="row table-container">
+                    <div class="col-xs-12">
+                        <table class="table info-table-border no-margin-bottom">
+                            <thead>
+                                <tr class="info-table-head">
+                                    <th class="col-lg-3 col-md-3 col-xs-3">Location</th>
+                                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">Type</th>
+                                    <ng-container *ngFor="let rate of selectedDirection.TollSections[0].Rates">
+                                        <th *ngIf="rate.Label !== tollRatesService.allAxles && (selectedClass.Label === rate.Label || selectedClass.Label === tollRatesService.allAxles)" class="col-lg-2 col-md-1 col-sm-1 col-xs-1">{{rate.Label}}</th>
+                                    </ng-container>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="info-table-body" *ngFor="let section of selectedDirection.TollSections">
+                                    <td translation-skip [ngClass]="{'bold-lane': section.Bold}">{{section.TollingLocations}}</td>
+                                    <td class="secondary-location-text">{{section.LocationType | uppercase}}</td>
+                                    <ng-container *ngFor="let rate of section.Rates">
+                                        <th *ngIf="rate.Label !== tollRatesService.allAxles && (selectedClass.Label === rate.Label || selectedClass.Label === tollRatesService.allAxles)">{{rate.Value}}</th>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

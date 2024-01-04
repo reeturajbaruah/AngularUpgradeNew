@@ -1,0 +1,144 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+    > div {
+        background-color: @white;
+    }
+
+    span {
+        .t-header--fontFamily();
+        color: @purple-heart-purple;
+    }
+
+    mat-icon {
+        height: 100%;
+        width: 100%;
+    }
+
+    a {
+        text-decoration: none;
+        display: block;
+    }
+
+    #accountIcon {
+        height: 25px;
+        width: 25px;
+    }
+
+    #header-row.compact-menu {
+        height: 60px;
+        padding-left: 8px;
+        padding-right: 20px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+
+        #header-left {
+            #hctra-logo {
+                width: 152px;
+                height: 35px;
+            }
+
+            a {
+                margin-right: 0px;
+            }
+
+            a:first-child {
+                margin-right: 12px;
+            }
+        }
+
+        #header-right {
+
+            #login-link {
+                margin-left: 10px;
+
+                a[href='#accountDropdown'] {
+                    height: 25px;
+                    width: 25px;
+                }
+            }
+        }
+    }
+
+    #header-row {
+        height: 90px;
+        padding-top: 8px;
+        padding-bottom: 16px;
+        padding-right: 40px;
+        padding-left: 24px;
+        border-bottom: 1px solid @silver-gray;
+
+        #header-left {
+
+            #hamburger-button {
+                width: 45px;
+                height: 45px;
+            }
+
+            #hctra-logo {
+                width: 230px;
+                height: 53px;
+            }
+
+            #hctra-logo.smaller-logo {
+                width: 145px;
+            }
+
+            a {
+                margin-right: 30px;
+            }
+
+            a:first-child {
+                margin-right: 24px;
+            }
+        }
+
+        #header-right {
+            height: 100%;
+
+            #login-link {
+                margin-left: 16px;
+
+                a > span > span:first-child {
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+
+                mat-icon[svgicon='home-down-arrow'] {
+                    height: 9px;
+                    width: 9px;
+                }
+
+                .name {
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+            }
+
+            #search-icon {
+                height: 25px;
+                width: 25px;
+            }
+
+            #facebook-link,
+            #twitter-link,
+            #instagram-link,
+            #linkedin-link,
+            #youtube-link {
+                display: block;
+                height: 24px;
+                width: 24px;
+                margin-left: 16px;
+            }
+        }
+
+        span {
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 18px;
+        }
+    }
+}

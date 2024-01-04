@@ -1,0 +1,32 @@
+@import (reference) '../../variables.less';
+
+
+@error--color-light: @torch-red;
+@warning--color-light: @pizazz-gold;
+@success--color-light: @calypso-blue;
+
+
+.t-error--color(@theme) {
+    @color: 'error--color-@{theme}';
+    color: @@color;
+}
+
+.t-error--borderColor(@theme) {
+    @color: 'error--color-@{theme}';
+    border-color: @@color;
+}
+
+.t-error--backgroundColor(@theme) {
+    @color: 'error--color-@{theme}';
+    background-color: @@color;
+}
+
+.t-warning--backgroundColor(@theme) {
+    @color: 'warning--color-@{theme}';
+    background-color: @@color;
+}
+
+.t-success--backgroundColor(@theme) {
+    @color: 'success--color-@{theme}';
+    background-color: @@color;
+}

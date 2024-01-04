@@ -1,0 +1,14 @@
+﻿<button ng-transclude ng-if="!hideProceed" ng-disabled="isProceedDisabled" ng-click="continueAction()" ng-class="transcludedClasses"
+></button>
+
+<a ng-if="showCancel" ng-click="cancelAction()"
+   class="pull-right padding-top-sm bottom-buffer-sm-half right-buffer-lg-do right-buffer-md-mo"
+   aria-label="Cancel"
+>Cancel</a>
+
+<a ng-if="showPrevious" ng-click="gotoPrevious()"
+   class="pull-left padding-top-sm bottom-buffer-sm-half"
+   aria-label="Previous"
+   >Previous</a>
+
+<a ng-if="showLoginHelp" ng-transclude ng-click="showLoginHelpMessage()"></a>

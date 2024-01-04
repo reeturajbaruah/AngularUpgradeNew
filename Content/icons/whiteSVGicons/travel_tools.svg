@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     viewBox="0 0 32 32" enable-background="new 0 0 128 128" xml:space="preserve">
+    <title>Travel Tools</title>
+        <switch>
+            <g>
+                <g>
+                    <circle fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" cx="16" cy="16" r="14" />
+                </g>
+                <g>
+                <path fill="#FFFFFF" d="M16,8.4c-2.8,0-5,2.3-5,5c0,2.9,4.9,10.2,4.9,10.2S21,16.7,21,13.4C21,10.7,18.8,8.4,16,8.4z M16,16.7
+		                c-1.6,0-2.9-1.3-2.9-2.9c0-1.6,1.3-2.9,2.9-2.9c1.6,0,2.9,1.3,2.9,2.9C18.9,15.3,17.6,16.7,16,16.7z" />
+                </g>
+                <foreignObject height="42px" width="42px"><i class="travelToolsIcon"></i></foreignObject>
+            </g>
+        </switch>
+</svg>

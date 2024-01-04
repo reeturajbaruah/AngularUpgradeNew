@@ -1,0 +1,22 @@
+<section fxLayout="column" fxLayoutGap="10px">
+
+    <p class="category">{{item.category}}</p>
+
+    <p class="title">{{item.title}}</p>
+
+    <p class="sub-title" [innerHtml]="item.subtitle"></p>
+
+    <mat-divider></mat-divider>
+
+    <div>
+        <span><mat-icon svgIcon="clock"></mat-icon></span>
+        <span class="publish-on">{{getVal('publishedOn')}} {{item.publishedOn | date: 'longDate' }}</span>
+    </div>
+
+    
+
+    <article class="description" [innerHTML]="item.description | safeHtml"></article>
+
+    <span class="read-more" *ngIf="item.targetUrl"><a (click)="readMore(item.targetUrl)">
+        {{getVal('readMore')}}</a></span>
+</section>

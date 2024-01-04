@@ -1,0 +1,97 @@
+<page-centered-container>
+    <form #ConfirmForm="ngForm" validation-focus name="missedATollForm"
+          fxLayout="column"
+          class="u-spacing--widthFill">
+
+        <card-container>
+            <header>
+                <h2>{{cms.reviewInfoHeader}}</h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+            <article>{{cms.emailInstructions}}</article>
+
+            <!--Email-->
+            <section [error-check]="EmailAddressInput" class="u-spacing--widthFill u-spacing__fieldToSection--marginTop">
+                <mat-label>EMAIL</mat-label>
+                <input type="text"
+                       id="emailAddress"
+                       name="emailAddress"
+                       #EmailAddressInput="ngModel"
+                       [(ngModel)]="parent.emailAddress"
+                       maxLength="80"
+                       minLength="1"
+                       placeholder="username@domain.com"
+                       class="u-spacing--widthFill"
+                       email />
+
+                <div *ngFor="let error of EmailAddressInput.errors | keyvalue" role="alert">
+                    <ng-container *ngIf="ConfirmForm.submitted" [ngSwitch]="error.key">
+                        <p *ngSwitchCase="'email'" class="help-block">Please enter a valid email address</p>
+                        <p *ngSwitchCase="'maxLength'" class="help-block">Please enter a valid email address</p>
+                        <p *ngSwitchCase="'minLength'" class="help-block">Please enter a valid email address</p>
+                    </ng-container>
+                </div>
+            </section>
+        </card-container>
+
+        <card-container class="u-spacing__cardToCard--marginTop">
+            <header>
+                <div fxLayout="row"
+                     fxLayoutAlign="start center"
+                     class="u-spacing--widthFill">
+                    <h2 fxFlex="grow">{{cms.paymentDetailsHeader}}</h2>
+                    <a class="editButton"
+                       (click)="openModal()"
+                       fxFlex="none"
+                       aria-label="Edit">
+                        Edit
+                    </a>
+                </div>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+
+            <payment-display [billingType]="billingInfo.billingType"
+                             [bankDetails]="billingInfo.eft"
+                             [creditCard]="billingInfo.credit"
+                             [showAccountNumber]="true"
+                             [showLabels]="true">
+            </payment-display>
+
+            <address-display *ngIf="billingInfo.billingType"
+                             [address]="billingInfo.billingType === BillingType.Credit ?  billingInfo.credit : billingInfo.eft"                             
+                             [international]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit.international : billingInfo.eft.international"
+                             [showLabels]="true">
+            </address-display>
+
+            <row-container [rowType]="'emphasis'"
+                           class="u-spacing__rowToSection--marginTop">
+                <section col-start
+                         id="totalPaymentLabel"
+                         fxFlex="grow">
+                    {{cms.totalPaymentLabel}}
+                </section>
+
+                <section col-end
+                         id="totalPaymentValue"
+                         fxFlex="none">
+                    <currency [value]="totalPayment"></currency>
+                </section>
+            </row-container>
+        </card-container>
+
+        <section class="u-spacing__buttonToField--marginTop">
+            <wizard-ui (next)="submit($event)"
+                       (previous)="previous($event)">
+                <span wizard-next>PAY</span>
+                <span wizard-previous
+                      fxLayout="row"
+                      fxLayoutAlign="start center">
+                    <mat-icon svgIcon="previous-arrow"></mat-icon>
+                    Previous
+                </span>
+                <span wizard-cancel>Cancel</span>
+            </wizard-ui>
+        </section>
+
+    </form>
+</page-centered-container>

@@ -1,0 +1,33 @@
+@import (reference) '../themes.less';
+
+
+#global-search-parent {
+
+    > * {
+        width: 100%;
+        height: 100%;
+    }
+
+    .gsc-search-button {
+        display: none;
+    }
+
+    .gsc-input {
+        padding: 0px;
+
+        input,
+        input::placeholder {
+            height: 38px !important;
+            line-height: 38px;
+            font-size: 18px;
+            .t-body--fontFamily() !important;
+            font-style: normal;
+        }
+
+        span {
+            color: @azure-radiance-blue;
+            line-height: 38px;
+            font-size: 34px;
+        }
+    }
+}

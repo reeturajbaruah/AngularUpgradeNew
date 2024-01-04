@@ -1,0 +1,73 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+
+.overlayPanelClass {
+    margin-top: 7px;
+    margin-left: -24px;
+}
+
+mat-datarange-picker-with-header {
+    main {
+        display: inline-block;
+        min-width: 266px;
+        max-height: 42px;
+    }
+}
+
+.mat-date-range-picker-with-header-trigger-content {
+    padding-right: 8px;
+}
+
+.mat-date-range-picker-with-header-panel {
+    display: block;
+    padding: 10px;
+
+    @media @breakpoint-lt-md {
+        width: calc(100vw - 2 * attr(data-x-offset));
+    }
+
+    @media not @breakpoint-lt-md {
+        width: 355px;
+    }
+
+    background: @white 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000080;
+
+    mat-calendar,
+    section {
+        border: 1px solid @silver-gray;
+        border-radius: 5px;
+
+        mat-date-range-input {
+            height: 18px;
+        }
+    }
+
+    mat-calendar {
+        border-top-width: 0px;
+    }
+
+    section {
+        padding: 15px 10px;
+    }
+
+    .mat-calendar-controls {
+        margin-top: 0px;
+    }
+
+    input[matStartDate],
+    input[matEndDate],
+    mat-date-range-input {
+        .t-body--fontFamily();
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .help-block {
+        .t-error--color(@theme-light);
+        .t-body--fontFamily;
+        font-size: 12px;
+        margin-top: 6px;
+    }
+}

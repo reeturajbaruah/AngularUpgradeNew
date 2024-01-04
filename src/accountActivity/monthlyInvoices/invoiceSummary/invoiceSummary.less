@@ -1,0 +1,42 @@
+@import (reference) '../../../styles/custom/spacing/sections.less';
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/mixins.less';
+@import '../../../common/ui/containers/fxRow/details.less';
+
+:host {
+    h3 {
+        .refresh-2020.u-spacing__fieldToField--marginTop();
+    }
+
+    .gridish {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .gridish > * {
+        flex: 1 1 10em;
+    }
+
+    .display {
+        display: block;
+    }
+
+    .table-padding {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        @media @breakpoint-lt-md {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
+
+    .gridish {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .gridish > * {
+        flex: 1 1 10em;
+    }
+}

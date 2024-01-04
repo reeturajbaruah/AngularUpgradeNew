@@ -1,0 +1,48 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+
+:host {
+    .buttonSelected {
+        background-color: @azure-radiance-blue;
+        font-size: 8pt;
+        color: white;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        height: 25px;
+    }
+
+    .buttonUnSelected {
+        background-color: white;
+        font-size: 8pt;
+        color: @boulder-gray;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        height: 25px;
+        border: 1px solid @boulder-gray;
+    }
+
+    .activeStatus {
+        color: @tropical-rain-forest-green;
+        font-size: 14px;
+    }
+
+    .pendingActivationStatus {
+        color: @azure-radiance-blue;
+        font-size: 14px;
+    }
+
+    .infoIcon {
+        width: 10.34px;
+        height: 10.34px;
+        vertical-align: top;
+        color: @azure-radiance-blue;
+    }
+
+    .asideLabels {
+        font-size: 10pt;
+    }
+}

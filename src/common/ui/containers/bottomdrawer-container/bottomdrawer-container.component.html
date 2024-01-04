@@ -1,0 +1,72 @@
+<ng-container *ngIf="enableHeader">
+    <div fxLayout="row" class="bd-header">
+        <div fxFlex="{{headerFxFlex}}">
+            <ng-container *ngFor="let header of headers; first as isFirst; let i = index">
+                <mat-label fxFlex="{{header.fxFlexValue + '%'}}"
+                    [ngClass]="{'xs-hide': !header.isPrimary}">{{header.label}}</mat-label>
+            </ng-container>
+        </div>
+        <div fxFlex="{{headerFxFlexCaret}}"></div>
+    </div>
+</ng-container>
+<ng-container *ngFor="let bdRow of config?.data; let i = index">
+    <div class="bd-padding">
+        <ng-container *ngIf="!disableDesktopDrawer; else desktopDrawer">
+            <div [id]="'bd-d-row-' + i" fxLayout="row" class="bottomdrawer-container"
+                [ngClass]="{'bd-selected': bdRow.isSelected}" (click)="toggleRow(i)">
+                <div fxFlex="95">
+                    <label class="bottomdrawer">
+                        <ng-container *ngFor="let column of bdRow.columns; first as isFirstj; let j = index">
+                            <span fxFlex="{{rowFxFlexValues[j].fxFlexValue + '%'}}" fxFlex.lt-md="auto"
+                                [ngClass]="{'sub-label': j > 0, 'xs-hide': !rowFxFlexValues[j].isPrimary}"
+                                [ngStyle]="{'font-weight': isFirstj ? '700' : '600'}">{{column.label}}</span>
+                        </ng-container>
+                    </label>
+                </div>
+                <div fxFlex="5" class="caret-img-container">
+                    <img [ngClass]="{'selected-row': bdRow.isSelected}" [src]="caretCmsImage.image">
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #desktopDrawer>
+            <div fxShow.lt-md fxHide [id]="'bd-d-row-' + i" fxLayout="row" class="bottomdrawer-container"
+                [ngClass]="{'bd-selected': bdRow.isSelected}" (click)="toggleRow(i)">
+                <div fxFlex="95">
+                    <label class="bottomdrawer">
+                        <ng-container *ngFor="let column of bdRow.columns; first as isFirstj; let j = index">
+                            <span fxFlex="{{rowFxFlexValues[j].fxFlexValue + '%'}}" fxFlex.lt-md="auto"
+                                [ngClass]="{'sub-label': j > 0, 'xs-hide': !rowFxFlexValues[j].isPrimary}"
+                                [ngStyle]="{'font-weight': isFirstj ? '700' : '600'}" [innerHTML]="column.label | safeHtml"></span>
+                        </ng-container>
+                    </label>
+                </div>
+                <div fxFlex="5" class="caret-img-container">
+                    <img [ngClass]="{'selected-row': bdRow.isSelected}" [src]="caretCmsImage.image">
+                </div>
+            </div>
+            <div fxShow.gt-sm fxHide [id]="'bd-m-row-' + i" fxLayout="row"
+                class="bottomdrawer-container bottomdrawer-container-disabled">
+                <div fxFlex="auto">
+                    <label class="bottomdrawer">
+                        <ng-container *ngFor="let column of bdRow.columns; first as isFirstj; let j = index">
+                            <span fxFlex="{{rowFxFlexValues[j].fxFlexValue + '%'}}" fxFlex.lt-md="auto"
+                                [ngClass]="{'sub-label': j > 0, 'xs-hide': !rowFxFlexValues[j].isPrimary}"
+                                [ngStyle]="{'font-weight': isFirstj ? '700' : '600'}" [innerHTML]="column.label | safeHtml"></span>
+                        </ng-container>
+                    </label>
+                </div>
+            </div>
+        </ng-template>
+        <div class="bottomdrawer-content" [ngClass]="{'display-content': bdRow.isSelected}">
+            <div fxShow.lt-md fxHide class="bd-padding">
+                <ng-container *ngFor="let column of bdRow.columns; first as isFirstj; let j = index">
+                    <div *ngIf="!column.isPrimary" class="bd-padding">
+                        <mat-label style="display: block;">{{headers[j].label}}</mat-label>
+                        <p [innerHTML]="column.label | safeHtml"></p>
+                    </div>
+                </ng-container>
+            </div>
+            <div [innerHTML]="bdRow.content | safeHtml"></div>
+        </div>
+    </div>
+</ng-container>

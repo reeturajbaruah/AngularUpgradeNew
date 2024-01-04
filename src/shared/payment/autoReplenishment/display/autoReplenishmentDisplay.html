@@ -1,0 +1,21 @@
+<ng-container *ngIf="cmsContent">
+    <div style="padding-top:10px;">
+        <div class="divCms container-display">
+            <section>
+                <mat-icon *ngIf="autoReplenishmentStatus"
+                          svgIcon="auto-replenishment-on">
+                </mat-icon>
+                <mat-icon *ngIf="!autoReplenishmentStatus"
+                          svgIcon="auto-replenishment-off">
+                </mat-icon>
+            </section>
+            <section>
+                <span>{{cmsContent.Title}}</span>
+            </section>
+            <section>
+                <span *ngIf="autoReplenishmentStatus" class="auto-replenishment-on">{{cmsContent.Yes}}</span>
+                <span *ngIf="!autoReplenishmentStatus" class="auto-replenishment-off">{{cmsContent.No}}</span>
+            </section>
+        </div>
+    </div>
+</ng-container>

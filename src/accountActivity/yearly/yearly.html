@@ -1,0 +1,52 @@
+
+<card-dash-container class="display" [hasMargin]="false">
+    <header fxLayout="column">
+        <h2>Yearly Summary</h2>
+    </header>
+    <section fxLayout="row wrap" fxLayoutAlign="start end" fxLayoutGap="8px">
+
+        <section *ngIf="showStatementYears"
+                 fxFlex="none"
+                 ngClass.lt-md="mobileDatePicker">
+            <mat-label>
+                SELECT SUMMARY
+            </mat-label>
+            <year-transition-dropdown [yearTransitionData]="yearTransitionData"
+                                      (yearTransitionChange)="onYearSelectionChanged($event)"
+                                      ngClass.lt-md="standardStateDropdown">
+            </year-transition-dropdown>
+        </section>
+
+        <div *ngIf="showStatementYears"
+             fxFlex="none"
+             ngClass.lt-md="u-spacing--widthFill u-spacing__buttonToField--marginTop"
+             ngClass.md="buttonStyle">
+            <button (click)="getYearlySummaryInfoData(this.selectedYear)"
+                    ngClass.lt-md="u-spacing--widthFill">
+                SEARCH
+            </button>
+        </div>
+    </section>
+    <section *ngIf="!showStatement; else withData" class="u-spacing__fieldToSection--marginTop">
+        <div *ngIf="!showStatementYears && !currentUser.largeAccountFlag">
+            <mat-icon class="no-statements" svgIcon="alert"></mat-icon>
+            {{cmsContent.NO_DATA}}
+        </div>
+    </section>
+    <ng-template #withData >
+        <div *ngIf="showStatementYears && currentUser.largeAccountFlag" class="u-spacing__fieldToSection--marginTop">
+            <mat-icon class="no-statements" svgIcon="alert"></mat-icon>
+            {{cmsContent.LARGE_ACCOUNT}}
+        </div>
+    </ng-template>
+</card-dash-container>
+
+<card-dash-container *ngIf="showStatement && setupShowStatement" class="display cardToCardSpacer" [hasMargin]="false">
+    <div fxLayout="row wrap">
+        <yearly-summary-info #appYearlySummary
+                             [year]="this.selectedYear"
+                             [cmsContent]="cmsContent"
+                             [eztagSummary]="yearlySummaryData.tagSummary"
+                             [accountSummary]="yearlySummaryData.acctSummary"></yearly-summary-info>
+    </div>
+</card-dash-container>

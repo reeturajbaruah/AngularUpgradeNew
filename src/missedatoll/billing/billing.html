@@ -1,0 +1,56 @@
+<page-centered-container>
+    <form #BillingForm="ngForm" validation-focus name="missedATollForm"
+          fxLayout="column"
+          class="u-spacing--widthFill">
+        <card-container>
+            <header>
+                <h2>Payment Method</h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+            <section>
+                <payment-method [(billingType)]="billingInfo.billingType">
+                </payment-method>
+            </section>
+            <section *ngIf="billingInfo.billingType" class="u-spacing__fieldToField--marginTop">
+                <bank-account-entry *ngIf="billingInfo.billingType === BillingType.Eft"
+                                    [bankDetails]="billingInfo.eft"
+                                    [validate]="true"
+                                    [showName]="true">
+                </bank-account-entry>
+                <credit-card-entry *ngIf="billingInfo.billingType === BillingType.Credit"
+                                   [creditCard]="billingInfo.credit">
+                </credit-card-entry>
+            </section>
+        </card-container>
+        <card-container *ngIf="billingInfo.billingType"
+                        class="u-spacing__cardToCard--marginTop">
+            <header>
+                <h2>Billing Address</h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+            <section>
+                <address-entry [stateList]="parent.stateList"
+                               [address]="billingInfo.billingType === BillingType.Credit ?  billingInfo.credit : billingInfo.eft"
+                               [billingType]="billingInfo.billingType"
+                               [validate]="true"
+                               [countryList]="parent.countryList"
+                               [(international)]="billingInfo.billingType === BillingType.Credit ? billingInfo.credit.international : billingInfo.eft.international">
+                </address-entry>
+            </section>
+        </card-container>
+
+        <section class="u-spacing__buttonToField--marginTop">
+            <wizard-ui (next)="submit($event)"
+                       (previous)="previous($event)">
+                <span wizard-next>CONTINUE</span>
+                <span wizard-previous
+                      fxLayout="row"
+                      fxLayoutAlign="start center">
+                    <mat-icon svgIcon="previous-arrow"></mat-icon>
+                    Previous
+                </span>
+                <span wizard-cancel>Cancel</span>
+            </wizard-ui>
+        </section>
+    </form>
+</page-centered-container>

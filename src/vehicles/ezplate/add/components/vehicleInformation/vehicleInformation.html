@@ -1,0 +1,84 @@
+<page-centered-container class="refresh-2020">
+
+    <form #Form="ngForm" validation-focus novalidate>
+
+        <div class="u-spacing__fieldToSection--marginTop">
+
+            <card-container>
+                <header>
+                    <h2>{{cmsAddPlateVehicleInfo.Title}}</h2>
+                    <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                </header>
+
+                <article [innerHtml]="cmsAddPlateVehicleInfo.LongDescription | safeHtml"></article>
+
+                <vehicle-info-form-entry [modalCms]="cmsAddPlateVehicleInfo" [vehicleInfo]="vehicleInfo"
+                                         [stateList]="statesList" [plateIsReadOnly]="false" [showTempPlate]="false">
+                </vehicle-info-form-entry>
+
+                <section fxLayout="row" fxLayoutAlign="space-between center" style="padding-top:32px;">
+                    <mat-label>START DATE/TIME</mat-label>
+                    <mat-label>NO. OF DAYS</mat-label>
+                    <mat-label fxShow fxHide.lt-sm>END DATE/TIME</mat-label>
+                </section>
+
+                <section fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+
+                    <div class="expanded-column" fxLayout="column" fxLayoutAlign="start start">
+                        <hctra-mat-datetime-picker-with-input [name]="'startDate'" [dateTimeModel]="startDateTime"
+                                                              (dateTimeModelChange)="startDateTime=$event;onDateEntered()">
+                        </hctra-mat-datetime-picker-with-input>
+                        <mat-label>Time displayed in CDT</mat-label>
+                    </div>
+
+                    <div class="expanded-column" fxLayout="column" fxLayoutAlign="start flex-end" [error-check]="NumberOfDaysCheck">
+                        <input type="number" id="numberOfDays" #NumberOfDaysCheck="ngModel" name="numberOfDays"
+                               aria-label="Number of Days" min="0" onkeypress="return event.charCode >= 48" required
+                               [ngModel]="numberOfDays" (ngModelChange)="numberOfDays=$event;onNumberOfDaysEntered()"
+                               ngPattern="/^([0-9]+)$/" style="max-width: 80px; padding-right:9px;" />
+                        <div *ngFor="let error of NumberOfDaysCheck.errors | keyvalue" role="alert">
+                            <ng-container *ngIf="Form.submitted" [ngSwitch]="error.key">
+                                <p *ngSwitchCase="'required'" class="help-block">Please enter # of days</p>
+                                <p *ngSwitchCase="'invalidNum'" class="help-block">{{error.value}}</p>
+                            </ng-container>
+                        </div>
+                    </div>
+
+
+                    <div class="expanded-column" fxLayout="column" fxLayoutAlign="start start">
+                        <hctra-mat-datetime-picker-with-input fxShow fxHide.lt-sm [name]="'endDate'"
+                                                              [dateTimeModel]="endDateTime" (dateTimeModelChange)="endDateTime=$event;onDateEntered()">
+                        </hctra-mat-datetime-picker-with-input>
+                        <mat-label fxShow fxHide.lt-md>Time displayed in CDT</mat-label>
+                    </div>
+
+                </section>
+
+
+                <section fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.gt-xs style="padding-top:32px;">
+                    <mat-label>END DATE/TIME</mat-label>
+                </section>
+
+                <section fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.gt-xs>
+                    <hctra-mat-datetime-picker-with-input fxShow fxHide.lt-xs [name]="'endDate'"
+                                                          [dateTimeModel]="endDateTime" (dateTimeModelChange)="endDateTime=$event;onDateEntered()">
+                    </hctra-mat-datetime-picker-with-input>
+                </section>
+
+                <section fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.gt-xs>
+                    <mat-label>Time displayed in CDT</mat-label>
+                </section>
+            </card-container>
+
+            <section class="u-spacing__buttonToField--marginTop">
+                <wizard-ui #Wizard (next)="nextStep($event)" [disabled]="Form.submitted && Form.invalid">
+                    <span wizard-next>NEXT</span>
+                    <span wizard-cancel>Cancel</span>
+                </wizard-ui>
+            </section>
+
+        </div>
+
+    </form>
+
+</page-centered-container>

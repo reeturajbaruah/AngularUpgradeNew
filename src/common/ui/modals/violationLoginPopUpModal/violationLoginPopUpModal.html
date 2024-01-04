@@ -1,0 +1,98 @@
+<main id="modal-popup" class="refresh-2020" style="position:relative">
+
+    <section fxLayout="column" ngClass.lt-md="mobile-style" ngClass="desktop-style">
+        <storefront-utility #storefront></storefront-utility>
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <header fxLayout="column" fxLayoutAlign="center center">
+                <h2>{{cmsContent.Title}}</h2>
+                <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            </header>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div [innerHtml]="cmsContent.LongDescription | safeHtml"></div>
+        </div>
+
+        <section ngClass.gt-sm="padding-grid">
+            <section *ngIf="associatedPlates.length > 2" class="u-spacing__firstHeaderToTitle--marginTop">
+                <cms-content [template]="cmsContent.ShortDescription" [data]="{ plateCount : associatedPlates.length + 1 }"></cms-content>
+            </section>
+            <fx-row [isLabel]="true" [backgroundColorClass]="'transparent-background'">
+                <section col-start class="fx-flex-auto fx-layout-row fx-layout-align-start-center u-spacing--widthFill">
+                    <mat-label>PLATE</mat-label>
+                </section>
+                <section col-end fxFlex="none">
+                    <mat-label>AMOUNT</mat-label>
+                </section>
+            </fx-row>
+
+            <row-container [rowType]="'semi-emphasis'"
+                           [isTop]="true">
+                <section translation-skip col-start fxFlex="grow">
+                    {{searchPlate.licenseState}} {{searchPlate.licensePlate}}
+                </section>
+                <section col-end fxFlex="none">
+                    <currency [value]="searchPlate.plateDueBeforeDiscount"></currency>
+                </section>
+            </row-container>
+
+            <section *ngFor="let plate of associatedPlates | slice:0:2; let i = index">
+                <row-container [rowType]="'semi-emphasis'"
+                               [isInner]="true">
+                    <section col-start fxFlex="grow">
+                        <span translation-skip>{{plate.licenseState}} {{plate.licensePlate}}</span>
+                        <ng-container *ngIf="plate.plateDueBeforeDiscount === 0 && plate.hasPaymentPlan">
+                            <span fxFlex="none">
+                                <tool-tip class="toolTip" [stayOpenOnHover]="true" style="padding-left:0.5em;">
+                                    <span tool-tip-hover>
+                                        <mat-icon class="openVioPayPlans" svgIcon="alert"></mat-icon>
+                                    </span>
+                                    <span tool-tip-message *ngIf="!storefront.isKioskView; else ppKioskTooltip" class="hoverBoxAdjusment" ngClass.lt-md="mobile-hoverBoxAdjusment">
+                                        <cms-content [template]="cmsContent.PAY_PLAN_TOOLTIP_TEXT" [data]="{ paymentPlanBalance : plate.paymentPlanBalance }"></cms-content>
+                                        <a class="payment-plan-link" (click)="goToPaymentPlans(plate)">{{ cmsContent?.PAY_PLAN_TOOLTIP_LINK ?? '' }}</a>
+                                    </span>
+                                    <ng-template #ppKioskTooltip>
+                                        <cms-content [template]="cmsContent.PAY_PLAN_TOOLTIP_KIOSK_TEXT" [data]="{ paymentPlanBalance : plate.paymentPlanBalance }"></cms-content>
+                                    </ng-template>
+                                </tool-tip>
+                            </span>
+                        </ng-container>
+                    </section>
+                    <section col-end fxFlex="none">
+                        <currency [value]="plate.plateDueBeforeDiscount"></currency>
+                    </section>
+                </row-container>
+            </section>
+            <section *ngIf="associatedPlates.length > 2">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div [innerHtml]="cmsContent.extraPlatesDivider | safeHtml"></div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div [innerHtml]="cmsContent.extraPlatesText | safeHtml"></div>
+                </div>
+            </section>
+
+            <row-container [rowType]="'emphasis'"
+                           [isBottom]="true">
+                <section col-start
+                         fxFlex="grow">
+                    TOTAL
+                </section>
+                <section col-end
+                         fxFlex="none">
+                    <currency [value]="totalViolatedAmount"></currency>
+                </section>
+            </row-container>
+        </section>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="u-spacing__buttonToField--marginTop">
+            <action-buttons (main)="acceptButtonClick()"
+                            (alt)="cancelButtonClick()"
+                            [direction]="'row'"
+                            [directionLtMd]="'column'">
+                <span action-alt *ngIf="cmsContent.CancelBtn">{{cmsContent.CancelBtn}}</span>
+                <span action-main>{{cmsContent.AcceptBtn}}</span>
+            </action-buttons>
+        </div>
+    </section>
+</main>

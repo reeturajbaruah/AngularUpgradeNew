@@ -1,0 +1,22 @@
+<section fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="u-spacing--widthFill">
+
+        <div>
+            <p>{{labels.cardNumber}}:</p>
+        </div>
+
+        <div style="text-align:right;">
+            <p translation-skip>{{creditCardDetails.cardCode | cardType | uppercase}} {{maskedCreditCardNumber}}</p>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="u-spacing--widthFill">
+        <div>
+            <p>{{labels.expirationDate}}:</p>
+        </div>
+
+        <div style="text-align:right;">
+            <p translation-skip>{{cardExpires}}</p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,4 @@
+<div class="checkbox-container">
+    <input type="checkbox" [(ngModel)]="checkbox" (ngModelChange)="checkboxChange.emit(checkbox)">
+    <span [innerHtml]="desc | safeHtml"></span>
+</div>

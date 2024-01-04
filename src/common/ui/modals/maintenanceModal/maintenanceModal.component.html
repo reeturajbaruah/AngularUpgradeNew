@@ -1,0 +1,10 @@
+<div id="maintenance-modal-popup">
+    <div class="modal-body">
+        <div [innerHTML]="cmsContent?.PrimaryContent | safeHtml"></div>
+        <button type="button" class="btn" (click)="close()">
+            <span>
+                {{cmsContent?.AcceptBtn}}
+            </span>
+        </button>
+    </div>
+</div>

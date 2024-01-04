@@ -1,0 +1,58 @@
+<div class="phone-number-container">
+    
+    <!-- Phone Number Section -->
+    <div class="phone-number-section">
+        <mat-label ngClass="labelMargin" [innerHtml]="phoneNumberHeader"></mat-label>
+
+        <div [error-check]="phoneNumberInput">
+            <input #phoneNumberInput="ngModel"
+                   [name]="phoneInputName"
+                   type="text"
+                   placeholder="xxx-xxx-xxxx"
+                   [(value)]="phoneNumber"
+                   [(ngModel)]="phoneNumber"
+                   (ngModelChange)="updatePhoneNumber()"
+                   maxLength="12"
+                   pattern="^[0-9]{10}$|^[0-9]{3}-[0-9]{3}-[0-9]{4}$"
+                   [required]="required || phoneNumberExt"
+                   />
+
+            <aside *ngIf="submitted && (phoneNumberInput.errors?.pattern || phoneNumberInput.errors?.required)" role="alert">
+                <p class="help-block">{{cmsContent.PhoneNumberValidationText}}</p>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Phone Number Ext Section -->
+    <div class="phone-number-ext-section" *ngIf="showPhoneNumberExt">
+        <mat-label ngClass="labelMargin extension-space" [innerHtml]="phoneNumberExtHeader"></mat-label>
+
+        <div [error-check]="phoneNumberExtInput">
+            <input #phoneNumberExtInput="ngModel"
+                   [name]="phoneExtInputName"
+                   type="text"
+                   placeholder="xxxx"
+                   [(value)]="phoneNumberExt"
+                   [(ngModel)]="phoneNumberExt"
+                   (ngModelChange)="updatePhoneNumberExt()"
+                   maxLength="4"
+                   pattern="^\d{1,4}$"
+                   />
+
+            <aside *ngIf="submitted && (phoneNumberExtInput.errors?.pattern)" role="alert">
+                <p class="help-block">{{cmsContent.PhoneExtensionValidationText}}</p>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Trash Icon Section -->
+    <div class="trash-icon-section" *ngIf="showTrashIcon">
+        <mat-icon class="clickable"
+                  svgIcon="trash-icon"
+                  [ngClass]="{'disable': disableTrashIcon}"
+                  (click)="!disableTrashIcon && deleteAltPhone()"
+                  >
+        </mat-icon>
+    </div>
+
+</div>

@@ -1,0 +1,91 @@
+<page-centered-container class="refresh-2020" hasAlternateBackgroundColor="true">
+    <form #AuthPasswordForm="ngForm"
+          fxLayout="column"
+          class="u-spacing--widthFill">
+        <card-container class="u-spacing__fieldToSection--marginTop">
+            <h2>{{cmsContent.MAIN_HEADER}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <article [innerHtml]="cmsContent.MAIN_INFO | safeHtml"></article>
+            <fx-row *ngIf="tentativeAuthorizedContacts.length > 0"
+                                   [isLabel]="true"
+                                   [backgroundColorClass]="'transparent-background'"
+                                   class="u-spacing__sectionToSection--marginTop">
+                <section col-start
+                         fxFlex
+                         fxLayout="row"
+                         fxLayoutAlign="start end">
+                    <mat-label>NAME</mat-label>
+                </section>
+                <section col-end
+                         fxFlexOffset="40px"
+                         fxLayout="row"
+                         fxLayoutAlign="start end">
+                    <tool-tip>
+                        <span tool-tip-hover>
+                            <mat-icon svgIcon="information"></mat-icon>
+                        </span>
+                        <span tool-tip-message class="hover-box-adjustment">
+                            {{cmsContent.TOOL_TIP_INFO}}
+                        </span>
+                    </tool-tip>
+                    <mat-label fxFlexOffset="5px">ACCESS CODE</mat-label>
+                </section>
+            </fx-row>
+            <section *ngFor="let contact of tentativeAuthorizedContacts; let i = index"
+                     class="contact">
+                <auth-contact translation-skip
+                              [contactInfo]="contact"
+                              (removeContact)="toggleRemove(i)"
+                              (editContact)="openAuthContactEdit(i)"
+                              [cmsContent]="this.cmsContent.Children[1]"></auth-contact>
+            </section>
+            <section *ngIf="tentativeAuthorizedContacts.length < authContactLimit"
+                     class="u-spacing__fieldToSection--marginTop"
+                     fxLayout="row"
+                     fxLayoutAlign="center center"
+                     (click)="openAuthContactAdd()"
+                     [ngClass]="{disabled:hasEmptyAccesCode}">
+                <mat-icon svgIcon="add-icon"></mat-icon>
+                <a fxFlexOffset="6px"
+                   class="add-text">{{cmsContent.ADD_BUTTON}}</a>
+            </section>
+
+            <section *ngIf="tentativeAuthorizedContacts.length >= authContactLimit"
+                     class="u-spacing__fieldToSection--marginTop"
+                     fxLayout="row"
+                     fxLayoutAlign="center baseline">
+                <mat-icon class="alert-icon"
+                          svgIcon="alert"></mat-icon>
+                <p fxFlexOffset="6px">{{cmsContent.MAX_LIMIT}}</p>
+            </section>
+        </card-container>
+
+        <card-container *ngIf="!tentativeIsSameAsOriginal()"
+                        class="u-spacing__cardToCard--marginTop">
+            <p>{{cmsContent.PASSWORD_INFO}}</p>
+            <section [error-check]="CurrentPasswordInput">
+                <mat-label>CURRENT PASSWORD</mat-label>
+                <input type="text"
+                       [(ngModel)]="authorizedContactDetails.currentPassword"
+                       #CurrentPasswordInput="ngModel"
+                       name="currentPassword"
+                       [type]="isShowPassword ? 'text' : 'password'"
+                       required/>
+                <show-hide-input-button [(showField)]="isShowPassword"></show-hide-input-button>
+                
+                <error-messages [errors]="CurrentPasswordInput.errors" [activeBeforeSubmit]="CurrentPasswordInput.touched">
+                    <error-message rule="required">Please enter your password</error-message>
+                </error-messages>
+            </section>
+        </card-container>
+        <section *ngIf="!tentativeIsSameAsOriginal() || this.isKiosk"
+                 class="u-spacing__buttonToField--marginTop">
+            <action-buttons (main)="submit(AuthPasswordForm, wizardUi)"
+                            (alt)="cancel(wizardUi)">
+                <span action-main>{{saveButtonText}}</span>
+                <span action-alt>Cancel</span>
+            </action-buttons>
+            <wizard-ui #wizardUi></wizard-ui>
+        </section>
+    </form>
+</page-centered-container>

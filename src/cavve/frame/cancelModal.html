@@ -1,0 +1,13 @@
+<main class="refresh-2020" >
+    <header>
+        <h2>{{question}}</h2>
+        <mat-divider></mat-divider>
+    </header>
+    
+    <action-buttons (main)="makeChoice(false)"
+                    (alt)="makeChoice(true)">
+        <span action-main>{{rejectMessage}}</span>
+        <span action-alt>{{confirmMessage}}</span>
+    </action-buttons>
+
+</main>

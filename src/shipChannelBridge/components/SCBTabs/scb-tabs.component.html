@@ -1,0 +1,28 @@
+<ng-container>
+    <section class="selector" fxFlex="1 1 100%" fxLayout="column">
+        <ng-container>
+            <ul class="desktop-container" fxFlex="1 1 100%" fxLayoutAlign="start start">
+                <ng-container *ngFor="let dynamicDisplay of dynamicDisplays, let last = last">
+                    <li (click)="setSelectedDisplay(dynamicDisplay)"
+                        [class.selected]="selectedDisplay === dynamicDisplay">
+                        <mat-label>{{dynamicDisplay.title}}</mat-label>
+                    </li>
+                    <span *ngIf="!last" class="seperator"></span>
+                </ng-container>
+            </ul>
+        </ng-container>
+        <ng-container>
+            <mat-form-field class="mobile-tab-container">
+                <mat-select [(value)]="selectedDisplay" (selectionChange)="setSelectedDisplay(selectedDisplay)">
+                    <mat-option *ngFor="let dynamicDisplay of dynamicDisplays" [value]="dynamicDisplay">
+                        {{dynamicDisplay.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-container>
+
+        <article class="tabs-content">
+            <div [innerHTML]="selectedDisplay?.longDescription | safeHtml"></div>
+        </article>
+    </section>
+</ng-container>

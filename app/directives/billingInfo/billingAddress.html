@@ -1,0 +1,8 @@
+﻿<div translation-skip>
+    <p ng-class="{h4: !noH4}" class="customer-account-data">{{creditCard.address1 | capitalize}}</p>
+    <p ng-class="{h4: !noH4}" class="customer-account-data" ng-if="creditCard.address2">{{creditCard.address2 | capitalize}}</p>
+    <p ng-if="!international" ng-class="{h4: !noH4}" class="customer-account-data">{{creditCard.city + ", " | capitalize}}{{creditCard.state + " " + creditCard.zip + (creditCard.plus4 ? "-" + creditCard.plus4 : "") }}</p>
+    <p ng-if="international" ng-class="{h4: !noH4}" class="customer-account-data">{{creditCard.address3 | capitalize}}</p>
+    <p ng-if="international" ng-class="{h4: !noH4}" class="customer-account-data">{{creditCard.address4 | capitalize}}</p>
+    <p ng-if="international" ng-class="{h4: !noH4}" class="customer-account-data">{{creditCard.displayCountry ? creditCard.displayCountry : creditCard.country}}</p>
+</div>

@@ -1,0 +1,127 @@
+<form #BillingForm="ngForm" validation-focus name="missedATollForm"
+      fxLayout="column"
+      class="u-spacing--widthFill">
+
+    <card-container>
+        <header>
+            <h2>Payment Method</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+        <section *ngIf="!hidePaymentSelection">
+            <payment-method [(billingType)]="data.billingType"
+                            [lockType]="lockType">
+            </payment-method>
+        </section>
+        <section *ngIf="data.billingType" [ngClass]="{'u-spacing__fieldToField--marginTop': !hidePaymentSelection}">
+            <bank-account-entry *ngIf="data.billingType === BillingType.Eft && data.billingInformation"
+                                [bankDetails]="data.billingInformation.eft"
+                                [validate]="true"
+                                [showName]="data.billingType && !hideForEFT">
+            </bank-account-entry>
+            <credit-card-entry *ngIf="data.billingType === BillingType.Credit && !creditEntryExpireOnly && data.billingInformation"
+                               [creditCard]="data.billingInformation.credit">
+            </credit-card-entry>
+
+            <div *ngIf="creditEntryExpireOnly">
+                <credit-card-entry-expire-only *ngIf="data.billingType === BillingType.Credit && creditEntryExpireOnly && data.billingInformation"
+                                               [creditReadOnlyDesc]="cmsContent.creditReadOnly"
+                                               [creditCard]="data.billingInformation.credit"
+                                               [cmsImage]="data.cmsImage">
+                </credit-card-entry-expire-only>
+            </div>
+
+            <div *ngIf="showAddToPaymentMethodList" class="u-spacing__fieldToField--marginTop">
+                <input type="checkbox" [checked]="addPaymentMethod"
+                (change)="addPaymentMethod = $event.target.checked" /><span>{{cmsContent.addPaymentMethod}}</span>
+                <tool-tip [stayOpenOnHover]="true">
+                    <span tool-tip-hover>
+                        <mat-icon class="infoIcon" svgIcon="information"></mat-icon>
+                    </span>
+                    <span tool-tip-message
+                          [innerHTML]="cmsContent.manageBillingToolTip | safeHtml"></span>
+                </tool-tip>
+            </div>
+            <div *ngIf="showMakePrimary && data.billingInformation" class="u-spacing__fieldToField--marginTop">
+                <input type="checkbox"
+                       [checked]="shouldForcePrimarySelection"
+                       [disabled]="shouldForcePrimarySelection"
+                       (change)="setAsPrimary = $event.target.checked" /><span>{{cmsContent.makePrimary}}</span>
+            </div>
+
+        </section>
+    </card-container>
+
+    <card-container *ngIf="data.billingType && (data.billingType === BillingType.Credit || !hideForEFT) && data.billingInformation"
+                    class="u-spacing__cardToCard--marginTop">
+        <header>
+            <h2>Billing Address</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <ng-container *ngIf="isPendingFunds">
+
+            <ng-container *ngIf="mailingAddress.address1">
+                <!-- [billingTitle]="billingTitle" -->
+
+                <select-billing-address *ngIf="mailingAddress.address1"
+                    [(defaultAddress)]="mailingAddress"
+                    [(newAddress)]="newAddress"
+                    [(checkBoxFlag)]="checkBoxFlag"
+                    [(newAddressFlag)]="newAddressFlag"
+                    [countriesList]="data.countryList"
+                    [statesList]="data.stateList">
+                </select-billing-address>
+
+            </ng-container>
+
+            <ng-container *ngIf="!mailingAddress.address1">
+
+                <address-entry class="u-spacing--widthFill"
+                               [address]="billingAddress"
+                               [stateList]="data.stateList"
+                               [countryList]="data.countryList"
+                               [(international)]="billingAddress.internationalAddress"
+                               [validate]="true">
+                </address-entry>
+        
+                <div class="mailingAddSameAsBilling" fxLayoutAlign="start start" fxLayout="row">
+                    <input type="checkbox" name="isMailingAddSameAsBilling" id="isMailingAddSameAsBilling" 
+                    [(ngModel)]="saveBillingAddressAsMailing"/>
+            
+                    <span [ngStyle]="{'margin-left': '5px'}">
+                        {{isMailingAddSameAsBillingCms}}
+                    </span>
+                </div>
+        
+            </ng-container>
+
+        </ng-container>
+
+        <ng-container *ngIf="!isPendingFunds">
+            <section>
+                <address-entry [stateList]="data.stateList"
+                               [address]="address"
+                               [mailingAddress]="mailingAddress"
+                               [billingType]="data.billingType"
+                               [validate]="true"
+                               [countryList]="data.countryList"
+                               [(international)]="isInternational"
+                               [legacy]="false">
+                </address-entry>
+            </section>
+        </ng-container>
+       
+    </card-container>
+
+    <section class="u-spacing__buttonToField--marginTop">
+        <action-buttons (main)="submit()"
+                        (alt)="close()">
+            <span action-main>SAVE</span>
+            <span action-alt>Cancel</span>
+        </action-buttons>
+    </section>
+
+    <section *ngIf="!data.billingInformation && popUpDelay">
+        <error-message-pop-up-modal></error-message-pop-up-modal>
+    </section>
+</form>

@@ -1,0 +1,40 @@
+<ng-container [ngModelGroup]="name">
+<section [error-check]="HctraMatDatePickerInput">
+    <section fxLayout="row" [ngClass]="{'disabled': isDisablePicker}">
+        <input type="text"
+               name="calendarInput"
+               class="mat-datepicker-input"
+               [hctraMatDatetimePicker]="picker"
+               #HctraMatDatePickerInput="ngModel"
+               [ngModel]="dateTimeModel"
+               (ngModelChange)="dateTimeModel=$event;dateInputChanged()"
+               [min]="minDate"
+               [max]="maxDate"
+               required />
+        <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+    </section>
+    <div *ngFor="let error of HctraMatDatePickerInput.errors | keyvalue" role="alert">
+        <ng-container *ngIf="submitted" [ngSwitch]="error.key">
+            <p *ngSwitchCase="'required'" class="help-block">Please enter a valid date and time</p>
+            <p *ngSwitchCase="'invalid'" class="help-block">{{error.value}}</p>
+        </ng-container>
+    </div>
+</section>
+
+<hctra-mat-datetime-picker #picker
+                           [showSpinners]="true"
+                           [showSeconds]="false"
+                           [stepHour]="1"
+                           [stepMinute]="1"
+                           [stepSecond]="10"
+                           [touchUi]="false"
+                           [enableMeridian]="true"
+                           [disableMinute]="false"
+                           [hideTime]="false">
+    <!-- Custom icon or text of Apply icon -->
+    <ng-template>
+        <!-- <mat-icon>star</mat-icon> -->
+        <span>OK</span>
+    </ng-template>
+</hctra-mat-datetime-picker>
+</ng-container>

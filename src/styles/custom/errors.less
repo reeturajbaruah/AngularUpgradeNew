@@ -1,0 +1,32 @@
+@import (reference) '../themes.less';
+
+
+.refresh-2020 {
+    .help-block {
+        display: block; // account for any element using help-block
+        .t-error--color(@theme-light);
+        .t-body--fontFamily;
+        font-size: 12px;
+        margin-top: 6px;
+        margin-bottom: 0px;
+    }
+
+    .has-error {
+        input {
+            .t-error--borderColor(@theme-light);
+        }
+
+        .mat-select {
+            .t-error--borderColor(@theme-light);
+        }
+
+        textarea {
+            .t-error--borderColor(@theme-light) !important;
+        }
+    }
+
+    .tip-font,
+    .tip-font > span > a {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,28 @@
+﻿<div id="workItemSelection" ng-keypress="keyPressed($event)">
+    <div>
+        <h2 ng-bind-html="cmsContent.Title | trusted"></h2>
+    </div>
+    <div class="optionContainer">
+        <div class="workItem"
+             ng-repeat="item in uiSortedWorkItems"
+             ng-class="{ 'selected': item.isSelected, 'unavailable': item.isUnavailable || !item.states || item.states.length === 0}"
+             ng-click="toggleWorkItem(item)"
+             ng-init="isHovering = false"
+             ng-mouseenter="isHovering = true"
+             ng-mouseleave="isHovering = false"
+             ng-keypress="$event.preventDefault();">
+            <img 
+                class="icon" 
+                src="{{item.isSelected || item.isUnavailable ? item.selectedIcon.image : item.unselectedIcon.image}}" 
+                alt="{{item.isSelected || item.isUnavailable ? item.selectedIcon.alt : item.unselectedIcon.alt}}"/>
+            <label>{{item.storefrontDisplayName}}</label>
+            <div>
+                <img src="{{getSelectionIcon(item, isHovering).url}}"  alt="{{getSelectionIcon(item, isHovering).alt}}" class="icon" />
+            </div>
+        </div>        
+    </div>
+    <div>
+        <a class="openFullSiteBtn" ng-click="dontSeeWantIneed()">I don't see what I need.</a>
+        <button ng-disabled="noTasksSelected" class="storefrontSmallButton exclude-global-disable" ng-click="startWorkItems()">Proceed</button>
+    </div>
+</div>

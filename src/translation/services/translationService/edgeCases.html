@@ -1,0 +1,214 @@
+    <!-- this is the root, it will be a block-->
+    <div style="display: block">
+
+        <div id="arabic-parent">
+            <div id="base"></div>
+            <div id="has-nortl" nortl>
+                <input />
+            </div>
+            
+            <div id="right-align" style="text-align: right"></div>
+            <div id="justify-align" style="text-align: justify"></div>
+            <div id="center-align" style="text-align: center"></div>
+            <div id="center-align" style="text-align: center"></div>
+        </div>
+
+        <div id="simple">
+            <div id="singleNode">test</div>
+            <div>more text</div>
+            <div>and done!</div>
+        </div>
+
+        <!--angular cases-->
+        <div id="angular">
+
+            <span>{{content}}</span>
+
+            <!-- children-->
+            <div *ngFor="let item of items; index as i">
+                <div>
+                   {{i}} <span>item</span>
+                </div>
+            </div>
+
+            <mat-label>{{content}}</mat-label>
+
+        </div>
+
+        <!-- general HTML5 cases-->
+        <div id="html5">
+
+            <div>change content</div>
+            <div><!--adding children--></div>
+
+        </div>
+
+        <!-- static content-->
+        <div id="staticContent">
+
+
+            <div>Simple content in block</div>
+            <div>Complex <strong>content</strong> inside <span>a</span> block</div>
+            <div>Nested <span>content <strong>inside of a </strong>block</span>!</div>
+
+            <div>
+                Mixed type content
+                <div>within a block</div>
+                <span>?</span>
+            </div>
+
+            <div>
+                Mixed type content
+                <div>within a block</div>
+                <!-- and also a comment!-->
+                boo!
+            </div>
+
+            <!-- tags -->
+            <h1>h1</h1>
+            <h2>h2</h2>
+            <h3>h3</h3>
+            <h4>h4</h4>
+            <h5>h5</h5>
+            <h6>h6</h6>
+
+            <span>span</span>
+            <div>div</div>
+            <strong>strong</strong>
+            <a>a</a>
+            <button>button</button>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>th</th>
+                        <td>td</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>tdbody</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>tffooter</th>
+                        <td>tdfooter</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <section>section</section>
+            <ul>
+                <li>li</li>
+            </ul>
+            <ol>
+                <li>li ordered</li>
+            </ol>
+
+            <header>header</header>
+
+            <mat-label>material label</mat-label>
+        </div>
+
+        <!-- ignore -->
+        <script type="text/x-ignore">
+            all script tags should be ignored!
+        </script>
+
+        <!-- node utilities-->
+        <div id="nodeUtility">
+
+            <div id="getAncestorAtDepthof_3">
+                <div targetnode sourcenode expectednode></div>
+            </div>
+
+
+            <div id="getAncestorAtDepthof_1">
+
+                <div targetnode></div>
+                <div expectednode>
+                    <div>
+                        <div sourcenode></div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div id="getAncestorAtDepthof_2">
+
+                <div sourcenode></div>
+                <div>
+                    <div>
+                        <div targetnode></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="getAncestorAtDepthof_4">
+
+                <div><div><div targetnode></div></div></div>
+
+                <div>
+                    <div>
+                        <div expectednode>
+                            <div sourcenode></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div><span isnodeinline="false" style="display: block">This is actualy a block!</span></div>
+            <div><span isnodeinline="true">This is inline!</span></div>
+            <div><span isnodeinline="false" style="display: inherit">This is inline!</span></div>
+            <div><span isnodeinline="true" style="display: inline-block">This is not treated like a block!</span></div>
+
+
+
+            <div getInlinePartials="0">1<!-- comment-->2</div>
+            <div getInlinePartials="1">1<span>2</span><!-- comment-->3</div>
+            <div getInlinePartials="2">1<div>2</div><!-- comment-->3</div>
+            <div getInlinePartials="3">1<div>2<span>3</span></div>4</div>
+            <div getInlinePartials="4"><div>1</div></div>
+            <div getInlinePartials="5">1<div>2<div>3</div>4</div></div>
+            <div getInlinePartials="6"><p>1<a><span>2</span></a>3</p></div>
+            <div getInlinePartials="7"><button style="display: inline-block"><span>1</span></button></div>
+
+            <!-- crazy case of block within inline that breaks the span's content-->
+            <div getInlinePartials="8"><span>1<span style="display: block">2</span>3</span></div>
+
+            <!-- ignore specific tags-->
+            <div getInlinePartials="9">1<span>2<embed /></span>3</div>
+            <!-- ignore with attribute-->
+            <div getInlinePartials="10">1<span>2<span translation-skip>skip this</span></span>3</div>
+
+            <div getInlinePartials="11"><span><span>1</span></span></div>
+
+            <div getInlinePartials="12"><span>1<span style="display: block;">2</span>3<span style="display: block">4</span>5</span></div>
+
+
+            <div getInlinePartials="13"><section><div><span><span style="display: block"><span><span>1</span></span></span><span style="display: block"><span style="display: block"></span></span></span></div></section><section><span>2</span></section></div>
+            <div getInlinePartials="14"><span elm="A">1</span><span elm="SPAN">2<span elm="SPAN">3</span></span></div>
+            <div getInlinePartials="15" asDocFrag="true"><span elm="A">1</span><span elm="SPAN">2<span elm="SPAN">3</span></span></div>
+
+            <div getInlinePartials="16">1<br />2<hr />3</div>
+
+            <div getInlinePartials="17">1<img />2<i></i>3<input />4</div>
+
+            <div getInlinePartials="18">1<div translation-skip>A<span>B</span>C</div>2</div>
+            <div getInlinePartials="19">1<span class="notranslate">2</span>3</div>
+
+
+            <div getEnclosedBlocks="0">
+                <div block="1" style="display: block;"><span inline>1</span><span inline>2</span></div>
+                <div block="2" style="display: block;" translation-skip><span inline>3</span><span inline>4</span></div>
+                <div block="3" style="display: block;"><span inline>5</span><span inline>6</span></div>
+            </div>
+
+        </div>
+    </div>

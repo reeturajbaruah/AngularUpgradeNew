@@ -1,0 +1,46 @@
+<main fxLayout="column"
+      fxLayoutAlign="start center"
+      class="refresh-2020"
+      ngClass.lt-md="lt-md">
+    <section class="titleBar--backgroundColor c--widthFill c-gutter--padding"
+             fxLayout="column"
+             fxLayoutAlign="start center"
+             ngClass.lt-md="lt-md">
+        <header fxLayout="row"
+                fxLayoutAlign="space-between center"
+                class="c-modalContainer--width c-titleBar c--widthFill"
+                ngClass.lt-md="lt-md">
+
+            <div *ngIf="!content.hasBack"
+                 fxFlex="none"></div>
+            <mat-icon *ngIf="content.hasBack"
+                      id="backIcon"
+                      fxFlex="none"
+                      class="clickable"
+                      (click)="close()"
+                      svgIcon="back-arrow"></mat-icon>
+
+            <h2 *ngIf="content.title"
+                fxFlex="grow"
+                class="c--textAlignCenter c-h2--fontSizeShrink"
+                ngClass.lt-md="lt-md">
+                {{content.title}}
+            </h2>
+
+            <div *ngIf="!content.hasClose"
+                 fxFlex="none"></div>
+            <mat-icon *ngIf="content.hasClose"
+                      id="closeIcon"
+                      fxFlex="none"
+                      class="clickable"
+                      (click)="closeAll()"
+                      svgIcon="close-x"></mat-icon>
+
+        </header>
+    </section>
+    <section class="c-modalContainer--width c--widthFill c-gutter--padding"
+             fxFlexOffset="16px"
+             ngClass.lt-md="lt-md">
+        <ng-container #template></ng-container>
+    </section>
+</main>

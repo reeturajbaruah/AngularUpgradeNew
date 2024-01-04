@@ -1,0 +1,175 @@
+@LargeTabletBenefitsSectionWidth: 816px;
+
+.tablet-large-section {
+    width: 816px;
+}
+
+.about {
+    @media @breakpoint-md {
+        width: 816px;
+        height: 723px;
+        position: relative;
+    }
+}
+
+.about-link-container {
+    @media @breakpoint-md {
+        position: absolute;
+        height: 265px;
+        width: 265px;
+        right: 0px;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 50%);
+        z-index: 10;
+        .about-link {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+    }
+}
+
+.about-text1 {
+    @media @breakpoint-md {
+        margin-top: 60px;
+        margin-bottom: 60px;
+        height: 300px;
+        text-align: left;
+        margin-left: 64px;
+    }
+}
+
+.about-text2 {
+    @media @breakpoint-md {
+        text-align: center;
+        margin-top: 250px;
+    }
+}
+
+.benefits-easier,
+.benefits-safer {
+    @media @breakpoint-md {
+        width: @LargeTabletBenefitsSectionWidth;
+        height: 360px;
+    }
+}
+
+.benefits-easier-content {
+    @media @breakpoint-md {
+        margin-left: (@LargeTabletBenefitsSectionWidth/2);
+        width: (@LargeTabletBenefitsSectionWidth/2);
+        top: 48px;
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+.benefits-safer-content {
+    @media @breakpoint-md {
+        width: (@LargeTabletBenefitsSectionWidth/2);
+        height: 360px;
+        top: 40px;
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+.gantry {
+    @media @breakpoint-md {
+        width: 816px;
+        height: 760px;
+    }
+}
+
+.gantry-text1 {
+    @media @breakpoint-md {
+        position: absolute;
+        top: 40px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+.gantry-text2,
+.gantry-text3 {
+    @media @breakpoint-md {
+        position: absolute;
+        top: 690px;
+        width: 50%;
+        text-align: center;
+        padding: 0px 20px;
+    }
+}
+
+.gantry-text3 {
+    @media @breakpoint-md {
+        right: 0%;
+    }
+}
+
+
+.signage {
+    @media @breakpoint-md {
+
+        width: 816px;
+
+        .signage-container,
+        .signage-expanded-container {
+            padding: 3% 0%;
+            text-align: center;
+            background: #e5f2f5 0% 0% no-repeat padding-box;
+        }
+
+        .signage-content-text1 {
+            margin: 30px auto;
+            width: 100%;
+        }
+
+        .signage-content-text2 {
+            padding: 40px auto;
+            width: 100%;
+        }
+
+        .signage-content-text {
+            width: 100%;
+            margin: 30px auto;
+        }
+
+        .signage-image {
+            margin: 2%;
+        }
+
+        .signage-expanded-container {
+            background: #e5f2f5 0% 0% no-repeat padding-box;
+            padding: 1% 0%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+
+            .signage-current-temp-row {
+                margin: 2%;
+
+                .current {
+                    width: 359px;
+                    height: 186px;
+                    position: relative;
+
+                    .signage-expanded-content-text {
+                        position: absolute;
+                        bottom: 4px;
+                        left: 50%;
+                        -webkit-transform: translate(-50%, 0%);
+                        -ms-transform: translate(-50%, 0%);
+                        transform: translate(-50%, 0%);
+                    }
+                }
+            }
+
+            .signage-image {
+                width: 100% !important;
+            }
+        }
+    }
+}

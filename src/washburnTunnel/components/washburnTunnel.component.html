@@ -1,0 +1,87 @@
+<div id="washburn-tunnel">
+    <header class="header-spacing">
+        <h1 class="h1-mo tunnel-Header">{{pageTitle}}</h1>
+    </header>
+    <div class="row border-without-footer">
+        <mat-carousel [autoplay]="true"
+                      [interval]="interval"
+                      maxWidth="auto"
+                      height="565px"
+                      [maintainAspectRatio]="false"
+                      [loop]="true"
+                      [hideArrows]="false"
+                      [hideIndicators]="false"
+                      [useKeyboard]="true"
+                      matIconArrow="mat-imageSliderArrow"
+                      orientation="ltr"
+                      [pauseOnHover]="false">
+            <mat-carousel-slide #matCarouselSlide class="mat-data"
+                                *ngFor="let slide of sliderImages; let i = index"
+                                [image]="slide"
+                                [disableContent]="true"
+                                [useLink]="true"
+                                enhanced="false"
+                                [showDivider]="false">
+            </mat-carousel-slide>
+        </mat-carousel>
+        <br class="desktopOnly" />
+        <div class="row info_section_layout desktopOnly">
+            <div class="desktop-container">
+                <div class="col-md-7 tunnel-alignment">
+                    <label class="info_section_title">{{pageTitle}}</label>
+                    <hr class="line_design" />
+                    <div>
+                        <span class="info_section_description" [innerHTML]="cmsPage.ShortDescription | safeHtml"></span>
+                    </div>
+                    <br />
+                    <label class="info_section_title">{{videoTitle}}</label>
+                    <hr class="line_design" />
+                    <p class="box_object_title">{{northEntrance}}</p>
+                    <div>
+                        <img class="gif-scale-element" alt="" src="{{northEntranceURL}}" />
+                    </div>
+                    <br />
+                    <p class="box_object_title">{{southEntrance}}</p>
+                    <div>
+                        <img class="gif-scale-element" alt="" src="{{southEntranceURL}}" />
+                    </div>
+                </div>
+                <div class="row box_layout">
+                    <div>
+                        <span [innerHTML]="cmsPage.LongDescription | safeHtml"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 mobileOnly padding-layout">
+            <div class="row no-padding">
+                <span [innerHTML]="cmsPage.LongDescription | safeHtml"></span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-xs-12 no-padding">
+                    <label class="info_section_title no-margin-bottom">{{pageTitle}}</label>
+                    <hr class="line_design no-margin-top" />
+                    <div class="info_section_description">
+                        <span [innerHTML]="cmsPage.ShortDescription | safeHtml"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                    <br />
+                    <label class="info_section_title">{{videoTitle}}</label>
+                    <hr class="line_design no-margin-top" />
+                    <br />
+                    <p class="box_object_title">{{northEntrance}}</p>
+                    <div>
+                        <img class="max-scale-element" alt="" src="{{northEntranceURL}}" />
+                    </div>
+                    <br />
+                    <p class="box_object_title">{{southEntrance}}</p>
+                    <div>
+                        <img class="max-scale-element" alt="" src="{{southEntranceURL}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

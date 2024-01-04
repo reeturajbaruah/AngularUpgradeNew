@@ -1,0 +1,215 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/themes.less';
+
+:host {
+
+    display: grid;
+    place-items: start center;
+
+    grid-auto-flow: row;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto auto;
+
+
+    @media @breakpoint-lt-md {
+        grid-auto-flow: column;
+        grid-template-columns: 100%;
+    }
+
+    section.display {
+
+        width: 100%;
+
+        display: flex;
+        order: 1;
+        flex: 0 0 auto; // lesshint zeroUnit: false
+        overflow: hidden;
+
+        @media @breakpoint-lt-md {
+            order: 2;
+            flex: 1 1 100%;
+        }
+
+        cursor: inherit;
+
+        &.isInteractive {
+            cursor: pointer;
+        }
+
+        picture-container {
+            width: 100%;
+        }
+
+        picture-container>picture>img {
+            width: 100%;
+            height: auto;
+        }
+
+        picture-container>[content-container] {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 100%;
+            place-content: center flex-start;
+            align-items: center;
+
+            >article:first-of-type {
+                display: unset;
+            }
+
+            >article:last-of-type {
+                display: none;
+            }
+
+            @media @breakpoint-lt-sm {
+
+                >article:first-of-type {
+                    display: none;
+                }
+
+                >article:last-of-type {
+                    display: unset;
+                }
+
+                overflow: hidden;
+            }
+        }
+    }
+
+    section.selector {
+        display: flex;
+        padding: 0px 40px;
+        order: 2;
+        flex: 1 1 100%;
+        flex-direction: column;
+
+        @media @breakpoint-lt-md {
+            padding: 0px 16px 0px 16px;
+            order: 1;
+            flex: 0 0 auto; // lesshint zeroUnit: false
+        }
+
+        >ul {
+            flex-flow: row wrap;
+            display: flex;
+            place-content: flex-start;
+            align-items: flex-start;
+            flex: 1 1 100%;
+            max-height: 22%;
+
+            list-style-type: none;
+            padding: 0px 0px 30px 0px;
+
+            margin: 0px;
+
+            column-gap: 12px;
+
+            @media @breakpoint-gt-lg {
+                column-gap: 24px;
+                padding: 0px 0px 70px 0px;
+            }
+
+            li {
+                display: block;
+                text-align: center;
+
+                mat-label {
+                    padding-bottom: 6.5px;
+                    font-weight: normal;
+                    font-size: 16px;
+                    color: @purple-heart-purple;
+                    line-height: 36px;
+                    border-bottom: 3px solid transparent;
+
+                    @media @breakpoint-gt-lg {
+                        font-size: 22px;
+                    }
+                }
+            }
+
+            //wizardry warning! to ensure the li size doesn't expand when mat-label is choosen to
+            //bold, we actual render the text into a hidden node and style it as if it was selected;
+            //this will foce the li to be sized to contain bold, avoiding text shifting on the screen
+            //when selected
+            li>span[aria-hidden] {
+                .t-header--fontFamily();
+                display: block;
+                font-weight: bold;
+                font-size: 22px;
+                visibility: hidden;
+            }
+
+            li:hover {
+                cursor: pointer;
+            }
+
+            li.selected {
+                mat-label {
+                    font-weight: bold;
+                    border-bottom: 3px solid @school-bus-yellow;
+                }
+            }
+        }
+
+        article {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+            place-content: center center;
+            align-items: flex-start;
+
+            mat-divider {
+                width: 50px;
+                height: 36px;
+            }
+
+            h1 {
+                text-transform: uppercase;
+                margin: 0px 0px 20px 0px;
+                line-height: 1.25;
+                font-size: 28px;
+
+                @media @breakpoint-gt-lg {
+                    font-size: 34px;
+                }
+            }
+
+            p {
+                .t-body--fontFamily();
+                margin: 0px 0px 20px 0px;
+            }
+        }
+
+        >mat-divider {
+            margin: 50px 0px 30px 0px;
+        }
+
+        >ul {
+
+            @media @breakpoint-lt-md {
+                margin: 0px 0px 30px 0px;
+            }
+
+            li mat-label {
+                font-size: 18px;
+            }
+
+            //see the above wizardry comment. This is for mobile
+            li>span[aria-hidden] {
+                .t-header--fontFamily();
+                display: block;
+                font-weight: bold;
+                font-size: 18px;
+                visibility: hidden;
+                overflow: hidden;
+            }
+        }
+
+        article {
+            p {
+                display: block;
+                min-height: 166px;
+            }
+        }
+    }
+}

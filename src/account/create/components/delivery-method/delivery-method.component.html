@@ -1,0 +1,64 @@
+<page-centered-container class="refresh-2020">
+
+    <form #DeliveryMethodForm="ngForm" validation-focus name="deliveryMethodForm"
+          class="u-spacing--widthFill bottomPadding" 
+          [ngStyle.lt-md]="{'margin-top':'48px'}" >
+        <div>
+            <card-container class="u-spacing__firstHeaderToTitle--marginTop">
+                <div>
+                   <header>
+                        <h2>{{deliveryMethodInfoPage.deliveryMethodInfoHeader}}</h2>
+                        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+                    </header> 
+
+      
+                    <ng-container *ngIf="!isFlexPay">
+                        <choose-delivery-method [mailingInfo]="delieveryMethodInfo.addressInfo"
+                                                [(deliveryMethod)]="delieveryMethodInfo.selectedDeliveryMethod"
+                                                [hideTooltip]="true">
+                        </choose-delivery-method>
+                    </ng-container>
+
+                    <ng-container *ngIf="isFlexPay"> 
+                        <choose-delivery-method [mailingInfo]="delieveryMethodInfo.addressInfo"
+                        [(deliveryMethod)]="delieveryMethodInfo.selectedDeliveryMethod"
+                        (onEdit)="onMailingAddressEdit($event)"
+                        [isAddEzTag]="isFlexPay"
+                        [hideTooltip]="true">
+                        </choose-delivery-method>
+                    </ng-container>
+
+                </div>
+            </card-container>
+
+
+            <section class="footerActionButtons u-spacing__buttonToField--marginTop">
+                <div class="action-buttons-container">
+            
+                    <div class="main-button">
+                        <action-buttons 
+                            [disabled]="delieveryMethodInfo.selectedDeliveryMethod === 'mail' && !delieveryMethodInfo?.addressInfo?.address1"
+                            (main)="next($event)">
+                            <span action-main>{{submitBtnText}}</span>
+                        </action-buttons>
+                    </div>
+            
+                    <div class="alternate-buttons">
+                        <action-buttons [mainBtnVisible]="false" (alt)="previous($event)">
+                            <span action-alt>Previous</span>
+                        </action-buttons>
+            
+                        <action-buttons [mainBtnVisible]="false"
+                            [disabled]="delieveryMethodInfo.selectedDeliveryMethod === 'mail' && !delieveryMethodInfo?.addressInfo?.address1"
+                            (alt)="cancel($event,wizardUi)">
+                            <span action-alt>Cancel</span>
+                        </action-buttons>
+                    </div>
+                </div>
+                <wizard-ui #wizardUi></wizard-ui>
+            </section>
+            
+
+        </div>
+    </form>
+</page-centered-container>

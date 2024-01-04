@@ -1,0 +1,33 @@
+<mat-carousel [autoplay]="false"
+              maxWidth="auto"
+              [hideArrows]="ads.length < 2"
+              [matIconArrow]="imageSliderArrow"
+              [hideIndicators]="true"
+              [useKeyboard]="false"
+              [maintainAspectRatio]="false"
+              [height]="isMobile ? 'unset' : '400px'"
+              orientation="ltr">
+    
+    <mat-carousel-slide *ngFor="let ad of ads"                        
+                        [image]="ad.image"
+                        overlayColor="#00000040"
+                        [overrideTemplateRef]="adTemplate"
+                        [context]="ad">
+    </mat-carousel-slide>
+
+</mat-carousel>
+
+<ng-template #adTemplate let-ad>
+
+    <picture-container no-stack class="adItem">        
+        <picture>
+            <source [srcset]="ad.image" />
+            <img />
+        </picture>     
+        <div content-container>
+            <mat-divider></mat-divider>        
+            <p [innerHTML]="ad.content | safeHtml"></p>
+        </div>
+    </picture-container>
+
+</ng-template>

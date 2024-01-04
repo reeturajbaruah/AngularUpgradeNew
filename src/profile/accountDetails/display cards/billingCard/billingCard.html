@@ -1,0 +1,15 @@
+<card-dash-container style="width: 100%;">
+    <billing-card-display class="bottom-row-heights"
+                          [billingTitle]="billingTitle"
+                          [paymentMethodImages]="paymentMethodImages"
+                          [noDataTitle]="billingCMS.NoData"
+                          [expiringTooltip]="billingCMS.ExpiringTooltip"
+                          [expiredTooltip]="billingCMS.ExpiredTooltip"
+                          [blockedTooltip]="billingCMS.LongDescription"
+                          [isPendingClosure]="isAccountClosed"
+                          [isAccountInvoiced]="isAccountInvoiced"
+                          [showAutoReplenishmentIndicator]="false"
+                          [replenishmentIndicatorCMS]="autoReplenishIndicatorCms"
+                          callingComponent="billingCard">
+    </billing-card-display>
+</card-dash-container>

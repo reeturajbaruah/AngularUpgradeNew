@@ -1,0 +1,180 @@
+<page-centered-container>
+    <app-toaster-container></app-toaster-container>
+    <card-dash-container class="display">
+
+        <section fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center">
+            <h2>Receipt Transaction #{{this.data.transactionNumber}}</h2>
+            <a fxFlex="none"
+               (click)="getReceiptDetailPdf()"
+               class="download-link"
+               [ngClass]="{'disabled': reportDownloading}">
+                <img src="/Content/icons/pdf.gif" class="download-icon" />PDF
+            </a>
+        </section>
+        <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between end" fxLayoutGap="8px" style="margin-bottom: 20px;">
+            <div flex="none" fxLayout="column" fxLayoutAlign="center start">
+                <p class="fontStandard">{{label1}}</p>
+                <p class="fontStandard">{{label2}}</p>
+                <p class="fontStandard">{{label3}}</p>
+            </div>
+            <div flex="none" fxLayout="column" fxLayoutAlign="start end">
+
+                <p class="fontStandard">{{receiptDate | dateWithTimeZone: 'dateTimeFull'}}</p>
+                <p class="fontStandard">CSR ID: {{csrID}}</p>
+                <p style="margin:8px;"></p>
+            </div>
+        </div>
+        <mat-label></mat-label>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between end" fxLayoutGap="8px" style="margin-bottom: 20px;">
+            <div flex="none" fxLayout="column" fxLayoutAlign="center">
+                <p class="fontStandard">Account Number: {{currentUserData.acctId}} </p>
+                <p class="fontStandard">{{userAddress}}</p>
+                <p class="fontStandard">{{city}} {{state}}, {{zipCode}}</p>
+            </div>
+        </div>
+
+        <section class="u-spacing__sectionToSection--marginBottom">
+            <h3 style="padding-top:5px; margin-bottom:10px">
+                Account Transactions
+            </h3>
+            <div class="tabble-padding">
+                <row-container [rowType]="'transparent'" [isLabel]="true">
+                    <section col-start
+                             class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <mat-label class="fx-flex-auto-grow-more unlimited-flex">DESCRIPTION</mat-label>
+
+                    </section>
+
+                    <section col-end
+                             class="gridish-title fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <mat-label fxFlex="1 1 auto" style="margin-right:10px">AMOUNT</mat-label>
+                    </section>
+                </row-container>
+                <div *ngFor="let accTrans of accountTrans; first as isFirst; last as isLast" style="width:94%; margin-left:3%">
+                    <div ngClass="extended-row"
+                         [ngClass.lt-md]="{'extended-row': false}"
+                         style="margin-top:2px;">
+                        <row-container [isTop]="accountTrans.length > 1 && isFirst"
+                                       [isBottom]="accountTrans.length > 1 && isLast"
+                                       [isInner]="!isFirst && !isLast"
+                                       [rowType]="isLast ? 'emphasis' : 'body'">
+
+
+                            <section col-start
+                                     class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <div class="fx-flex-auto-shrink-more limited-flex">{{accTrans.description}}</div>
+
+                            </section>
+
+                            <section col-end
+                                     class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                <div fxFlex="1 1 4em" class="fx-flex-auto limited-flex-end">{{accTrans.amount ? (accTrans.amount | currency: 'USD') : '$0.00'}}</div>
+                            </section>
+
+                        </row-container>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="u-spacing__sectionToSection--marginBottom">
+            <h3 style="padding-top:5px; margin-bottom:10px">
+                Deposit Transactions
+            </h3>
+            <div class="tabble-padding">
+                <row-container [rowType]="'transparent'" [isLabel]="true">
+                    <section col-start
+                             class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <mat-label class="fx-flex-auto-grow-more unlimited-flex">DESCRIPTION</mat-label>
+
+                    </section>
+
+                    <section col-end
+                             class="gridish-title fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <mat-label fxFlex="1 1 auto" style="margin-right:10px">AMOUNT</mat-label>
+                    </section>
+                </row-container>
+                <div *ngFor="let depTrans of depositTrans; first as isFirst; last as isLast" style="width:94%; margin-left:3%">
+                    <div ngClass="extended-row"
+                         [ngClass.lt-md]="{'extended-row': false}"
+                         style="margin-top:2px;">
+                        <row-container [isTop]="depositTrans.length > 1 && isFirst"
+                                       [isBottom]="depositTrans.length > 1 && isLast"
+                                       [isInner]="!isFirst && !isLast"
+                                       [rowType]="isLast ? 'emphasis' : 'body'">
+
+
+                            <section col-start
+                                     class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <div class="fx-flex-auto-shrink-more limited-flex">{{depTrans.description}}</div>
+
+                            </section>
+
+                            <section col-end
+                                     class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                <div fxFlex="1 1 4em" class="fx-flex-auto limited-flex-end">{{depTrans.amount ? (depTrans.amount | currency: 'USD') : '-'}}</div>
+                            </section>
+
+                        </row-container>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="u-spacing__sectionToSection--marginBottom">
+            <h3 style="padding-top:5px; margin-bottom:10px">
+                Payment Detail
+            </h3>
+            <div class="tabble-padding">
+                <row-container [rowType]="'transparent'" [isLabel]="true">
+                    <section col-start
+                             class="gridish-title fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                        <mat-label class="fx-flex-auto-grow-more unlimited-flex">DESCRIPTION</mat-label>
+
+                    </section>
+
+                    <section col-end
+                             class="gridish-title fx-flex-none fx-layout-row fx-layout-align-end-center">
+                        <mat-label fxFlex="1 1 auto" style="margin-right:10px">AMOUNT</mat-label>
+                    </section>
+                </row-container>
+                <div *ngFor="let pDetail of paymentDetail; first as isFirst; last as isLast" style="width:94%; margin-left:3%">
+                    <div ngClass="extended-row"
+                         [ngClass.lt-md]="{'extended-row': false}"
+                         style="margin-top:2px;">
+                        <row-container [isTop]="paymentDetail.length > 1 && isFirst"
+                                       [isBottom]="paymentDetail.length > 1 && isLast"
+                                       [isInner]="!isFirst && !isLast"
+                                       [rowType]="isLast ? 'emphasis' : 'body'">
+
+
+                            <section col-start
+                                     class="gridish fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <div class="fx-flex-auto-shrink-more limited-flex">{{pDetail.description}}</div>
+
+                            </section>
+
+                            <section col-end
+                                     class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                <div translation-skip fxFlex="1 1 4em" class="fx-flex-auto limited-flex-end">{{pDetail.amount ? (pDetail.amount | currency: 'USD') : '-'}}</div>
+                            </section>
+
+                        </row-container>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+    </card-dash-container>
+
+</page-centered-container>

@@ -1,0 +1,78 @@
+
+<page-centered-container>
+
+    <card-container>
+
+        <h2 style="margin-bottom: 13px;">{{cmsContentReqPayment.Title}}</h2>
+
+        <article style="margin-bottom: 30px;" [innerHTML]="cmsContentReqPayment.ShortDescription | safeHtml"></article>
+
+        <fx-row [isLabel]="true" [backgroundColorClass]="'transparent-background'">
+            <section col-start class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                <mat-label class="fx-flex-auto-shrink-more limited-flex">DESCRIPTION</mat-label>
+            </section>
+            <section col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                <mat-label class="fx-flex-auto limited-flex-end">AMOUNT</mat-label>
+            </section>
+        </fx-row>
+
+        <div [ngClass]="{'table-space': false}" [ngClass.lt-md]="{'table-space': false, 'lt-md': true}">
+            <fx-row [isTop]="true">
+
+                <section col-start class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+
+                    <div fxShow class="fx-flex-auto-shrink-more limited-flex">
+                        Amount due to reinstate your account:
+                    </div>
+
+                </section>
+                <section col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center currency">
+                    <div class="fx-flex-auto limited-flex-end">
+                        <currency [value]="reinstateAmt"></currency>
+                    </div>
+
+                </section>
+            </fx-row>
+        </div>
+
+        <div [ngClass]="{'table-space': true}" [ngClass.lt-md]="{'table-space': true, 'lt-md': true}">
+            <fx-row [isInner]="true">
+
+                <section col-start class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+
+                    <div fxShow class="fx-flex-auto-shrink-more limited-flex">
+                        {{replenishmentAmtText}}
+                    </div>
+
+                </section>
+                <section col-end class="fx-flex-none fx-layout-row fx-layout-align-end-center currency">
+                    <div class="fx-flex-auto limited-flex-end">
+                        <currency [value]="replinishAmt"></currency>
+                    </div>
+
+                </section>
+            </fx-row>
+        </div>
+
+        <div class="table-space" [ngClass.lt-md]="{'lt-md': true}">
+            <row-container [rowType]="'emphasis'" [isBottom]="true">
+                <section col-start fxFlex="grow" style="font-weight: 700; color: red;">
+                    Required Payment Amount
+                </section>
+                <section col-end fxFlex="none" class="totalAmountValue" style="font-weight: 700;color: red;">
+                    <currency [value]="requiredPaymentAmt">
+                    </currency>
+                </section>
+            </row-container>
+        </div>
+
+
+    </card-container>
+
+    <div class="u-spacing__buttonToField--marginTop">
+        <wizard-ui #Wizard (next)="nextStep($event)">
+            <span wizard-next>CONTINUE</span>
+            <span wizard-cancel>Cancel</span>
+        </wizard-ui>
+    </div>
+</page-centered-container>

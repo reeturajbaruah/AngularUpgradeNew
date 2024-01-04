@@ -1,0 +1,42 @@
+<ng-container ngModelGroup="ccInput">
+    <notify-on-change [watch]="creditCard.cardNbr"
+                      (notify)="onCardNumberChange()">
+    </notify-on-change>
+
+    <div class="form-group top-buffer-sm-half refresh-2020" [error-check]="CardNumberInput">
+        <mat-label>CREDIT CARD NUMBER</mat-label>
+
+        <div fxLayout="row"
+             fxLayoutAlign="start center">
+            <input type="tel"
+                   [id]="'cardNumber' + nameSuffix"
+                   [name]="'cardNumber' + nameSuffix"
+                   #CardNumberInput="ngModel"
+                   class="form-control form-entry-width"
+                   [ngModel]="cardNumberDisplay"
+                   [required]="!disableValidation"
+                   fxFlex="grow"
+                   [attr.disabled]="true" />
+            <div class="creditCardEditTrigger"
+                 (click)="trySwipeTokenize()"
+                 fxFlex
+                 fxLayout="row"
+                 style="white-space:nowrap;">
+                <img [src]="editPencilSrc" />
+                <p fxFlexOffset="2px">{{editPencilMessage}}</p>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" style="padding-top:10px;">
+            <div class="creditCardPinPadTrigger"
+                 (click)="tryPinPadTokenize()"
+                 fxFlex
+                 fxLayout="row"
+                 style="white-space:nowrap;">
+                <!--<img [src]="editPencilSrc" />-->
+                <p fxFlexOffset="2px">Use PIN Pad</p>
+            </div>
+        </div>
+
+    </div>
+</ng-container>

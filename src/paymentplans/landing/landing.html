@@ -1,0 +1,127 @@
+<page-filled-container>
+
+    <section class="u-spacing__firstHeaderToTitle--marginTop">
+        <header>
+            <h2>{{Title}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+        </header>
+
+        <article>{{Description}}</article>
+
+        <form #LandingForm="ngForm"
+              fxLayout="column"
+              validation-focus novalidate
+              class="u-spacing__fieldToSection--marginTop">
+            <div fxLayout="row"
+                 fxLayoutGap="20px">
+
+                <section fxFlex="none">
+                    <mat-label>STATE</mat-label>
+                    <mat-select translation-skip id="selectedState"
+                                tabindex="1"
+                                [(value)]="selectedState"
+                                [disableOptionCentering]="true">
+                        <mat-option *ngFor="let item of USstates" [value]="item">{{item.stateCode}}</mat-option>
+                    </mat-select>
+                </section>
+
+                <section [error-check]="licensePlateInput"
+                         fxFlex="auto"
+                         ngClass.gt-sm="plate-input-width">
+                    <mat-label for="licensePlate">LICENSE PLATE NUMBER</mat-label>
+                    <input [(ngModel)]="licensePlateNumber" #licensePlateInput="ngModel"
+                           type="text"
+                           name="licensePlate"
+                           pattern="^[a-zA-Z0-9]{1,10}$"
+                           id="licensePlate"
+                           tabindex="2"
+                           maxlength="10"
+                           required />
+                    <aside *ngFor="let error of licensePlateInput.errors | keyvalue">
+                        <ng-container *ngIf="LandingForm.submitted" [ngSwitch]="error.key">
+                            <p class="help-block" *ngSwitchCase="'pattern'">Please enter a valid license plate number</p>
+                            <p class="help-block" *ngSwitchCase="'required'">Please enter a valid license plate number</p>
+                            <p class="help-block" *ngSwitchCase="'maxlength'">Please enter a valid license plate number</p>
+                        </ng-container>
+                    </aside>
+                </section>
+
+            </div>
+
+
+            <div fxLayout="row"
+                 fxLayoutAlign="start start"
+                 fxLayout.lt-md="column"
+                 fxLayoutAlign.lt-md="start center"
+                 class="u-spacing__fieldToField--marginTop">
+
+                <section [error-check]="invoiceNumberInput"
+                         fxFlex="grow 100%"
+                         fxFlex.lt-md="auto"
+                         ngClass.gt-sm="invoice-number-container"
+                         ngClass.lt-md="u-spacing--widthFill">
+                    <mat-label>INVOICE NUMBER</mat-label>
+                    <input type="text"
+                           id="invoice"
+                           [(ngModel)]="invoiceNumber" #invoiceNumberInput="ngModel"
+                           pattern="^[0-9]+$"
+                           name="invoice"
+                           tabindex="3"
+                           [required]="!paymentPlanId" />
+
+                    <aside *ngFor="let error of invoiceNumberInput.errors | keyvalue">
+                        <ng-container *ngIf="LandingForm.submitted" [ngSwitch]="error.key">
+                            <p class="help-block" *ngSwitchCase="'pattern'">Please enter a valid invoice number</p>
+                            <p class="help-block" *ngSwitchCase="'required'">Please enter a valid invoice number</p>
+                        </ng-container>
+                    </aside>
+
+                    <div>
+                        <a id="findInvoiceLnk" (click)="openInvoiceExample(true)">Need help finding the information on your invoice?</a>
+                    </div>
+                </section>
+
+                <div class="or-separator"
+                     ngClass.gt-sm="or-separator-spacing-desktop"
+                     ngClass.lt-md="or-separator-spacing-mobile"
+                     fxFlex="none"
+                     fxFlex.lt-md="auto">OR</div>
+
+                <section [error-check]="PaymentPlanNumberInput"
+                         fxFlex="grow 100%"
+                         fxFlex.lt-md="auto"
+                         ngClass.gt-sm="payment-plan-number-container"
+                         ngClass.lt-md="u-spacing--widthFill">
+                    <mat-label for="invoice">PAYMENT PLAN NUMBER</mat-label>
+                    <input type="text"
+                           id="payPlanIdTxt"
+                           [(ngModel)]="paymentPlanId" #PaymentPlanNumberInput="ngModel"
+                           pattern="^[0-9]{1,10}$"
+                           name="paymentPlans"
+                           tabindex="3"
+                           [required]="!invoiceNumber" />
+
+                    <aside class="error-messages" *ngFor="let error of PaymentPlanNumberInput.errors | keyvalue">
+                        <ng-container *ngIf="LandingForm.submitted" [ngSwitch]="error.key">
+                            <p class="help-block" *ngSwitchCase="'pattern'">Please enter a valid payment plan number</p>
+                            <p class="help-block" *ngSwitchCase="'required'">Please enter a valid payment plan number</p>
+                        </ng-container>
+                    </aside>
+
+                    <div>
+                        <a (click)="openInvoiceExample(false)">The Payment Plan Number was given upon creation of your Payment Plan</a>
+                    </div>
+                </section>
+            </div>
+
+            <div class="u-spacing__buttonToField--marginTop">
+                <wizard-ui [reverseOrder]="true"
+                           (next)="findViolations($event)">
+                    <span wizard-next>SEARCH PAYMENT PLANS</span>
+                </wizard-ui>
+            </div>
+
+        </form>
+    </section>
+
+</page-filled-container>

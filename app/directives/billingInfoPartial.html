@@ -1,0 +1,96 @@
+﻿<div id="billing-info-partial" class="bottom-buffer-lg">
+    <header class="header-spacing">
+        <a ng-if="!hideEdit" class="pull-right" ng-click="onEdit()" ng-show="showEdit" aria-label="Edit Billing Info">Edit</a>
+        <!--<h2 class="h1-mo" ng-if="!hideTitle">Billing Information</h2>-->
+        <h2 class="h1-mo" ng-if="!hideTitle">{{intitle}}</h2>
+        <hr ng-if="!hideTitle" />
+    </header>
+    <div class="bottom-buffer-sm">
+        <div class="no-margin-bottom">
+            <div class="row">
+                <div class="col-xs-6 no-padding-right billing-info-label">
+                    <p class="h4">{{creditCard.orderDisplay}} Payment Method:</p>
+                </div>
+                <div class="col-xs-6 no-padding-left">
+                    <p class="h4 font-avenir-medium customer-account-data">{{((billingtype =='EFT' && bankDetails.accountTypeDisplay )? bankDetails.accountTypeDisplay + " " : "") + billingtypeDisplay}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="billingtype =='CREDIT'">
+        <div class="group-paragraphs">
+            <p translation-skip class="h4 customer-account-data" ng-show="showNameOnCard">{{creditCard.nameOnCard | capitalize}}</p>
+            <p translation-skip class="h4 customer-account-data">{{creditCard.cardCode | creditCardCodeToName | charReplace: '_': ' ' | capitalize}} {{creditCard.cardNbr | creditCardCode: creditCard.cardCode}}</p>
+            <p class="h4">Exp: <span translation-skip class="customer-account-data">{{creditCard.cardExpires}}</span></p>
+            <a ng-if="hideAddress" ng-show="showCardEdit" ng-click="onCreditCardEdit()" aria-label="Edit {{creditCard.orderDisplay}} Credit Card">Edit</a>
+        </div>
+
+        <!--domestic addresses -->
+        <!--<div class="group-paragraphs" ng-if="!creditCard.international">
+            <p class="h4 customer-account-data">{{creditCard.address1 | capitalize}}</p>
+            <p class="h4 customer-account-data" ng-show="creditCard.address2">{{creditCard.address2 | capitalize}}</p>
+            <p class="h4 customer-account-data">{{creditCard.city + ", " | capitalize}}{{creditCard.state + " " + creditCard.zip + (creditCard.plus4 ? "-" + creditCard.plus4 : "") }}</p>
+            <a ng-show="showCardEdit" ng-click="onCreditCardEdit()" aria-label="Edit {{creditCard.orderDisplay}} Credit Card">Edit</a>
+        </div>-->
+        <!--international address -->
+        <!--<div class="group-paragraphs" ng-if="creditCard.international">
+            <p class="h4 customer-account-data">{{creditCard.address1 | capitalize}}</p>
+            <p class="h4 customer-account-data">{{creditCard.address2 | capitalize}}</p>
+            <p class="h4 customer-account-data">{{creditCard.address3 | capitalize}}</p>
+            <p class="h4 customer-account-data">{{creditCard.address4 | capitalize}}</p>
+            <p class="h4 customer-account-data">{{creditCard.displayCountry | capitalize}}</p>
+            <a ng-show="showCardEdit" ng-click="onCreditCardEdit()" aria-label="Edit {{creditCard.orderDisplay}} Credit Card">Edit</a>
+        </div>-->
+
+        <address-display ng-if="!hideAddress" address="creditCard" international="creditCard.international" display-country="creditCard.displayCountry" on-address-edit="onCreditCardEdit()" show-edit-conditional="showCardEdit"></address-display>
+
+        <div ng-if="secondaryCreditCard.cardNbr" class="bottom-buffer-sm">
+            <div class="no-margin-bottom">
+                <div class="row">
+                    <div class="col-xs-6 no-padding-right billing-info-label">
+                        <p class="h4">Payment Method:</p>
+                    </div>
+                    <div class="col-xs-6 no-padding-left">
+                        <p class="h4 customer-account-data">Secondary Credit Card</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="secondaryCreditCard.cardNbr" class="group-paragraphs">
+            <p translation-skip class="h4 customer-account-data" ng-show="showNameOnCard">{{secondaryCreditCard.nameOnCard | capitalize}}</p>
+            <p translation-skip class="h4 customer-account-data">{{secondaryCardType | charReplace: '_': ' ' | capitalize}} {{secondaryCreditCard.cardNbr | creditCardCode: secondaryCreditCard.cardCode}}</p>
+            <p class="h4">Exp: <span translation-skip class="customer-account-data">{{secondaryCreditCard.cardExpires}}</span></p>
+            <a ng-if="hideAddress" ng-show="showCardEdit" ng-click="onSecondaryCreditCardEdit()" aria-label="Edit {{secondaryCreditCard.orderDisplay}} Credit Card">Edit</a>
+        </div>
+    </div>
+
+    <div ng-show="billingtype =='EFT'">
+        <div class="group-paragraphs">
+            <div class="no-margin-bottom">
+                <div class="row">
+                    <div class="col-xs-6 no-padding-right billing-info-label">
+                        <p class="h4">Routing Number:</p>
+                    </div>
+                    <div class="col-xs-6 no-padding-left">
+                        <p translation-skip class="h4 font-avenir-medium customer-account-data">{{bankDetails.routingNumber}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-buffer-xs" ng-show="showAccountNumber">
+                <div class="row">
+                    <div class="col-xs-6 no-padding-right billing-info-label">
+                        <p class="h4">Account Number:</p>
+                    </div>
+                    <div class="col-xs-6 no-padding-left">
+                        <p translation-skip class="h4 font-avenir-medium customer-account-data">{{bankDetails.accountNumber}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a ng-show="showAddSecondaryPayment" ng-click="addSecondaryPayment()" class="h5">Add Secondary Credit Card</a>   
+</div>

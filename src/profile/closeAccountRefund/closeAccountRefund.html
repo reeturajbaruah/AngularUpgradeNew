@@ -1,0 +1,41 @@
+<page-centered-container hasAlternateBackgroundColor="true">
+    <card-container>
+        <section>
+            <header>
+                <h2>{{cmsContent.ACCOUNT_CLOSURE_HEADER}}</h2>
+            </header>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <div>
+                <cms-content [template]="cmsContent.LongDescription" [data]="accountClosureCmsParams"></cms-content>
+            </div>
+        </section>
+
+        <section class="u-spacing__sectionToSection--marginTop">
+            <header>
+                <h2>{{cmsContent.REFUND_METHOD_HEADER}}</h2>
+            </header>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <article [innerHtml]="cmsContent.ShortDescription | safeHtml"></article>
+        </section>
+
+        <section class="u-spacing__sectionToSection--marginTop">
+            <header fxLayout="row" fxLayoutAlign="space-between center">
+                <h2>{{cmsContent.VALIDATE_HEADER}}</h2>
+                <a (click)="onMailingAddressEdit()">Edit</a>
+            </header>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <div *ngIf="!hasRefundFields" style="color: red;">{{cmsContent.mailingAddressMissing}}</div>
+            <address-display [address]="closeAccountRefund.mailingInfo"
+                             [international]="closeAccountRefund.mailingInfo.international"
+                             [showLabels]="true">
+            </address-display>
+        </section>
+    </card-container>
+    <section class="u-spacing__buttonToField--marginTop">
+        <wizard-ui (next)="onContinue()"
+                   [disabled]="!hasRefundFields" (cancel)="onCancel($event)">
+            <span wizard-next>CLOSE ACCOUNT</span>
+            <span wizard-cancel>Cancel</span>
+        </wizard-ui>
+    </section>
+</page-centered-container>

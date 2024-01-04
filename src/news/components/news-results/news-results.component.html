@@ -1,0 +1,22 @@
+<section fxLayout="column" *ngIf="results">
+
+    <section fxLayout="row wrap" fxLayoutAlign="space-between" class="results-title-section">
+        <div class="results-for-container" fxLayout="row wrap">
+            <span class="results-for">{{getVal('searchResults')}}</span>
+            <span>{{results.category.displayName}}</span>
+        </div>
+        <span class="result-count">{{results.count}} {{getVal('itemsFound')}}</span>
+    </section>
+
+
+    <ng-container *ngFor="let item of results.items">
+
+        <card-dash-container fxFlex="auto" [hasMargin]="false" class="u-spacing__cardToCard--marginTop news-results-card">
+
+            <news-item [item]="item" [categoryName]="results.category.displayName"></news-item>
+
+        </card-dash-container>
+
+    </ng-container>
+
+</section>

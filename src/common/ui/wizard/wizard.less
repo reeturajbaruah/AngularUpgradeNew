@@ -1,0 +1,44 @@
+@import (reference) '../../../styles/themes.less';
+
+:host {
+
+    a {
+        .t-link--color(@theme-light);
+        .t-header--fontFamily;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    button {
+        .t-button--backgroundColor(@theme-light);
+        border-radius: 20px 20px;
+        border: 0px;
+        .t-header--fontFamily;
+        font-size: 15px;
+        font-weight: 700;
+        height: 42px;
+        float: none;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .legacy-ui {
+        button {
+            border-color: @tuna-gray;
+            border-radius: 0px 0px;
+            border: 1px solid;
+            font-family: 'Avenir LT Std 45 Book Regular';
+            font-size: 14px;
+            font-weight: normal;
+            padding-left: 30px;
+            padding-right: 30px;
+            height: 32px;
+            width: auto;
+        }
+
+        a {
+            font-size: 14px;
+            font-weight: normal;
+        }
+    }
+}

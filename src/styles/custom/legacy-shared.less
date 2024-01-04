@@ -1,0 +1,231 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../../../Content/css/site-variables.less';
+@import (reference) '../../../../Content/css/site-variables-june-redesign.less';
+@import (reference) '../../../../Content/css/site-font-styles.less';
+
+
+.column(@width) {
+    display: flex;
+    flex-direction: column;
+    flex-basis: @width;
+}
+
+::ng-deep #desktopUiViewRoot.refresh-hybrid-container {
+    padding: 1px 44px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -1px;
+    width: 100%;
+    max-width: 1200px;
+
+    @media screen and (max-width: @maximum-mobile-width) {
+        padding: 1px 22px 6px;
+    }
+}
+
+::ng-deep #june-redesign {
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .col {
+        .column(100%)
+    }
+
+    .col-2 {
+        .column(16.67%)
+    }
+
+    .col-4 {
+        .column(33.33%)
+    }
+
+    .col-6 {
+        .column(50%)
+    }
+
+    .col-8 {
+        .column(66.67%)
+    }
+
+    .col-10 {
+        .column(83.33%)
+    }
+
+    p,
+    div,
+    span,
+    a {
+        font-size: 10.5pt;
+        font-family: Arial, Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
+    h1 {
+        color: #381462;
+        font-family: 'Avenir LT Std 85 Heavy Regular', Arial, Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 18pt !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        line-height: 1.1;
+    }
+
+    h2,
+    .h2 {
+        font-size: 16pt;
+        color: #333333;
+        font-family: 'Avenir LT Std 45 Book Regular', Arial, Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
+    p,
+    select,
+    input,
+    button {
+        color: #333333;
+        font-family: 'Avenir LT Std 45 Book Regular', Arial, Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
+    .title-color {
+        color: #381462 !important;
+    }
+
+    .top-buffer-xl-do {
+        margin-top: 40px;
+    }
+
+    .no-margin-top-do {
+        margin-top: 0px;
+    }
+
+    .no-margin-bottom {
+        margin-bottom: 0px;
+    }
+
+    .no-margin {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .top-buffer-md {
+        margin-top: 20px;
+    }
+
+    .bottom-buffer-lg {
+        margin-bottom: 30px;
+    }
+
+    .pull-right {
+        float: right !important;
+    }
+
+    small,
+    .note-text * {
+        font-size: 8pt;
+        color: #333333;
+        font-family: 'Avenir LT Std 45 Book Regular', Arial, Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
+    .cursor-pointer,
+    a {
+        cursor: pointer;
+    }
+
+    .border-without-footer {
+        border-radius: 5px;
+        margin: 5px 0px 40px;
+        padding-bottom: 40px;
+        padding-top: 40px;
+
+        @media screen and (max-width: @maximum-mobile-width) {
+            padding-top: 15px;
+        }
+
+        @media screen and (min-width: @minimum-desktop-width) {
+            padding: 20px 20px;
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        #manage-ez-tags {
+            .col-xs-4 {
+                width: 82px;
+            }
+
+            select.form-control {
+                font-size: @h4-size-small-screen;
+            }
+
+            #what-is-ez-plate-link {
+                margin-top: -26px;
+            }
+        }
+    }
+
+    @media screen and (min-width: 321px) and (max-width: @maximum-mobile-width) {
+        #manage-ez-tags {
+            .col-xs-4 {
+                width: 106px;
+            }
+
+            select.form-control {
+                font-size: @h4-size-mo;
+            }
+
+            #what-is-ez-plate-link {
+                margin-top: -28px;
+            }
+        }
+    }
+
+    @media screen and (min-width: @minimum-desktop-width) {
+        #manage-ez-tags {
+            .col-xs-4 {
+                width: 140px;
+            }
+        }
+
+        big * {
+            font-size: 20pt;
+            color: #333333;
+            font-family: 'Avenir LT Std 45 Book Regular', Arial, Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+    }
+
+    @media screen and (min-width: @minimum-desktop-width) and (max-width: 1199px),
+    print {
+        .border-without-footer {
+            padding: 0px @border-side-padding-md;
+        }
+    }
+
+    @media screen and (min-width: 1200px),
+    print {
+        .border-without-footer {
+            padding: 0px @border-side-padding-lg;
+        }
+    }
+
+    @media screen and (min-width: @minimum-desktop-width),
+    print {
+        .border-without-footer {
+            border: 1px solid;
+            border-color: #cdcccb;
+            border-radius: 5px;
+            margin: 5px 0px 40px 0px;
+            padding-bottom: @border-top-bottom-padding;
+            padding-top: @border-top-bottom-padding;
+        }
+
+        .border-without-footer.no-padding-bottom {
+            padding-bottom: 0px;
+        }
+    }
+}

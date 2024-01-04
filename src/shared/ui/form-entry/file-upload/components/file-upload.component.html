@@ -1,0 +1,51 @@
+<div *ngIf="label">
+    <!-- File Upload Section -->
+    <section *ngFor="let file of files; let i = index">
+        <!-- File Upload Label -->
+        <mat-label ngClass="labelMargin">{{fileUploadCms?.FileUploadLabel}}</mat-label>
+
+        <!-- File Upload Field Container -->
+        <div class="field-container" [ngClass]="{'error': hasValidationErrors(file) || hasFileErrors(i)}">
+            <!-- Hidden Input Validator -->
+            <input type="hidden" name="validationInput{{i}}" [ngModel]="''" [required]="(required && !isValid(file)) || hasFileErrors(i)">
+
+            <!-- Hidden File Input Field -->
+            <input class="file-input"
+                   type="file"
+                   id="fileInput{{i}}"
+                   [accept]="allowedExtensions"
+                   (change)="onAttachFile($event.target.files[0], i)">
+
+            <!-- Attach Button -->
+            <label for="fileInput{{i}}" [ngClass]="{'error': hasValidationErrors(file) || hasFileErrors(i)}">
+                {{fileUploadCms?.AttachButton}}
+            </label>
+
+            <!-- Placeholder Text -->
+            <span [ngClass]="{'file-name-placeholder': !isValid(file)}">
+                {{ isValid(file) ? (file.name + file.extension) : fileUploadCms?.PlaceholderText }}
+            </span>
+
+            <!-- Trash Icon -->
+            <mat-icon class="trash-icon clickable"
+                      svgIcon="trash-icon"
+                      [ngClass]="{'disable': (i === 0 && !isValid(file) && files.length === 1), 'error': hasValidationErrors(file) || hasFileErrors(i)}"
+                      (click)="removeFile(i)">
+            </mat-icon>
+        </div>
+
+        <!-- Validation Alerts -->
+        <aside role="alert">
+            <p *ngIf="hasValidationErrors(file)" class="help-block">{{fileUploadCms?.FileRequiredError}}</p>
+            <p *ngIf="file?.errors?.fileType" class="help-block">{{fileUploadCms?.FileTypeError.replace('#allowedExtensions', allowedExtensions)}}</p>
+            <p *ngIf="file?.errors?.fileSize" class="help-block">{{fileUploadCms?.FileSizeError.replace('#maxfileSizeInMb', maxfileSizeInMb)}}</p>
+            <p *ngIf="file?.errors?.fileRead" class="help-block">{{fileUploadCms?.FileReadError}}</p>
+        </aside>
+    </section>
+
+    <!-- Add Additional File Section -->
+    <section *ngIf="files.length < maxUploadSlots" class="add-additional-file">
+        <mat-icon svgIcon="add-icon" [ngClass]="{'disable': hasEmptyUploadSlot()}"></mat-icon>
+        <a [ngClass]="{'disable': hasEmptyUploadSlot()}" (click)="addAdditionalFile()">{{fileUploadCms?.AddAdditionalFile}}</a>
+    </section>
+</div>

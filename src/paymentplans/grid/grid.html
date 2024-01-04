@@ -1,0 +1,34 @@
+<page-filled-container [hasGutter]="false">
+    <main fxLayout="row"
+          fxLayoutGap="30px"
+          fxLayoutGap.lt-md="none"
+          ngClass.lt-md="lt-md">
+
+        <section fxFlex="445px"
+                 fxFlex.lt-md="none"
+                 ngClass.lt-md="u-spacing--widthFill">
+            <ng-container *ngFor="let plate of activePlates; first as isFirst">
+                <h3 [ngClass]="{ 'plate-spacing': !isFirst }">
+                    {{cms.data.planActiveTitle}} <span translation-skip>{{plate.licPlateState}} {{plate.licPlateNumber}}</span>
+                </h3>
+                <plan-detail [isActive]="true" [plate]="plate"></plan-detail>
+            </ng-container>
+
+            <ng-container *ngFor="let plate of inactivePlates; first as isFirst">
+                <h3 [ngClass]="{ 'plate-spacing': !isFirst }">
+                    {{cms.data.planInactiveTitle}} <span translation-skip>{{plate.licPlateState}} {{plate.licPlateNumber}}</span>
+                </h3>
+                <plan-detail [isActive]="false" [plate]="plate"></plan-detail>
+            </ng-container>
+        </section>
+
+        <section fxFlex="grow" fxHide.lt-md>
+            <payment-details *ngIf="planData.selectedPaymentPlan && hasCurrentSelectedPlan"
+                             [details]="planData.selectedPaymentPlan"
+                             [cmsContent]="cms"
+                             [isEzTagFlow]="isEzTagFlow">
+            </payment-details>
+        </section>
+
+    </main>
+</page-filled-container>

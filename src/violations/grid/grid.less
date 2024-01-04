@@ -1,0 +1,85 @@
+@import (reference) '../../styles/themes.less';
+@import '../../common/ui/containers/fxRow/details.less';
+@import '../../violations/detailsRefresh/violationsDetails.less';
+
+:host {
+    .green-text {
+        .t-body__positiveFeedback--color(@theme-light);
+    }
+
+    .text-align-right {
+        text-align: right;
+    }
+
+    .text-align-center {
+        text-align: center;
+    }
+
+    h2 {
+        max-height: 70px;
+    }
+
+    mat-divider {
+        width: @width-divider;
+
+        &.mat-divider-vertical {
+            height: 15px;
+            width: 0px;
+            border-width: 2px;
+            .t-divider__dash--borderColor(@theme-light);
+            margin-top: -1px;
+            margin-left: 8px;
+            margin-right: 12px;
+        }
+    }
+
+    #records-found-text {
+        min-width: 140px;
+    }
+
+    .smaller-font {
+        font-size: 14px;
+    }
+
+    .max-width-half {
+        max-width: 50%;
+    }
+
+    .payment-summary-desktop {
+        width: 475px;
+        margin-left: 50px;
+    }
+
+    .hoverBoxAdjustment {
+        padding: 10px;
+        font-size: 16px;
+        line-height: 1.5;
+        bottom: 1.5em;
+        left: -9em;
+        width: 320px;
+    }
+
+    .tool-tip-heading {
+        font-weight: 700;
+    }
+
+    .tool-tip {
+        width: 12.5px;
+        margin-left: 5px;
+        margin-bottom: 10px;
+
+        &.lt-md {
+            margin-left: 0px;
+            height: 20px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .align-currency {
+        padding-right: 23px;
+    }
+
+    .link-spacing {
+        padding-top: 40px;
+    }
+}

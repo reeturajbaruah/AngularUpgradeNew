@@ -1,0 +1,44 @@
+<main  class="refresh-2020">
+    <section class="toolbar"
+             fxLayout="row"
+             fxLayout.lt-md="column-reverse"
+             fxLayoutAlign="space-between center"
+             fxLayoutAlign.lt-md="start stretch"
+             fxLayoutGap="10px">
+
+        <div fxLayout="row wrap"
+             fxLayoutAlign="start center"
+             fxLayoutGap="10px">
+
+            <a class="productSelection" *ngIf="showTransactionsTab"
+               [ngClass]="{selected: selectedState === Tab.transactions}"
+               (click)="transactionsSelected()">{{cms.transactionsTab}}</a>
+
+            <mat-divider *ngIf="showStatementsTab" [vertical]="true"></mat-divider>
+
+            <a class="productSelection" *ngIf="showStatementsTab"
+               [ngClass]="{selected: selectedState === Tab.statements}"
+               (click)="statementsSelected()">{{cms.statementsTab}}</a>
+
+            <mat-divider *ngIf="showYearlySummaryTab" [vertical]="true"></mat-divider>
+
+            <a class="productSelection" *ngIf="showYearlySummaryTab"
+               [ngClass]="{selected: selectedState === Tab.yearlySummary}"
+               (click)="yearlySummarySelected()">{{cms.yearlyTab}}</a>
+
+            <mat-divider *ngIf="showReceiptsTab" [vertical]="true"></mat-divider>
+
+            <a class="productSelection" *ngIf="showReceiptsTab"
+               [ngClass]="{selected: selectedState === Tab.receipts}"
+               (click)="receiptsSelected()">{{cms.receiptsTab}}</a>
+
+            <mat-divider *ngIf="showInvoicesTab" [vertical]="true"></mat-divider>
+
+            <a class="productSelection" *ngIf="showInvoicesTab"
+               [ngClass]="{selected: selectedState === Tab.invoices}"
+               (click)="invoicesSelected()">{{cms.invoicesTab}}</a>
+
+        </div>
+
+    </section>
+</main>

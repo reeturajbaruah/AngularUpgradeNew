@@ -1,0 +1,63 @@
+<main id="modal-popup" class="refresh-2020" style="position:relative">
+
+    <section fxLayout="column"
+             class="login-modal"
+             style="padding-top:32px;"
+             [ngStyle.lt-md]="{'width' : '100%', 'padding-top' : '45px'}"
+             [ngStyle]="{'min-width' : '700px', 'max-width' : '700px', 'padding-top' : '32px'}">
+
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             style="width:100%; max-width:700px; text-align:center;">
+
+            <header fxLayout="column"
+                    fxLayoutAlign="center center"
+                    [ngStyle.lt-md]="{'width' : '100%'}"
+                    [ngStyle]="{'max-width' : '700px'}">
+
+
+                <h2>{{cmsContent.Title}}</h2>
+                <mat-divider></mat-divider>
+
+            </header>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             style="padding-top:20.5px; text-align:center; ">
+
+            <div [innerHtml]="cmsContent.PrimaryContent"></div>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             style="padding-top:33px;">
+
+            <button id="acceptButton"
+                    [ngStyle.lt-md]="{'width' : '100%', 'padding-left' : '32px', 'padding-right' : '32px'}"
+                    [ngStyle]="{'width' : 'auto'}"
+                    type="button"
+                    (click)="acceptButtonClick();">
+                {{ cmsContent.AcceptButton }}
+            </button>
+
+        </div>
+
+        <div fxLayout="row"
+             fxLayoutAlign="center center"
+             style="padding-top:33px;">
+
+            <a id="rejectButton"
+               fxFlexAlign="center"
+               aria-label="Close"
+               (click)="close()">
+                {{ cmsContent.RejectButton }}
+            </a>
+
+        </div>
+
+    </section>
+
+</main>

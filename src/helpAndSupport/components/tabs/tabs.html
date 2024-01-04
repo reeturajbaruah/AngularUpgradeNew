@@ -1,0 +1,11 @@
+<section>
+   <div>
+      <ng-container *ngFor="let tab of tabs; let isLast = last">
+         <a [ngClass]="{selected: currentTab === tab.state}"
+            (click)="selectTab(tab.state)"
+            [innerHtml]="tab.label">
+         </a>
+         <mat-divider *ngIf="!isLast" [vertical]="true"></mat-divider>
+      </ng-container>
+   </div>
+</section>

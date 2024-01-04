@@ -1,0 +1,104 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/themes.less';
+@import (reference) '../../../styles/custom/spacing/sections.less';
+@import (reference) '../../../styles/custom/spacing/dividers.less';
+@import (reference) '../../../styles/custom/spacing/utility.less';
+
+:host {
+
+    main {
+        .t-body--backgroundColor2(@theme-light);
+    }
+
+    .news-main {
+        @media @breakpoint-gt-xs {
+            margin: 0px 2%;
+
+            card-dash-container {
+                border: 1px solid @silver-gray;
+                border-radius: 10px;
+            }
+        }
+    }
+
+    .test {
+        .t-body--backgroundColor2(@theme-light);
+    }
+
+    mat-divider {
+        width: @width-divider;
+        margin-top: 8px;
+        margin-bottom: 10px;
+    }
+
+    card-container {
+        display: block;
+        .refresh-2020.u-spacing__sectionToSection--marginTop();
+
+        section {
+            .refresh-2020.u-spacing--widthFill();
+        }
+
+        section + section {
+            .refresh-2020.u-spacing__sectionToSection--marginTop();
+        }
+    }
+
+    section {
+        width: 100%;
+    }
+
+    ::ng-deep img {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .newsCategory {
+        color: @purple-heart-purple;
+        font-family: @font-jost;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+    .newsTitle {
+        font-family: @font-jost;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2em;
+        color: @tuna-gray;
+    }
+
+    .newsSubtitle {
+        font-family: @font-jost;
+        font-size: 16px;
+        color: @tuna-gray;
+    }
+
+    .published {
+        font-family: @font-montserrat;
+        color: #757575;
+        font-size: 14px;
+        padding-bottom: 3px;
+    }
+
+    .description span {
+        color: @tuna-gray;
+    }
+
+    ::ng-deep .description * {
+        line-height: 1.5em;
+    }
+
+    .mobileCard {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    mat-icon[svgicon='clock'] {
+        padding-right: 8px;
+        padding-top: 8px;
+    }
+}

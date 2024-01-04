@@ -1,0 +1,13 @@
+<page-centered-container class="refresh-2020">
+
+    <phone-verifcation-selection [isText]="isText"
+                                 (isTextChange)="isText=$event"
+                                 [cmsInfo]="cmsData"
+                                 class="u-spacing__fieldToField--marginTop"></phone-verifcation-selection>
+
+    <wizard-ui #wizardUi (next)="sendCode($event)" (cancel)="cancel($event,wizardUi)">
+        <span wizard-next>Send Code</span>
+        <span wizard-cancel>cancel</span>
+    </wizard-ui>
+
+</page-centered-container>

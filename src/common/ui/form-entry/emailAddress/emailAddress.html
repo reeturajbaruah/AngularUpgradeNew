@@ -1,0 +1,23 @@
+<div [error-check]="Email">
+    <mat-label 
+               ngClass="labelMargin" [innerHtml]="displayHeader"></mat-label>
+    <input #Email="ngModel"
+           [placeholder]="placeholder"
+           type="text"
+           [id]="elementId"
+           [name]="elementName"          
+           [ngModel]="emailAddress"
+           (ngModelChange)="emailAddress = $event; updateValue()"
+           pattern="^[a-zA-Z0-9-_.]+\@+[a-zA-Z0-9-]+\.+[a-zA-Z0-9]{1,}$"           
+           [required]="(required === null || required === undefined || required === true)"
+           minlength="6"
+           maxlength="80" />
+
+    <error-messages [errors]="Email.errors">       
+        <error-message rule="pattern">Please enter a valid email address</error-message>
+        <error-message rule="required">Please enter a valid email address</error-message>
+        <error-message *ngIf="!hideMinMax" rule="maxlength">Max. 80 alpha num character, @-_.</error-message>
+        <error-message *ngIf="!hideMinMax" rule="minlength">Min. 6 alpha num character, @-_.</error-message>
+    </error-messages>
+
+</div>

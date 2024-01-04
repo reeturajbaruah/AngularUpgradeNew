@@ -1,0 +1,54 @@
+<page-centered-container class="refresh-2020" hasAlternateBackgroundColor="true">
+
+    <form #ContactForm="ngForm" validation-focus novalidate method="post">
+
+        <card-container>
+            <header>
+                <h2>{{title}}</h2>
+                <mat-divider class="divider"></mat-divider>
+            </header>
+            <main class="refresh-2020">
+                <section>
+                    <div fxLayout="column start">
+                        <div fxLayout="column" [error-check]="nameInput">
+                            <mat-label for="fullName">NAME</mat-label>
+                            <input type="text" id="fullNameTxtBox" [(ngModel)]="contactUsForm.Name" #nameInput="ngModel"
+                                name="fullName" required />
+                            <error-messages [errors]="nameInput.errors" [activeBeforeSubmit]="nameInput.touched">
+                                <error-message rule="required">Please enter a valid name</error-message>
+                            </error-messages>
+                        </div>
+                        <div fxLayout="column" class="u-spacing__fieldToField--marginTop">
+                            <email-address [emailAddress]="contactUsForm.Email" (emailAddressChange)="contactUsForm.Email = $event"></email-address>
+                        </div>
+                        <div fxLayout="column" [error-check]="subjectInput" class="u-spacing__fieldToField--marginTop">
+                            <mat-label for="subject">SUBJECT</mat-label>
+                            <input type="text" id="subjectTxtBox" [(ngModel)]="contactUsForm.Subject" #subjectInput="ngModel"
+                                name="subject" required />
+                            <error-messages [errors]="subjectInput.errors" [activeBeforeSubmit]="subjectInput.touched">
+                                <error-message rule="required">Please enter a subject</error-message>
+                            </error-messages>
+                        </div>
+                        <div fxLayout="column" class="u-spacing__fieldToField--marginTop" ngClass="spanPosition"
+                            [error-check]="commentsInput">
+                            <mat-label for="comment">COMMENT OR QUESTION?</mat-label>
+                            <textarea class="text-area" id="commentsTxtBox" [(ngModel)]="contactUsForm.Comments"
+                                #commentsInput="ngModel" name="Comments" required rows="4" cols="50"></textarea>
+                            <error-messages [errors]="commentsInput.errors"
+                                [activeBeforeSubmit]="commentsInput.touched">
+                                <error-message rule="required">Please enter a Comment/Inquiry </error-message>
+                            </error-messages>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </card-container>
+        <section class="u-spacing__buttonToField--marginTop">
+            <action-buttons>
+                <span action-main (click)='Save(ContactForm)'>SUBMIT</span>
+                <span action-alt (click)="cancel()">Cancel</span>
+            </action-buttons>
+        </section>
+    </form>
+
+</page-centered-container>

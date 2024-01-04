@@ -1,0 +1,25 @@
+<main>
+    <fx-row [isLabel]="true"
+                                  [backgroundColorClass]="'transparent-background'">
+        <section col-start
+                 class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+            <mat-label class="fx-flex-auto-shrink-more limited-flex">VIOLATIONS ID</mat-label>
+            <mat-label class="fx-flex-auto-shrink-more limited-flex"
+                       [ngClass.lt-md]="{'hidden': true}">VIOLATION DATE</mat-label>
+            <mat-label class="fx-flex-auto-grow-more unlimited-flex"
+                       [ngClass.lt-md]="{'hidden': true}">AGENCY</mat-label>
+        </section>
+        <section col-end
+                 class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+            <mat-label class="fx-flex-auto limited-flex-end">AMOUNT</mat-label>
+        </section>
+    </fx-row>
+
+    <div *ngFor="let violation of uninvoices; first as isFirst">
+        <div [ngClass]="{'table-space': !isFirst}"
+             [ngClass.lt-md]="{'table-space': !isFirst, 'lt-md': true}">
+            <missed-a-toll-violations-uninvoiced [uninvoiced]="violation">
+            </missed-a-toll-violations-uninvoiced>
+        </div>
+    </div>
+</main>

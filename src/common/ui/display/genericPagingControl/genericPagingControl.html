@@ -1,0 +1,16 @@
+    <span>
+        <span class="generic-paging-control-page-selection-wrapper">
+            <span class="viol-button-border generic-page-button" (click)="onBackAll()"><span class="generic-full-back-button"></span></span>
+            <span class="viol-button-border generic-page-button" (click)="onBack()"><span class="generic-back-button"></span></span>
+            <span class="generic-paging-control-page-input-wrapper">
+                page
+                <input type="number" id="currentVisiblePageNumber" name="currentVisiblePageNumber" aria-label="Current Page Number" required
+                       class="form-control viol-current-page-box" (ngModelChange)="onPageNumberEntered($event)" [ngModel]="visiblePageNumber" [disabled]="numberOfPages === 1" ngPattern="/^([0-9]+)$/" placeholder="1" />
+                of {{numberOfPages}}
+            </span>
+            <span class="viol-button-border generic-page-button" (click)="onForward()"><span class="generic-forward-button"></span></span>
+            <span class="viol-button-border generic-page-button" (click)="onForwardAll()"><span class="generic-full-forward-button"></span></span>
+        </span>
+        <span class="generic-paging-control-item-count">{{lowerItemIndex}} - {{upperItemIndex}} of {{totalItems}} {{itemCountLabel}}</span>
+
+    </span>

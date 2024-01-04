@@ -1,0 +1,54 @@
+
+<div *ngIf="noData === false"
+     style="width:100%; height:272px;">
+    <div>        
+        <h3>{{tollUsageHistoryTitle}}</h3>
+    </div>
+
+    <div style="width: 100%; height: 232px;">
+        <graph-component [xAxisData]="xAxisData"
+                         [yAxisData]="yAxisData">
+        </graph-component>
+    </div>
+
+    <section fxLayout="column"
+             fxLayoutAlign="start start">
+
+        <div fxLayout="row"
+             fxLayoutAlign="space-between start"
+             class="u-spacing--widthFill">
+
+            <div>
+                <span class="labelDisplay">Average daily usage: <currency [value]="daily"></currency></span>
+            </div>
+
+            <span class="labelDisplay">Average monthly usage: <currency [value]="monthly"></currency></span>
+
+        </div>
+
+    </section>
+
+</div>
+
+<div *ngIf="noData === true"
+     style="width:100%; height:272px;">
+
+    <div>
+        <div>
+            <h3>{{tollUsageHistoryTitle}}</h3>            
+        </div>
+
+        <div style="height:60px;">
+
+        </div>
+
+        <section fxLayout="column"
+                 fxLayoutAlign="center center">
+
+            <mat-icon class="noData" svgIcon="no-graph-data"></mat-icon>
+
+            <span class="rowItem">{{noDataTitle}}</span>
+        </section>
+    </div>
+
+</div>

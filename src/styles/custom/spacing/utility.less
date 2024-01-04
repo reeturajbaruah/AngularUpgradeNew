@@ -1,0 +1,69 @@
+@import (reference) '../../variables.less';
+
+.refresh-2020 {
+
+    &.u-spacing--widthFill,
+    .u-spacing--widthFill {
+        width: 100%;
+    }
+
+    .tab-container {
+        background: #f6f6f6 0% 0% no-repeat padding-box;
+        padding: 0px 7%;
+
+        @media @breakpoint-lt-sm {
+            padding: 0px;
+        }
+
+        .tab-content {
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ccccce;
+            border-radius: 20px;
+            background: #ffffff;
+            line-height: 27.52px;
+            letter-spacing: 0.24px;
+
+            @media @breakpoint-lt-sm {
+                border: unset;
+                border-radius: unset;
+                border-top: 1px solid #ccccce;
+                border-bottom: 1px solid #ccccce;
+            }
+
+            .banner-img {
+                align-items: center;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                display: flex;
+                height: 223px;
+                justify-content: center;
+
+                @media @breakpoint-lt-sm {
+                    height: 127px;
+                }
+            }
+
+            .banner-txt {
+                line-height: 27.52px;
+                letter-spacing: 0.24px;
+                font-family: Jost;
+                font-weight: 900;
+                margin: 0px;
+                font-size: 50px;
+                color: rgb(255, 221, 9);
+                text-shadow: rgb(67, 69, 73) 3px 2px 8px;
+                text-transform: uppercase;
+
+                @media @breakpoint-lt-sm {
+                    font-size: 24px;
+                }
+            }
+        }
+
+        .content-spacing {
+            margin-top: 20px;
+        }
+    }
+}

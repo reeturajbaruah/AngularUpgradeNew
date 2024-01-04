@@ -1,0 +1,169 @@
+<page-centered-container class="refresh-2020" hasAlternateBackgroundColor="true">
+
+    <div class="u-spacing__fieldToSection--marginTop">
+        <card-container>
+            <h2>{{cmsContent.PAGE_TITLE}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <article [innerHtml]="cmsContent.LongDescription | safeHtml"></article>
+
+            <section class="u-spacing--widthFill">
+
+                <div fxLayout="row"
+                     fxLayoutAlign="start start">
+
+                    <section class="u-spacing--widthFill u-spacing__gridToRecords--marginTop"
+                             style="padding-left: 31px;">
+
+                        <fx-row [isLabel]="true"
+                                [backgroundColorClass]="'transparent-background'">
+                            <section col-start
+                                     class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <mat-label class="fx-flex-auto-shrink-more limited-flex">PAYMENT METHOD</mat-label>
+                                <mat-label class="fx-flex-auto-shrink-more limited-flex"
+                                           style="padding-left:135px"
+                                           [ngClass.lt-md]="{'hidden': true}">EXPIRES</mat-label>
+                            </section>
+                            <section col-end
+                                     class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                <mat-label class="fx-flex-auto limited-flex-end" style="padding-right:5px">STATUS</mat-label>
+                            </section>
+                        </fx-row>
+
+                    </section>
+
+                </div>
+
+                <section fxLayout="row"
+                         fxLayoutAlign="start start"
+                         *ngFor="let paymentMethod of paymentMethods; index as i"
+                         class="u-spacing--widthFill">
+
+                    <payment-methods-component #PaymentSelection
+                                               [myIndex]="i"
+                                               [paymentMethod]="paymentMethod"
+                                               [paymentMethodImages]="paymentMethodImages"
+                                               [isSelected]="isSelected(i,selectedIndex)"
+                                               [isBlocked]="isBlockedPaymentMethod(paymentMethod)"
+                                               [animationState]="toggleAnimation(i,selectedIndex)"
+                                               [expiringTooltip]="billingCMS.ExpiringTooltip"
+                                               [expiredTooltip]="billingCMS.ExpiredTooltip"
+                                               [removeCMS]="cmsContent.Children[0]"
+                                               [removeOnlyCMS]="cmsContent.Children[1]"
+                                               [stateList]="stateList"
+                                               [countryList]="countryList"
+                                               [isOnlyPayment]="isOnlyPayment"
+                                               (reloadGrid)="loadGrid()"
+                                               [makePrimaryCMS]="cmsContent.Children[3]">
+                    </payment-methods-component>
+
+
+                </section>
+
+                <section fxLayout="row"
+                         fxLayoutAlign="center center"
+                         class="u-spacing--widthFill"
+                         *ngIf="isNoData">
+
+                    <fx-row>
+                        <section col-start fxFlex="grow">
+                            <section fxLayout="column"
+                                     fxLayoutAlign="center center"
+                                     class="noDataContent">
+
+                                <mat-icon class="noDataIcon" svgIcon="cc-icon"></mat-icon>
+
+                                <span class="noDataCMS" style="text-align:center;">{{cmsContent.NO_DATA_TITLE}}</span>
+
+                            </section>
+                        </section>
+
+                    </fx-row>
+
+                </section>
+
+            </section>
+
+            <section *ngIf="showAddPayment"
+                     class="u-spacing__fieldToSection--marginTop"
+                     fxLayout="row"
+                     fxLayoutAlign="center center"
+                     (click)="openEditBillingModal()">
+                <mat-icon svgIcon="add-icon"></mat-icon>
+                <a fxFlexOffset="6px"
+                   class="add-text">{{addPayment}}</a>
+            </section>
+
+        </card-container>
+    </div>
+
+    <div class="u-spacing__fieldToSection--marginTop" *ngIf="blockedPaymentMethods.length > 0">
+        <card-container>
+            <h2>{{cmsContent.BLOCKED_TITLE}}</h2>
+            <mat-divider class="u-spacing__divider--marginTopBottom"></mat-divider>
+            <article [innerHtml]="cmsContent.BLOCKED_DESC"></article>
+
+            <section class="u-spacing--widthFill">
+
+                <div fxLayout="row"
+                     fxLayoutAlign="start start">
+
+                    <section class="u-spacing--widthFill u-spacing__gridToRecords--marginTop"
+                             style="padding-left: 31px;">
+
+                        <fx-row [isLabel]="true"
+                                [backgroundColorClass]="'transparent-background'">
+                            <section col-start
+                                     class="fx-flex-auto fx-layout-row fx-layout-align-start-center">
+                                <mat-label class="fx-flex-auto-shrink-more limited-flex">PAYMENT METHOD</mat-label>
+                                <mat-label class="fx-flex-auto-shrink-more limited-flex"
+                                           style="padding-left:135px"
+                                           [ngClass.lt-md]="{'hidden': true}">EXPIRES</mat-label>
+                            </section>
+                            <section col-end
+                                     class="fx-flex-none fx-layout-row fx-layout-align-end-center">
+                                <mat-label class="fx-flex-auto limited-flex-end" style="padding-right:5px">STATUS</mat-label>
+                            </section>
+                        </fx-row>
+
+                    </section>
+
+                </div>
+
+                <section fxLayout="row"
+                         fxLayoutAlign="start start"
+                         *ngFor="let blockedPaymentMethod of blockedPaymentMethods; index as i"
+                         class="u-spacing--widthFill">
+
+                    <payment-methods-component #PaymentSelection
+                                               [myIndex]="i"
+                                               [animationState]="toggleAnimation(i,selectedIndexBlocked)"
+                                               [paymentMethod]="blockedPaymentMethod"
+                                               [paymentMethodImages]="paymentMethodImages"
+                                               [isSelected]="isSelected(i,selectedIndexBlocked)"
+                                               [isBlocked]="isBlockedPaymentMethod(blockedPaymentMethod)"
+                                               [blockedTooltip]="billingCMS.LongDescription"
+                                               [unblockCMS]="cmsContent.Children[2]"
+                                               [removeCMS]="cmsContent.Children[0]"
+                                               [removeOnlyCMS]="cmsContent.Children[1]"
+                                               [stateList]="stateList"
+                                               [countryList]="countryList"
+                                               [activeCreditSlots]="activeCreditSlots"
+                                               [activeEFTSlots]="activeEFTSlots"
+                                               (reloadGrid)="loadGrid()">
+                    </payment-methods-component>
+
+                </section>
+
+            </section>
+        </card-container>
+    </div>
+
+    <section *ngIf="this.isKiosk"
+             class="u-spacing__buttonToField--marginTop">
+        <action-buttons (main)="proceed(wizardUi)">
+            <span action-main>PROCEED</span>
+        </action-buttons>
+        <wizard-ui #wizardUi></wizard-ui>
+    </section>
+
+</page-centered-container>
